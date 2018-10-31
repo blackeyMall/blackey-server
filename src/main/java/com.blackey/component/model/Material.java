@@ -1,11 +1,14 @@
 package com.blackey.component.model;
 
 
-import com.blackey.component.BaseModel;
+import com.blackey.jpa.model.BaseModel;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 
 /**
@@ -18,7 +21,7 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Table(name = "material")
-public class Material extends BaseModel{
+public class Material extends BaseModel {
 
     private String name;
 

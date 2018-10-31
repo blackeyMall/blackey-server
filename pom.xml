@@ -32,6 +32,13 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.blackey.starter</groupId>
+            <artifactId>spring-boot-starter-blackey-jpa</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
@@ -47,7 +54,6 @@
             <artifactId>cglib</artifactId>
             <version>3.2.1</version>
         </dependency>
-
         <dependency>
             <groupId>com.github.binarywang</groupId>
             <artifactId>weixin-java-mp</artifactId>

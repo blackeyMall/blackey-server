@@ -2,6 +2,7 @@ package com.blackey.component.service;
 
 import com.blackey.component.model.User;
 import com.blackey.dto.form.UserForm;
+import com.blackey.jpa.service.IBaseService;
 
 /**
  * 用户service
@@ -9,7 +10,7 @@ import com.blackey.dto.form.UserForm;
  * @author : blackey
  * @date : 2018/10/29
  */
-public interface UserService {
+public interface UserService extends IBaseService<User>{
 
 
     /**

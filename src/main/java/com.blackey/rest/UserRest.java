@@ -23,7 +23,7 @@ public class UserRest {
 
 
     @PostMapping("/save")
-    public void findUser(UserForm form){
+    public void save(UserForm form){
         userService.save(form);
     }
 

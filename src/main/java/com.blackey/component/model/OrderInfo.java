@@ -1,7 +1,7 @@
 package com.blackey.component.model;
 
 
-import com.blackey.component.BaseModel;
+import com.blackey.jpa.model.BaseModel;
 import lombok.Getter;
 import lombok.Setter;
 

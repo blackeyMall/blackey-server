@@ -1,5 +1,7 @@
 package com.blackey.dto.form;
 
+import com.blackey.component.model.User;
+import com.blackey.jpa.common.BaseForm;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,7 +13,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class UserForm {
+public class UserForm extends BaseForm<User>{
 
 
     /**
@@ -66,4 +68,9 @@ public class UserForm {
      * 分组id
      */
     private Integer groupId;
+
+    @Override
+    protected void processBean(User user) {
+
+    }
 }

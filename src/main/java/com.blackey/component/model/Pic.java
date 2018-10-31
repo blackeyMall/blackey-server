@@ -1,8 +1,8 @@
 package com.blackey.component.model;
 
-import com.blackey.component.BaseModel;
 import com.blackey.global.constant.FileType;
 import com.blackey.global.constant.Position;
+import com.blackey.jpa.model.BaseModel;
 import lombok.Getter;
 import lombok.Setter;
 
