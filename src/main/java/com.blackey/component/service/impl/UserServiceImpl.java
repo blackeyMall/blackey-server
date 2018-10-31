@@ -29,9 +29,4 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
     }
 
 
-    @Override
-    public void save(UserForm form) {
-        this.save(form);
-    }
-
 }

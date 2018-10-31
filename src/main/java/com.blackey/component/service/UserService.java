@@ -13,9 +13,4 @@ import com.blackey.jpa.service.IBaseService;
 public interface UserService extends IBaseService<User>{
 
 
-    /**
-     * 查询单条
-     * @return
-     */
-    void save(UserForm form);
 }
