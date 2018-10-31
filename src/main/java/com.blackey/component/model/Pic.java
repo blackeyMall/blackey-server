@@ -40,5 +40,9 @@ public class Pic extends BaseModel {
     @JoinColumn(name = "project")
     private Project project;
 
+    @ManyToOne
+    @JoinColumn(name = "material")
+    private Material material;
+
 
 }
