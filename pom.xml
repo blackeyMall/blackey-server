@@ -20,10 +20,13 @@
         <jjwt.version>0.9.0</jjwt.version>
         <mysql.version>5.1.38</mysql.version>
         <kaptcha.version>2.3.2</kaptcha.version>
+        <velocity.version>1.7</velocity.version>
+        <druid.version>1.1.3</druid.version>
     </properties>
 
     <modules>
         <module>blackey-admin-server</module>
+        <module>blackey-gen-server</module>
     </modules>
 
     <dependencyManagement>
@@ -78,6 +81,16 @@
                 <groupId>com.github.penggle</groupId>
                 <artifactId>kaptcha</artifactId>
                 <version>${kaptcha.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>velocity</artifactId>
+                <groupId>org.apache.velocity</groupId>
+                <version>${velocity.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>${druid.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

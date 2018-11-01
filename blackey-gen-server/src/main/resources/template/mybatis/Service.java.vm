@@ -1,0 +1,17 @@
+package ${package}.${moduleName}.component.service;
+
+import com.github.kaven.mybatis.service.BaseService;
+import ${package}.${moduleName}.component.domain.${className};
+
+import java.util.Map;
+
+/**
+ * ${comments} ${className}Service
+ *
+ * @author ${author}
+ * @date ${datetime}
+ */
+public interface ${className}Service extends BaseService<${className}> {
+
+}
+

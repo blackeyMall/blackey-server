@@ -35,7 +35,7 @@ public class SysCaptchaServiceImpl extends BaseServiceImpl<SysCaptchaMapper, Sys
         captchaEntity.setCode(code);
         //5分钟后过期
         captchaEntity.setExpireTime(DateUtils.addMinutes(new Date(), 5));
-        this.save(captchaEntity);
+        baseMapper.insert(captchaEntity);
 
         return producer.createImage(code);
     }
