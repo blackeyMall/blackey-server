@@ -3,8 +3,6 @@ package com.blackey.admin.component.domain;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotBlank;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -30,13 +28,11 @@ public class SysUserEntity implements Serializable {
 	/**
 	 * 用户名
 	 */
-	@NotBlank(message="用户名不能为空")
 	private String username;
 
 	/**
 	 * 密码
 	 */
-	@NotBlank(message="密码不能为空")
 	private String password;
 
 	/**
@@ -47,8 +43,6 @@ public class SysUserEntity implements Serializable {
 	/**
 	 * 邮箱
 	 */
-	@NotBlank(message="邮箱不能为空")
-	@Email(message="邮箱格式不正确")
 	private String email;
 
 	/**
