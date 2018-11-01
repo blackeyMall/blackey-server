@@ -4,6 +4,7 @@ import com.blackey.component.model.User;
 import com.blackey.component.service.UserService;
 import com.blackey.dto.bo.UserBo;
 import com.blackey.dto.form.UserForm;
+import com.blackey.dto.listoutput.UserListOutput;
 import com.blackey.dto.search.UserSearch;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
@@ -41,11 +42,11 @@ public class UserRest {
     }
 
     @GetMapping("/list")
-    public List<User> list(@RequestBody UserSearch search){
-        return userService.list(search);
+    public List<UserBo> list(@RequestBody UserSearch search){
+        return new UserListOutput(userService.list(search)).getList();
     }
 
-    @GetMapping("/list")
+    @GetMapping("/page")
     public Page<User> page(@RequestBody UserSearch search){
         return userService.pageList(search);
     }
