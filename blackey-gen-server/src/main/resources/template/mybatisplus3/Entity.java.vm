@@ -1,8 +1,8 @@
 package ${package}.${moduleName}.component.domain;
 
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableName;
-import com.github.kaven.mybatis.model.BaseModel;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.blackey.mybatis.model.BaseModel;
 
 #if(${hasBigDecimal})
 import java.math.BigDecimal;

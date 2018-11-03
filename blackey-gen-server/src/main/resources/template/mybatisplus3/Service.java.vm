@@ -1,7 +1,7 @@
 package ${package}.${moduleName}.component.service;
 
-import com.github.kaven.mybatis.service.BaseService;
-import com.github.kaven.mybatis.utils.PageUtils;
+import com.blackey.mybatis.service.BaseService;
+import com.blackey.mybatis.utils.PageUtils;
 import ${package}.${moduleName}.component.domain.${className};
 
 import java.util.Map;

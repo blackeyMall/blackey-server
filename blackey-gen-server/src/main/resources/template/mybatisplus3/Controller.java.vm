@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import ${package}.${moduleName}.component.domain.${className};
 import ${package}.${moduleName}.dto.form.${className}Form;
 import ${package}.${moduleName}.component.service.${className}Service;
-import com.github.kaven.common.domain.Result;
-import com.github.kaven.mybatis.utils.PageUtils;
+import com.blackey.common.result.Result;
+import com.blackey.mybatis.utils.PageUtils;
 
 
 
@@ -58,7 +58,7 @@ public class ${className}Rest extends AbstractController {
     @RequestMapping("/info/{${pk.attrname}}")
     public Result info(@PathVariable("${pk.attrname}") ${pk.attrType} ${pk.attrname}){
 
-        ${className} ${classname} = ${classname}Service.selectById(${pk.attrname});
+        ${className} ${classname} = ${classname}Service.getById(${pk.attrname});
 
         return success(${classname});
     }
@@ -73,7 +73,7 @@ public class ${className}Rest extends AbstractController {
         //Form --> domain
         BeanUtils.copyProperties(${classname}Form,${classname});
 
-        ${classname}Service.insert(${classname});
+        ${classname}Service.save(${classname});
 
         return success();
     }
@@ -84,7 +84,7 @@ public class ${className}Rest extends AbstractController {
     @PostMapping("/update")
     public Result update(@RequestBody ${className} ${classname}){
 
-        ${classname}Service.updateAllColumnById(${classname});//全部更新
+        ${classname}Service.updateById(${classname});//全部更新
         
         return success();
     }
@@ -95,7 +95,7 @@ public class ${className}Rest extends AbstractController {
     @RequestMapping("/delete/{${pk.attrname}}")
     public Result delete(@PathVariable("${pk.attrname}") ${pk.attrType} ${pk.attrname}){
 
-        ${classname}Service.deleteById(${pk.attrname});
+        ${classname}Service.removeById(${pk.attrname});
 
         return success();
     }
