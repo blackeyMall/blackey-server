@@ -6,29 +6,15 @@ spring:
     url: jdbc:mysql://localhost:3306/renren_fast?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
     username: root
     password: root
-  # jackson时间格式化
-  jackson:
-    time-zone: GMT+8
-    date-format: yyyy-MM-dd HH:mm:ss
-  servlet:
-    multipart:
-      max-file-size: 100MB
-      max-request-size: 100MB
-      enabled: true
-  redis:
-    host: localhost
-    port: 6379
-    password:
 server:
   port: 1098
 
-#mybatis
 mybatis-plus:
   # config-location:
   # classpath:/mapper/*Mapper.xml
   mapper-locations: classpath:mapper/*Mapper.xml
   # 实体扫描，多个package用逗号或者分号分隔
-  type-aliases-package: com.blackey.admin.*.domain
+  type-aliases-package: com.blackey.demo.domain
   configuration:
     # 驼峰下划线转换
     map-underscore-to-camel-case: true
@@ -54,16 +40,7 @@ mybatis-plus:
       logic-delete-value: 1
       logic-not-delete-value: 0
 
-redis:
-  serializer:
-    name: kryo
-management:
-  security:
-    enabled: false
-
-application:
-  captcha:
-    enabled: false
 logging:
   level:
-    com.blackey.admin.component.mapper: debug
+    com.blackey.demo: debug
+

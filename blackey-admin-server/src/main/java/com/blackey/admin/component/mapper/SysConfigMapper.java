@@ -2,7 +2,7 @@ package com.blackey.admin.component.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.blackey.admin.component.domain.SysConfigEntity;
-import org.apache.ibatis.annotations.Mapper;
+
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -12,7 +12,7 @@ import org.apache.ibatis.annotations.Param;
  *
  * @date 2016年12月4日 下午6:46:16
  */
-@Mapper
+
 public interface SysConfigMapper extends BaseMapper<SysConfigEntity> {
 
 	/**

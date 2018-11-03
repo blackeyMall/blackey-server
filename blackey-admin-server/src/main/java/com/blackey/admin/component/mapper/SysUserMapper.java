@@ -2,7 +2,7 @@ package com.blackey.admin.component.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.blackey.admin.component.domain.SysUserEntity;
-import org.apache.ibatis.annotations.Mapper;
+
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @date 2016年9月18日 上午9:34:11
  */
-@Mapper
+
 public interface SysUserMapper extends BaseMapper<SysUserEntity> {
 	
 	/**

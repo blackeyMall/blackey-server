@@ -27,6 +27,7 @@
     <modules>
         <module>blackey-admin-server</module>
         <module>blackey-gen-server</module>
+        <module>blackey-demo-server</module>
     </modules>
 
     <dependencyManagement>

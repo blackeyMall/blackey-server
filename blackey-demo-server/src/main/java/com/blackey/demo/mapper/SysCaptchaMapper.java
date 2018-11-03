@@ -1,9 +1,8 @@
-package com.blackey.admin.component.mapper;
+package com.blackey.demo.mapper;
 
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.blackey.admin.component.domain.SysCaptchaEntity;
-
+import com.blackey.demo.domain.SysCaptchaEntity;
 
 /**
  * 验证码

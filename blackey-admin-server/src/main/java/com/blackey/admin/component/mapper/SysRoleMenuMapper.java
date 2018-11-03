@@ -3,7 +3,7 @@ package com.blackey.admin.component.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.blackey.admin.component.domain.SysRoleMenuEntity;
-import org.apache.ibatis.annotations.Mapper;
+
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @date 2016年9月18日 上午9:33:46
  */
-@Mapper
+
 public interface SysRoleMenuMapper extends BaseMapper<SysRoleMenuEntity> {
 	
 	/**
