@@ -1,8 +1,6 @@
 package com.blackey.gen.dao;
 
 
-
-
 import java.util.List;
 import java.util.Map;
 
@@ -13,7 +11,6 @@ import java.util.Map;
  *
  * @date 2016年12月19日 下午3:32:04
  */
-
 public interface SysGeneratorDao {
 	
 	List<Map<String, Object>> queryList(Map<String, Object> map);
