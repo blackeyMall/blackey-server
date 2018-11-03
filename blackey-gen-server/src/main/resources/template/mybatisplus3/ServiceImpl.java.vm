@@ -1,0 +1,35 @@
+package ${package}.${moduleName}.component.service.impl;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+import com.github.kaven.mybatis.service.impl.BaseServiceImpl;
+import com.github.kaven.mybatis.utils.PageUtils;
+import com.github.kaven.mybatis.utils.Query;
+
+import ${package}.${moduleName}.component.mapper.${className}Mapper;
+import ${package}.${moduleName}.component.domain.${className};
+import ${package}.${moduleName}.component.service.${className}Service;
+
+/**
+ * ${comments} ${className}ServiceImpl
+ *
+ * @author ${author}
+ * @date ${datetime}
+ */
+@Service
+public class ${className}ServiceImpl extends BaseServiceImpl<${className}Mapper, ${className}> implements ${className}Service {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(${className}ServiceImpl.class);
+
+    @Override
+    public PageUtils queryPage(Map<String, Object> params) {
+        Page<${className}Entity> page = this.selectPage(
+                new Query<${className}Entity>(params).getPage(),
+                new EntityWrapper<${className}Entity>()
+        );
+
+        return new PageUtils(page);
+    }
+
+}
