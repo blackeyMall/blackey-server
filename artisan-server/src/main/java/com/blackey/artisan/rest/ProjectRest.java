@@ -67,7 +67,7 @@ public class ProjectRest extends BaseRest {
     /**
      * 保存
      */
-    @RequestMapping("/save")
+    @PostMapping("/save")
     public Result save(@RequestBody ProjectForm projectForm){
 
         Project project = new Project();
