@@ -1,12 +1,11 @@
 package com.blackey.gen.service;
 
 
+import com.baomidou.mybatisplus.core.toolkit.IOUtils;
 import com.blackey.gen.dao.SysGeneratorDao;
 import com.blackey.gen.utils.GenUtils;
-import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 
 import java.io.ByteArrayOutputStream;
 import java.util.List;

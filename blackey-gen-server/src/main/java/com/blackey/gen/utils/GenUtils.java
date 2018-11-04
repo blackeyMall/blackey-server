@@ -181,11 +181,11 @@ public class GenUtils {
 		}
 
 		if (template.contains("Entity.java.vm" )) {
-			return packagePath + "domain" + File.separator + className + ".java";
+			return packagePath + "component/domain" + File.separator + className + "Entity.java";
 		}
 
         if (template.contains("Entity.vue.vm" )) {
-            return packagePath + "domain" + File.separator + className + ".vue";
+            return packagePath + "vue" + File.separator + className + ".vue";
         }
 
         if (template.contains("EntityForm.java.vm" )) {
