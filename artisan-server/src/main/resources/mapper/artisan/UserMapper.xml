@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.blackey.artisan.component.mapper.UserMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.blackey.artisan.component.domain.User" id="userMap">
+        <result property="id" column="id"/>
+        <result property="createdBy" column="created_by"/>
+        <result property="createdDate" column="created_date"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updatedDate" column="updated_date"/>
+        <result property="city" column="city"/>
+        <result property="country" column="country"/>
+        <result property="groupId" column="group_id"/>
+        <result property="headImgUrl" column="head_img_url"/>
+        <result property="language" column="language"/>
+        <result property="nickname" column="nickname"/>
+        <result property="openId" column="open_id"/>
+        <result property="province" column="province"/>
+        <result property="remark" column="remark"/>
+        <result property="sex" column="sex"/>
+        <result property="sexDesc" column="sex_desc"/>
+        <result property="subscribeTime" column="subscribe_time"/>
+        <result property="unionId" column="union_id"/>
+        <result property="isDeleted" column="is_deleted"/>
+    </resultMap>
+
+
+</mapper>
