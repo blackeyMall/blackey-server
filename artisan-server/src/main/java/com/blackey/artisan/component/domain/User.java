@@ -21,27 +21,6 @@ public class User extends BaseModel<User> implements Serializable {
 	/**
 	 * 
 	 */
-	@TableId
-	private String id;
-	/**
-	 * 
-	 */
-	private String createdBy;
-	/**
-	 * 
-	 */
-	private Date createdDate;
-	/**
-	 * 
-	 */
-	private String updateBy;
-	/**
-	 * 
-	 */
-	private Date updatedDate;
-	/**
-	 * 
-	 */
 	private String city;
 	/**
 	 * 
@@ -96,66 +75,6 @@ public class User extends BaseModel<User> implements Serializable {
 	 */
 	private Integer isDeleted;
 
-	/**
-	 * set：
-	 */
-	public void setId(String id) {
-		this.id = id;
-	}
-	/**
-	 * get：
-	 */
-	public String getId() {
-		return id;
-	}
-	/**
-	 * set：
-	 */
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
-	/**
-	 * get：
-	 */
-	public String getCreatedBy() {
-		return createdBy;
-	}
-	/**
-	 * set：
-	 */
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
-	/**
-	 * get：
-	 */
-	public Date getCreatedDate() {
-		return createdDate;
-	}
-	/**
-	 * set：
-	 */
-	public void setUpdateBy(String updateBy) {
-		this.updateBy = updateBy;
-	}
-	/**
-	 * get：
-	 */
-	public String getUpdateBy() {
-		return updateBy;
-	}
-	/**
-	 * set：
-	 */
-	public void setUpdatedDate(Date updatedDate) {
-		this.updatedDate = updatedDate;
-	}
-	/**
-	 * get：
-	 */
-	public Date getUpdatedDate() {
-		return updatedDate;
-	}
 	/**
 	 * set：
 	 */
@@ -312,22 +231,10 @@ public class User extends BaseModel<User> implements Serializable {
 	public String getUnionId() {
 		return unionId;
 	}
-	/**
-	 * set：
-	 */
-	public void setIsDeleted(Integer isDeleted) {
-		this.isDeleted = isDeleted;
-	}
-	/**
-	 * get：
-	 */
-	public Integer getIsDeleted() {
-		return isDeleted;
-	}
 
     @Override
     protected Serializable pkVal() {
-        return this.id;
+        return this.getId();
     }
                                                                             
 
