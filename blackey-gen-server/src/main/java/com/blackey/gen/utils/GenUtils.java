@@ -181,7 +181,7 @@ public class GenUtils {
 		}
 
 		if (template.contains("Entity.java.vm" )) {
-			return packagePath + "component/domain" + File.separator + className + "Entity.java";
+			return packagePath + "component/domain" + File.separator + className + ".java";
 		}
 
         if (template.contains("Entity.vue.vm" )) {
@@ -196,15 +196,15 @@ public class GenUtils {
         }
 
 		if (template.contains("Dao.java.vm" )) {
-			return packagePath + "mapper" + File.separator + className + "Mapper.java";
+			return packagePath + "component/mapper" + File.separator + className + "Mapper.java";
 		}
 
 		if (template.contains("Service.java.vm" )) {
-			return packagePath + "service" + File.separator + className + "Service.java";
+			return packagePath + "component/service" + File.separator + className + "Service.java";
 		}
 
 		if (template.contains("ServiceImpl.java.vm" )) {
-			return packagePath + "service" + File.separator + "impl" + File.separator + className + "ServiceImpl.java";
+			return packagePath + "component/service" + File.separator + "impl" + File.separator + className + "ServiceImpl.java";
 		}
 
 		if (template.contains("Controller.java.vm" )) {
