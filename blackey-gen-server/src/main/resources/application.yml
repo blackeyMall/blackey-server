@@ -9,7 +9,7 @@ spring:
     datasource:
         type: com.alibaba.druid.pool.DruidDataSource
         driverClassName: com.mysql.jdbc.Driver
-        url: jdbc:mysql://localhost:3306/renren_fast?useUnicode=true&characterEncoding=UTF-8
+        url: jdbc:mysql://localhost:3306/building?useUnicode=true&characterEncoding=UTF-8
         username: root
         password: root
     jackson:
@@ -22,7 +22,7 @@ spring:
 #mybatis
 mybatis-plus:
   # config-location:
-  # classpath:/mapper/*Mapper.xml
+  # classpath:/mapper/*.xml
   mapper-locations: classpath:mapper/*Dao.xml
   # 实体扫描，多个package用逗号或者分号分隔
   type-aliases-package: com.blackey.grn.entity
