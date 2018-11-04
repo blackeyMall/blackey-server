@@ -3,6 +3,9 @@ package ${package}.${moduleName}.dto.form;
 #if(${hasBigDecimal})
 import java.math.BigDecimal;
 #end
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -12,6 +15,8 @@ import java.util.Date;
  * @author ${author}
  * @date ${datetime}
  */
+@Getter
+@Setter
 public class ${className}Form implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -23,18 +28,4 @@ public class ${className}Form implements Serializable {
     private $column.attrType $column.attrname;
 #end
 
-#foreach ($column in $columns)
-	/**
-	 * set：${column.comments}
-	 */
-	public void set${column.attrName}($column.attrType $column.attrname) {
-		this.$column.attrname = $column.attrname;
-	}
-	/**
-	 * get：${column.comments}
-	 */
-	public $column.attrType get${column.attrName}() {
-		return $column.attrname;
-	}
-#end
 }
