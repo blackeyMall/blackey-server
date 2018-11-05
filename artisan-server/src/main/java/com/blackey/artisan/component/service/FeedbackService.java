@@ -2,17 +2,17 @@ package com.blackey.artisan.component.service;
 
 import com.blackey.mybatis.service.BaseService;
 import com.blackey.mybatis.utils.PageUtils;
-import com.blackey.artisan.component.domain.Project;
+import com.blackey.artisan.component.domain.Feedback;
 
 import java.util.Map;
 
 /**
- *  ProjectService
+ *  FeedbackService
  *
  * @author kavenW
- * @date 2018-11-04 21:12:24
+ * @date 2018-11-05 11:01:32
  */
-public interface ProjectService extends BaseService<Project> {
+public interface FeedbackService extends BaseService<Feedback> {
 
     /**
     * 分页查询

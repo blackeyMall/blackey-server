@@ -25,6 +25,8 @@
         <result property="unionId" column="union_id"/>
         <result property="isDeleted" column="is_deleted"/>
     </resultMap>
-
-
+    
+    <select id="queryByOpenid" parameterType="String" resultType="userMap">
+        SELECT * FROM USER u WHERE u.open_id = #{openId}
+    </select>
 </mapper>

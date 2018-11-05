@@ -8,9 +8,9 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import com.blackey.artisan.component.domain.Material;
-import com.blackey.artisan.dto.form.MaterialForm;
-import com.blackey.artisan.component.service.MaterialService;
+import com.blackey.artisan.component.domain.Feedback;
+import com.blackey.artisan.dto.form.FeedbackForm;
+import com.blackey.artisan.component.service.FeedbackService;
 import com.blackey.common.result.Result;
 import com.blackey.mybatis.utils.PageUtils;
 
@@ -20,25 +20,25 @@ import java.util.Map;
  *  API REST
  *
  * @author kavenW
- * @date 2018-11-04 21:12:23
+ * @date 2018-11-05 11:01:32
  */
 @RestController
-@RequestMapping("/artisan/material")
-public class MaterialRest extends BaseRest {
+@RequestMapping("/artisan/feedback")
+public class FeedbackRest extends BaseRest {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MaterialRest.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(FeedbackRest.class);
 
     @Autowired
-    private MaterialService materialService;
+    private FeedbackService feedbackService;
 
 
     /**
     * 分页列表
     */
     @RequestMapping("/list/page")
-    @RequiresPermissions("artisan:material:list")
+    @RequiresPermissions("artisan:feedback:list")
     public Result list(@RequestParam Map<String, Object> params){
-        PageUtils page = materialService.queryPage(params);
+        PageUtils page = feedbackService.queryPage(params);
 
         return success(page);
     }
@@ -47,7 +47,7 @@ public class MaterialRest extends BaseRest {
      * 列表
      */
     @RequestMapping("/list")
-    public Result list(@RequestBody MaterialForm materialForm){
+    public Result list(@RequestBody FeedbackForm feedbackForm){
         //TODO
         return success();
     }
@@ -59,22 +59,22 @@ public class MaterialRest extends BaseRest {
     @RequestMapping("/info/{id}")
     public Result info(@PathVariable("id") String id){
 
-        Material material = materialService.getById(id);
+        Feedback feedback = feedbackService.getById(id);
 
-        return success(material);
+        return success(feedback);
     }
 
     /**
      * 保存
      */
     @RequestMapping("/save")
-    public Result save(@RequestBody MaterialForm materialForm){
+    public Result save(@RequestBody FeedbackForm feedbackForm){
 
-        Material material = new Material();
+        Feedback feedback = new Feedback();
         //Form --> domain
-        BeanUtils.copyProperties(materialForm,material);
+        BeanUtils.copyProperties(feedbackForm,feedback);
 
-        materialService.save(material);
+        feedbackService.save(feedback);
 
         return success();
     }
@@ -83,9 +83,9 @@ public class MaterialRest extends BaseRest {
      * 修改
      */
     @PostMapping("/update")
-    public Result update(@RequestBody Material material){
+    public Result update(@RequestBody Feedback feedback){
 
-        materialService.updateById(material);//全部更新
+        feedbackService.updateById(feedback);//全部更新
         
         return success();
     }
@@ -96,7 +96,7 @@ public class MaterialRest extends BaseRest {
     @RequestMapping("/delete/{id}")
     public Result delete(@PathVariable("id") String id){
 
-        materialService.removeById(id);
+        feedbackService.removeById(id);
 
         return success();
     }

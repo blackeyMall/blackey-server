@@ -1,13 +1,13 @@
 <template>
-    <div class="mod-order">
+    <div class="mod-feedback">
         <el-form :inline="true" :model="dataForm" @keyup.enter.native="getDataList()">
             <el-form-item>
                 <el-input v-model="dataForm.userName" placeholder="用户名" clearable></el-input>
             </el-form-item>
             <el-form-item>
                 <el-button @click="getDataList()">查询</el-button>
-                <el-button v-if="isAuth('sys:order:save')" type="primary" @click="addOrUpdateHandle()">新增</el-button>
-                <el-button v-if="isAuth('sys:order:delete')" type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">批量删除</el-button>
+                <el-button v-if="isAuth('sys:feedback:save')" type="primary" @click="addOrUpdateHandle()">新增</el-button>
+                <el-button v-if="isAuth('sys:feedback:delete')" type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">批量删除</el-button>
             </el-form-item>
         </el-form>
         <el-table
@@ -66,7 +66,7 @@
                         label="">
                 </el-table-column>
                             <el-table-column
-                        prop="orderNo"
+                        prop="content"
                         header-align="center"
                         align="center"
                         width="100"
@@ -86,6 +86,13 @@
                         width="100"
                         label="">
                 </el-table-column>
+                            <el-table-column
+                        prop="feedBackType"
+                        header-align="center"
+                        align="center"
+                        width="100"
+                        label="">
+                </el-table-column>
             
                                                 <el-table-column
                             fixed="right"
@@ -94,13 +101,13 @@
                             width="150"
                             label="操作">
                         <template slot-scope="scope">
-                            <el-button v-if="isAuth('sys:order:update')" type="text" size="small"
+                            <el-button v-if="isAuth('sys:feedback:update')" type="text" size="small"
                                        @click="addOrUpdateHandle(scope.row.id)">修改</el-button>
-                            <el-button v-if="isAuth('sys:order:delete')" type="text" size="small"
+                            <el-button v-if="isAuth('sys:feedback:delete')" type="text" size="small"
                                        @click="deleteHandle(scope.row.id)">删除</el-button>
                         </template>
                     </el-table-column>
-                                                                                                                                                                                                                                                            
+                                                                                                                                                                                                                                                                                        
         </el-table>
         <el-pagination
                 @size-change="sizeChangeHandle"
@@ -118,7 +125,7 @@
 
 
 <script>
-    import AddOrUpdate from './order-add-or-update'
+    import AddOrUpdate from './feedback-add-or-update'
     export default {
         data () {
             return {
@@ -215,7 +222,7 @@
                         })
                     }).catch(() => {})
                 }
-                                                                                                                                                                                    
+                                                                                                                                                                                                        
         }
     }
 </script>

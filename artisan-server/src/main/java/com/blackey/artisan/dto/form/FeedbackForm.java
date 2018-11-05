@@ -1,5 +1,6 @@
-package com.blackey.artisan.dto.bo;
+package com.blackey.artisan.dto.form;
 
+import com.blackey.artisan.global.constants.FeedBackStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,14 +8,14 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- *  BO
+ *  Form表单
  * 
  * @author kavenW
- * @date 2018-11-04 21:12:24
+ * @date 2018-11-05 11:01:32
  */
 @Getter
 @Setter
-public class ProjectBo implements Serializable {
+public class FeedbackForm implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -45,14 +46,20 @@ public class ProjectBo implements Serializable {
 	/**
 	 * 
 	 */
-    private String name;
+    private String content;
 	/**
 	 * 
 	 */
-    private String picUrl;
+    private String userId;
 	/**
 	 * 
 	 */
-    private String desc;
+    private String projectId;
+
+	private String picUrl;
+	/**
+	 * 
+	 */
+    private FeedBackStatus feedBackType;
 
 }

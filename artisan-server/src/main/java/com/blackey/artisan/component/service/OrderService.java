@@ -1,5 +1,6 @@
 package com.blackey.artisan.component.service;
 
+import com.blackey.artisan.dto.form.OrderForm;
 import com.blackey.mybatis.service.BaseService;
 import com.blackey.mybatis.utils.PageUtils;
 import com.blackey.artisan.component.domain.Order;
@@ -10,7 +11,7 @@ import java.util.Map;
  *  OrderService
  *
  * @author kavenW
- * @date 2018-11-04 12:10:24
+ * @date 2018-11-04 21:12:24
  */
 public interface OrderService extends BaseService<Order> {
 
@@ -20,5 +21,10 @@ public interface OrderService extends BaseService<Order> {
     * @return
     */
     PageUtils queryPage(Map<String, Object> params);
+
+    /**
+     * 预约服务
+     */
+    void bookingService(OrderForm form);
 }
 

@@ -1,5 +1,8 @@
 package com.blackey.artisan.dto.form;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -7,8 +10,10 @@ import java.util.Date;
  *  Form表单
  * 
  * @author kavenW
- * @date 2018-11-04 12:10:24
+ * @date 2018-11-04 21:12:24
  */
+@Getter
+@Setter
 public class ProjectForm implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -32,7 +37,7 @@ public class ProjectForm implements Serializable {
 	/**
 	 * 
 	 */
-    private String updateBy;
+    private String updatedBy;
 	/**
 	 * 
 	 */
@@ -40,122 +45,14 @@ public class ProjectForm implements Serializable {
 	/**
 	 * 
 	 */
-    private String pName;
+    private String name;
 	/**
 	 * 
 	 */
-    private String pPicUrl;
+    private String picUrl;
 	/**
 	 * 
 	 */
-    private Integer pDesc;
+    private String desc;
 
-	/**
-	 * set：
-	 */
-	public void setId(String id) {
-		this.id = id;
-	}
-	/**
-	 * get：
-	 */
-	public String getId() {
-		return id;
-	}
-	/**
-	 * set：
-	 */
-	public void setIsDeleted(Integer isDeleted) {
-		this.isDeleted = isDeleted;
-	}
-	/**
-	 * get：
-	 */
-	public Integer getIsDeleted() {
-		return isDeleted;
-	}
-	/**
-	 * set：
-	 */
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
-	/**
-	 * get：
-	 */
-	public String getCreatedBy() {
-		return createdBy;
-	}
-	/**
-	 * set：
-	 */
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
-	/**
-	 * get：
-	 */
-	public Date getCreatedDate() {
-		return createdDate;
-	}
-	/**
-	 * set：
-	 */
-	public void setUpdateBy(String updateBy) {
-		this.updateBy = updateBy;
-	}
-	/**
-	 * get：
-	 */
-	public String getUpdateBy() {
-		return updateBy;
-	}
-	/**
-	 * set：
-	 */
-	public void setUpdatedDate(Date updatedDate) {
-		this.updatedDate = updatedDate;
-	}
-	/**
-	 * get：
-	 */
-	public Date getUpdatedDate() {
-		return updatedDate;
-	}
-	/**
-	 * set：
-	 */
-	public void setPName(String pName) {
-		this.pName = pName;
-	}
-	/**
-	 * get：
-	 */
-	public String getPName() {
-		return pName;
-	}
-	/**
-	 * set：
-	 */
-	public void setPPicUrl(String pPicUrl) {
-		this.pPicUrl = pPicUrl;
-	}
-	/**
-	 * get：
-	 */
-	public String getPPicUrl() {
-		return pPicUrl;
-	}
-	/**
-	 * set：
-	 */
-	public void setPDesc(Integer pDesc) {
-		this.pDesc = pDesc;
-	}
-	/**
-	 * get：
-	 */
-	public Integer getPDesc() {
-		return pDesc;
-	}
 }

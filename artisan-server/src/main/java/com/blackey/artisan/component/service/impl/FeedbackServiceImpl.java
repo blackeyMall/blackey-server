@@ -9,28 +9,28 @@ import com.blackey.mybatis.service.impl.BaseServiceImpl;
 import com.blackey.mybatis.utils.PageUtils;
 import com.blackey.mybatis.utils.Query;
 
-import com.blackey.artisan.component.mapper.MaterialMapper;
-import com.blackey.artisan.component.domain.Material;
-import com.blackey.artisan.component.service.MaterialService;
+import com.blackey.artisan.component.mapper.FeedbackMapper;
+import com.blackey.artisan.component.domain.Feedback;
+import com.blackey.artisan.component.service.FeedbackService;
 
 import java.util.Map;
 
 /**
- *  MaterialServiceImpl
+ *  FeedbackServiceImpl
  *
  * @author kavenW
- * @date 2018-11-04 21:12:23
+ * @date 2018-11-05 11:01:32
  */
 @Service
-public class MaterialServiceImpl extends BaseServiceImpl<MaterialMapper, Material> implements MaterialService {
+public class FeedbackServiceImpl extends BaseServiceImpl<FeedbackMapper, Feedback> implements FeedbackService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MaterialServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(FeedbackServiceImpl.class);
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
-        Page<Material> page = (Page<Material>) this.page(
-                new Query<Material>(params).getPage(),
-                new QueryWrapper<Material>()
+        Page<Feedback> page = (Page<Feedback>) this.page(
+                new Query<Feedback>(params).getPage(),
+                new QueryWrapper<Feedback>()
         );
 
         return new PageUtils(page);

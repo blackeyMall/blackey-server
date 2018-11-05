@@ -1,5 +1,6 @@
 package com.blackey.artisan.dto.bo;
 
+import com.blackey.artisan.global.constants.FeedBackStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,11 +11,11 @@ import java.util.Date;
  *  BO
  * 
  * @author kavenW
- * @date 2018-11-04 21:12:24
+ * @date 2018-11-05 11:01:32
  */
 @Getter
 @Setter
-public class ProjectBo implements Serializable {
+public class FeedbackBo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -45,14 +46,20 @@ public class ProjectBo implements Serializable {
 	/**
 	 * 
 	 */
-    private String name;
+    private String content;
 	/**
 	 * 
 	 */
-    private String picUrl;
+    private String userId;
 	/**
 	 * 
 	 */
-    private String desc;
+    private String projectId;
+
+	private String picUrl;
+	/**
+	 * 
+	 */
+    private FeedBackStatus feedBackType;
 
 }
