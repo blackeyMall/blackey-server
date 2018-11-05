@@ -35,7 +35,7 @@ public class DiagEvaluateInfoRest extends BaseRest {
     /**
     * 分页列表
     */
-    @RequestMapping("/list/page")
+    @PostMapping("/list/page")
     @RequiresPermissions("invest:diagevaluateinfo:list")
     public Result list(@RequestParam Map<String, Object> params){
         PageUtils page = diagEvaluateInfoService.queryPage(params);
@@ -46,7 +46,7 @@ public class DiagEvaluateInfoRest extends BaseRest {
     /**
      * 列表
      */
-    @RequestMapping("/list")
+    @PostMapping("/list")
     public Result list(@RequestBody DiagEvaluateInfoForm diagEvaluateInfoForm){
         //TODO
         return success();
@@ -56,7 +56,7 @@ public class DiagEvaluateInfoRest extends BaseRest {
     /**
      * 查看详情信息
      */
-    @RequestMapping("/info/{id}")
+    @GetMapping("/info/{id}")
     public Result info(@PathVariable("id") Long id){
 
         DiagEvaluateInfo diagEvaluateInfo = diagEvaluateInfoService.getById(id);
@@ -67,7 +67,7 @@ public class DiagEvaluateInfoRest extends BaseRest {
     /**
      * 保存
      */
-    @RequestMapping("/save")
+    @PostMapping("/save")
     public Result save(@RequestBody DiagEvaluateInfoForm diagEvaluateInfoForm){
 
         DiagEvaluateInfo diagEvaluateInfo = new DiagEvaluateInfo();
@@ -93,7 +93,7 @@ public class DiagEvaluateInfoRest extends BaseRest {
     /**
      * 根据主键id删除
      */
-    @RequestMapping("/delete/{id}")
+    @GetMapping("/delete/{id}")
     public Result delete(@PathVariable("id") Long id){
 
         diagEvaluateInfoService.removeById(id);

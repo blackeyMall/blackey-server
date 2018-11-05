@@ -35,7 +35,7 @@ public class DiagClassificationRest extends BaseRest {
     /**
     * 分页列表
     */
-    @RequestMapping("/list/page")
+    @PostMapping("/list/page")
     @RequiresPermissions("invest:diagclassification:list")
     public Result list(@RequestParam Map<String, Object> params){
         PageUtils page = diagClassificationService.queryPage(params);
@@ -46,7 +46,7 @@ public class DiagClassificationRest extends BaseRest {
     /**
      * 列表
      */
-    @RequestMapping("/list")
+    @PostMapping("/list")
     public Result list(@RequestBody DiagClassificationForm diagClassificationForm){
         //TODO
         return success();
@@ -56,7 +56,7 @@ public class DiagClassificationRest extends BaseRest {
     /**
      * 查看详情信息
      */
-    @RequestMapping("/info/{id}")
+    @GetMapping("/info/{id}")
     public Result info(@PathVariable("id") Integer id){
 
         DiagClassification diagClassification = diagClassificationService.getById(id);
@@ -67,7 +67,7 @@ public class DiagClassificationRest extends BaseRest {
     /**
      * 保存
      */
-    @RequestMapping("/save")
+    @PostMapping("/save")
     public Result save(@RequestBody DiagClassificationForm diagClassificationForm){
 
         DiagClassification diagClassification = new DiagClassification();
@@ -93,7 +93,7 @@ public class DiagClassificationRest extends BaseRest {
     /**
      * 根据主键id删除
      */
-    @RequestMapping("/delete/{id}")
+    @GetMapping("/delete/{id}")
     public Result delete(@PathVariable("id") Integer id){
 
         diagClassificationService.removeById(id);

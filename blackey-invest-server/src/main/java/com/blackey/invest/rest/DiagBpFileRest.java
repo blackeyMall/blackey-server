@@ -35,7 +35,7 @@ public class DiagBpFileRest extends BaseRest {
     /**
     * 分页列表
     */
-    @RequestMapping("/list/page")
+    @PostMapping("/list/page")
     @RequiresPermissions("invest:diagbpfile:list")
     public Result list(@RequestParam Map<String, Object> params){
         PageUtils page = diagBpFileService.queryPage(params);
@@ -46,7 +46,7 @@ public class DiagBpFileRest extends BaseRest {
     /**
      * 列表
      */
-    @RequestMapping("/list")
+    @PostMapping("/list")
     public Result list(@RequestBody DiagBpFileForm diagBpFileForm){
         //TODO
         return success();
@@ -56,7 +56,7 @@ public class DiagBpFileRest extends BaseRest {
     /**
      * 查看详情信息
      */
-    @RequestMapping("/info/{id}")
+    @GetMapping("/info/{id}")
     public Result info(@PathVariable("id") Long id){
 
         DiagBpFile diagBpFile = diagBpFileService.getById(id);
@@ -67,7 +67,7 @@ public class DiagBpFileRest extends BaseRest {
     /**
      * 保存
      */
-    @RequestMapping("/save")
+    @PostMapping("/save")
     public Result save(@RequestBody DiagBpFileForm diagBpFileForm){
 
         DiagBpFile diagBpFile = new DiagBpFile();
@@ -93,7 +93,7 @@ public class DiagBpFileRest extends BaseRest {
     /**
      * 根据主键id删除
      */
-    @RequestMapping("/delete/{id}")
+    @GetMapping("/delete/{id}")
     public Result delete(@PathVariable("id") Long id){
 
         diagBpFileService.removeById(id);

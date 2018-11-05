@@ -39,6 +39,7 @@ public class GenUtils {
 		templates.add("template/"+path+"/ServiceImpl.java.vm");
 		templates.add("template/"+path+"/Controller.java.vm");
 		templates.add("template/"+path+"/Entity.vue.vm");
+        templates.add("template/"+path+"/Entity-Add.vue.vm");
 		/*templates.add("template/"+path+"/list.html.vm");
 		templates.add("template/"+path+"/list.js.vm");
 		templates.add("template/"+path+"/menu.sql.vm");*/
@@ -186,6 +187,10 @@ public class GenUtils {
 
         if (template.contains("Entity.vue.vm" )) {
             return packagePath + "vue" + File.separator + className + ".vue";
+        }
+
+        if (template.contains("Entity-Add.vue.vm" )) {
+            return packagePath + "vue" + File.separator + className + "-add-or-update.vue";
         }
 
         if (template.contains("EntityForm.java.vm" )) {

@@ -95,7 +95,7 @@
             getDataList () {
                 this.dataListLoading = true
                 this.$http({
-                    url: this.$http.adornUrl('/'${moduleName}'/'${moduleName}'/'${classname}'/list'),
+                    url: this.$http.adornUrl("${moduleName}/${classname}/list"),
                     method: 'get',
                     params: this.$http.adornParams({
 
@@ -147,7 +147,7 @@
                         type: 'warning'
                     }).then(() => {
                         this.$http({
-                            url: this.$http.adornUrl('/'${moduleName}'/'${classname}'/delete'),
+                            url: this.$http.adornUrl("${moduleName}/${classname}/delete"),
                             method: 'post',
                             data: this.$http.adornData(ids, false)
                         }).then(({data}) => {
@@ -162,7 +162,7 @@
                                 })
                             } else {
                                 //需要添加 data.messge
-                                this.$message.error(data.message)
+                                this.$message.error()
                             }
                         })
                     }).catch(() => {})

@@ -35,7 +35,7 @@ public class ${className}Rest extends BaseRest {
     /**
     * 分页列表
     */
-    @RequestMapping("/list/page")
+    @PostMapping("/list/page")
     @RequiresPermissions("${moduleName}:${pathName}:list")
     public Result list(@RequestParam Map<String, Object> params){
         PageUtils page = ${classname}Service.queryPage(params);
@@ -46,7 +46,7 @@ public class ${className}Rest extends BaseRest {
     /**
      * 列表
      */
-    @RequestMapping("/list")
+    @PostMapping("/list")
     public Result list(@RequestBody ${className}Form ${classname}Form){
         //TODO
         return success();
@@ -56,7 +56,7 @@ public class ${className}Rest extends BaseRest {
     /**
      * 查看详情信息
      */
-    @RequestMapping("/info/{${pk.attrname}}")
+    @GetMapping("/info/{${pk.attrname}}")
     public Result info(@PathVariable("${pk.attrname}") ${pk.attrType} ${pk.attrname}){
 
         ${className} ${classname} = ${classname}Service.getById(${pk.attrname});
@@ -67,7 +67,7 @@ public class ${className}Rest extends BaseRest {
     /**
      * 保存
      */
-    @RequestMapping("/save")
+    @PostMapping("/save")
     public Result save(@RequestBody ${className}Form ${classname}Form){
 
         ${className} ${classname} = new ${className}();
@@ -93,7 +93,7 @@ public class ${className}Rest extends BaseRest {
     /**
      * 根据主键id删除
      */
-    @RequestMapping("/delete/{${pk.attrname}}")
+    @GetMapping("/delete/{${pk.attrname}}")
     public Result delete(@PathVariable("${pk.attrname}") ${pk.attrType} ${pk.attrname}){
 
         ${classname}Service.removeById(${pk.attrname});

@@ -54,3 +54,7 @@ mybatis-plus:
 logging:
   level:
     com.blackey.invest.component.mapper: debug
+
+blackey:
+  swagger2:
+    basePackage: com.blackey.invest.rest

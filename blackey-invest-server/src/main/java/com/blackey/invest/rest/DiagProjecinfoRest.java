@@ -35,7 +35,7 @@ public class DiagProjecinfoRest extends BaseRest {
     /**
     * 分页列表
     */
-    @RequestMapping("/list/page")
+    @PostMapping("/list/page")
     @RequiresPermissions("invest:projectinfo:list")
     public Result list(@RequestParam Map<String, Object> params){
         PageUtils page = diagProjecinfoService.queryPage(params);
@@ -46,7 +46,7 @@ public class DiagProjecinfoRest extends BaseRest {
     /**
      * 列表
      */
-    @RequestMapping("/list")
+    @PostMapping("/list")
     @RequiresPermissions("invest:projectinfo:list")
     public Result list(@RequestBody DiagProjecinfoForm diagProjecinfoForm){
         //TODO
@@ -57,7 +57,7 @@ public class DiagProjecinfoRest extends BaseRest {
     /**
      * 查看详情信息
      */
-    @RequestMapping("/info/{id}")
+    @GetMapping("/info/{id}")
     @RequiresPermissions("invest:projectinfo:info")
     public Result info(@PathVariable("id") Long id){
 
@@ -69,7 +69,7 @@ public class DiagProjecinfoRest extends BaseRest {
     /**
      * 保存
      */
-    @RequestMapping("/save")
+    @PostMapping("/save")
     @RequiresPermissions("invest:projectinfo:save")
     public Result save(@RequestBody DiagProjecinfoForm diagProjecinfoForm){
 
@@ -97,7 +97,7 @@ public class DiagProjecinfoRest extends BaseRest {
     /**
      * 根据主键id删除
      */
-    @RequestMapping("/delete/{id}")
+    @GetMapping("/delete/{id}")
     @RequiresPermissions("invest:projectinfo:delete")
     public Result delete(@PathVariable("id") Long id){
 
