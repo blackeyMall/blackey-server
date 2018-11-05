@@ -154,8 +154,8 @@ public class GenUtils {
 	 * 表名转换成Java类名
 	 */
 	public static String tableToJava(String tableName, String tablePrefix) {
-		if(StringUtils.isNotBlank(tablePrefix)){
-			tableName = tableName.replace(tablePrefix, "");
+		if(StringUtils.isNotBlank(tablePrefix) && tableName.startsWith(tablePrefix)){
+			tableName = tableName.replaceFirst(tablePrefix, "");
 		}
 		return columnToJava(tableName);
 	}

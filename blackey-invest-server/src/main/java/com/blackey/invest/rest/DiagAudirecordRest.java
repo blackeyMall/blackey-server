@@ -23,7 +23,7 @@ import java.util.Map;
  * @date 2018-11-05 10:02:15
  */
 @RestController
-@RequestMapping("/invest/diagaudirecord")
+@RequestMapping("/invest/record")
 public class DiagAudirecordRest extends BaseRest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DiagAudirecordRest.class);

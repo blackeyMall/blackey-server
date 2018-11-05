@@ -23,7 +23,7 @@ import java.util.Map;
  * @date 2018-11-05 10:02:16
  */
 @RestController
-@RequestMapping("/invest/diagprojecinfo")
+@RequestMapping("/invest/project")
 public class DiagProjecinfoRest extends BaseRest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DiagProjecinfoRest.class);
@@ -36,7 +36,7 @@ public class DiagProjecinfoRest extends BaseRest {
     * 分页列表
     */
     @RequestMapping("/list/page")
-    @RequiresPermissions("invest:diagprojecinfo:list")
+    @RequiresPermissions("invest:projectinfo:list")
     public Result list(@RequestParam Map<String, Object> params){
         PageUtils page = diagProjecinfoService.queryPage(params);
 
@@ -47,6 +47,7 @@ public class DiagProjecinfoRest extends BaseRest {
      * 列表
      */
     @RequestMapping("/list")
+    @RequiresPermissions("invest:projectinfo:list")
     public Result list(@RequestBody DiagProjecinfoForm diagProjecinfoForm){
         //TODO
         return success();
@@ -57,6 +58,7 @@ public class DiagProjecinfoRest extends BaseRest {
      * 查看详情信息
      */
     @RequestMapping("/info/{id}")
+    @RequiresPermissions("invest:projectinfo:info")
     public Result info(@PathVariable("id") Long id){
 
         DiagProjecinfo diagProjecinfo = diagProjecinfoService.getById(id);
@@ -68,6 +70,7 @@ public class DiagProjecinfoRest extends BaseRest {
      * 保存
      */
     @RequestMapping("/save")
+    @RequiresPermissions("invest:projectinfo:save")
     public Result save(@RequestBody DiagProjecinfoForm diagProjecinfoForm){
 
         DiagProjecinfo diagProjecinfo = new DiagProjecinfo();
@@ -83,6 +86,7 @@ public class DiagProjecinfoRest extends BaseRest {
      * 修改
      */
     @PostMapping("/update")
+    @RequiresPermissions("invest:projectinfo:update")
     public Result update(@RequestBody DiagProjecinfo diagProjecinfo){
 
         diagProjecinfoService.updateById(diagProjecinfo);//全部更新
@@ -94,6 +98,7 @@ public class DiagProjecinfoRest extends BaseRest {
      * 根据主键id删除
      */
     @RequestMapping("/delete/{id}")
+    @RequiresPermissions("invest:projectinfo:delete")
     public Result delete(@PathVariable("id") Long id){
 
         diagProjecinfoService.removeById(id);

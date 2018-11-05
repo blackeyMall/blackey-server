@@ -23,7 +23,7 @@ import java.util.Map;
  * @date 2018-11-05 10:02:16
  */
 @RestController
-@RequestMapping("/invest/diagprogress")
+@RequestMapping("/invest/progress")
 public class DiagProgressRest extends BaseRest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DiagProgressRest.class);

@@ -23,7 +23,7 @@ import java.util.Map;
  * @date 2018-11-05 10:02:15
  */
 @RestController
-@RequestMapping("/invest/diagprojecsetmeet")
+@RequestMapping("/invest/setmeet")
 public class DiagProjecsetmeetRest extends BaseRest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DiagProjecsetmeetRest.class);
