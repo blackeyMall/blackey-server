@@ -29,6 +29,7 @@
         <module>blackey-gen-server</module>
         <module>blackey-demo-server</module>
         <module>artisan-server</module>
+        <module>blackey-invest-server</module>
     </modules>
 
     <dependencyManagement>

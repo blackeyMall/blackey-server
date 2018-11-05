@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.blackey.invest.component.mapper.DiagProgressMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.blackey.invest.component.domain.DiagProgress" id="diagProgressMap">
+        <result property="id" column="id"/>
+        <result property="progressNo" column="progress_no"/>
+        <result property="projectNo" column="project_no"/>
+        <result property="progressDesc" column="progress_desc"/>
+        <result property="isDeleted" column="is_deleted"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createDate" column="create_date"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateDate" column="update_date"/>
+    </resultMap>
+
+
+</mapper>
