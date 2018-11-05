@@ -1,13 +1,11 @@
 package com.blackey.invest.component.domain;
 
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.blackey.mybatis.model.BaseModel;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * 投资人评价信息
@@ -22,11 +20,6 @@ public class DiagEvaluateInfo extends BaseModel<DiagEvaluateInfo> implements Ser
 
     private static final long serialVersionUID = 1L;
 
-	/**
-	 * 主键id
-	 */
-	@TableId
-	private Long id;
 	/**
 	 * 投资人评价编号
 	 */
@@ -43,26 +36,6 @@ public class DiagEvaluateInfo extends BaseModel<DiagEvaluateInfo> implements Ser
 	 * 评价描述
 	 */
 	private String evaluateDesc;
-	/**
-	 * 逻辑删除
-	 */
-	private Integer isDeleted;
-	/**
-	 * 创建人
-	 */
-	private String createBy;
-	/**
-	 * 创建时间
-	 */
-	private Date createDate;
-	/**
-	 * 更新人
-	 */
-	private String updateBy;
-	/**
-	 * 更新时间
-	 */
-	private Date updateDate;
 
     @Override
     protected Serializable pkVal() {

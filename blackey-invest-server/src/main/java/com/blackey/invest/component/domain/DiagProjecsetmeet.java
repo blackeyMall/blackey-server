@@ -1,14 +1,12 @@
 package com.blackey.invest.component.domain;
 
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.blackey.mybatis.model.BaseModel;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.math.BigDecimal;
 import java.io.Serializable;
-import java.util.Date;
+import java.math.BigDecimal;
 
 /**
  * 项目套餐信息描述
@@ -23,11 +21,6 @@ public class DiagProjecsetmeet extends BaseModel<DiagProjecsetmeet> implements S
 
     private static final long serialVersionUID = 1L;
 
-	/**
-	 * 主键id
-	 */
-	@TableId
-	private Long id;
 	/**
 	 * 项目套餐编号
 	 */
@@ -44,26 +37,6 @@ public class DiagProjecsetmeet extends BaseModel<DiagProjecsetmeet> implements S
 	 * 项目套餐描述
 	 */
 	private String setmeetDesc;
-	/**
-	 * 逻辑删除
-	 */
-	private Integer isDeleted;
-	/**
-	 * 创建人
-	 */
-	private String createBy;
-	/**
-	 * 创建时间
-	 */
-	private Date createDate;
-	/**
-	 * 更新人
-	 */
-	private String updateBy;
-	/**
-	 * 更新时间
-	 */
-	private Date updateDate;
 
     @Override
     protected Serializable pkVal() {

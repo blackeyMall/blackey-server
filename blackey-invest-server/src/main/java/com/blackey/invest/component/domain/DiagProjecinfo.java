@@ -23,11 +23,6 @@ public class DiagProjecinfo extends BaseModel<DiagProjecinfo> implements Seriali
     private static final long serialVersionUID = 1L;
 
 	/**
-	 * 主键id
-	 */
-	@TableId
-	private Long id;
-	/**
 	 * 项目编号
 	 */
 	private String projectNo;
@@ -67,26 +62,6 @@ public class DiagProjecinfo extends BaseModel<DiagProjecinfo> implements Seriali
 	 * 项目套餐编号
 	 */
 	private String setmeetNo;
-	/**
-	 * 逻辑删除
-	 */
-	private Integer isDeleted;
-	/**
-	 * 创建人
-	 */
-	private String createBy;
-	/**
-	 * 创建时间
-	 */
-	private Date createDate;
-	/**
-	 * 更新人
-	 */
-	private String updateBy;
-	/**
-	 * 更新时间
-	 */
-	private Date updateDate;
 
     @Override
     protected Serializable pkVal() {
