@@ -55,6 +55,8 @@ public class FeedbackForm implements Serializable {
 	 * 
 	 */
     private String projectId;
+
+	private String picUrl;
 	/**
 	 * 
 	 */

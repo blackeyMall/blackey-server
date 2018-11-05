@@ -45,7 +45,7 @@
                         label="">
                 </el-table-column>
                             <el-table-column
-                        prop="updateBy"
+                        prop="updatedBy"
                         header-align="center"
                         align="center"
                         width="100"
@@ -149,13 +149,6 @@
                         width="100"
                         label="">
                 </el-table-column>
-                            <el-table-column
-                        prop="isDeleted"
-                        header-align="center"
-                        align="center"
-                        width="100"
-                        label="">
-                </el-table-column>
             
                                                 <el-table-column
                             fixed="right"
@@ -170,7 +163,7 @@
                                        @click="deleteHandle(scope.row.id)">删除</el-button>
                         </template>
                     </el-table-column>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
         </el-table>
         <el-pagination
                 @size-change="sizeChangeHandle"
@@ -285,7 +278,7 @@
                         })
                     }).catch(() => {})
                 }
-                                                                                                                                                                                                                                                                                                                                                                                            
+                                                                                                                                                                                                                                                                                                                                                                        
         }
     }
 </script>

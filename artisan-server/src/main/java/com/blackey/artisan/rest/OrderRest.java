@@ -20,10 +20,10 @@ import java.util.Map;
  *  API REST
  *
  * @author kavenW
- * @date 2018-11-04 12:10:24
+ * @date 2018-11-04 21:12:24
  */
 @RestController
-@RequestMapping("artisan/order")
+@RequestMapping("/artisan/order")
 public class OrderRest extends BaseRest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderRest.class);

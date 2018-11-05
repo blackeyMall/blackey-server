@@ -1,16 +1,22 @@
 package com.blackey.artisan.component.domain;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.blackey.mybatis.model.BaseModel;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 
  *
  * @author kavenW
- * @date 2018-11-04 12:10:24
+ * @date 2018-11-04 21:12:23
  */
+@Getter
+@Setter
 @TableName("material")
 public class Material extends BaseModel<Material> implements Serializable {
 
@@ -19,84 +25,23 @@ public class Material extends BaseModel<Material> implements Serializable {
 	/**
 	 * 
 	 */
-	private String mName;
+	private String name;
 	/**
 	 * 
 	 */
-	private String mPicUrl;
+	private String picUrl;
 	/**
 	 * 
 	 */
-	private Integer mDesc;
+	private String desc;
 	/**
 	 * 
 	 */
-	private Integer mNum;
+	private Integer num;
 	/**
 	 * 
 	 */
-	private Integer projectId;
-
-	/**
-	 * set：
-	 */
-	public void setMName(String mName) {
-		this.mName = mName;
-	}
-	/**
-	 * get：
-	 */
-	public String getMName() {
-		return mName;
-	}
-	/**
-	 * set：
-	 */
-	public void setMPicUrl(String mPicUrl) {
-		this.mPicUrl = mPicUrl;
-	}
-	/**
-	 * get：
-	 */
-	public String getMPicUrl() {
-		return mPicUrl;
-	}
-	/**
-	 * set：
-	 */
-	public void setMDesc(Integer mDesc) {
-		this.mDesc = mDesc;
-	}
-	/**
-	 * get：
-	 */
-	public Integer getMDesc() {
-		return mDesc;
-	}
-	/**
-	 * set：
-	 */
-	public void setMNum(Integer mNum) {
-		this.mNum = mNum;
-	}
-	/**
-	 * get：
-	 */
-	public Integer getMNum() {
-		return mNum;
-	}
-	/**
-	 * set：
-	 */
-	public void setProjectId(Integer projectId) {
-		this.projectId = projectId;
-	}
-	/**
-	 * get：
-	 */
-	public Integer getProjectId() {
-		return projectId;
-	}
+	private String projectId;
 
     @Override
     protected Serializable pkVal() {

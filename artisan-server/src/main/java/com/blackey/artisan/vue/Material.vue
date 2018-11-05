@@ -52,7 +52,7 @@
                         label="">
                 </el-table-column>
                             <el-table-column
-                        prop="updateBy"
+                        prop="updatedBy"
                         header-align="center"
                         align="center"
                         width="100"
@@ -66,28 +66,28 @@
                         label="">
                 </el-table-column>
                             <el-table-column
-                        prop="mName"
+                        prop="name"
                         header-align="center"
                         align="center"
                         width="100"
                         label="">
                 </el-table-column>
                             <el-table-column
-                        prop="mPicUrl"
+                        prop="picUrl"
                         header-align="center"
                         align="center"
                         width="100"
                         label="">
                 </el-table-column>
                             <el-table-column
-                        prop="mDesc"
+                        prop="desc"
                         header-align="center"
                         align="center"
                         width="100"
                         label="">
                 </el-table-column>
                             <el-table-column
-                        prop="mNum"
+                        prop="num"
                         header-align="center"
                         align="center"
                         width="100"

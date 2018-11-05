@@ -52,7 +52,7 @@
                         label="">
                 </el-table-column>
                             <el-table-column
-                        prop="updateBy"
+                        prop="updatedBy"
                         header-align="center"
                         align="center"
                         width="100"

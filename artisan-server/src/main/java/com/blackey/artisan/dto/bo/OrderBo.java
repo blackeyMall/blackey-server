@@ -1,5 +1,9 @@
 package com.blackey.artisan.dto.bo;
 
+import com.blackey.artisan.global.constants.OrderStatus;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -7,8 +11,10 @@ import java.util.Date;
  *  BO
  * 
  * @author kavenW
- * @date 2018-11-04 12:10:24
+ * @date 2018-11-04 21:12:24
  */
+@Getter
+@Setter
 public class OrderBo implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -32,7 +38,7 @@ public class OrderBo implements Serializable {
 	/**
 	 * 
 	 */
-    private String updateBy;
+    private String updatedBy;
 	/**
 	 * 
 	 */
@@ -48,114 +54,7 @@ public class OrderBo implements Serializable {
 	/**
 	 * 
 	 */
-    private Integer projectId;
+    private String projectId;
 
-	/**
-	 * set：
-	 */
-	public void setId(String id) {
-		this.id = id;
-	}
-	/**
-	 * get：
-	 */
-	public String getId() {
-		return id;
-	}
-	/**
-	 * set：
-	 */
-	public void setIsDeleted(Integer isDeleted) {
-		this.isDeleted = isDeleted;
-	}
-	/**
-	 * get：
-	 */
-	public Integer getIsDeleted() {
-		return isDeleted;
-	}
-	/**
-	 * set：
-	 */
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
-	/**
-	 * get：
-	 */
-	public String getCreatedBy() {
-		return createdBy;
-	}
-	/**
-	 * set：
-	 */
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
-	/**
-	 * get：
-	 */
-	public Date getCreatedDate() {
-		return createdDate;
-	}
-	/**
-	 * set：
-	 */
-	public void setUpdateBy(String updateBy) {
-		this.updateBy = updateBy;
-	}
-	/**
-	 * get：
-	 */
-	public String getUpdateBy() {
-		return updateBy;
-	}
-	/**
-	 * set：
-	 */
-	public void setUpdatedDate(Date updatedDate) {
-		this.updatedDate = updatedDate;
-	}
-	/**
-	 * get：
-	 */
-	public Date getUpdatedDate() {
-		return updatedDate;
-	}
-	/**
-	 * set：
-	 */
-	public void setOrderNo(String orderNo) {
-		this.orderNo = orderNo;
-	}
-	/**
-	 * get：
-	 */
-	public String getOrderNo() {
-		return orderNo;
-	}
-	/**
-	 * set：
-	 */
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-	/**
-	 * get：
-	 */
-	public String getUserId() {
-		return userId;
-	}
-	/**
-	 * set：
-	 */
-	public void setProjectId(Integer projectId) {
-		this.projectId = projectId;
-	}
-	/**
-	 * get：
-	 */
-	public Integer getProjectId() {
-		return projectId;
-	}
+    private OrderStatus status;
 }

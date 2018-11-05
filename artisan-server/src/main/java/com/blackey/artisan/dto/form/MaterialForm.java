@@ -1,5 +1,8 @@
 package com.blackey.artisan.dto.form;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -7,8 +10,10 @@ import java.util.Date;
  *  Form表单
  * 
  * @author kavenW
- * @date 2018-11-04 12:10:24
+ * @date 2018-11-04 21:12:23
  */
+@Getter
+@Setter
 public class MaterialForm implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -32,7 +37,7 @@ public class MaterialForm implements Serializable {
 	/**
 	 * 
 	 */
-    private String updateBy;
+    private String updatedBy;
 	/**
 	 * 
 	 */
@@ -40,154 +45,22 @@ public class MaterialForm implements Serializable {
 	/**
 	 * 
 	 */
-    private String mName;
+    private String name;
 	/**
 	 * 
 	 */
-    private String mPicUrl;
+    private String picUrl;
 	/**
 	 * 
 	 */
-    private Integer mDesc;
+    private String desc;
 	/**
 	 * 
 	 */
-    private Integer mNum;
+    private Integer num;
 	/**
 	 * 
 	 */
-    private Integer projectId;
+    private String projectId;
 
-	/**
-	 * set：
-	 */
-	public void setId(String id) {
-		this.id = id;
-	}
-	/**
-	 * get：
-	 */
-	public String getId() {
-		return id;
-	}
-	/**
-	 * set：
-	 */
-	public void setIsDeleted(Integer isDeleted) {
-		this.isDeleted = isDeleted;
-	}
-	/**
-	 * get：
-	 */
-	public Integer getIsDeleted() {
-		return isDeleted;
-	}
-	/**
-	 * set：
-	 */
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
-	/**
-	 * get：
-	 */
-	public String getCreatedBy() {
-		return createdBy;
-	}
-	/**
-	 * set：
-	 */
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
-	/**
-	 * get：
-	 */
-	public Date getCreatedDate() {
-		return createdDate;
-	}
-	/**
-	 * set：
-	 */
-	public void setUpdateBy(String updateBy) {
-		this.updateBy = updateBy;
-	}
-	/**
-	 * get：
-	 */
-	public String getUpdateBy() {
-		return updateBy;
-	}
-	/**
-	 * set：
-	 */
-	public void setUpdatedDate(Date updatedDate) {
-		this.updatedDate = updatedDate;
-	}
-	/**
-	 * get：
-	 */
-	public Date getUpdatedDate() {
-		return updatedDate;
-	}
-	/**
-	 * set：
-	 */
-	public void setMName(String mName) {
-		this.mName = mName;
-	}
-	/**
-	 * get：
-	 */
-	public String getMName() {
-		return mName;
-	}
-	/**
-	 * set：
-	 */
-	public void setMPicUrl(String mPicUrl) {
-		this.mPicUrl = mPicUrl;
-	}
-	/**
-	 * get：
-	 */
-	public String getMPicUrl() {
-		return mPicUrl;
-	}
-	/**
-	 * set：
-	 */
-	public void setMDesc(Integer mDesc) {
-		this.mDesc = mDesc;
-	}
-	/**
-	 * get：
-	 */
-	public Integer getMDesc() {
-		return mDesc;
-	}
-	/**
-	 * set：
-	 */
-	public void setMNum(Integer mNum) {
-		this.mNum = mNum;
-	}
-	/**
-	 * get：
-	 */
-	public Integer getMNum() {
-		return mNum;
-	}
-	/**
-	 * set：
-	 */
-	public void setProjectId(Integer projectId) {
-		this.projectId = projectId;
-	}
-	/**
-	 * get：
-	 */
-	public Integer getProjectId() {
-		return projectId;
-	}
 }

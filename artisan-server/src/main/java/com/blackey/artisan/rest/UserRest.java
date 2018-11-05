@@ -1,6 +1,7 @@
 package com.blackey.artisan.rest;
 
 import com.blackey.common.rest.BaseRest;
+import me.chanjar.weixin.common.error.WxErrorException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -14,16 +15,17 @@ import com.blackey.artisan.component.service.UserService;
 import com.blackey.common.result.Result;
 import com.blackey.mybatis.utils.PageUtils;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
  *  API REST
  *
  * @author kavenW
- * @date 2018-11-04 12:10:24
+ * @date 2018-11-04 21:12:23
  */
 @RestController
-@RequestMapping("artisan/user")
+@RequestMapping("/artisan/user")
 public class UserRest extends BaseRest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserRest.class);
@@ -84,9 +86,7 @@ public class UserRest extends BaseRest {
      */
     @PostMapping("/update")
     public Result update(@RequestBody User user){
-
-        userService.updateById(user);//全部更新
-        
+        userService.updateById(user);
         return success();
     }
 
@@ -99,6 +99,25 @@ public class UserRest extends BaseRest {
         userService.removeById(id);
 
         return success();
+    }
+
+
+
+    @RequestMapping("/save")
+    @PostMapping
+    public Result save(HttpServletRequest request, @RequestParam String encryptData, @RequestParam String vi){
+        userService.saveWxUserForm(request,encryptData,vi);
+        return success();
+    }
+
+    @RequestMapping("/login")
+    @PostMapping
+    public Result login(@ModelAttribute WxUserInfoForm form, HttpServletRequest request){
+        try {
+            return success(userService.login(request,form));
+        } catch (WxErrorException e){
+            return failure(e.getMessage());
+        }
     }
 
 }

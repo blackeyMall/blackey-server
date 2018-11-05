@@ -8,7 +8,7 @@ import com.blackey.mybatis.dao.BaseDAO;
  *  MaterialMapper
  * 
  * @author kavenW
- * @date 2018-11-04 12:10:24
+ * @date 2018-11-04 21:12:23
  */
 
 public interface MaterialMapper extends BaseDAO<Material> {

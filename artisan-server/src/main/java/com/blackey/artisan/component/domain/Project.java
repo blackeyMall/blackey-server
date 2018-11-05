@@ -3,6 +3,8 @@ package com.blackey.artisan.component.domain;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.blackey.mybatis.model.BaseModel;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -11,8 +13,10 @@ import java.util.Date;
  * 
  *
  * @author kavenW
- * @date 2018-11-04 12:10:24
+ * @date 2018-11-04 21:12:24
  */
+@Getter
+@Setter
 @TableName("project")
 public class Project extends BaseModel<Project> implements Serializable {
 
@@ -21,52 +25,15 @@ public class Project extends BaseModel<Project> implements Serializable {
 	/**
 	 * 
 	 */
-	private String pName;
+	private String name;
 	/**
 	 * 
 	 */
-	private String pPicUrl;
+	private String picUrl;
 	/**
 	 * 
 	 */
-	private Integer pDesc;
-
-	/**
-	 * set：
-	 */
-	public void setPName(String pName) {
-		this.pName = pName;
-	}
-	/**
-	 * get：
-	 */
-	public String getPName() {
-		return pName;
-	}
-	/**
-	 * set：
-	 */
-	public void setPPicUrl(String pPicUrl) {
-		this.pPicUrl = pPicUrl;
-	}
-	/**
-	 * get：
-	 */
-	public String getPPicUrl() {
-		return pPicUrl;
-	}
-	/**
-	 * set：
-	 */
-	public void setPDesc(Integer pDesc) {
-		this.pDesc = pDesc;
-	}
-	/**
-	 * get：
-	 */
-	public Integer getPDesc() {
-		return pDesc;
-	}
+	private String desc;
 
     @Override
     protected Serializable pkVal() {

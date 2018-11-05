@@ -20,7 +20,7 @@ import java.util.Map;
  *  API REST
  *
  * @author kavenW
- * @date 2018-11-04 12:10:24
+ * @date 2018-11-04 21:12:24
  */
 @RestController
 @RequestMapping("/artisan/project")
@@ -67,7 +67,7 @@ public class ProjectRest extends BaseRest {
     /**
      * 保存
      */
-    @PostMapping("/save")
+    @RequestMapping("/save")
     public Result save(@RequestBody ProjectForm projectForm){
 
         Project project = new Project();
@@ -84,8 +84,7 @@ public class ProjectRest extends BaseRest {
      */
     @PostMapping("/update")
     public Result update(@RequestBody Project project){
-
-        projectService.updateById(project);//全部更新
+        projectService.updateById(project);
         
         return success();
     }
