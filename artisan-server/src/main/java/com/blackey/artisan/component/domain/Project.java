@@ -33,7 +33,7 @@ public class Project extends BaseModel<Project> implements Serializable {
 	/**
 	 * 
 	 */
-	private String desc;
+	private String proDesc;
 
     @Override
     protected Serializable pkVal() {

@@ -47,19 +47,13 @@ public class FeedbackForm implements Serializable {
 	 * 
 	 */
     private String content;
-	/**
-	 * 
-	 */
-    private String userId;
-	/**
-	 * 
-	 */
+
+    private String openId;
+
     private String projectId;
 
 	private String picUrl;
-	/**
-	 * 
-	 */
+
     private FeedBackStatus feedBackType;
 
 }

@@ -23,14 +23,7 @@ public class Order extends BaseModel<Order> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-	/**
-	 * 
-	 */
 	private String orderNo;
-	/**
-	 * 
-	 */
-	private String userId;
 
 	private String projectId;
 
@@ -42,6 +35,7 @@ public class Order extends BaseModel<Order> implements Serializable {
 
 	private String serviceNo;
 
+	private String openId;
 
     @Override
     protected Serializable pkVal() {

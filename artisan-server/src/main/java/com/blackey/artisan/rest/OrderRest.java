@@ -1,5 +1,6 @@
 package com.blackey.artisan.rest;
 
+import com.blackey.artisan.dto.bo.OrderInfoBo;
 import com.blackey.common.rest.BaseRest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,7 @@ import com.blackey.artisan.component.service.OrderService;
 import com.blackey.common.result.Result;
 import com.blackey.mybatis.utils.PageUtils;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -26,8 +28,6 @@ import java.util.Map;
 @RequestMapping("/artisan/order")
 public class OrderRest extends BaseRest {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(OrderRest.class);
-
     @Autowired
     private OrderService orderService;
 
@@ -39,7 +39,6 @@ public class OrderRest extends BaseRest {
     @RequiresPermissions("artisan:order:list")
     public Result list(@RequestParam Map<String, Object> params){
         PageUtils page = orderService.queryPage(params);
-
         return success(page);
     }
 
@@ -84,7 +83,7 @@ public class OrderRest extends BaseRest {
     @PostMapping("/update")
     public Result update(@RequestBody Order order){
 
-        orderService.updateById(order);//全部更新
+        orderService.updateById(order);
         
         return success();
     }
@@ -96,8 +95,11 @@ public class OrderRest extends BaseRest {
     public Result delete(@PathVariable("id") String id){
 
         orderService.removeById(id);
-
         return success();
     }
 
+    @GetMapping("/main/order")
+    public List<OrderInfoBo> listOrderInfo(OrderForm form){
+        return orderService.getMainPageOrderList(form);
+    }
 }

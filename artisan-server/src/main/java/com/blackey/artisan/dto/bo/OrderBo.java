@@ -20,15 +20,15 @@ public class OrderBo implements Serializable {
     private static final long serialVersionUID = 1L;
 
 	/**
-	 * 
+	 *
 	 */
     private String id;
 	/**
-	 * 
+	 *
 	 */
     private Integer isDeleted;
 	/**
-	 * 
+	 *
 	 */
     private String createdBy;
 	/**
@@ -56,7 +56,5 @@ public class OrderBo implements Serializable {
 	 */
     private String projectId;
 
-    private OrderStatus orderStatus;
-
-	private String serviceNo;
+    private OrderStatus OrderStatus;
 }

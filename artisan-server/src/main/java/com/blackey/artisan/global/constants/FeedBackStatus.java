@@ -1,6 +1,7 @@
 package com.blackey.artisan.global.constants;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Getter;
 
 /**
  * 反馈
@@ -9,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
  * @date 2018/11/5
  */
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
+@Getter
 public enum FeedBackStatus {
 
     /**
