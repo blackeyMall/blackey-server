@@ -1,6 +1,8 @@
 package com.blackey.invest.rest;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.blackey.common.rest.BaseRest;
+import com.blackey.invest.dto.bo.DiagProjecsetmeetBo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -14,6 +16,7 @@ import com.blackey.invest.component.service.DiagProjecsetmeetService;
 import com.blackey.common.result.Result;
 import com.blackey.mybatis.utils.PageUtils;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -47,9 +50,13 @@ public class DiagProjecsetmeetRest extends BaseRest {
      * 列表
      */
     @PostMapping("/list")
-    public Result list(@RequestBody DiagProjecsetmeetForm diagProjecsetmeetForm){
-        //TODO
-        return success();
+    public Result list(@RequestBody DiagProjecsetmeetForm form){
+
+        DiagProjecsetmeet model = new DiagProjecsetmeet();
+        BeanUtils.copyProperties(model,form);
+        List<DiagProjecsetmeet> projecsetmeets = diagProjecsetmeetService.list(new QueryWrapper<>(model));
+
+        return success(projecsetmeets);
     }
 
 
@@ -61,7 +68,10 @@ public class DiagProjecsetmeetRest extends BaseRest {
 
         DiagProjecsetmeet diagProjecsetmeet = diagProjecsetmeetService.getById(id);
 
-        return success(diagProjecsetmeet);
+        DiagProjecsetmeetBo bo = new DiagProjecsetmeetBo();
+        BeanUtils.copyProperties(bo,diagProjecsetmeet);
+
+        return success(bo);
     }
 
     /**
