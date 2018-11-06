@@ -21,30 +21,6 @@ public class ProjectForm implements Serializable {
 	/**
 	 * 
 	 */
-    private String id;
-	/**
-	 * 
-	 */
-    private Integer isDeleted;
-	/**
-	 * 
-	 */
-    private String createdBy;
-	/**
-	 * 
-	 */
-    private Date createdDate;
-	/**
-	 * 
-	 */
-    private String updatedBy;
-	/**
-	 * 
-	 */
-    private Date updatedDate;
-	/**
-	 * 
-	 */
     private String name;
 	/**
 	 * 

@@ -14,6 +14,7 @@ import com.blackey.artisan.dto.form.UserForm;
 import com.blackey.artisan.component.service.UserService;
 import com.blackey.common.result.Result;
 import com.blackey.mybatis.utils.PageUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
@@ -103,7 +104,7 @@ public class UserRest extends BaseRest {
 
 
 
-    @RequestMapping("/save")
+    @RequestMapping("/wx/save")
     @PostMapping
     public Result save(HttpServletRequest request, @RequestParam String encryptData, @RequestParam String vi){
         userService.saveWxUserForm(request,encryptData,vi);
@@ -112,7 +113,7 @@ public class UserRest extends BaseRest {
 
     @RequestMapping("/login")
     @PostMapping
-    public Result login(@ModelAttribute WxUserInfoForm form, HttpServletRequest request){
+    public Result login(@ModelAttribute UserForm form, HttpServletRequest request){
         try {
             return success(userService.login(request,form));
         } catch (WxErrorException e){

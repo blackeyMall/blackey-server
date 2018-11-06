@@ -1,5 +1,6 @@
 package com.blackey.artisan.rest;
 
+import com.blackey.artisan.component.service.FileUploadService;
 import com.blackey.common.rest.BaseRest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +14,11 @@ import com.blackey.artisan.dto.form.ProjectForm;
 import com.blackey.artisan.component.service.ProjectService;
 import com.blackey.common.result.Result;
 import com.blackey.mybatis.utils.PageUtils;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
@@ -31,6 +36,11 @@ public class ProjectRest extends BaseRest {
     @Autowired
     private ProjectService projectService;
 
+    @Resource
+    FileUploadService fileUploadService;
+
+    @Resource
+    HttpServletRequest request;
 
     /**
     * 分页列表
@@ -68,8 +78,10 @@ public class ProjectRest extends BaseRest {
      * 保存
      */
     @RequestMapping("/save")
-    public Result save(@RequestBody ProjectForm projectForm){
-
+    public Result save(@RequestBody ProjectForm projectForm,@RequestParam MultipartFile file){
+        if ((file != null) && !file.isEmpty()) {
+            projectForm.setPicUrl(fileUploadService.uploadFile(request,file));
+        }
         Project project = new Project();
         //Form --> domain
         BeanUtils.copyProperties(projectForm,project);

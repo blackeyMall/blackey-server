@@ -18,7 +18,7 @@ import java.util.Date;
  */
 @Getter
 @Setter
-@TableName("order")
+@TableName("order_info")
 public class Order extends BaseModel<Order> implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -34,11 +34,13 @@ public class Order extends BaseModel<Order> implements Serializable {
 
 	private String projectId;
 
-	private OrderStatus status;
+	private OrderStatus orderStatus;
 
 	private int price;
 
 	private String remark;
+
+	private String serviceNo;
 
 
     @Override
