@@ -1,11 +1,14 @@
 package com.blackey.artisan.global.constants;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 /**
  * 反馈
  *
  * @author blackey
  * @date 2018/11/5
  */
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum FeedBackStatus {
 
     /**

@@ -60,7 +60,6 @@ public class OrderRest extends BaseRest {
     public Result info(@PathVariable("id") String id){
 
         Order order = orderService.getById(id);
-
         return success(order);
     }
 

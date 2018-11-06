@@ -57,4 +57,6 @@ public class OrderBo implements Serializable {
     private String projectId;
 
     private OrderStatus orderStatus;
+
+	private String serviceNo;
 }
