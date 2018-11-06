@@ -39,4 +39,5 @@ public class ServiceInfoForm implements Serializable {
 	 */
     private String name;
 
+	private String projectId;
 }

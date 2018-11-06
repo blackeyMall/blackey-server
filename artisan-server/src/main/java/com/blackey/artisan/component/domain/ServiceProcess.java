@@ -13,42 +13,57 @@ import java.util.Date;
  * 
  *
  * @author kavenW
- * @date 2018-11-06 13:45:21
+ * @date 2018-11-06 23:04:13
  */
 @Getter
 @Setter
-@TableName("service_info")
-public class ServiceInfo extends BaseModel<ServiceInfo> implements Serializable {
+@TableName("service_process")
+public class ServiceProcess extends BaseModel<ServiceProcess> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
 	/**
 	 * 
 	 */
-	private String serviceTime;
+	@TableId
+	private String id;
 	/**
 	 * 
 	 */
-	private String address;
+	private Integer isDeleted;
 	/**
 	 * 
 	 */
-	private String remark;
+	private String createdBy;
 	/**
 	 * 
 	 */
-	private String telephone;
+	private Date createdDate;
 	/**
 	 * 
 	 */
-	private String name;
-
+	private String updatedBy;
+	/**
+	 * 
+	 */
+	private Date updatedDate;
+	/**
+	 * 
+	 */
+	private String picUrl;
+	/**
+	 * 
+	 */
+	private String content;
+	/**
+	 * 
+	 */
 	private String projectId;
 
     @Override
     protected Serializable pkVal() {
         return this.getId();
     }
-                                            
+                                    
 
 }

@@ -33,7 +33,7 @@ public class Material extends BaseModel<Material> implements Serializable {
 	/**
 	 * 
 	 */
-	private String desc;
+	private String materialRemark;
 	/**
 	 * 
 	 */
