@@ -33,7 +33,6 @@ import java.util.Map;
 @Slf4j
 public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implements UserService {
 
-    @Resource
     WxMaService wxMaService;
 
     @Resource

@@ -8,9 +8,9 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import com.blackey.artisan.component.domain.Order;
-import com.blackey.artisan.dto.form.OrderForm;
-import com.blackey.artisan.component.service.OrderService;
+import com.blackey.artisan.component.domain.ServiceInfo;
+import com.blackey.artisan.dto.form.ServiceInfoForm;
+import com.blackey.artisan.component.service.ServiceInfoService;
 import com.blackey.common.result.Result;
 import com.blackey.mybatis.utils.PageUtils;
 
@@ -20,25 +20,25 @@ import java.util.Map;
  *  API REST
  *
  * @author kavenW
- * @date 2018-11-04 21:12:24
+ * @date 2018-11-06 13:45:21
  */
 @RestController
-@RequestMapping("/artisan/order")
-public class OrderRest extends BaseRest {
+@RequestMapping("/artisan/serviceinfo")
+public class ServiceInfoRest extends BaseRest {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(OrderRest.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ServiceInfoRest.class);
 
     @Autowired
-    private OrderService orderService;
+    private ServiceInfoService serviceInfoService;
 
 
     /**
     * 分页列表
     */
     @RequestMapping("/list/page")
-    @RequiresPermissions("artisan:order:list")
+    @RequiresPermissions("artisan:serviceinfo:list")
     public Result list(@RequestParam Map<String, Object> params){
-        PageUtils page = orderService.queryPage(params);
+        PageUtils page = serviceInfoService.queryPage(params);
 
         return success(page);
     }
@@ -47,7 +47,7 @@ public class OrderRest extends BaseRest {
      * 列表
      */
     @RequestMapping("/list")
-    public Result list(@RequestBody OrderForm orderForm){
+    public Result list(@RequestBody ServiceInfoForm serviceInfoForm){
         //TODO
         return success();
     }
@@ -59,21 +59,22 @@ public class OrderRest extends BaseRest {
     @RequestMapping("/info/{id}")
     public Result info(@PathVariable("id") String id){
 
-        Order order = orderService.getById(id);
-        return success(order);
+        ServiceInfo serviceInfo = serviceInfoService.getById(id);
+
+        return success(serviceInfo);
     }
 
     /**
      * 保存
      */
     @RequestMapping("/save")
-    public Result save(@RequestBody OrderForm orderForm){
+    public Result save(@RequestBody ServiceInfoForm serviceInfoForm){
 
-        Order order = new Order();
+        ServiceInfo serviceInfo = new ServiceInfo();
         //Form --> domain
-        BeanUtils.copyProperties(orderForm,order);
+        BeanUtils.copyProperties(serviceInfoForm,serviceInfo);
 
-        orderService.save(order);
+        serviceInfoService.save(serviceInfo);
 
         return success();
     }
@@ -82,9 +83,9 @@ public class OrderRest extends BaseRest {
      * 修改
      */
     @PostMapping("/update")
-    public Result update(@RequestBody Order order){
+    public Result update(@RequestBody ServiceInfo serviceInfo){
 
-        orderService.updateById(order);//全部更新
+        serviceInfoService.updateById(serviceInfo);//全部更新
         
         return success();
     }
@@ -95,7 +96,7 @@ public class OrderRest extends BaseRest {
     @RequestMapping("/delete/{id}")
     public Result delete(@PathVariable("id") String id){
 
-        orderService.removeById(id);
+        serviceInfoService.removeById(id);
 
         return success();
     }

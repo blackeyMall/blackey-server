@@ -1,11 +1,15 @@
 package com.blackey.artisan.global.constants;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 /**
  * 订单状态
  *
  * @author blackey
  * @date 2018/11/5
  */
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum  OrderStatus {
 
     /**

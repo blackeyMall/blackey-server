@@ -1,6 +1,5 @@
 package com.blackey.artisan.dto.form;
 
-import com.blackey.artisan.global.constants.OrderStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,11 +10,11 @@ import java.util.Date;
  *  Form表单
  * 
  * @author kavenW
- * @date 2018-11-04 21:12:24
+ * @date 2018-11-06 13:45:21
  */
 @Getter
 @Setter
-public class OrderForm implements Serializable {
+public class ServiceInfoForm implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -46,16 +45,22 @@ public class OrderForm implements Serializable {
 	/**
 	 * 
 	 */
-    private String orderNo;
+    private String serviceTime;
 	/**
 	 * 
 	 */
-    private String userId;
+    private String address;
 	/**
 	 * 
 	 */
-    private String projectId;
-
-    private OrderStatus orderStatus;
+    private String remark;
+	/**
+	 * 
+	 */
+    private String telephone;
+	/**
+	 * 
+	 */
+    private String name;
 
 }
