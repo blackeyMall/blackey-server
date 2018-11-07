@@ -69,6 +69,6 @@ logging:
     com.blackey.artisan.component.mapper: debug
 file:
   upload:
-    path: /opt/application/artisan
+    path: /opt/application/artisan/
 http:
   domain: https://www.ssqushe.com

@@ -1,5 +1,6 @@
 package com.blackey.artisan.dto.form;
 
+import com.blackey.artisan.global.constants.PicPositionStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,11 +11,11 @@ import java.util.Date;
  *  Form表单
  * 
  * @author kavenW
- * @date 2018-11-06 23:04:13
+ * @date 2018-11-07 09:50:15
  */
 @Getter
 @Setter
-public class ServiceProcessForm implements Serializable {
+public class AdvertisForm implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -25,23 +26,7 @@ public class ServiceProcessForm implements Serializable {
 	/**
 	 * 
 	 */
-    private Integer isDeleted;
-	/**
-	 * 
-	 */
-    private String createdBy;
-	/**
-	 * 
-	 */
-    private Date createdDate;
-	/**
-	 * 
-	 */
-    private String updatedBy;
-	/**
-	 * 
-	 */
-    private Date updatedDate;
+    private PicPositionStatus picPosition;
 	/**
 	 * 
 	 */
@@ -49,10 +34,14 @@ public class ServiceProcessForm implements Serializable {
 	/**
 	 * 
 	 */
-    private String content;
+    private Integer adsRemark;
 	/**
 	 * 
 	 */
-	private String orderId;
+    private String adsOrder;
+	/**
+	 * 
+	 */
+    private String redirectUrl;
 
 }

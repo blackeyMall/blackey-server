@@ -37,6 +37,8 @@ public class Order extends BaseModel<Order> implements Serializable {
 
 	private String openId;
 
+	private String materialId;
+
     @Override
     protected Serializable pkVal() {
         return this.getId();

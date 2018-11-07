@@ -12,5 +12,5 @@ import com.blackey.mybatis.dao.BaseDAO;
  */
 
 public interface ServiceProcessMapper extends BaseDAO<ServiceProcess> {
-	
+
 }

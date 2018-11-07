@@ -53,6 +53,6 @@ public class ServiceProcessBo implements Serializable {
 	/**
 	 * 
 	 */
-    private String projectId;
+	private String orderId;
 
 }

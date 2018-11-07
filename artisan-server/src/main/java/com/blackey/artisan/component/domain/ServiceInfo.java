@@ -43,8 +43,6 @@ public class ServiceInfo extends BaseModel<ServiceInfo> implements Serializable 
 	 */
 	private String name;
 
-	private String projectId;
-
     @Override
     protected Serializable pkVal() {
         return this.getId();

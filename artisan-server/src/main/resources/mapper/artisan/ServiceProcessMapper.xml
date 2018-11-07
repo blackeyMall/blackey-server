@@ -16,8 +16,4 @@
         <result property="projectId" column="project_id"/>
     </resultMap>
 
-    <select id="getByProIdAndOpenId" resultType="com.blackey.artisan.dto.bo.ServiceInfoBo">
-        SELECT * from service_process WHERE project_id = #{projectId}
-    </select>
-
 </mapper>

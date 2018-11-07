@@ -29,6 +29,8 @@ public class OrderForm implements Serializable {
 
     private OrderStatus orderStatus;
 
+	private String materialId;
+
 	/**
 	 * 服务
 	 */

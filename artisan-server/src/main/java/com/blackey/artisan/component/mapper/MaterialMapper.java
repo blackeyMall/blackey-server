@@ -1,6 +1,7 @@
 package com.blackey.artisan.component.mapper;
 
 import com.blackey.artisan.component.domain.Material;
+import com.blackey.artisan.dto.bo.MaterialBo;
 import com.blackey.mybatis.dao.BaseDAO;
 
 
@@ -12,5 +13,6 @@ import com.blackey.mybatis.dao.BaseDAO;
  */
 
 public interface MaterialMapper extends BaseDAO<Material> {
-	
+
+//    MaterialBo getByProId(String projectId);
 }
