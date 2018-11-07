@@ -10,42 +10,38 @@ import java.util.Date;
  *  BO
  * 
  * @author kavenW
- * @date 2018-11-04 21:12:23
+ * @date 2018-11-06 23:04:13
  */
 @Getter
 @Setter
-public class MaterialBo implements Serializable {
+public class ServiceProcessBo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
 	/**
-	 *
+	 * 
 	 */
     private String id;
 	/**
-	 *
+	 * 
 	 */
     private Integer isDeleted;
 	/**
-	 *
+	 * 
 	 */
     private String createdBy;
 	/**
-	 *
+	 * 
 	 */
     private Date createdDate;
 	/**
-	 *
+	 * 
 	 */
     private String updatedBy;
 	/**
-	 *
-	 */
-    private Date updatedDate;
-	/**
 	 * 
 	 */
-    private String name;
+    private Date updatedDate;
 	/**
 	 * 
 	 */
@@ -53,14 +49,10 @@ public class MaterialBo implements Serializable {
 	/**
 	 * 
 	 */
-    private String materialRemark;
+    private String content;
 	/**
 	 * 
 	 */
-    private Integer num;
-	/**
-	 * 
-	 */
-    private String projectId;
+	private String orderId;
 
 }

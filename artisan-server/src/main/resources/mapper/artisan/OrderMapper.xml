@@ -16,5 +16,36 @@
         <result property="projectId" column="project_id"/>
     </resultMap>
 
+    <select id="getMainPageOrderList" resultType="com.blackey.artisan.dto.bo.OrderInfoBo">
+		SELECT
+			o.id,
+					  o.created_date,
+					  o.price,
+					  o.order_no,
+					  o.order_status,
+					  o.project_id,
+					  o.service_no,
+					  p.`name` as project_name,
+					  p.pic_url,
+					  p.proDesc,
+					  s.address,
+					  s.`name` as service_user_name,
+					  s.remark,
+					  s.telephone,
+					  s.service_time
+				  FROM
+					  order_info o,
+					  project p,
+					  service_info s
+				  WHERE
+					  o.service_no = s.id
+					  AND p.id = o.project_id
+		<if test="openId != '' and openId != null">
+			and	o.open_id = #{openId}
+		</if>
+		<if test="orderStatus != '' and orderStatus != null">
+			and	o.order_status = #{orderStatus}
+		</if>
+	</select>
 
 </mapper>

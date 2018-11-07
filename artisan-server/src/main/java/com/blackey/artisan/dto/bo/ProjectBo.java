@@ -53,6 +53,6 @@ public class ProjectBo implements Serializable {
 	/**
 	 * 
 	 */
-    private String desc;
+    private String proDesc;
 
 }

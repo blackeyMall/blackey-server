@@ -1,10 +1,12 @@
 package com.blackey.artisan.component.service;
 
+import com.blackey.artisan.dto.bo.OrderInfoBo;
 import com.blackey.artisan.dto.form.OrderForm;
 import com.blackey.mybatis.service.BaseService;
 import com.blackey.mybatis.utils.PageUtils;
 import com.blackey.artisan.component.domain.Order;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -26,5 +28,12 @@ public interface OrderService extends BaseService<Order> {
      * 预约服务
      */
     void bookingService(OrderForm form);
+
+    /**
+     * 获取订单列表
+     */
+    List<OrderInfoBo> getMainPageOrderList(OrderForm form);
+
+
 }
 

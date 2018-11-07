@@ -2,6 +2,7 @@ package com.blackey.artisan.component.domain;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.blackey.artisan.global.constants.PicPositionStatus;
 import com.blackey.mybatis.model.BaseModel;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,19 +14,44 @@ import java.util.Date;
  * 
  *
  * @author kavenW
- * @date 2018-11-04 21:12:23
+ * @date 2018-11-07 09:50:15
  */
 @Getter
 @Setter
-@TableName("material")
-public class Material extends BaseModel<Material> implements Serializable {
+@TableName("advertis")
+public class Advertis extends BaseModel<Advertis> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
 	/**
 	 * 
 	 */
-	private String name;
+	@TableId
+	private String id;
+	/**
+	 * 
+	 */
+	private Integer isDeleted;
+	/**
+	 * 
+	 */
+	private String createdBy;
+	/**
+	 * 
+	 */
+	private Date createdDate;
+	/**
+	 * 
+	 */
+	private String updatedBy;
+	/**
+	 * 
+	 */
+	private Date updatedDate;
+	/**
+	 * 
+	 */
+	private PicPositionStatus picPosition;
 	/**
 	 * 
 	 */
@@ -33,15 +59,15 @@ public class Material extends BaseModel<Material> implements Serializable {
 	/**
 	 * 
 	 */
-	private String materialRemark;
+	private Integer adsRemark;
 	/**
 	 * 
 	 */
-	private Integer num;
+	private String adsOrder;
 	/**
 	 * 
 	 */
-	private String projectId;
+	private String redirectUrl;
 
     @Override
     protected Serializable pkVal() {

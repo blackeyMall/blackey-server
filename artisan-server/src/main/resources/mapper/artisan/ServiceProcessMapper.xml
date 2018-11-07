@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.blackey.artisan.component.mapper.MaterialMapper">
+<mapper namespace="com.blackey.artisan.component.mapper.ServiceProcessMapper">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="com.blackey.artisan.component.domain.Material" id="materialMap">
+    <resultMap type="com.blackey.artisan.component.domain.ServiceProcess" id="serviceProcessMap">
         <result property="id" column="id"/>
         <result property="isDeleted" column="is_deleted"/>
         <result property="createdBy" column="created_by"/>
         <result property="createdDate" column="created_date"/>
-        <result property="updateBy" column="update_by"/>
+        <result property="updatedBy" column="updated_by"/>
         <result property="updatedDate" column="updated_date"/>
-        <result property="mName" column="m_name"/>
-        <result property="mPicUrl" column="m_pic_url"/>
-        <result property="mDesc" column="m_desc"/>
-        <result property="mNum" column="m_num"/>
+        <result property="picUrl" column="pic_url"/>
+        <result property="content" column="content"/>
         <result property="projectId" column="project_id"/>
     </resultMap>
 

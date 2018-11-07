@@ -31,7 +31,7 @@ public class Feedback extends BaseModel<Feedback> implements Serializable {
 	/**
 	 * 
 	 */
-	private String userId;
+	private String openId;
 	/**
 	 * 
 	 */

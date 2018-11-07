@@ -53,7 +53,7 @@ public class MaterialForm implements Serializable {
 	/**
 	 * 
 	 */
-    private String desc;
+    private String materialRemark;
 	/**
 	 * 
 	 */

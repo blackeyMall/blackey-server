@@ -1,5 +1,6 @@
 package com.blackey.artisan.dto.bo;
 
+import com.blackey.artisan.global.constants.PicPositionStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,38 +11,34 @@ import java.util.Date;
  *  BO
  * 
  * @author kavenW
- * @date 2018-11-06 13:45:21
+ * @date 2018-11-07 09:50:15
  */
 @Getter
 @Setter
-public class ServiceInfoBo implements Serializable {
+public class AdvertisBo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-	/**
-	 * 
-	 */
-    private String id;
 
 	/**
 	 * 
 	 */
-    private String serviceTime;
+    private PicPositionStatus picPosition;
 	/**
 	 * 
 	 */
-    private String address;
+    private String picUrl;
 	/**
 	 * 
 	 */
-    private String remark;
+    private Integer adsRemark;
 	/**
 	 * 
 	 */
-    private String telephone;
+    private String adsOrder;
 	/**
 	 * 
 	 */
-    private String name;
+    private String redirectUrl;
 
 }

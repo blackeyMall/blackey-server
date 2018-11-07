@@ -1,7 +1,7 @@
 package com.blackey.artisan.global.constants;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Getter;
 
 /**
  * 订单状态
@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
  * @date 2018/11/5
  */
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
+@Getter
 public enum  OrderStatus {
 
     /**
@@ -28,4 +29,6 @@ public enum  OrderStatus {
         this.name = name;
         this.value = this.toString();
     }
+
+
 }

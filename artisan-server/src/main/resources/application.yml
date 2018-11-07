@@ -26,7 +26,7 @@ server:
 mybatis-plus:
   # config-location:
   # classpath:/mapper/*Mapper.xml
-  mapper-locations: classpath:mapper/*Mapper.xml
+  mapper-locations: classpath:mapper/artisan/*Mapper.xml
   # 实体扫描，多个package用逗号或者分号分隔
   type-aliases-package: com.blackey.artisan.*.domain
   configuration:
@@ -69,6 +69,6 @@ logging:
     com.blackey.artisan.component.mapper: debug
 file:
   upload:
-    path: /opt/application/artisan
+    path: /opt/application/artisan/
 http:
   domain: https://www.ssqushe.com

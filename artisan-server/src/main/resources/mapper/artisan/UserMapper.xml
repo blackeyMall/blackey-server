@@ -26,7 +26,7 @@
         <result property="isDeleted" column="is_deleted"/>
     </resultMap>
     
-    <select id="queryByOpenid" parameterType="String" resultType="userMap">
+    <select id="queryByOpenid" parameterType="String" resultType="User">
         SELECT * FROM USER u WHERE u.open_id = #{openId}
     </select>
 </mapper>

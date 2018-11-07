@@ -1,5 +1,6 @@
 package com.blackey.artisan.component.service.impl;
 
+import com.blackey.artisan.dto.bo.MaterialBo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import com.blackey.artisan.component.mapper.MaterialMapper;
 import com.blackey.artisan.component.domain.Material;
 import com.blackey.artisan.component.service.MaterialService;
 
+import javax.annotation.Resource;
 import java.util.Map;
 
 /**
@@ -26,6 +28,9 @@ public class MaterialServiceImpl extends BaseServiceImpl<MaterialMapper, Materia
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MaterialServiceImpl.class);
 
+    @Resource
+    private MaterialMapper materialMapper;
+
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
         Page<Material> page = (Page<Material>) this.page(
@@ -36,4 +41,9 @@ public class MaterialServiceImpl extends BaseServiceImpl<MaterialMapper, Materia
         return new PageUtils(page);
     }
 
+
+//    @Override
+//    public MaterialBo getByProId(String projectId) {
+//        return materialMapper.getByProId(projectId);
+//    }
 }
