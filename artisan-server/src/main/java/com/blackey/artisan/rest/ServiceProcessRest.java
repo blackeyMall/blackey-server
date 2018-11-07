@@ -73,9 +73,7 @@ public class ServiceProcessRest extends BaseRest {
         ServiceProcess serviceProcess = new ServiceProcess();
         //Form --> domain
         BeanUtils.copyProperties(serviceProcessForm,serviceProcess);
-
         serviceProcessService.save(serviceProcess);
-
         return success();
     }
 

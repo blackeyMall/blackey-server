@@ -2,8 +2,6 @@ package com.blackey.artisan.rest;
 
 import com.blackey.artisan.dto.bo.OrderInfoBo;
 import com.blackey.common.rest.BaseRest;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,15 +50,7 @@ public class OrderRest extends BaseRest {
     }
 
 
-    /**
-     * 查看详情信息
-     */
-    @RequestMapping("/info/{id}")
-    public Result info(@PathVariable("id") String id){
 
-        Order order = orderService.getById(id);
-        return success(order);
-    }
 
     /**
      * 保存
@@ -102,4 +92,22 @@ public class OrderRest extends BaseRest {
     public List<OrderInfoBo> listOrderInfo(OrderForm form){
         return orderService.getMainPageOrderList(form);
     }
+
+    @PostMapping("/booking")
+    public Result booking(OrderForm form){
+        orderService.bookingService(form);
+        return success();
+    }
+
+    @PostMapping("/confirm")
+    public Result confirm(@RequestBody OrderForm form){
+        orderService.confirmService(form);
+        return success();
+    }
+
+    @RequestMapping("/detail/{id}")
+    public Result info(@PathVariable("id") String id){
+        return success(orderService.detail(id));
+    }
+
 }

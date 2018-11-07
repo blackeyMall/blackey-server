@@ -35,5 +35,15 @@ public interface OrderService extends BaseService<Order> {
     List<OrderInfoBo> getMainPageOrderList(OrderForm form);
 
 
+    /**
+     * 确认订单
+     * @param form
+     */
+    void confirmService(OrderForm form);
+
+    /**
+     * 查询订单详情
+     */
+    OrderInfoBo detail(String orderId);
 }
 

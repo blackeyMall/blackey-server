@@ -1,5 +1,6 @@
-package com.blackey.artisan.dto.form;
+package com.blackey.artisan.dto.bo;
 
+import com.blackey.artisan.global.constants.PicTypeStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,21 +8,21 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- *  Form表单
+ *  BO
  * 
  * @author kavenW
- * @date 2018-11-04 21:12:24
+ * @date 2018-11-07 19:42:29
  */
 @Getter
 @Setter
-public class ProjectForm implements Serializable {
+public class PictureInfoBo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
 	/**
 	 * 
 	 */
-    private String name;
+    private PicTypeStatus picType;
 	/**
 	 * 
 	 */
@@ -30,5 +31,7 @@ public class ProjectForm implements Serializable {
 	 * 
 	 */
     private String proDesc;
+
+	private String objectId;
 
 }

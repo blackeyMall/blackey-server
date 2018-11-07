@@ -21,38 +21,12 @@ public class ServiceProcessForm implements Serializable {
 	/**
 	 * 
 	 */
-    private String id;
-	/**
-	 * 
-	 */
-    private Integer isDeleted;
-	/**
-	 * 
-	 */
-    private String createdBy;
-	/**
-	 * 
-	 */
-    private Date createdDate;
-	/**
-	 * 
-	 */
-    private String updatedBy;
-	/**
-	 * 
-	 */
-    private Date updatedDate;
-	/**
-	 * 
-	 */
-    private String picUrl;
-	/**
-	 * 
-	 */
     private String content;
 	/**
 	 * 
 	 */
 	private String orderId;
+
+
 
 }

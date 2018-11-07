@@ -2,6 +2,7 @@ package com.blackey.artisan.component.domain;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.blackey.artisan.global.constants.PicTypeStatus;
 import com.blackey.mybatis.model.BaseModel;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,12 +14,12 @@ import java.util.Date;
  * 
  *
  * @author kavenW
- * @date 2018-11-06 23:04:13
+ * @date 2018-11-07 19:42:29
  */
 @Getter
 @Setter
-@TableName("service_process")
-public class ServiceProcess extends BaseModel<ServiceProcess> implements Serializable {
+@TableName("picture_info")
+public class PictureInfo extends BaseModel<PictureInfo> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -26,11 +27,17 @@ public class ServiceProcess extends BaseModel<ServiceProcess> implements Seriali
 	/**
 	 * 
 	 */
-	private String content;
+	private String picType;
 	/**
 	 * 
 	 */
-	private String orderId;
+	private PicTypeStatus picUrl;
+	/**
+	 * 
+	 */
+	private String proDesc;
+
+	private String objectId;
 
     @Override
     protected Serializable pkVal() {

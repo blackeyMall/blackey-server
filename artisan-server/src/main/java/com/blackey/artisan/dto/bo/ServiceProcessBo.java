@@ -1,10 +1,12 @@
 package com.blackey.artisan.dto.bo;
 
+import com.blackey.artisan.component.domain.PictureInfo;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  *  BO
@@ -21,38 +23,12 @@ public class ServiceProcessBo implements Serializable {
 	/**
 	 * 
 	 */
-    private String id;
-	/**
-	 * 
-	 */
-    private Integer isDeleted;
-	/**
-	 * 
-	 */
-    private String createdBy;
-	/**
-	 * 
-	 */
-    private Date createdDate;
-	/**
-	 * 
-	 */
-    private String updatedBy;
-	/**
-	 * 
-	 */
-    private Date updatedDate;
-	/**
-	 * 
-	 */
-    private String picUrl;
-	/**
-	 * 
-	 */
     private String content;
 	/**
 	 * 
 	 */
 	private String orderId;
 
+
+	private List<String> pics;
 }

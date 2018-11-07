@@ -38,10 +38,7 @@ public class Material extends BaseModel<Material> implements Serializable {
 	 * 
 	 */
 	private Integer num;
-	/**
-	 * 
-	 */
-	private String projectId;
+
 
     @Override
     protected Serializable pkVal() {

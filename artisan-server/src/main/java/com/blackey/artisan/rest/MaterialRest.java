@@ -1,5 +1,7 @@
 package com.blackey.artisan.rest;
 
+import com.blackey.artisan.component.domain.Order;
+import com.blackey.artisan.component.service.OrderService;
 import com.blackey.common.rest.BaseRest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +32,9 @@ public class MaterialRest extends BaseRest {
 
     @Autowired
     private MaterialService materialService;
+
+    @Autowired
+    private OrderService orderService;
 
 
     /**
@@ -73,9 +78,11 @@ public class MaterialRest extends BaseRest {
         Material material = new Material();
         //Form --> domain
         BeanUtils.copyProperties(materialForm,material);
-
         materialService.save(material);
 
+        Order order = orderService.getById(materialForm.getOrderId());
+        order.setMaterialId(material.getId());
+        orderService.updateById(order);
         return success();
     }
 
@@ -86,7 +93,6 @@ public class MaterialRest extends BaseRest {
     public Result update(@RequestBody Material material){
 
         materialService.updateById(material);//全部更新
-        
         return success();
     }
 

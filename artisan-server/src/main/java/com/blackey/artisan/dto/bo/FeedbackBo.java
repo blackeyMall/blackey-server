@@ -54,7 +54,7 @@ public class FeedbackBo implements Serializable {
 	/**
 	 * 
 	 */
-    private String projectId;
+    private String orderId;
 
 	private String picUrl;
 	/**

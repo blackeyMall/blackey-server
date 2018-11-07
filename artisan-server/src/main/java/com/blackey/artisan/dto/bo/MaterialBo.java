@@ -58,9 +58,6 @@ public class MaterialBo implements Serializable {
 	 * 
 	 */
     private Integer num;
-	/**
-	 * 
-	 */
-    private String projectId;
+
 
 }

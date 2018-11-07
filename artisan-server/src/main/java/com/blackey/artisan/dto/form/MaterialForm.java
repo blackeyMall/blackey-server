@@ -25,26 +25,6 @@ public class MaterialForm implements Serializable {
 	/**
 	 * 
 	 */
-    private Integer isDeleted;
-	/**
-	 * 
-	 */
-    private String createdBy;
-	/**
-	 * 
-	 */
-    private Date createdDate;
-	/**
-	 * 
-	 */
-    private String updatedBy;
-	/**
-	 * 
-	 */
-    private Date updatedDate;
-	/**
-	 * 
-	 */
     private String name;
 	/**
 	 * 
@@ -58,9 +38,6 @@ public class MaterialForm implements Serializable {
 	 * 
 	 */
     private Integer num;
-	/**
-	 * 
-	 */
-    private String projectId;
 
+    private String orderId;
 }
