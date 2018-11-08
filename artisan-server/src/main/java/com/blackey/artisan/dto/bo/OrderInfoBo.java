@@ -29,6 +29,8 @@ public class OrderInfoBo {
 
     private int price;
 
+    private String name;
+
     private String projectName;
 
     private String picUrl;

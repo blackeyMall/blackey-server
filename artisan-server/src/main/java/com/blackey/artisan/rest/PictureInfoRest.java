@@ -1,6 +1,5 @@
 package com.blackey.artisan.rest;
 
-import com.blackey.artisan.component.service.FileUploadService;
 import com.blackey.common.rest.BaseRest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,41 +8,37 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import com.blackey.artisan.component.domain.Project;
-import com.blackey.artisan.dto.form.ProjectForm;
-import com.blackey.artisan.component.service.ProjectService;
+import com.blackey.artisan.component.domain.PictureInfo;
+import com.blackey.artisan.dto.form.PictureInfoForm;
+import com.blackey.artisan.component.service.PictureInfoService;
 import com.blackey.common.result.Result;
 import com.blackey.mybatis.utils.PageUtils;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
  *  API REST
  *
  * @author kavenW
- * @date 2018-11-04 21:12:24
+ * @date 2018-11-07 19:42:29
  */
 @RestController
-@RequestMapping("/artisan/project")
-public class ProjectRest extends BaseRest {
+@RequestMapping("/artisan/pictureinfo")
+public class PictureInfoRest extends BaseRest {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ProjectRest.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PictureInfoRest.class);
 
     @Autowired
-    private ProjectService projectService;
+    private PictureInfoService pictureInfoService;
 
 
     /**
     * 分页列表
     */
     @RequestMapping("/list/page")
-    @RequiresPermissions("artisan:project:list")
+    @RequiresPermissions("artisan:pictureinfo:list")
     public Result list(@RequestParam Map<String, Object> params){
-        PageUtils page = projectService.queryPage(params);
+        PageUtils page = pictureInfoService.queryPage(params);
 
         return success(page);
     }
@@ -52,7 +47,7 @@ public class ProjectRest extends BaseRest {
      * 列表
      */
     @RequestMapping("/list")
-    public Result list(@RequestBody ProjectForm projectForm){
+    public Result list(@RequestBody PictureInfoForm pictureInfoForm){
         //TODO
         return success();
     }
@@ -64,21 +59,22 @@ public class ProjectRest extends BaseRest {
     @RequestMapping("/info/{id}")
     public Result info(@PathVariable("id") String id){
 
-        Project project = projectService.getById(id);
+        PictureInfo pictureInfo = pictureInfoService.getById(id);
 
-        return success(project);
+        return success(pictureInfo);
     }
 
     /**
      * 保存
      */
     @RequestMapping("/save")
-    public Result save(@RequestBody ProjectForm projectForm){
-        Project project = new Project();
-        //Form --> domain
-        BeanUtils.copyProperties(projectForm,project);
+    public Result save(@RequestBody PictureInfoForm pictureInfoForm){
 
-        projectService.save(project);
+        PictureInfo pictureInfo = new PictureInfo();
+        //Form --> domain
+        BeanUtils.copyProperties(pictureInfoForm,pictureInfo);
+
+        pictureInfoService.save(pictureInfo);
 
         return success();
     }
@@ -87,8 +83,9 @@ public class ProjectRest extends BaseRest {
      * 修改
      */
     @PostMapping("/update")
-    public Result update(@RequestBody Project project){
-        projectService.updateById(project);
+    public Result update(@RequestBody PictureInfo pictureInfo){
+
+        pictureInfoService.updateById(pictureInfo);//全部更新
         
         return success();
     }
@@ -99,7 +96,7 @@ public class ProjectRest extends BaseRest {
     @RequestMapping("/delete/{id}")
     public Result delete(@PathVariable("id") String id){
 
-        projectService.removeById(id);
+        pictureInfoService.removeById(id);
 
         return success();
     }

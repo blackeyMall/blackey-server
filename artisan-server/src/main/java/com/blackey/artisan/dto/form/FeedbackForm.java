@@ -17,40 +17,11 @@ import java.util.Date;
 @Setter
 public class FeedbackForm implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
-	/**
-	 * 
-	 */
-    private String id;
-	/**
-	 * 
-	 */
-    private Integer isDeleted;
-	/**
-	 * 
-	 */
-    private String createdBy;
-	/**
-	 * 
-	 */
-    private Date createdDate;
-	/**
-	 * 
-	 */
-    private String updatedBy;
-	/**
-	 * 
-	 */
-    private Date updatedDate;
-	/**
-	 * 
-	 */
     private String content;
 
     private String openId;
 
-    private String projectId;
+    private String orderId;
 
 	private String picUrl;
 

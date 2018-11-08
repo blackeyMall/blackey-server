@@ -1,7 +1,13 @@
 package com.blackey.artisan.component.mapper;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.artisan.component.domain.ServiceProcess;
+import com.blackey.artisan.dto.bo.ServiceProcessBo;
 import com.blackey.mybatis.dao.BaseDAO;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 
 /**
@@ -13,4 +19,6 @@ import com.blackey.mybatis.dao.BaseDAO;
 
 public interface ServiceProcessMapper extends BaseDAO<ServiceProcess> {
 
+
+   List<ServiceProcessBo> queryBoByOrderId(@Param("orderId") String orderId, Page page);
 }

@@ -31,6 +31,8 @@ public class OrderForm implements Serializable {
 
 	private String materialId;
 
+	private int price;
+
 	/**
 	 * 服务
 	 */

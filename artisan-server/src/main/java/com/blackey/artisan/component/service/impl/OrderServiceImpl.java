@@ -63,6 +63,7 @@ public class OrderServiceImpl extends BaseServiceImpl<OrderMapper, Order> implem
 
     @Override
     public void bookingService(OrderForm form) {
+        //查询用户和项目
         User user = userService.getById(form.getUserId());
         Project project = projectService.getById(form.getProjectId());
 
@@ -82,6 +83,33 @@ public class OrderServiceImpl extends BaseServiceImpl<OrderMapper, Order> implem
 
     @Override
     public List<OrderInfoBo> getMainPageOrderList(OrderForm form) {
+
         return orderMapper.getMainPageOrderList(form);
+
+    }
+
+    @Override
+    public void confirmService(OrderForm form) {
+        ServiceInfo serviceInfo = new ServiceInfo();
+
+        serviceInfo.setId(this.getById(form.getId()).getServiceNo());
+        BeanUtils.copyProperties(form,serviceInfo);
+        serviceInfoService.updateById(serviceInfo);
+
+        Order order = new Order();
+        BeanUtils.copyProperties(form,order);
+        this.updateById(order);
+    }
+
+    @Override
+    public OrderInfoBo detail(String orderId) {
+        Order order = this.getById(orderId);
+        ServiceInfo serviceInfo = serviceInfoService.getById(order.getServiceNo());
+
+        OrderInfoBo orderInfoBo = new OrderInfoBo();
+        BeanUtils.copyProperties(order,orderInfoBo);
+        BeanUtils.copyProperties(serviceInfo,orderInfoBo);
+
+        return orderInfoBo;
     }
 }

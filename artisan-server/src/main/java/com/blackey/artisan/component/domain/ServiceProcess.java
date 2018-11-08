@@ -22,38 +22,7 @@ public class ServiceProcess extends BaseModel<ServiceProcess> implements Seriali
 
     private static final long serialVersionUID = 1L;
 
-	/**
-	 * 
-	 */
-	@TableId
-	private String id;
-	/**
-	 * 
-	 */
-	private Integer isDeleted;
-	/**
-	 * 
-	 */
-	private String createdBy;
-	/**
-	 * 
-	 */
-	private Date createdDate;
-	/**
-	 * 
-	 */
-	private String updatedBy;
-	/**
-	 * 
-	 */
-	private Date updatedDate;
-	/**
-	 * 
-	 */
-	private String picUrl;
-	/**
-	 * 
-	 */
+
 	private String content;
 	/**
 	 * 

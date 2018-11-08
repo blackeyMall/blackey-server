@@ -71,4 +71,4 @@ file:
   upload:
     path: /opt/application/artisan/
 http:
-  domain: https://www.ssqushe.com
+  domain: http://portal.chihei
