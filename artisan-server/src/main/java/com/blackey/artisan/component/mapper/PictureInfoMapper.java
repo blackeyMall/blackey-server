@@ -2,6 +2,9 @@ package com.blackey.artisan.component.mapper;
 
 import com.blackey.artisan.component.domain.PictureInfo;
 import com.blackey.mybatis.dao.BaseDAO;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 
 /**
@@ -12,5 +15,7 @@ import com.blackey.mybatis.dao.BaseDAO;
  */
 
 public interface PictureInfoMapper extends BaseDAO<PictureInfo> {
-	
+
+
+    List<String> queryPicList(@Param("objectId") String objectId);
 }

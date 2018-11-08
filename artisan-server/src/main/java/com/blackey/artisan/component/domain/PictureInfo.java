@@ -27,11 +27,11 @@ public class PictureInfo extends BaseModel<PictureInfo> implements Serializable 
 	/**
 	 * 
 	 */
-	private String picType;
+	private PicTypeStatus picType;
 	/**
 	 * 
 	 */
-	private PicTypeStatus picUrl;
+	private String picUrl;
 	/**
 	 * 
 	 */

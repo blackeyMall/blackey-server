@@ -20,17 +20,11 @@ public class PictureInfoForm implements Serializable {
     private static final long serialVersionUID = 1L;
 
 
-	/**
-	 * 
-	 */
+
     private PicTypeStatus picType;
-	/**
-	 * 
-	 */
+
     private String picUrl;
-	/**
-	 * 
-	 */
+
     private String proDesc;
 
 	private String objectId;

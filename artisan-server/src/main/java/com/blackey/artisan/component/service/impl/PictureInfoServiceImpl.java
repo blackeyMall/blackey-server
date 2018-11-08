@@ -13,6 +13,8 @@ import com.blackey.artisan.component.mapper.PictureInfoMapper;
 import com.blackey.artisan.component.domain.PictureInfo;
 import com.blackey.artisan.component.service.PictureInfoService;
 
+import javax.annotation.Resource;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -26,6 +28,10 @@ public class PictureInfoServiceImpl extends BaseServiceImpl<PictureInfoMapper, P
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PictureInfoServiceImpl.class);
 
+    @Resource
+    private PictureInfoMapper pictureInfoMapper;
+
+
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
         Page<PictureInfo> page = (Page<PictureInfo>) this.page(
@@ -36,4 +42,10 @@ public class PictureInfoServiceImpl extends BaseServiceImpl<PictureInfoMapper, P
         return new PageUtils(page);
     }
 
+
+    @Override
+    public List<String> queryPicList(String orderId) {
+
+        return pictureInfoMapper.queryPicList(orderId);
+    }
 }

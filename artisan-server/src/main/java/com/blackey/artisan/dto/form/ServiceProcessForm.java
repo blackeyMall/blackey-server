@@ -1,10 +1,14 @@
 package com.blackey.artisan.dto.form;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.blackey.artisan.global.constants.PicTypeStatus;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  *  Form表单
@@ -14,19 +18,17 @@ import java.util.Date;
  */
 @Getter
 @Setter
-public class ServiceProcessForm implements Serializable {
+public class ServiceProcessForm extends Page {
 
     private static final long serialVersionUID = 1L;
 
-	/**
-	 * 
-	 */
+
     private String content;
-	/**
-	 * 
-	 */
+
 	private String orderId;
 
+
+	private List<String> picUrls;
 
 
 }

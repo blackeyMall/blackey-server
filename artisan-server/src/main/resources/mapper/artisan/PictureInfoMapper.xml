@@ -3,7 +3,7 @@
 
 <mapper namespace="com.blackey.artisan.component.mapper.PictureInfoMapper">
 
-	<!-- 可根据自己的需求，是否要使用 -->
+    <!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="com.blackey.artisan.component.domain.PictureInfo" id="pictureInfoMap">
         <result property="id" column="id"/>
         <result property="isDeleted" column="is_deleted"/>
@@ -16,5 +16,8 @@
         <result property="proDesc" column="pro_desc"/>
     </resultMap>
 
+    <select id="queryPicList" resultType="String">
+        select p.pic_url from picture_info p where p.object_id = #{objectId}
+    </select>
 
 </mapper>

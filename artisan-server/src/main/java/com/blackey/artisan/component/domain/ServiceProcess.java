@@ -23,9 +23,6 @@ public class ServiceProcess extends BaseModel<ServiceProcess> implements Seriali
     private static final long serialVersionUID = 1L;
 
 
-	/**
-	 * 
-	 */
 	private String content;
 	/**
 	 * 

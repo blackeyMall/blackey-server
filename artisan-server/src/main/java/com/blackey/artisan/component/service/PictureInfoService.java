@@ -4,6 +4,7 @@ import com.blackey.mybatis.service.BaseService;
 import com.blackey.mybatis.utils.PageUtils;
 import com.blackey.artisan.component.domain.PictureInfo;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,5 +21,9 @@ public interface PictureInfoService extends BaseService<PictureInfo> {
     * @return
     */
     PageUtils queryPage(Map<String, Object> params);
+
+
+
+    List<String> queryPicList(String orderId);
 }
 
