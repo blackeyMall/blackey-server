@@ -23,31 +23,7 @@ public class Advertis extends BaseModel<Advertis> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-	/**
-	 * 
-	 */
-	@TableId
-	private String id;
-	/**
-	 * 
-	 */
-	private Integer isDeleted;
-	/**
-	 * 
-	 */
-	private String createdBy;
-	/**
-	 * 
-	 */
-	private Date createdDate;
-	/**
-	 * 
-	 */
-	private String updatedBy;
-	/**
-	 * 
-	 */
-	private Date updatedDate;
+
 	/**
 	 * 
 	 */
