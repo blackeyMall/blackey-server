@@ -72,3 +72,11 @@ file:
     path: /opt/application/artisan/
 http:
   domain: http://portal.chihei
+wx:
+  miniapp:
+    configs:
+      - appid: wxe8d9cc02ebb02721
+        secret: 5018e4c6d939ba3d40f9b821e600ee63
+        token:
+        aesKey:
+        msgDataFormat: JSON

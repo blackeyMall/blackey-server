@@ -1,23 +1,23 @@
 package com.blackey.artisan.component.service.impl;
 
-import cn.binarywang.wx.miniapp.api.WxMaService;
 import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.blackey.artisan.component.domain.User;
+import com.blackey.artisan.component.mapper.UserMapper;
+import com.blackey.artisan.component.service.UserService;
 import com.blackey.artisan.dto.form.UserForm;
+import com.blackey.artisan.global.config.WxMaConfiguration;
+import com.blackey.artisan.global.config.WxMaProperties;
 import com.blackey.common.utils.WXUtils;
+import com.blackey.mybatis.service.impl.BaseServiceImpl;
+import com.blackey.mybatis.utils.PageUtils;
+import com.blackey.mybatis.utils.Query;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.error.WxErrorException;
 import org.springframework.stereotype.Service;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.blackey.mybatis.service.impl.BaseServiceImpl;
-import com.blackey.mybatis.utils.PageUtils;
-import com.blackey.mybatis.utils.Query;
-
-import com.blackey.artisan.component.mapper.UserMapper;
-import com.blackey.artisan.component.domain.User;
-import com.blackey.artisan.component.service.UserService;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -33,7 +33,8 @@ import java.util.Map;
 @Slf4j
 public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implements UserService {
 
-    WxMaService wxMaService;
+    @Resource
+    WxMaProperties wxMaProperties;
 
     @Resource
     UserMapper userMapper;
@@ -53,7 +54,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
     @Override
     public WxMaJscode2SessionResult login(HttpServletRequest request, UserForm form) throws WxErrorException {
 
-        WxMaJscode2SessionResult result = this.wxMaService.getUserService().getSessionInfo(form.getCode());
+        WxMaJscode2SessionResult result = WxMaConfiguration.getMaServices().get(wxMaProperties.getConfigs().get(0).getAppid()).getUserService().getSessionInfo(form.getCode());
         String sessionKey = result.getSessionKey();
         Gson gson = new Gson();
         String resultStr = WXUtils.decryptWxUser(form.getEncrypData(),sessionKey,form.getIv());
