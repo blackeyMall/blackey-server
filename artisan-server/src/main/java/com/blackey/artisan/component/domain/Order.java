@@ -1,5 +1,6 @@
 package com.blackey.artisan.component.domain;
 
+import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.blackey.artisan.global.constants.OrderStatus;

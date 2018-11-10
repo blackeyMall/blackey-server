@@ -30,4 +30,6 @@ public class ServiceProcessBo implements Serializable {
 
 
 	private List<String> pics;
+
+	private Date createdDate;
 }

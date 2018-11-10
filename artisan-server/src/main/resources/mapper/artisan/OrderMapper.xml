@@ -43,6 +43,10 @@
 		<if test="form.openId != '' and form.openId != null">
 			and	o.open_id = #{form.openId}
 		</if>
+		<if test="form.orderStatus.value != '' and form.orderStatus.value != null and form.orderStatus.value != 'DEFAULT' ">
+			and	o.order_status = #{form.orderStatus.value}
+		</if>
+			order by o.created_date desc
 	</select>
 
 	<select id="getUserOrderCount" resultType="com.blackey.artisan.dto.bo.SumBo">

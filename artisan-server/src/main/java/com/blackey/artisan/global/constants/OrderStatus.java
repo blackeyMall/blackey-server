@@ -1,5 +1,6 @@
 package com.blackey.artisan.global.constants;
 
+import com.baomidou.mybatisplus.core.enums.IEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 
@@ -11,11 +12,12 @@ import lombok.Getter;
  */
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 @Getter
-public enum  OrderStatus {
+public enum  OrderStatus{
 
     /**
      * 订单状态
      */
+    DEFAULT("全部"),
     BOOK("预约中"),
     CONFIRM("确认中"),
     SERVICE("服务中"),

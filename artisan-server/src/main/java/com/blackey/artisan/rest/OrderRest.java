@@ -83,15 +83,15 @@ public class OrderRest extends BaseRest {
     @PostMapping("/main/order")
     public Result mainOrder(@RequestBody OrderForm form){
         form.setOrderStatus(OrderStatus.SERVICE);
-        Page<OrderInfoBo> page = new Page<>(form.getCurrent(),form.getSize());
+        Page<OrderInfoBo> page = new Page<>(1,5);
         page.setRecords(orderService.getMainPageOrderList(form,page));
         return success(page);
     }
 
     @PostMapping("/list")
     public Result orderList(@RequestBody OrderForm form){
-        Page<OrderBo> page = new Page<>(form.getCurrent(),form.getSize());
-        return success(orderService.getMainPageOrderList(form,page));
+        Page<OrderInfoBo> page = new Page<>(form.getCurrent(),form.getSize());
+        return success(page.setRecords(orderService.getMainPageOrderList(form,page)));
     }
 
     @PostMapping("/booking")
