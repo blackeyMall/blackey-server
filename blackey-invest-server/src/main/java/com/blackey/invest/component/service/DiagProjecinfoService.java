@@ -1,9 +1,13 @@
 package com.blackey.invest.component.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.blackey.invest.dto.bo.DiagProjecinfoBo;
 import com.blackey.mybatis.service.BaseService;
 import com.blackey.mybatis.utils.PageUtils;
 import com.blackey.invest.component.domain.DiagProjecinfo;
+import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,5 +24,7 @@ public interface DiagProjecinfoService extends BaseService<DiagProjecinfo> {
     * @return
     */
     PageUtils queryPage(Map<String, Object> params);
+
+    List<DiagProjecinfoBo> getProjectsPage(@Param("projectNo")String projectNo,Page page);
 }
 

@@ -1,6 +1,8 @@
 package com.blackey.invest.rest;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.common.rest.BaseRest;
+import com.blackey.invest.dto.bo.DiagProjecinfoBo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -14,6 +16,7 @@ import com.blackey.invest.component.service.DiagProjecinfoService;
 import com.blackey.common.result.Result;
 import com.blackey.mybatis.utils.PageUtils;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -62,6 +65,15 @@ public class DiagProjecinfoRest extends BaseRest {
     public Result info(@PathVariable("id") Long id){
 
         DiagProjecinfo diagProjecinfo = diagProjecinfoService.getById(id);
+
+        Page page = new Page(1,10);
+        List<DiagProjecinfoBo> projectsPage = diagProjecinfoService.getProjectsPage("001",page);
+
+        page.setRecords(projectsPage);
+
+
+
+        System.out.println(success(page).toString());
 
         return success(diagProjecinfo);
     }
