@@ -22,11 +22,11 @@ public interface MaterialService extends BaseService<Material> {
     */
     PageUtils queryPage(Map<String, Object> params);
 
-//    /**
-//     * 根据projectId 查询材料清单
-//     * @param projectId
-//     * @return
-//     */
-//    MaterialBo getByProId(String projectId);
+    /**
+     * orderId 查询材料清单
+     * @param orderId
+     * @return
+     */
+    MaterialBo getByOrderId(String orderId);
 }
 

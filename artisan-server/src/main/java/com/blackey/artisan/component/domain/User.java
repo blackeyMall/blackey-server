@@ -23,47 +23,40 @@ public class User extends BaseModel<User> implements Serializable {
     private static final long serialVersionUID = 1L;
 
 	/**
-	 * 
+	 *
 	 */
 	private String city;
 	/**
-	 * 
+	 *
 	 */
 	private String country;
 	/**
-	 * 
+	 *
 	 */
 	private Integer groupId;
 	/**
-	 * 
+	 *
 	 */
-	private String headImgUrl;
+	private String avatarUrl;
 	/**
-	 * 
+	 *
 	 */
 	private String language;
 	/**
-	 * 
-	 */
-	private String nickname;
-	/**
-	 * 
+	 *
 	 */
 	private String openId;
 	/**
-	 * 
+	 *
 	 */
 	private String province;
 	/**
-	 * 
+	 *
 	 */
 	private String remark;
+
 	/**
-	 * 
-	 */
-	private Integer sex;
-	/**
-	 * 
+	 *
 	 */
 	private String sexDesc;
 	/**
@@ -73,9 +66,18 @@ public class User extends BaseModel<User> implements Serializable {
 	/**
 	 * 
 	 */
-	private String unionId;
+	private String uniqueId;
 
-    @Override
+
+	private String nickName;
+
+	private String gender;
+
+	private String telephone;
+
+
+
+	@Override
     protected Serializable pkVal() {
         return this.getId();
     }

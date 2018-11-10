@@ -14,5 +14,5 @@ import com.blackey.mybatis.dao.BaseDAO;
 
 public interface MaterialMapper extends BaseDAO<Material> {
 
-//    MaterialBo getByProId(String projectId);
+    MaterialBo getByOrderId(String orderId);
 }

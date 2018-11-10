@@ -18,7 +18,6 @@ public enum  OrderStatus {
      */
     BOOK("预约中"),
     CONFIRM("确认中"),
-    CONFIRMED("已确认"),
     SERVICE("服务中"),
     DONE("已完成");
 

@@ -39,56 +39,56 @@ public class UserBo implements Serializable {
 	 */
     private Date updatedDate;
 	/**
-	 * 
+	 *
 	 */
-    private String city;
+	private String city;
 	/**
-	 * 
+	 *
 	 */
-    private String country;
+	private String country;
 	/**
-	 * 
+	 *
 	 */
-    private Integer groupId;
+	private Integer groupId;
 	/**
-	 * 
+	 *
 	 */
-    private String headImgUrl;
+	private String avatarUrl;
 	/**
-	 * 
+	 *
 	 */
-    private String language;
+	private String language;
 	/**
-	 * 
+	 *
 	 */
-    private String nickname;
+	private String openId;
 	/**
-	 * 
+	 *
 	 */
-    private String openId;
+	private String province;
 	/**
-	 * 
+	 *
 	 */
-    private String province;
+	private String remark;
+
 	/**
-	 * 
+	 *
 	 */
-    private String remark;
+	private String sexDesc;
 	/**
-	 * 
+	 *
 	 */
-    private Integer sex;
+	private Long subscribeTime;
 	/**
-	 * 
+	 *
 	 */
-    private String sexDesc;
-	/**
-	 * 
-	 */
-    private Long subscribeTime;
-	/**
-	 * 
-	 */
-    private String unionId;
+	private String uniqueId;
+
+
+	private String nickName;
+
+	private String gender;
+
+	private String telephone;
 
 }

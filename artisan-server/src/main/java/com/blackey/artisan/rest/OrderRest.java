@@ -1,6 +1,9 @@
 package com.blackey.artisan.rest;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.artisan.dto.bo.OrderInfoBo;
+import com.blackey.artisan.dto.bo.SumBo;
+import com.blackey.artisan.global.constants.OrderStatus;
 import com.blackey.common.rest.BaseRest;
 import org.springframework.beans.BeanUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -41,18 +44,6 @@ public class OrderRest extends BaseRest {
     }
 
     /**
-     * 列表
-     */
-    @RequestMapping("/list")
-    public Result list(@RequestBody OrderForm orderForm){
-        //TODO
-        return success();
-    }
-
-
-
-
-    /**
      * 保存
      */
     @RequestMapping("/save")
@@ -88,13 +79,19 @@ public class OrderRest extends BaseRest {
         return success();
     }
 
-    @GetMapping("/main/order")
-    public List<OrderInfoBo> listOrderInfo(OrderForm form){
-        return orderService.getMainPageOrderList(form);
+    @PostMapping("/main/order")
+    public Result mainOrder(@RequestBody OrderForm form){
+        form.setOrderStatus(OrderStatus.SERVICE);
+        return success(orderService.getMainPageOrderList(form));
+    }
+
+    @PostMapping("/list")
+    public Result orderList(@RequestBody OrderForm form){
+        return success(orderService.getMainPageOrderList(form));
     }
 
     @PostMapping("/booking")
-    public Result booking(OrderForm form){
+    public Result booking(@RequestBody OrderForm form){
         orderService.bookingService(form);
         return success();
     }
@@ -110,4 +107,8 @@ public class OrderRest extends BaseRest {
         return success(orderService.detail(id));
     }
 
+    @RequestMapping("/user")
+    Result getUserOrderCount(@RequestParam String openId){
+        return success(orderService.getUserOrderCount(openId));
+    }
 }

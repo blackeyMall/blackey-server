@@ -1,6 +1,8 @@
 package com.blackey.artisan.component.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.artisan.dto.bo.OrderInfoBo;
+import com.blackey.artisan.dto.bo.SumBo;
 import com.blackey.artisan.dto.form.OrderForm;
 import com.blackey.mybatis.service.BaseService;
 import com.blackey.mybatis.utils.PageUtils;
@@ -45,5 +47,12 @@ public interface OrderService extends BaseService<Order> {
      * 查询订单详情
      */
     OrderInfoBo detail(String orderId);
+
+    /**
+     * 查询统计数据
+     * @param openId
+     * @return
+     */
+    SumBo getUserOrderCount(String openId);
 }
 

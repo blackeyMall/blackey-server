@@ -43,5 +43,10 @@ public interface UserService extends BaseService<User> {
      * @return
      */
     UserForm saveWxUserForm(HttpServletRequest request, String encryptData, String vi);
+
+
+
+    User findByOpenId(String openId);
+
 }
 

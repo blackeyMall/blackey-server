@@ -3,7 +3,7 @@
 
 <mapper namespace="com.blackey.artisan.component.mapper.MaterialMapper">
 
-	<!-- 可根据自己的需求，是否要使用 -->
+    <!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="com.blackey.artisan.component.domain.Material" id="materialMap">
         <result property="id" column="id"/>
         <result property="isDeleted" column="is_deleted"/>
@@ -17,5 +17,16 @@
         <result property="mNum" column="m_num"/>
         <result property="projectId" column="project_id"/>
     </resultMap>
+
+    <select id="getByOrderId" resultType="com.blackey.artisan.dto.bo.MaterialBo">
+        SELECT
+            m.*
+        FROM
+            material m,
+            order_info o
+        WHERE
+            o.material_id = m.id
+        AND o.id = #{orderId}
+    </select>
 
 </mapper>

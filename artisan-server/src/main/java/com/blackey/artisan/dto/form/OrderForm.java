@@ -1,5 +1,7 @@
 package com.blackey.artisan.dto.form;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.artisan.global.constants.OrderStatus;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,7 +17,7 @@ import java.util.Date;
  */
 @Getter
 @Setter
-public class OrderForm implements Serializable {
+public class OrderForm extends Page {
 
     private static final long serialVersionUID = 1L;
 
@@ -47,4 +49,5 @@ public class OrderForm implements Serializable {
 	private String name;
 
 	private String openId;
+
 }
