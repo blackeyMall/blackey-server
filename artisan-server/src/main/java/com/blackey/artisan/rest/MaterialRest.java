@@ -19,7 +19,7 @@ import com.blackey.mybatis.utils.PageUtils;
 import java.util.Map;
 
 /**
- *  API REST
+ * API REST
  *
  * @author kavenW
  * @date 2018-11-04 21:12:23
@@ -38,11 +38,11 @@ public class MaterialRest extends BaseRest {
 
 
     /**
-    * 分页列表
-    */
+     * 分页列表
+     */
     @RequestMapping("/list/page")
     @RequiresPermissions("artisan:material:list")
-    public Result list(@RequestParam Map<String, Object> params){
+    public Result list(@RequestParam Map<String, Object> params) {
         PageUtils page = materialService.queryPage(params);
 
         return success(page);
@@ -52,7 +52,7 @@ public class MaterialRest extends BaseRest {
      * 列表
      */
     @RequestMapping("/list")
-    public Result list(@RequestBody MaterialForm materialForm){
+    public Result list(@RequestBody MaterialForm materialForm) {
         //TODO
         return success();
     }
@@ -62,7 +62,7 @@ public class MaterialRest extends BaseRest {
      * 查看详情信息
      */
     @RequestMapping("/info/{id}")
-    public Result info(@PathVariable("id") String id){
+    public Result info(@PathVariable("id") String id) {
 
         Material material = materialService.getById(id);
 
@@ -73,11 +73,11 @@ public class MaterialRest extends BaseRest {
      * 保存
      */
     @RequestMapping("/save")
-    public Result save(@RequestBody MaterialForm materialForm){
+    public Result save(@RequestBody MaterialForm materialForm) {
 
         Material material = new Material();
         //Form --> domain
-        BeanUtils.copyProperties(materialForm,material);
+        BeanUtils.copyProperties(materialForm, material);
         materialService.save(material);
 
         Order order = orderService.getById(materialForm.getOrderId());
@@ -90,7 +90,7 @@ public class MaterialRest extends BaseRest {
      * 修改
      */
     @PostMapping("/update")
-    public Result update(@RequestBody Material material){
+    public Result update(@RequestBody Material material) {
 
         materialService.updateById(material);//全部更新
         return success();
@@ -100,11 +100,18 @@ public class MaterialRest extends BaseRest {
      * 根据主键id删除
      */
     @RequestMapping("/delete/{id}")
-    public Result delete(@PathVariable("id") String id){
+    public Result delete(@PathVariable("id") String id) {
 
         materialService.removeById(id);
 
         return success();
+    }
+
+
+    @GetMapping("/order")
+    public Result getByOrderId(@RequestParam String orderId) {
+
+        return success(materialService.getByOrderId(orderId));
     }
 
 }

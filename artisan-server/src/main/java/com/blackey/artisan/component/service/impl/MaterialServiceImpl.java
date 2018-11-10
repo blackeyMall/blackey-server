@@ -42,8 +42,8 @@ public class MaterialServiceImpl extends BaseServiceImpl<MaterialMapper, Materia
     }
 
 
-//    @Override
-//    public MaterialBo getByProId(String projectId) {
-//        return materialMapper.getByProId(projectId);
-//    }
+    @Override
+    public MaterialBo getByOrderId(String orderId) {
+        return materialMapper.getByOrderId(orderId);
+    }
 }

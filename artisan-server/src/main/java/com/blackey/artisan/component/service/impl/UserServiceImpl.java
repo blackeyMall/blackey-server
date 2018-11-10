@@ -54,22 +54,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
     @Override
     public WxMaJscode2SessionResult login(HttpServletRequest request, UserForm form) throws WxErrorException {
 
-        WxMaJscode2SessionResult result = WxMaConfiguration.getMaServices().get(wxMaProperties.getConfigs().get(0).getAppid()).getUserService().getSessionInfo(form.getCode());
-        String sessionKey = result.getSessionKey();
-        Gson gson = new Gson();
-        String resultStr = WXUtils.decryptWxUser(form.getEncrypData(),sessionKey,form.getIv());
-
-        String userJson = gson.fromJson(resultStr, JsonObject.class).get("userInfo").getAsString();
-        User userInfo =  gson.fromJson(userJson,User.class);
-
-        User userInfoDb = userMapper.queryByOpenid(userInfo.getOpenId());
-
-        if (userInfoDb == null){
-            log.info("get user info is null... create a new one!");
-            this.save(userInfo);
-        }
-
-        return result;
+        return WxMaConfiguration.getMaServices().get(wxMaProperties.getConfigs().get(0).getAppid()).getUserService().getSessionInfo(form.getCode());
 
     }
 
@@ -83,4 +68,13 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
         return null;
     }
 
+
+    @Override
+    public User findByOpenId(String openId) {
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("open_id",openId);
+
+
+        return this.getOne(queryWrapper);
+    }
 }

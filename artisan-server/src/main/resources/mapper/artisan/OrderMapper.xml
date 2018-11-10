@@ -16,7 +16,7 @@
         <result property="projectId" column="project_id"/>
     </resultMap>
 
-    <select id="getMainPageOrderList" resultType="com.blackey.artisan.dto.bo.OrderInfoBo">
+    <select id="getMainPageOrderList" parameterType="com.blackey.artisan.dto.form.OrderForm" resultType="com.blackey.artisan.dto.bo.OrderInfoBo">
 		SELECT
 			o.id,
 					  o.created_date,
@@ -27,7 +27,7 @@
 					  o.service_no,
 					  p.`name` as project_name,
 					  p.pic_url,
-					  p.proDesc,
+					  p.pro_desc,
 					  s.address,
 					  s.`name` as service_user_name,
 					  s.remark,
@@ -43,9 +43,16 @@
 		<if test="openId != '' and openId != null">
 			and	o.open_id = #{openId}
 		</if>
-		<if test="orderStatus != '' and orderStatus != null">
-			and	o.order_status = #{orderStatus}
-		</if>
 	</select>
 
+	<select id="getUserOrderCount" resultType="com.blackey.artisan.dto.bo.SumBo">
+		SELECT
+			count(1) AS orderCount,
+			sum(o.price) AS orderSum
+		FROM
+			order_info o
+		WHERE
+			o.open_id = #{openId}
+	</select>
+	
 </mapper>

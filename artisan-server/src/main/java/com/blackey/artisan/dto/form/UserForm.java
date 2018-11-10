@@ -3,6 +3,7 @@ package com.blackey.artisan.dto.form;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -20,23 +21,59 @@ public class UserForm implements Serializable {
 
 	private String id;
 
-	private String nickName;
-
-	private String province;
-
+	/**
+	 *
+	 */
 	private String city;
+	/**
+	 *
+	 */
+	private String country;
+	/**
+	 *
+	 */
+	private Integer groupId;
+	/**
+	 *
+	 */
+	private String avatarUrl;
+	/**
+	 *
+	 */
+	private String language;
+	/**
+	 *
+	 */
+	@NotBlank(message = "用户Openid 不能为空")
+	private String openId;
+	/**
+	 *
+	 */
+	private String province;
+	/**
+	 *
+	 */
+	private String remark;
+
+	/**
+	 *
+	 */
+	private String sexDesc;
+	/**
+	 *
+	 */
+	private Long subscribeTime;
+	/**
+	 *
+	 */
+	private String uniqueId;
+
+
+	private String nickName;
 
 	private String gender;
 
-	private String country;
-
-	private String avatarUrl;
-
 	private String telephone;
-
-	private String openId;
-
-	private String uniqueId;
 
 	private String code;
 

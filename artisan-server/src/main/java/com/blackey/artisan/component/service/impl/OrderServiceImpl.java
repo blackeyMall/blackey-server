@@ -7,7 +7,10 @@ import com.blackey.artisan.component.service.ProjectService;
 import com.blackey.artisan.component.service.ServiceInfoService;
 import com.blackey.artisan.component.service.UserService;
 import com.blackey.artisan.dto.bo.OrderInfoBo;
+import com.blackey.artisan.dto.bo.SumBo;
 import com.blackey.artisan.dto.form.OrderForm;
+import com.blackey.artisan.global.constants.OrderStatus;
+import com.blackey.common.exception.BusinessException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -64,26 +67,29 @@ public class OrderServiceImpl extends BaseServiceImpl<OrderMapper, Order> implem
     @Override
     public void bookingService(OrderForm form) {
         //查询用户和项目
-        User user = userService.getById(form.getUserId());
+        User user = userService.findByOpenId(form.getOpenId());
         Project project = projectService.getById(form.getProjectId());
 
-        ServiceInfo serviceInfo = new ServiceInfo();
-        BeanUtils.copyProperties(form,serviceInfo);
-        serviceInfoService.save(serviceInfo);
-
         if (Optional.ofNullable(user).isPresent() && Optional.ofNullable(project).isPresent()){
+            ServiceInfo serviceInfo = new ServiceInfo();
+            BeanUtils.copyProperties(form,serviceInfo);
+            serviceInfoService.save(serviceInfo);
+
             Order order = new Order();
             //Form --> domain
             BeanUtils.copyProperties(form,order);
+            order.setOrderStatus(OrderStatus.BOOK);
             order.setOrderNo(System.currentTimeMillis() + "" +new Random().nextInt());
             order.setServiceNo(serviceInfo.getId());
             this.save(order);
+        }
+        else {
+            throw new BusinessException();
         }
     }
 
     @Override
     public List<OrderInfoBo> getMainPageOrderList(OrderForm form) {
-
         return orderMapper.getMainPageOrderList(form);
 
     }
@@ -111,5 +117,10 @@ public class OrderServiceImpl extends BaseServiceImpl<OrderMapper, Order> implem
         BeanUtils.copyProperties(serviceInfo,orderInfoBo);
 
         return orderInfoBo;
+    }
+
+    @Override
+    public SumBo getUserOrderCount(String openId) {
+        return orderMapper.getUserOrderCount(openId);
     }
 }
