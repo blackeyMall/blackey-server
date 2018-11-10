@@ -40,8 +40,8 @@
 				  WHERE
 					  o.service_no = s.id
 					  AND p.id = o.project_id
-		<if test="openId != '' and openId != null">
-			and	o.open_id = #{openId}
+		<if test="form.openId != '' and form.openId != null">
+			and	o.open_id = #{form.openId}
 		</if>
 	</select>
 

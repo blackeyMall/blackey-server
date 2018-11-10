@@ -34,7 +34,7 @@ public interface OrderService extends BaseService<Order> {
     /**
      * 获取订单列表
      */
-    List<OrderInfoBo> getMainPageOrderList(OrderForm form);
+    List<OrderInfoBo> getMainPageOrderList(OrderForm form, Page page);
 
 
     /**

@@ -89,8 +89,8 @@ public class OrderServiceImpl extends BaseServiceImpl<OrderMapper, Order> implem
     }
 
     @Override
-    public List<OrderInfoBo> getMainPageOrderList(OrderForm form) {
-        return orderMapper.getMainPageOrderList(form);
+    public List<OrderInfoBo> getMainPageOrderList(OrderForm form, Page page) {
+        return orderMapper.getMainPageOrderList(form,page);
 
     }
 

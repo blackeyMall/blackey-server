@@ -7,6 +7,7 @@ import com.blackey.artisan.dto.bo.SumBo;
 import com.blackey.artisan.dto.form.OrderForm;
 import com.blackey.mybatis.dao.BaseDAO;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Map;
@@ -22,7 +23,7 @@ import java.util.Map;
 public interface OrderMapper extends BaseDAO<Order> {
 
 
-    List<OrderInfoBo> getMainPageOrderList(OrderForm form);
+    List<OrderInfoBo> getMainPageOrderList(@Param("form") OrderForm form, Page page);
 
     SumBo getUserOrderCount(String openId);
 	

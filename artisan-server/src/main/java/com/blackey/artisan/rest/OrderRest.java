@@ -1,6 +1,7 @@
 package com.blackey.artisan.rest;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.blackey.artisan.dto.bo.OrderBo;
 import com.blackey.artisan.dto.bo.OrderInfoBo;
 import com.blackey.artisan.dto.bo.SumBo;
 import com.blackey.artisan.global.constants.OrderStatus;
@@ -82,12 +83,15 @@ public class OrderRest extends BaseRest {
     @PostMapping("/main/order")
     public Result mainOrder(@RequestBody OrderForm form){
         form.setOrderStatus(OrderStatus.SERVICE);
-        return success(orderService.getMainPageOrderList(form));
+        Page<OrderInfoBo> page = new Page<>(form.getCurrent(),form.getSize());
+        page.setRecords(orderService.getMainPageOrderList(form,page));
+        return success(page);
     }
 
     @PostMapping("/list")
     public Result orderList(@RequestBody OrderForm form){
-        return success(orderService.getMainPageOrderList(form));
+        Page<OrderBo> page = new Page<>(form.getCurrent(),form.getSize());
+        return success(orderService.getMainPageOrderList(form,page));
     }
 
     @PostMapping("/booking")
