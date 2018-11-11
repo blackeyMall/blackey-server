@@ -19,27 +19,29 @@
     <select id="getMainPageOrderList" parameterType="com.blackey.artisan.dto.form.OrderForm" resultType="com.blackey.artisan.dto.bo.OrderInfoBo">
 		SELECT
 			o.id,
-					  o.created_date,
-					  o.price,
-					  o.order_no,
-					  o.order_status,
-					  o.project_id,
-					  o.service_no,
-					  p.`name` as project_name,
-					  p.pic_url,
-					  p.pro_desc,
-					  s.address,
-					  s.`name` as service_user_name,
-					  s.remark,
-					  s.telephone,
-					  s.service_time
-				  FROM
-					  order_info o,
-					  project p,
-					  service_info s
-				  WHERE
-					  o.service_no = s.id
-					  AND p.id = o.project_id
+		  o.material_id,
+		  o.service_no,
+		  o.created_date,
+		  o.price,
+		  o.order_no,
+		  o.order_status,
+		  o.project_id,
+		  o.service_no,
+		  p.`name` as project_name,
+		  p.pic_url,
+		  p.pro_desc,
+		  s.address,
+		  s.`name` as service_user_name,
+		  s.remark,
+		  s.telephone,
+		  s.service_time
+	  FROM
+		  order_info o,
+		  project p,
+		  service_info s
+	  WHERE
+		  o.service_no = s.id
+		  AND p.id = o.project_id
 		<if test="form.openId != '' and form.openId != null">
 			and	o.open_id = #{form.openId}
 		</if>

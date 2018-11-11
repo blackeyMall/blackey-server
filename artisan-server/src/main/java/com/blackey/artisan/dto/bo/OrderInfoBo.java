@@ -47,5 +47,9 @@ public class OrderInfoBo {
 
     private String serviceTime;
 
+    private String serviceNo;
+
+    private String materialId;
+
 
 }

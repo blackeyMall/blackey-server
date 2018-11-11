@@ -28,5 +28,7 @@ public interface ServiceProcessService extends BaseService<ServiceProcess> {
     PageUtils queryPage(Map<String, Object> params);
 
     PageUtils queryProcess(ServiceProcessForm form) ;
+
+
 }
 

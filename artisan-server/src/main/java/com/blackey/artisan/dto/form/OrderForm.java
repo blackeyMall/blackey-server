@@ -33,7 +33,7 @@ public class OrderForm extends Page {
 
 	private String materialId;
 
-	private int price;
+	private Integer price;
 
 	/**
 	 * 服务

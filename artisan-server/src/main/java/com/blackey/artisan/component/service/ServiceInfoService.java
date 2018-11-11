@@ -1,5 +1,6 @@
 package com.blackey.artisan.component.service;
 
+import com.blackey.artisan.dto.bo.ServiceInfoBo;
 import com.blackey.mybatis.service.BaseService;
 import com.blackey.mybatis.utils.PageUtils;
 import com.blackey.artisan.component.domain.ServiceInfo;
@@ -20,5 +21,7 @@ public interface ServiceInfoService extends BaseService<ServiceInfo> {
     * @return
     */
     PageUtils queryPage(Map<String, Object> params);
+
+    ServiceInfoBo queryByOrderId(String orderId);
 }
 

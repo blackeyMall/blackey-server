@@ -1,6 +1,8 @@
 package com.blackey.artisan.component.mapper;
 
 import com.blackey.artisan.component.domain.ServiceInfo;
+import com.blackey.artisan.dto.bo.ServiceInfoBo;
+import com.blackey.artisan.dto.bo.ServiceProcessBo;
 import com.blackey.mybatis.dao.BaseDAO;
 
 
@@ -12,5 +14,7 @@ import com.blackey.mybatis.dao.BaseDAO;
  */
 
 public interface ServiceInfoMapper extends BaseDAO<ServiceInfo> {
-	
+
+
+    ServiceInfoBo queryByOrderId(String orderId);
 }

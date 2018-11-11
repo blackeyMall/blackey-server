@@ -44,4 +44,6 @@ public class ServiceInfoBo implements Serializable {
 	 */
     private String name;
 
+
+    private int price;
 }

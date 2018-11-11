@@ -30,7 +30,7 @@ public class Order extends BaseModel<Order> implements Serializable {
 
 	private OrderStatus orderStatus;
 
-	private int price;
+	private Integer price;
 
 	private String remark;
 

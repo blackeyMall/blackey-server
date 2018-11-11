@@ -20,4 +20,6 @@
     <select id="queryBoByOrderId" resultType="com.blackey.artisan.dto.bo.ServiceProcessBo">
         select * from service_process p where p.order_id = #{orderId}
     </select>
+
+
 </mapper>

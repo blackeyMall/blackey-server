@@ -79,7 +79,7 @@ public class OrderServiceImpl extends BaseServiceImpl<OrderMapper, Order> implem
             //Form --> domain
             BeanUtils.copyProperties(form,order);
             order.setOrderStatus(OrderStatus.BOOK);
-            order.setOrderNo(System.currentTimeMillis() + "" +new Random().nextInt());
+            order.setOrderNo(System.currentTimeMillis() + "" +(int)(100*Math.random()+100));
             order.setServiceNo(serviceInfo.getId());
             this.save(order);
         }
@@ -98,11 +98,13 @@ public class OrderServiceImpl extends BaseServiceImpl<OrderMapper, Order> implem
     public void confirmService(OrderForm form) {
         ServiceInfo serviceInfo = new ServiceInfo();
 
-        serviceInfo.setId(this.getById(form.getId()).getServiceNo());
         BeanUtils.copyProperties(form,serviceInfo);
+        serviceInfo.setId(this.getById(form.getId()).getServiceNo());
         serviceInfoService.updateById(serviceInfo);
 
         Order order = new Order();
+        order.setOrderStatus(OrderStatus.CONFIRM);
+
         BeanUtils.copyProperties(form,order);
         this.updateById(order);
     }

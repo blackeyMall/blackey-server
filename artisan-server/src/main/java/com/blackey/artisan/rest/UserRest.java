@@ -73,14 +73,14 @@ public class UserRest extends BaseRest {
     @RequestMapping("/save")
     public Result save(@RequestBody UserForm userForm){
         User user = userService.findByOpenId(userForm.getOpenId());
-        BeanUtils.copyProperties(userForm,user);
-
-        if (user != null){
-            this.update(user);
+        if (user == null){
+            user = new User();
+            BeanUtils.copyProperties(userForm,user);
+            userService.save(user);
         }
 
-        userService.save(user);
-
+        BeanUtils.copyProperties(userForm,user);
+        this.update(user);
         return success();
     }
 

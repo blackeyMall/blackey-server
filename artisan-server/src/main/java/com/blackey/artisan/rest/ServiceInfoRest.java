@@ -101,4 +101,13 @@ public class ServiceInfoRest extends BaseRest {
         return success();
     }
 
+    /**
+     * 根据主键id删除
+     */
+    @RequestMapping("/order")
+    public Result findByOrder(@RequestParam String orderId){
+
+        return success(serviceInfoService.queryByOrderId(orderId));
+    }
+
 }
