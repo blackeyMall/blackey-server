@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
 import java.util.Map;
 
 /**
@@ -96,10 +97,10 @@ public class ProjectRest extends BaseRest {
     /**
      * 根据主键id删除
      */
-    @RequestMapping("/delete/{id}")
-    public Result delete(@PathVariable("id") String id){
+    @RequestMapping("/delete")
+    public Result delete(@RequestBody String[] ids){
 
-        projectService.removeById(id);
+        projectService.removeByIds(Arrays.asList(ids));
 
         return success();
     }

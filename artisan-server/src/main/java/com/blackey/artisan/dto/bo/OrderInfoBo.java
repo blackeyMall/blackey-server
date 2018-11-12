@@ -51,5 +51,7 @@ public class OrderInfoBo {
 
     private String materialId;
 
+    private String content;
+
 
 }

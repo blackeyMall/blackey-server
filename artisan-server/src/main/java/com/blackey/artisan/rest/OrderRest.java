@@ -1,6 +1,7 @@
 package com.blackey.artisan.rest;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.blackey.artisan.component.service.ServiceProcessService;
 import com.blackey.artisan.dto.bo.OrderBo;
 import com.blackey.artisan.dto.bo.OrderInfoBo;
 import com.blackey.artisan.dto.bo.SumBo;
@@ -33,6 +34,8 @@ public class OrderRest extends BaseRest {
     @Autowired
     private OrderService orderService;
 
+    @Autowired
+    private ServiceProcessService serviceProcessService;
 
     /**
     * 分页列表
@@ -82,16 +85,21 @@ public class OrderRest extends BaseRest {
 
     @PostMapping("/main/order")
     public Result mainOrder(@RequestBody OrderForm form){
-        form.setOrderStatus(OrderStatus.SERVICE);
         Page<OrderInfoBo> page = new Page<>(1,5);
         page.setRecords(orderService.getMainPageOrderList(form,page));
+        for (OrderInfoBo orderinfoBo: page.getRecords()
+             ) {
+            if(orderinfoBo.getOrderStatus() == OrderStatus.SERVICE){
+                orderinfoBo.setContent(serviceProcessService.queryOneByOrderId(orderinfoBo.getId()).getContent());
+            }
+        }
         return success(page);
     }
 
     @PostMapping("/list")
     public Result orderList(@RequestBody OrderForm form){
         Page<OrderInfoBo> page = new Page<>(form.getCurrent(),form.getSize());
-        return success(page.setRecords(orderService.getMainPageOrderList(form,page)));
+        return success(page.setRecords(orderService.getOrderList(form,page)));
     }
 
     @PostMapping("/booking")

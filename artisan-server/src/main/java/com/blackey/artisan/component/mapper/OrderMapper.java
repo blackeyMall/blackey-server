@@ -25,6 +25,8 @@ public interface OrderMapper extends BaseDAO<Order> {
 
     List<OrderInfoBo> getMainPageOrderList(@Param("form") OrderForm form, Page page);
 
+    List<OrderInfoBo> getOrderList(@Param("form") OrderForm form, Page page);
+
     SumBo getUserOrderCount(String openId);
-	
+
 }

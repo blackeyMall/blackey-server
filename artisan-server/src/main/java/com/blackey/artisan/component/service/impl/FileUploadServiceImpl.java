@@ -39,7 +39,7 @@ public class FileUploadServiceImpl implements FileUploadService {
         } catch (Exception e) {
             logger.error("upload file error !");
         }
-        return domain + fileStorePath + fileName;
+        return domain + fileName;
     }
 
     /**

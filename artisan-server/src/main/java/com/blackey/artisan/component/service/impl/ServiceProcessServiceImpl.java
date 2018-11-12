@@ -67,4 +67,10 @@ public class ServiceProcessServiceImpl extends BaseServiceImpl<ServiceProcessMap
         }
         return new PageUtils(serviceProcessBos);
     }
+
+
+    @Override
+    public ServiceProcess queryOneByOrderId(String orderId) {
+        return serviceProcessMapper.queryOneByOrderId(orderId);
+    }
 }

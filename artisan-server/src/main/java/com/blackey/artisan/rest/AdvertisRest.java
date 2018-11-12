@@ -1,24 +1,21 @@
 package com.blackey.artisan.rest;
 
-import com.blackey.artisan.component.service.FileUploadService;
+import com.blackey.artisan.component.domain.Advertis;
+import com.blackey.artisan.component.service.AdvertisService;
+import com.blackey.artisan.dto.form.AdvertisForm;
 import com.blackey.common.rest.BaseRest;
+import com.blackey.common.result.Result;
+import com.blackey.mybatis.utils.PageUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import com.blackey.artisan.component.domain.Advertis;
-import com.blackey.artisan.dto.form.AdvertisForm;
-import com.blackey.artisan.component.service.AdvertisService;
-import com.blackey.common.result.Result;
-import com.blackey.mybatis.utils.PageUtils;
-import org.springframework.web.multipart.MultipartFile;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
+import java.util.Arrays;
 import java.util.Map;
 
 /**
@@ -99,10 +96,10 @@ public class AdvertisRest extends BaseRest {
     /**
      * 根据主键id删除
      */
-    @RequestMapping("/delete/{id}")
-    public Result delete(@PathVariable("id") String id) {
+    @RequestMapping("/delete")
+    public Result delete(@RequestBody String[] ids) {
 
-        advertisService.removeById(id);
+        advertisService.removeByIds(Arrays.asList(ids));
 
         return success();
     }

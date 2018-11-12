@@ -21,4 +21,7 @@ public interface ServiceProcessMapper extends BaseDAO<ServiceProcess> {
 
 
    List<ServiceProcessBo> queryBoByOrderId(@Param("orderId") String orderId, Page page);
+
+
+   ServiceProcess queryOneByOrderId(@Param("orderId") String orderId);
 }

@@ -71,7 +71,7 @@ file:
   upload:
     path: /opt/application/artisan/
 http:
-  domain: http://portal.chihei
+  domain: http://portal.chihei/opt/application/artisan/
 wx:
   miniapp:
     configs:

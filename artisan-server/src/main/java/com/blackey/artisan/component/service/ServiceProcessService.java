@@ -29,6 +29,6 @@ public interface ServiceProcessService extends BaseService<ServiceProcess> {
 
     PageUtils queryProcess(ServiceProcessForm form) ;
 
-
+    ServiceProcess queryOneByOrderId(String orderId);
 }
 

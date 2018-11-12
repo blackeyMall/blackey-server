@@ -35,7 +35,7 @@ public class Advertis extends BaseModel<Advertis> implements Serializable {
 	/**
 	 * 
 	 */
-	private Integer adsRemark;
+	private String adsRemark;
 	/**
 	 * 
 	 */

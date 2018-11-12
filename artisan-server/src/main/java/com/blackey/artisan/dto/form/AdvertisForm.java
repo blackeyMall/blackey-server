@@ -34,7 +34,7 @@ public class AdvertisForm implements Serializable {
 	/**
 	 * 
 	 */
-    private Integer adsRemark;
+    private String adsRemark;
 	/**
 	 * 
 	 */

@@ -1,5 +1,6 @@
 package com.blackey.artisan.rest;
 
+import com.blackey.artisan.component.service.OrderService;
 import com.blackey.common.rest.BaseRest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,6 +32,8 @@ public class FeedbackRest extends BaseRest {
     @Autowired
     private FeedbackService feedbackService;
 
+    @Autowired
+    private OrderService orderService;
 
     /**
     * 分页列表
@@ -73,7 +76,6 @@ public class FeedbackRest extends BaseRest {
         Feedback feedback = new Feedback();
         //Form --> domain
         BeanUtils.copyProperties(feedbackForm,feedback);
-
         feedbackService.save(feedback);
 
         return success();

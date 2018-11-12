@@ -95,6 +95,11 @@ public class OrderServiceImpl extends BaseServiceImpl<OrderMapper, Order> implem
     }
 
     @Override
+    public List<OrderInfoBo> getOrderList(OrderForm form, Page page) {
+        return orderMapper.getOrderList(form,page);
+    }
+
+    @Override
     public void confirmService(OrderForm form) {
         ServiceInfo serviceInfo = new ServiceInfo();
 
@@ -103,9 +108,11 @@ public class OrderServiceImpl extends BaseServiceImpl<OrderMapper, Order> implem
         serviceInfoService.updateById(serviceInfo);
 
         Order order = new Order();
-        order.setOrderStatus(OrderStatus.CONFIRM);
-
         BeanUtils.copyProperties(form,order);
+        if(form.getOrderStatus() == null){
+            order.setOrderStatus(OrderStatus.CONFIRM);
+        }
+
         this.updateById(order);
     }
 
