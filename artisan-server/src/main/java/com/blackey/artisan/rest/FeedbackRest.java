@@ -1,6 +1,13 @@
 package com.blackey.artisan.rest;
 
+import cn.hutool.core.bean.BeanUtil;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.blackey.artisan.component.domain.PictureInfo;
 import com.blackey.artisan.component.service.OrderService;
+import com.blackey.artisan.component.service.PictureInfoService;
+import com.blackey.artisan.dto.bo.FeedbackBo;
+import com.blackey.artisan.dto.bo.ServiceProcessBo;
+import com.blackey.artisan.global.constants.PicTypeStatus;
 import com.blackey.common.rest.BaseRest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +22,9 @@ import com.blackey.artisan.component.service.FeedbackService;
 import com.blackey.common.result.Result;
 import com.blackey.mybatis.utils.PageUtils;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -33,7 +43,7 @@ public class FeedbackRest extends BaseRest {
     private FeedbackService feedbackService;
 
     @Autowired
-    private OrderService orderService;
+    private PictureInfoService pictureInfoService;
 
     /**
     * 分页列表
@@ -43,6 +53,17 @@ public class FeedbackRest extends BaseRest {
     public Result list(@RequestParam Map<String, Object> params){
         PageUtils page = feedbackService.queryPage(params);
 
+        List<FeedbackBo> feedbackBos = new ArrayList<>();
+        for (Feedback feedback:(List<Feedback>)page.getList()
+                ) {
+            FeedbackBo feedbackBo = new FeedbackBo();
+            String objectId =feedback.getId();
+            List<String> list = pictureInfoService.queryPicList(objectId, PicTypeStatus.FEEDBACK);
+            BeanUtil.copyProperties(feedback,feedbackBo);
+            feedbackBo.setPicUrls(list);
+            feedbackBos.add(feedbackBo);
+        }
+        page.setList(feedbackBos);
         return success(page);
     }
 
@@ -78,6 +99,13 @@ public class FeedbackRest extends BaseRest {
         BeanUtils.copyProperties(feedbackForm,feedback);
         feedbackService.save(feedback);
 
+        PictureInfo pictureInfo = null;
+        for (String picUrl: Arrays.asList(feedbackForm.getPicUrl())) {
+            pictureInfo = new PictureInfo();
+            pictureInfo.setPicType(PicTypeStatus.FEEDBACK);
+            pictureInfo.setPicUrl(picUrl);
+            pictureInfoService.save(pictureInfo);
+        }
         return success();
     }
 

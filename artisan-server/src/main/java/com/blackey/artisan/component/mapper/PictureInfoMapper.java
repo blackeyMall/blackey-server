@@ -17,5 +17,5 @@ import java.util.List;
 public interface PictureInfoMapper extends BaseDAO<PictureInfo> {
 
 
-    List<String> queryPicList(@Param("objectId") String objectId);
+    List<String> queryPicList(@Param("objectId") String objectId,@Param("status") String status);
 }

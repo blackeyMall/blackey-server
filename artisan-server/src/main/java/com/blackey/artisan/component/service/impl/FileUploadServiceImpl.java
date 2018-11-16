@@ -32,7 +32,7 @@ public class FileUploadServiceImpl implements FileUploadService {
     @Override
     public String uploadFile(HttpServletRequest request, MultipartFile file) {
         String originalFileName = file.getOriginalFilename();
-        String fileName = generalFileName("A") + originalFileName.substring(originalFileName.indexOf("."), originalFileName.length());
+        String fileName = generalFileName("A") + originalFileName.substring(originalFileName.lastIndexOf("."), originalFileName.length());
 
         try {
             this.uploadFile(file.getBytes(), fileStorePath, fileName);

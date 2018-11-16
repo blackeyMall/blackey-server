@@ -17,7 +17,7 @@
     </resultMap>
 
     <select id="queryPicList" resultType="String">
-        select p.pic_url from picture_info p where p.object_id = #{objectId}
+        select p.pic_url from picture_info p where p.object_id = #{objectId} and p.pic_type = #{status}
     </select>
 
 </mapper>

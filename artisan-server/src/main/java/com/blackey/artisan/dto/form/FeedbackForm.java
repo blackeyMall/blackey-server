@@ -23,7 +23,7 @@ public class FeedbackForm implements Serializable {
 
     private String orderId;
 
-	private String picUrl;
+	private String[] picUrl;
 
     private FeedBackStatus feedBackType;
 

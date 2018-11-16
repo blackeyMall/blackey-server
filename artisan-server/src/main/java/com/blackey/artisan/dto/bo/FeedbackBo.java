@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  *  BO
@@ -56,7 +57,7 @@ public class FeedbackBo implements Serializable {
 	 */
     private String orderId;
 
-	private String picUrl;
+	private List picUrls;
 	/**
 	 * 
 	 */

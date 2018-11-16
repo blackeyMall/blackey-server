@@ -1,5 +1,7 @@
 package com.blackey.artisan.component.service.impl;
 
+import com.blackey.artisan.dto.form.PictureInfoForm;
+import com.blackey.artisan.global.constants.PicTypeStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -44,8 +46,8 @@ public class PictureInfoServiceImpl extends BaseServiceImpl<PictureInfoMapper, P
 
 
     @Override
-    public List<String> queryPicList(String orderId) {
-
-        return pictureInfoMapper.queryPicList(orderId);
+    public List<String> queryPicList(String objectId, PicTypeStatus picTypeStatus) {
+        return pictureInfoMapper.queryPicList(objectId,picTypeStatus.getValue());
     }
+
 }

@@ -90,7 +90,11 @@ public class OrderRest extends BaseRest {
         for (OrderInfoBo orderinfoBo: page.getRecords()
              ) {
             if(orderinfoBo.getOrderStatus() == OrderStatus.SERVICE){
-                orderinfoBo.setContent(serviceProcessService.queryOneByOrderId(orderinfoBo.getId()).getContent());
+                try {
+                    orderinfoBo.setContent(serviceProcessService.queryOneByOrderId(orderinfoBo.getId()).getContent());
+                }catch (Exception e){
+                    orderinfoBo.setContent("");
+                }
             }
         }
         return success(page);

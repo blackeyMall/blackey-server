@@ -1,5 +1,6 @@
 package com.blackey.artisan.component.service;
 
+import com.blackey.artisan.global.constants.PicTypeStatus;
 import com.blackey.mybatis.service.BaseService;
 import com.blackey.mybatis.utils.PageUtils;
 import com.blackey.artisan.component.domain.PictureInfo;
@@ -24,6 +25,6 @@ public interface PictureInfoService extends BaseService<PictureInfo> {
 
 
 
-    List<String> queryPicList(String orderId);
+    List<String> queryPicList(String objectId, PicTypeStatus picTypeStatus);
 }
 

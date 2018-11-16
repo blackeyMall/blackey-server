@@ -6,6 +6,7 @@ import com.blackey.artisan.component.service.OrderService;
 import com.blackey.artisan.component.service.PictureInfoService;
 import com.blackey.artisan.dto.bo.ServiceProcessBo;
 import com.blackey.artisan.dto.form.ServiceProcessForm;
+import com.blackey.artisan.global.constants.PicTypeStatus;
 import org.apache.commons.beanutils.BeanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,7 +63,7 @@ public class ServiceProcessServiceImpl extends BaseServiceImpl<ServiceProcessMap
         for (ServiceProcessBo serviceProcessBo:serviceProcessBos.getRecords()
              ) {
             String objectId =serviceProcessBo.getId();
-                    List<String> list = pictureInfoService.queryPicList(objectId);
+                    List<String> list = pictureInfoService.queryPicList(objectId, PicTypeStatus.PROCESS);
             serviceProcessBo.setPics(list);
         }
         return new PageUtils(serviceProcessBos);
