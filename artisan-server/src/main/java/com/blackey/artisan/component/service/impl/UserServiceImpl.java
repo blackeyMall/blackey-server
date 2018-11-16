@@ -53,7 +53,6 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 
     @Override
     public WxMaJscode2SessionResult login(HttpServletRequest request, UserForm form) throws WxErrorException {
-
         return WxMaConfiguration.getMaServices().get(wxMaProperties.getConfigs().get(0).getAppid()).getUserService().getSessionInfo(form.getCode());
 
     }

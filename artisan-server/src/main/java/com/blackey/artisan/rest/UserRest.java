@@ -1,6 +1,9 @@
 package com.blackey.artisan.rest;
 
+import cn.binarywang.wx.miniapp.bean.WxMaPhoneNumberInfo;
 import com.blackey.common.rest.BaseRest;
+import com.blackey.common.utils.WXUtils;
+import com.google.gson.Gson;
 import me.chanjar.weixin.common.error.WxErrorException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -73,15 +76,22 @@ public class UserRest extends BaseRest {
     @RequestMapping("/save")
     public Result save(@RequestBody UserForm userForm){
         User user = userService.findByOpenId(userForm.getOpenId());
+
+        logger.info("get wx telephone user is ", WXUtils.decryptWxUser(userForm.getWxSessionKey(),userForm.getEncrypData(),userForm.getIv()).toString());
+        Gson gson = new Gson();
+        WxMaPhoneNumberInfo wxMaPhoneNumberInfo = gson.fromJson(WXUtils.decryptWxUser(userForm.getWxSessionKey(),userForm.getEncrypData(),userForm.getIv()),WxMaPhoneNumberInfo.class);
+
         if (user == null){
             user = new User();
             BeanUtils.copyProperties(userForm,user);
+            user.setTelephone(wxMaPhoneNumberInfo.getPhoneNumber());
             userService.save(user);
         }
 
         BeanUtils.copyProperties(userForm,user);
+        user.setTelephone(wxMaPhoneNumberInfo.getPhoneNumber());
         this.update(user);
-        return success();
+        return success(user.getTelephone());
     }
 
     /**

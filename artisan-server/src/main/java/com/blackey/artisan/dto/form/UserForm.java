@@ -81,4 +81,6 @@ public class UserForm implements Serializable {
 
 	private String iv;
 
+	private String wxSessionKey;
+
 }
