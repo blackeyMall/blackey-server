@@ -1,13 +1,13 @@
 <template>
-    <div class="mod-${classname}">
+    <div class="mod-accountDetail">
         <el-form :inline="true" :model="dataForm" @keyup.enter.native="getDataList()">
             <el-form-item>
                 <el-input v-model="dataForm.userName" placeholder="用户名" clearable></el-input>
             </el-form-item>
             <el-form-item>
                 <el-button @click="getDataList()">查询</el-button>
-                <el-button v-if="isAuth('${moduleName}:${classname}:save')" type="primary" @click="addOrUpdateHandle()">新增</el-button>
-                <el-button v-if="isAuth('${moduleName}:${classname}:delete')" type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">批量删除</el-button>
+                <el-button v-if="isAuth('finance:accountDetail:save')" type="primary" @click="addOrUpdateHandle()">新增</el-button>
+                <el-button v-if="isAuth('finance:accountDetail:delete')" type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">批量删除</el-button>
             </el-form-item>
         </el-form>
         <el-table
@@ -23,34 +23,98 @@
                     width="50">
             </el-table-column>
 
-            #foreach ($column in $columns)
-                <el-table-column
-                        prop="$column.attrname"
+                            <el-table-column
+                        prop="id"
                         header-align="center"
                         align="center"
                         width="100"
-                        label="$column.comments">
+                        label="">
                 </el-table-column>
-            #end
-
-            #foreach ($column in $columns)
-                #if($column.columnName == $pk.columnName)
-                    <el-table-column
+                            <el-table-column
+                        prop="isDeleted"
+                        header-align="center"
+                        align="center"
+                        width="100"
+                        label="">
+                </el-table-column>
+                            <el-table-column
+                        prop="createdBy"
+                        header-align="center"
+                        align="center"
+                        width="100"
+                        label="">
+                </el-table-column>
+                            <el-table-column
+                        prop="createdDate"
+                        header-align="center"
+                        align="center"
+                        width="100"
+                        label="">
+                </el-table-column>
+                            <el-table-column
+                        prop="updatedBy"
+                        header-align="center"
+                        align="center"
+                        width="100"
+                        label="">
+                </el-table-column>
+                            <el-table-column
+                        prop="updatedDate"
+                        header-align="center"
+                        align="center"
+                        width="100"
+                        label="">
+                </el-table-column>
+                            <el-table-column
+                        prop="userId"
+                        header-align="center"
+                        align="center"
+                        width="100"
+                        label="用户id">
+                </el-table-column>
+                            <el-table-column
+                        prop="amount"
+                        header-align="center"
+                        align="center"
+                        width="100"
+                        label="金额">
+                </el-table-column>
+                            <el-table-column
+                        prop="source"
+                        header-align="center"
+                        align="center"
+                        width="100"
+                        label="账单来源">
+                </el-table-column>
+                            <el-table-column
+                        prop="name"
+                        header-align="center"
+                        align="center"
+                        width="100"
+                        label="账单名称">
+                </el-table-column>
+                            <el-table-column
+                        prop="tradeNo"
+                        header-align="center"
+                        align="center"
+                        width="100"
+                        label="流水号">
+                </el-table-column>
+            
+                                                <el-table-column
                             fixed="right"
                             header-align="center"
                             align="center"
                             width="150"
                             label="操作">
                         <template slot-scope="scope">
-                            <el-button v-if="isAuth('${moduleName}:${classname}:update')" type="text" size="small"
-                                       @click="addOrUpdateHandle(scope.row.$column.attrname)">修改</el-button>
-                            <el-button v-if="isAuth('${moduleName}:${classname}:delete')" type="text" size="small"
-                                       @click="deleteHandle(scope.row.$column.attrname)">删除</el-button>
+                            <el-button v-if="isAuth('finance:accountDetail:update')" type="text" size="small"
+                                       @click="addOrUpdateHandle(scope.row.id)">修改</el-button>
+                            <el-button v-if="isAuth('finance:accountDetail:delete')" type="text" size="small"
+                                       @click="deleteHandle(scope.row.id)">删除</el-button>
                         </template>
                     </el-table-column>
-                #end
-            #end
-
+                                                                                                                                                                                                                                                                                                                    
         </el-table>
         <el-pagination
                 @size-change="sizeChangeHandle"
@@ -68,7 +132,7 @@
 
 
 <script>
-    import AddOrUpdate from './${classname}-add-or-update'
+    import AddOrUpdate from './accountDetail-add-or-update'
     export default {
         data () {
             return {
@@ -134,12 +198,10 @@
                 })
             },
 
-        #foreach ($column in $columns)
-            #if($column.columnName == $pk.columnName)
-                // 删除
+                                    // 删除
                 deleteHandle (id) {
                     var ids = id ? [id] : this.dataListSelections.map(item => {
-                        return item.$column.attrname
+                        return item.id
                     })
                     this.$confirm(`确定对[id=${ids.join(',')}]进行[${id} ? '删除' : '批量删除'}]操作?`, '提示', {
                         confirmButtonText: '确定',
@@ -167,9 +229,7 @@
                         })
                     }).catch(() => {})
                 }
-            #end
-        #end
-
+                                                                                                                                                                                                                            
         }
     }
 </script>
