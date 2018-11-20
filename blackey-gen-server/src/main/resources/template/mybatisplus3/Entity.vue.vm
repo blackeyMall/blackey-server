@@ -98,7 +98,8 @@
                     url: this.$http.adornUrl("${moduleName}/${classname}/list"),
                     method: 'get',
                     params: this.$http.adornParams({
-
+                        page: this.pageIndex,
+                        limit: this.pageSize
                     })
                 }).then(({data}) => {
                     if (data && data.code === 200) {

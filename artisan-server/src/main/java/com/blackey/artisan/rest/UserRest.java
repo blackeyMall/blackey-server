@@ -1,6 +1,7 @@
 package com.blackey.artisan.rest;
 
 import cn.binarywang.wx.miniapp.bean.WxMaPhoneNumberInfo;
+import cn.binarywang.wx.miniapp.util.crypt.WxMaCryptUtils;
 import com.blackey.common.rest.BaseRest;
 import com.blackey.common.utils.WXUtils;
 import com.google.gson.Gson;
@@ -75,21 +76,21 @@ public class UserRest extends BaseRest {
      */
     @RequestMapping("/save")
     public Result save(@RequestBody UserForm userForm){
+//        Gson gson = new Gson();
         User user = userService.findByOpenId(userForm.getOpenId());
 
-        logger.info("get wx telephone user is ", WXUtils.decryptWxUser(userForm.getWxSessionKey(),userForm.getEncrypData(),userForm.getIv()).toString());
-        Gson gson = new Gson();
-        WxMaPhoneNumberInfo wxMaPhoneNumberInfo = gson.fromJson(WXUtils.decryptWxUser(userForm.getWxSessionKey(),userForm.getEncrypData(),userForm.getIv()),WxMaPhoneNumberInfo.class);
+//        WxMaPhoneNumberInfo wxMaPhoneNumberInfo = gson.fromJson(WxMaCryptUtils.decrypt(userForm.getWxSessionKey(),userForm.getEncrypData(),userForm.getIv()),WxMaPhoneNumberInfo.class);
+
+//        logger.info("get tele is ", WxMaCryptUtils.decrypt(userForm.getWxSessionKey(),userForm.getEncrypData(),userForm.getIv()).toString());
 
         if (user == null){
             user = new User();
             BeanUtils.copyProperties(userForm,user);
-            user.setTelephone(wxMaPhoneNumberInfo.getPhoneNumber());
             userService.save(user);
         }
 
         BeanUtils.copyProperties(userForm,user);
-        user.setTelephone(wxMaPhoneNumberInfo.getPhoneNumber());
+        user.setId(userService.findByOpenId(userForm.getOpenId()).getId());
         this.update(user);
         return success(user.getTelephone());
     }
@@ -99,6 +100,8 @@ public class UserRest extends BaseRest {
      */
     @PostMapping("/update")
     public Result update(@RequestBody User user){
+
+
         userService.updateById(user);
         return success();
     }
@@ -131,6 +134,12 @@ public class UserRest extends BaseRest {
         } catch (WxErrorException e){
             return failure(e.getMessage());
         }
+    }
+
+    @RequestMapping("/find/openid")
+    public Result findByOpenId(String openid){
+
+        return success(userService.findByOpenId(openid));
     }
 
 }

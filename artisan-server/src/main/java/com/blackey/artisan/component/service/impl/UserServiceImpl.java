@@ -1,6 +1,7 @@
 package com.blackey.artisan.component.service.impl;
 
 import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
+import cn.binarywang.wx.miniapp.util.crypt.WxMaCryptUtils;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.artisan.component.domain.User;
@@ -75,5 +76,19 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 
 
         return this.getOne(queryWrapper);
+    }
+
+
+    public static void main(String[] args) {
+//        String sessionKey = "zg8eV396Va06S+Y4gDcdFQ==";
+//        String vi = "YqNyB5fcBvRM0/paj9p3sQ==";
+//        String encryptData = "P0t+OHpImn5HBZAmxHOw/5G9QylwuVP7fSXIrqxoc6d/IFM8pCjrcMHFDENhE3mfdPTze4MBX33v7JH3v2omubUzjPQryv0wUSQFF8BA48XmrIst1/9G5MJNOJZtjSHE6wNNB8HZwPzGHvsaWPgdpXv+xyAapbGeKwLL5YGI1zLW+Zwo2vRxPN/GTapY7Dmgb2k5oHIuaNiUZBBCmqapog==";
+
+
+        String sessionKey = "7EsgMwGxryKIVJokI7/Zbg==";
+        String vi = "htZpcLYhgWJX3ZOgKXfYpw==";
+        String encryptData = "3WvfrxvS3vy13odNqoKakMxYXw9JUh78nxQThV2iti9DgI9IShA7iYga8ZMjQnJTjzq//CEsxJUOd1d1fPxEFfei6HOIia2taU0oUOpPcY7Vfo9nr6aftbzcIFFR4geaiyTwcF15gQwDNUaeWBG9tssYez8G1dMKR3ZAQKjPcxOb6DeLabrj/FEsk+H5kmOoae/jyY9i6H2ZjMiVdvYYHg==";
+
+        System.out.printf(WxMaCryptUtils.decrypt(sessionKey,encryptData,vi).toString());
     }
 }
