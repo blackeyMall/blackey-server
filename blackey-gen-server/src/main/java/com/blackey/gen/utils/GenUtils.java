@@ -28,6 +28,10 @@ import java.util.zip.ZipOutputStream;
  */
 public class GenUtils {
 
+	private static List<String> excludeStrs = Arrays.asList("id","is_deleted","created_date","updated_date","created_by","updated_by");
+
+
+
 	public static List<String> getTemplates(String path){
 		List<String> templates = new ArrayList<String>();
 		templates.add("template/"+path+"/Entity.java.vm");
@@ -66,6 +70,9 @@ public class GenUtils {
 		//列信息
 		List<ColumnEntity> columsList = new ArrayList<>();
 		for(Map<String, String> column : columns){
+			if (excludeStrs.contains(column.get("columnName"))){
+				continue;
+			}
 			ColumnEntity columnEntity = new ColumnEntity();
 			columnEntity.setColumnName(column.get("columnName"));
 			columnEntity.setDataType(column.get("dataType"));

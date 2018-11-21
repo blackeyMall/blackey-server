@@ -22,6 +22,7 @@ public class AddressInfo extends BaseModel<AddressInfo> implements Serializable 
 
     private static final long serialVersionUID = 1L;
 
+
 	/**
 	 * 地址编号
 	 */
