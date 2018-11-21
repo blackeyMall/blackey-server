@@ -23,11 +23,6 @@ public class AddressInfo extends BaseModel<AddressInfo> implements Serializable 
     private static final long serialVersionUID = 1L;
 
 	/**
-	 * 主键
-	 */
-	@TableId
-	private Long id;
-	/**
 	 * 地址编号
 	 */
 	private String addressNo;
@@ -39,26 +34,7 @@ public class AddressInfo extends BaseModel<AddressInfo> implements Serializable 
 	 * 用户编号
 	 */
 	private String userNo;
-	/**
-	 * 删除标志
-	 */
-	private Integer isDeleted;
-	/**
-	 * 创建人
-	 */
-	private String createdBy;
-	/**
-	 * 创建时间
-	 */
-	private Date createdDate;
-	/**
-	 * 修改人
-	 */
-	private String updatedBy;
-	/**
-	 * 修改时间
-	 */
-	private Date updatedDate;
+
 
     @Override
     protected Serializable pkVal() {

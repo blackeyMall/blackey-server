@@ -22,31 +22,7 @@ public class UserRequireFollow extends BaseModel<UserRequireFollow> implements S
 
     private static final long serialVersionUID = 1L;
 
-	/**
-	 * 
-	 */
-	@TableId
-	private String id;
-	/**
-	 * 
-	 */
-	private Integer isDeleted;
-	/**
-	 * 
-	 */
-	private String createdBy;
-	/**
-	 * 
-	 */
-	private Date createdDate;
-	/**
-	 * 
-	 */
-	private String updatedBy;
-	/**
-	 * 
-	 */
-	private Date updatedDate;
+
 	/**
 	 * 用户id
 	 */
