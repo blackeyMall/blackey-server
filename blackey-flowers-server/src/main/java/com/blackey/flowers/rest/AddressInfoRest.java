@@ -15,6 +15,7 @@ import com.blackey.common.result.Result;
 import com.blackey.mybatis.utils.PageUtils;
 
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * 收货地址信息表 API REST
@@ -57,7 +58,7 @@ public class AddressInfoRest extends BaseRest {
      * 查看详情信息
      */
     @GetMapping("/info/{id}")
-    public Result info(@PathVariable("id") Long id){
+    public Result info(@PathVariable("id") String id){
 
         AddressInfo addressInfo = addressInfoService.getById(id);
 
@@ -73,7 +74,7 @@ public class AddressInfoRest extends BaseRest {
         AddressInfo addressInfo = new AddressInfo();
         //Form --> domain
         BeanUtils.copyProperties(addressInfoForm,addressInfo);
-
+        addressInfo.setAddressNo(UUID.randomUUID().toString().replace("-",""));
         addressInfoService.save(addressInfo);
 
         return success();
@@ -85,7 +86,8 @@ public class AddressInfoRest extends BaseRest {
     @PostMapping("/update")
     public Result update(@RequestBody AddressInfo addressInfo){
 
-        addressInfoService.updateById(addressInfo);//全部更新
+        //全部更新
+        addressInfoService.updateById(addressInfo);
         
         return success();
     }
@@ -94,7 +96,7 @@ public class AddressInfoRest extends BaseRest {
      * 根据主键id删除
      */
     @GetMapping("/delete/{id}")
-    public Result delete(@PathVariable("id") Long id){
+    public Result delete(@PathVariable("id") String id){
 
         addressInfoService.removeById(id);
 

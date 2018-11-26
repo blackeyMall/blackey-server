@@ -21,7 +21,7 @@ public class AddressInfoForm implements Serializable {
 	/**
 	 * 主键
 	 */
-    private Long id;
+    private String id;
 	/**
 	 * 地址编号
 	 */

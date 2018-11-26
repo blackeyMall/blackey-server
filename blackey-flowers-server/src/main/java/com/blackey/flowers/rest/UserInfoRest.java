@@ -15,6 +15,7 @@ import com.blackey.common.result.Result;
 import com.blackey.mybatis.utils.PageUtils;
 
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * 用户信息表 API REST
@@ -74,6 +75,7 @@ public class UserInfoRest extends BaseRest {
         //Form --> domain
         BeanUtils.copyProperties(userInfoForm,userInfo);
 
+        userInfo.setUniqueId(UUID.randomUUID().toString().replace("-",""));
         userInfoService.save(userInfo);
 
         return success();

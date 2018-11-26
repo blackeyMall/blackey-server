@@ -21,7 +21,7 @@ public class GoodsInfoForm implements Serializable {
 	/**
 	 * 主键
 	 */
-    private Long id;
+    private String id;
 	/**
 	 * 商品编号
 	 */

@@ -99,4 +99,14 @@ public class UserInfoForm implements Serializable {
 	 */
     private String telephone;
 
+
+
+	private String code;
+
+	private String encrypData;
+
+	private String iv;
+
+	private String wxSessionKey;
+
 }

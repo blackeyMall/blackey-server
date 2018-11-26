@@ -1,5 +1,6 @@
 package com.blackey.flowers.rest;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.blackey.common.rest.BaseRest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +15,9 @@ import com.blackey.flowers.component.service.GoodsInfoService;
 import com.blackey.common.result.Result;
 import com.blackey.mybatis.utils.PageUtils;
 
+import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * 商品表 API REST
@@ -48,8 +51,13 @@ public class GoodsInfoRest extends BaseRest {
      */
     @PostMapping("/list")
     public Result list(@RequestBody GoodsInfoForm goodsInfoForm){
-        //TODO
-        return success();
+
+        GoodsInfo goodsInfo = new GoodsInfo();
+        BeanUtils.copyProperties(goodsInfoForm,goodsInfo);
+
+        List<GoodsInfo> goodsInfos = goodsInfoService.list(new QueryWrapper<GoodsInfo>(goodsInfo));
+
+        return success(goodsInfos);
     }
 
 
@@ -57,7 +65,7 @@ public class GoodsInfoRest extends BaseRest {
      * 查看详情信息
      */
     @GetMapping("/info/{id}")
-    public Result info(@PathVariable("id") Long id){
+    public Result info(@PathVariable("id") String id){
 
         GoodsInfo goodsInfo = goodsInfoService.getById(id);
 
@@ -73,7 +81,7 @@ public class GoodsInfoRest extends BaseRest {
         GoodsInfo goodsInfo = new GoodsInfo();
         //Form --> domain
         BeanUtils.copyProperties(goodsInfoForm,goodsInfo);
-
+        goodsInfo.setGoodsNo(UUID.randomUUID().toString().replace("-",""));
         goodsInfoService.save(goodsInfo);
 
         return success();
@@ -85,7 +93,8 @@ public class GoodsInfoRest extends BaseRest {
     @PostMapping("/update")
     public Result update(@RequestBody GoodsInfo goodsInfo){
 
-        goodsInfoService.updateById(goodsInfo);//全部更新
+        //全部更新
+        goodsInfoService.updateById(goodsInfo);
         
         return success();
     }
@@ -94,7 +103,7 @@ public class GoodsInfoRest extends BaseRest {
      * 根据主键id删除
      */
     @GetMapping("/delete/{id}")
-    public Result delete(@PathVariable("id") Long id){
+    public Result delete(@PathVariable("id") String id){
 
         goodsInfoService.removeById(id);
 

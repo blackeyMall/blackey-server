@@ -21,7 +21,7 @@ public class OrderInfoForm implements Serializable {
 	/**
 	 * 主键
 	 */
-    private Long id;
+    private String id;
 	/**
 	 * 订单编号
 	 */

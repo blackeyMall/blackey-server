@@ -15,6 +15,7 @@ import com.blackey.common.result.Result;
 import com.blackey.mybatis.utils.PageUtils;
 
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * 订单信息表 API REST
@@ -57,7 +58,7 @@ public class OrderInfoRest extends BaseRest {
      * 查看详情信息
      */
     @GetMapping("/info/{id}")
-    public Result info(@PathVariable("id") Long id){
+    public Result info(@PathVariable("id") String id){
 
         OrderInfo orderInfo = orderInfoService.getById(id);
 
@@ -73,7 +74,7 @@ public class OrderInfoRest extends BaseRest {
         OrderInfo orderInfo = new OrderInfo();
         //Form --> domain
         BeanUtils.copyProperties(orderInfoForm,orderInfo);
-
+        orderInfo.setOrderNo(UUID.randomUUID().toString().replace("-",""));
         orderInfoService.save(orderInfo);
 
         return success();
@@ -94,7 +95,7 @@ public class OrderInfoRest extends BaseRest {
      * 根据主键id删除
      */
     @GetMapping("/delete/{id}")
-    public Result delete(@PathVariable("id") Long id){
+    public Result delete(@PathVariable("id") String id){
 
         orderInfoService.removeById(id);
 
