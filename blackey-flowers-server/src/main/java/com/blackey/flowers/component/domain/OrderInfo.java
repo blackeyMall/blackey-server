@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -63,6 +64,10 @@ public class OrderInfo extends BaseModel<OrderInfo> implements Serializable {
 	 * 备注
 	 */
 	private String remark;
+	/**
+	 * 订单总额
+	 */
+	private BigDecimal amount;
 
     @Override
     protected Serializable pkVal() {

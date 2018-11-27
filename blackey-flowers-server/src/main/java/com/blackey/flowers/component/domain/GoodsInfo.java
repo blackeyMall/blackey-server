@@ -32,6 +32,12 @@ public class GoodsInfo extends BaseModel<GoodsInfo> implements Serializable {
 	 */
 	private String goodsName;
 
+	/**
+	 * 商品描述
+	 */
+	private String goodsDesc;
+
+
 
     @Override
     protected Serializable pkVal() {

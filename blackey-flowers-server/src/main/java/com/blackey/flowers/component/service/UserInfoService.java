@@ -47,6 +47,13 @@ public interface UserInfoService extends BaseService<UserInfo> {
 
     UserInfoForm saveWxUserForm(HttpServletRequest request, String encryptData, String vi);
 
+    /**
+     * 根据openid查找用户信息
+     * @param openId
+     * @return
+     */
+    UserInfo findByOpenId(String openId);
+
 
 }
 

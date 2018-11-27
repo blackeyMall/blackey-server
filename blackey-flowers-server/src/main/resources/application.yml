@@ -61,9 +61,13 @@ redis:
 application:
   captcha:
     enabled: false
+
 logging:
   level:
-    com.blackey.artisan.component.mapper: debug
+    org.springframework.web: INFO
+    com.blackey.flowers.component.mapper: debug
+    me.chanjar.weixin: DEBUG
+
 file:
   upload:
     path: /opt/application/flowers/

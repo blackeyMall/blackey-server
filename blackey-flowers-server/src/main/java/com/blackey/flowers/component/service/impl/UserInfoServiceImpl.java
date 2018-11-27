@@ -1,6 +1,7 @@
 package com.blackey.flowers.component.service.impl;
 
 import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.common.utils.WXUtils;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.nio.file.Watchable;
 import java.util.Map;
 
 /**
@@ -59,6 +61,14 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoMapper, UserInf
         UserInfo userInfo =  gson.fromJson(WXUtils.decryptWxUser(sessionKey,encryptData,vi),UserInfo.class);
         this.save(userInfo);
         return null;
+    }
+
+    @Override
+    public UserInfo findByOpenId(String openId) {
+
+        Wrapper querWrapper = new QueryWrapper();
+        ((QueryWrapper) querWrapper).eq("open_id",openId);
+        return this.getOne(querWrapper);
     }
 
 }

@@ -1,5 +1,7 @@
 package com.blackey.flowers.rest;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.blackey.common.rest.BaseRest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +16,7 @@ import com.blackey.flowers.component.service.UserInfoService;
 import com.blackey.common.result.Result;
 import com.blackey.mybatis.utils.PageUtils;
 
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -49,8 +52,12 @@ public class UserInfoRest extends BaseRest {
      */
     @PostMapping("/list")
     public Result list(@RequestBody UserInfoForm userInfoForm){
-        //TODO
-        return success();
+        UserInfo userInfo = new UserInfo();
+        BeanUtils.copyProperties(userInfoForm,userInfo);
+        Wrapper wrapper = new QueryWrapper();
+        ((QueryWrapper) wrapper).setEntity(userInfo);
+        List<UserInfo> list = userInfoService.list(wrapper);
+        return success(list);
     }
 
 
@@ -87,7 +94,7 @@ public class UserInfoRest extends BaseRest {
     @PostMapping("/update")
     public Result update(@RequestBody UserInfo userInfo){
 
-        userInfoService.updateById(userInfo);//全部更新
+        userInfoService.updateById(userInfo);
         
         return success();
     }
@@ -101,6 +108,17 @@ public class UserInfoRest extends BaseRest {
         userInfoService.removeById(id);
 
         return success();
+    }
+
+    /**
+     * 根据openid查找用户信息
+     */
+    @GetMapping("/query/{openId}")
+    public Result findByOpenId(@PathVariable("openId") String openId){
+
+        UserInfo userInfo = userInfoService.findByOpenId(openId);
+
+        return success(userInfo);
     }
 
 }

@@ -1,6 +1,10 @@
 package com.blackey.flowers.rest;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.blackey.common.rest.BaseRest;
+import com.blackey.flowers.global.constants.OrderStatus;
+import com.blackey.flowers.global.constants.PayStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -14,6 +18,7 @@ import com.blackey.flowers.component.service.OrderInfoService;
 import com.blackey.common.result.Result;
 import com.blackey.mybatis.utils.PageUtils;
 
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -49,8 +54,15 @@ public class OrderInfoRest extends BaseRest {
      */
     @PostMapping("/list")
     public Result list(@RequestBody OrderInfoForm orderInfoForm){
-        //TODO
-        return success();
+
+        OrderInfo orderInfo = new OrderInfo();
+        BeanUtils.copyProperties(orderInfoForm,orderInfo);
+
+        Wrapper<OrderInfo> queryWrapper = new QueryWrapper();
+        ((QueryWrapper<OrderInfo>) queryWrapper).setEntity(orderInfo);
+        List<OrderInfo> orderInfos = orderInfoService.list(queryWrapper);
+
+        return success(orderInfos);
     }
 
 
@@ -75,6 +87,8 @@ public class OrderInfoRest extends BaseRest {
         //Form --> domain
         BeanUtils.copyProperties(orderInfoForm,orderInfo);
         orderInfo.setOrderNo(UUID.randomUUID().toString().replace("-",""));
+        orderInfo.setPayStatus(PayStatus.DEFAULT.getName());
+        orderInfo.setTradeStatus(OrderStatus.BOOK.getName());
         orderInfoService.save(orderInfo);
 
         return success();
@@ -86,7 +100,7 @@ public class OrderInfoRest extends BaseRest {
     @PostMapping("/update")
     public Result update(@RequestBody OrderInfo orderInfo){
 
-        orderInfoService.updateById(orderInfo);//全部更新
+        orderInfoService.updateById(orderInfo);
         
         return success();
     }
