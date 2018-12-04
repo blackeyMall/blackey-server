@@ -71,8 +71,11 @@ public class OrderInfoRest extends BaseRest {
     @PostMapping("/list")
     public Result list(@RequestBody OrderInfoForm orderInfoForm){
 
+        Page page = new Page(orderInfoForm.getCurrent(),orderInfoForm.getSize());
+
         OrderInfo orderInfo = new OrderInfo();
         BeanUtils.copyProperties(orderInfoForm,orderInfo);
+
 
         Wrapper<OrderInfo> queryWrapper = new QueryWrapper();
         ((QueryWrapper<OrderInfo>) queryWrapper).setEntity(orderInfo);
@@ -184,7 +187,7 @@ public class OrderInfoRest extends BaseRest {
      * @return
      * @throws WxPayException
      */
-    @PostMapping("/notify/order")
+    @PostMapping("/notify")
     public Result parseOrderNotifyResult(@RequestBody String xmlData) throws WxPayException {
 
         orderInfoService.parseOrderNotifyResult(xmlData);

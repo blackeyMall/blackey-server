@@ -3,6 +3,8 @@ package com.blackey.flowers.dto.form;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 /**
  * 获取微信手机号form
  * creat_user: kaven
@@ -11,7 +13,9 @@ import lombok.Setter;
  **/
 @Getter
 @Setter
-public class WxMobileForm {
+public class WxMobileForm implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private String openId;
 

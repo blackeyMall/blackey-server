@@ -1,6 +1,7 @@
 package com.blackey.flowers.dto.form;
 
 import com.blackey.flowers.dto.BaseSearch;
+import com.blackey.flowers.global.constants.OrderStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -74,7 +75,7 @@ public class OrderInfoForm extends BaseSearch implements Serializable {
 	/**
 	 * 订单状态
 	 */
-    private String tradeStatus;
+    private OrderStatus tradeStatus = OrderStatus.DEFAULT;
 	/**
 	 * 支付状态
 	 */

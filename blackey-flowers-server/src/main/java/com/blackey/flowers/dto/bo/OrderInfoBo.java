@@ -1,5 +1,6 @@
 package com.blackey.flowers.dto.bo;
 
+import com.blackey.flowers.global.constants.OrderStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -73,7 +74,7 @@ public class OrderInfoBo implements Serializable {
 	/**
 	 * 订单状态
 	 */
-    private String tradeStatus;
+    private OrderStatus tradeStatus;
 	/**
 	 * 支付状态
 	 */
