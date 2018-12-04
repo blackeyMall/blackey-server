@@ -17,6 +17,7 @@ public enum  OrderStatus{
      * 订单状态
      */
     DEFAULT("全部"),
+    CANCEL("已取消"),
     WAIT_PAY("待付款"),
     SERVICE("服务中"),
     DONE("已完成");

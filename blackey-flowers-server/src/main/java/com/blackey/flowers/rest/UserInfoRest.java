@@ -40,7 +40,7 @@ public class UserInfoRest extends BaseRest {
     /**
     * 分页列表
     */
-    @PostMapping("/list/page")
+    @GetMapping("/list/page")
     @RequiresPermissions("flowers:userinfo:list")
     public Result list(@RequestParam Map<String, Object> params){
         PageUtils page = userInfoService.queryPage(params);

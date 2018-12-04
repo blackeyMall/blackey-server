@@ -1,16 +1,22 @@
 package com.blackey.flowers.component.service.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.blackey.flowers.component.domain.UserInfo;
+import com.blackey.flowers.component.service.UserInfoService;
 import com.blackey.flowers.dto.bo.OrderInfoBo;
 import com.blackey.flowers.dto.form.OrderInfoForm;
 import com.blackey.flowers.dto.form.PayUnifiedOrderForm;
 import com.blackey.flowers.global.constants.OrderStatus;
 import com.github.binarywang.wxpay.bean.notify.WxPayOrderNotifyResult;
 import com.github.binarywang.wxpay.bean.order.WxPayAppOrderResult;
+import com.github.binarywang.wxpay.bean.order.WxPayMpOrderResult;
 import com.github.binarywang.wxpay.bean.request.WxPayUnifiedOrderRequest;
 import com.github.binarywang.wxpay.exception.WxPayException;
 import com.github.binarywang.wxpay.service.WxPayService;
+import com.google.gson.Gson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -26,6 +32,7 @@ import com.blackey.flowers.component.mapper.OrderInfoMapper;
 import com.blackey.flowers.component.domain.OrderInfo;
 import com.blackey.flowers.component.service.OrderInfoService;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -43,6 +50,8 @@ public class OrderInfoServiceImpl extends BaseServiceImpl<OrderInfoMapper, Order
 
     @Autowired
     WxPayService wxService;
+    @Autowired
+    UserInfoService userInfoService;
 
 
 
@@ -84,20 +93,34 @@ public class OrderInfoServiceImpl extends BaseServiceImpl<OrderInfoMapper, Order
         /**
          * 商品描述
          */
-        request.setDetail("");
+        request.setDetail(JSON.toJSONString(payUnifiedOrderForm));
         request.setNonceStr(UUID.randomUUID().toString().replace("-","").substring(0,30));
         request.setSignType("MD5");
         /**
          * 订单号
          */
-        request.setOutTradeNo(UUID.randomUUID().toString().replace("-",""));
+        String orderNo = UUID.randomUUID().toString().replace("-","");
+        request.setOutTradeNo(orderNo);
         request.setTotalFee(payUnifiedOrderForm.getTotalFee());
         request.setSpbillCreateIp("172.0.0.1");
-        request.setNotifyUrl("http://11.240.163.155:1099/flowers/wx/pay/notify/order");
+        request.setNotifyUrl("https://www.ssqushe.com/flowers/order/notify");
         request.setTradeType("JSAPI");
         request.setProductId(payUnifiedOrderForm.getGoodsNo());
         request.setOpenid(payUnifiedOrderForm.getOpenId());
 
+        UserInfo userInfo = userInfoService.findByOpenId(payUnifiedOrderForm.getOpenId());
+
+        OrderInfo orderInfo = new OrderInfo();
+        orderInfo.setOrderNo(orderNo);
+        orderInfo.setTradeStatus(OrderStatus.CANCEL);
+        orderInfo.setUserNo(userInfo.getId());
+        orderInfo.setAmount(new BigDecimal(payUnifiedOrderForm.getTotalFee()));
+        orderInfo.setGoodsNo(payUnifiedOrderForm.getGoodsNo());
+        orderInfo.setGoodsName(payUnifiedOrderForm.getGoodsName());
+        orderInfo.setGoodsType(payUnifiedOrderForm.getGoodsType());
+        orderInfo.setGoodsCount(1);
+        orderInfo.setRefereeId(payUnifiedOrderForm.getRefereeId());
+        this.save(orderInfo);
 
 
         return wxService.createOrder(request);

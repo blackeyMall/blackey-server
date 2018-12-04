@@ -1,6 +1,8 @@
 package com.blackey.flowers.component.service.impl;
 
 import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
@@ -86,10 +88,11 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoMapper, UserInf
         String wxMobile = WXUtils.decryptWxMobile(wxMobileForm.getEncrypData(),
                 wxMobileForm.getSessionKey(), wxMobileForm.getIv());
 
-        WxMobileBo wxMobileBo = new Gson().fromJson(wxMobile, WxMobileBo.class);
+        JSONObject jsonObject = JSON.parseObject(wxMobile);
+        WxMobileBo wxMobileBo = JSON.parseObject(jsonObject.getString("mobile"),WxMobileBo.class);
         UserInfo userInfo = new UserInfo();
         userInfo.setTelephone(wxMobileBo.getPurePhoneNumber());
-        this.update(userInfo,new UpdateWrapper<UserInfo>().set("open_id",wxMobileForm.getOpenId()));
+        this.update(userInfo,new UpdateWrapper<UserInfo>().eq("open_id",wxMobileForm.getOpenId()));
 
         return wxMobileBo.getPurePhoneNumber();
     }

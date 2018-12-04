@@ -33,6 +33,10 @@ public class PayUnifiedOrderForm implements Serializable {
      * 总金额
      */
     private int totalFee;
+    /**
+     * 推荐人id
+     */
+    private String refereeId;
 
 
 }

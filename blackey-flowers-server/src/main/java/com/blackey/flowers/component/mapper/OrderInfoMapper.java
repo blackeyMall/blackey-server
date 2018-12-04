@@ -25,8 +25,8 @@ public interface OrderInfoMapper extends BaseDAO<OrderInfo> {
             "<if test=\"form.openId != '' and form.openId != null\">" +
             " and u.open_id = #{form.openId}\n" +
             "</if>" +
-            "<if test=\"form.tradeStatus != '' and form.tradeStatus != null\">\n" +
-            " and o.trade_status = #{form.tradeStatus}\n" +
+            "<if test=\"form.tradeStatus.value != '' and form.tradeStatus.value != null and form.tradeStatus.value != 'DEFAULT'\">\n" +
+            " and o.trade_status = #{form.tradeStatus.value}\n" +
             "</if>" +
             " order by o.created_date desc </script>")
     List<OrderInfoBo> getOrderlistPage(@Param("form") OrderInfoForm orderInfoForm, Page<OrderInfoBo> page);
