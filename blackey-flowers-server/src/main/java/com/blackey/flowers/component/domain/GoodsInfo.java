@@ -1,13 +1,11 @@
 package com.blackey.flowers.component.domain;
 
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.blackey.mybatis.model.BaseModel;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * 商品表
@@ -31,6 +29,12 @@ public class GoodsInfo extends BaseModel<GoodsInfo> implements Serializable {
 	 * 商品名称
 	 */
 	private String goodsName;
+
+	/**
+	 * 商品描述
+	 */
+	private String goodsDesc;
+
 
 
     @Override

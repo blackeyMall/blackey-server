@@ -1,6 +1,9 @@
 package com.blackey.flowers.rest;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.blackey.common.rest.BaseRest;
+import com.google.gson.Gson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -14,7 +17,9 @@ import com.blackey.flowers.component.service.UserInfoService;
 import com.blackey.common.result.Result;
 import com.blackey.mybatis.utils.PageUtils;
 
+import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * 用户信息表 API REST
@@ -23,7 +28,7 @@ import java.util.Map;
  * @date 2018-11-20 23:49:38
  */
 @RestController
-@RequestMapping("/flowers/userinfo")
+@RequestMapping("/flowers/user")
 public class UserInfoRest extends BaseRest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserInfoRest.class);
@@ -48,8 +53,12 @@ public class UserInfoRest extends BaseRest {
      */
     @PostMapping("/list")
     public Result list(@RequestBody UserInfoForm userInfoForm){
-        //TODO
-        return success();
+        UserInfo userInfo = new UserInfo();
+        BeanUtils.copyProperties(userInfoForm,userInfo);
+        Wrapper wrapper = new QueryWrapper();
+        ((QueryWrapper) wrapper).setEntity(userInfo);
+        List<UserInfo> list = userInfoService.list(wrapper);
+        return success(list);
     }
 
 
@@ -70,11 +79,17 @@ public class UserInfoRest extends BaseRest {
     @PostMapping("/save")
     public Result save(@RequestBody UserInfoForm userInfoForm){
 
-        UserInfo userInfo = new UserInfo();
-        //Form --> domain
-        BeanUtils.copyProperties(userInfoForm,userInfo);
+        UserInfo user = userInfoService.findByOpenId(userInfoForm.getOpenId());
 
-        userInfoService.save(userInfo);
+        if (user == null){
+            user = new UserInfo();
+            BeanUtils.copyProperties(userInfoForm,user);
+            userInfoService.save(user);
+        }else{
+            BeanUtils.copyProperties(userInfoForm,user);
+            user.setId(userInfoService.findByOpenId(userInfoForm.getOpenId()).getId());
+            this.update(user);
+        }
 
         return success();
     }
@@ -85,7 +100,7 @@ public class UserInfoRest extends BaseRest {
     @PostMapping("/update")
     public Result update(@RequestBody UserInfo userInfo){
 
-        userInfoService.updateById(userInfo);//全部更新
+        userInfoService.updateById(userInfo);
         
         return success();
     }
@@ -99,6 +114,17 @@ public class UserInfoRest extends BaseRest {
         userInfoService.removeById(id);
 
         return success();
+    }
+
+    /**
+     * 根据openid查找用户信息
+     */
+    @GetMapping("/query/{openId}")
+    public Result findByOpenId(@PathVariable("openId") String openId){
+
+        UserInfo userInfo = userInfoService.findByOpenId(openId);
+
+        return success(userInfo);
     }
 
 }

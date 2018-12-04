@@ -1,5 +1,6 @@
 package com.blackey.flowers.dto.form;
 
+import com.blackey.flowers.dto.BaseSearch;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,14 +15,14 @@ import java.util.Date;
  */
 @Getter
 @Setter
-public class OrderInfoForm implements Serializable {
+public class OrderInfoForm extends BaseSearch implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
 	/**
 	 * 主键
 	 */
-    private Long id;
+    private String id;
 	/**
 	 * 订单编号
 	 */
@@ -82,5 +83,16 @@ public class OrderInfoForm implements Serializable {
 	 * 备注
 	 */
     private String remark;
+
+	/**
+	 * 推荐人id
+	 */
+	private String refereeId;
+	/**
+	 * 类型 0 一周一次  1 三周三次
+	 */
+	private String goodsType;
+
+	private String openId;
 
 }

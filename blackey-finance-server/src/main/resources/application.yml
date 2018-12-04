@@ -1,9 +1,9 @@
 spring:
   application:
-    name: blackey-admin-server
+    name: finance-server
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:8889/renren_fast?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://localhost:8889/finance?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
     username: root
     password: root
   # jackson时间格式化
@@ -15,20 +15,20 @@ spring:
       max-file-size: 100MB
       max-request-size: 100MB
       enabled: true
-  redis:
-    host: localhost
-    port: 6379
-    password:
+#  redis:
+#    host: localhost
+#    port: 6379
+#    password:
 server:
-  port: 1098
+  port: 1099
 
 #mybatis
 mybatis-plus:
   # config-location:
   # classpath:/mapper/*Mapper.xml
-  mapper-locations: classpath:mapper/*Mapper.xml
+  mapper-locations: classpath:mapper/finance/*Mapper.xml
   # 实体扫描，多个package用逗号或者分号分隔
-  type-aliases-package: com.blackey.admin.*.domain
+  type-aliases-package: com.blackey.finance.*.domain
   configuration:
     # 驼峰下划线转换
     map-underscore-to-camel-case: true
@@ -46,7 +46,7 @@ mybatis-plus:
     db-config:
       db-type: mysql
       # 主键类型  AUTO:"数据库ID自增", INPUT:"用户输入ID",ID_WORKER:"全局唯一ID (数字类型唯一ID)", UUID:"全局唯一ID UUID";
-      id-type: AUTO
+      id-type: UUID
       # 字段策略 IGNORED:"忽略判断",NOT_NULL:"非 NULL 判断"),NOT_EMPTY:"非空判断"
       field-strategy: not_empty
       capital-mode: true
@@ -66,4 +66,22 @@ application:
     enabled: false
 logging:
   level:
-    com.blackey.admin.component.mapper: debug
+    com.blackey.artisan.component.mapper: debug
+file:
+  upload:
+    path: /opt/application/artisan/
+http:
+  domain: http://portal.chihei/opt/application/artisan/
+wx:
+  miniapp:
+    configs:
+      - appid: wxe8d9cc02ebb02721
+        secret: 5018e4c6d939ba3d40f9b821e600ee63
+        token:
+        aesKey:
+        msgDataFormat: JSON
+
+
+blackey:
+  swagger2:
+    basePackage: com.blackey.finance.rest

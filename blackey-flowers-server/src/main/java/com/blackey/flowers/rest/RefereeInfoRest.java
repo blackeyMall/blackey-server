@@ -8,9 +8,9 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import com.blackey.flowers.component.domain.AddressInfo;
-import com.blackey.flowers.dto.form.AddressInfoForm;
-import com.blackey.flowers.component.service.AddressInfoService;
+import com.blackey.flowers.component.domain.RefereeInfo;
+import com.blackey.flowers.dto.form.RefereeInfoForm;
+import com.blackey.flowers.component.service.RefereeInfoService;
 import com.blackey.common.result.Result;
 import com.blackey.mybatis.utils.PageUtils;
 
@@ -18,28 +18,28 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
- * 收货地址信息表 API REST
+ *  API REST
  *
  * @author kaven
- * @date 2018-11-20 23:49:38
+ * @date 2018-11-28 20:43:34
  */
 @RestController
-@RequestMapping("/flowers/addressinfo")
-public class AddressInfoRest extends BaseRest {
+@RequestMapping("/flowers/refereeinfo")
+public class RefereeInfoRest extends BaseRest {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AddressInfoRest.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(RefereeInfoRest.class);
 
     @Autowired
-    private AddressInfoService addressInfoService;
+    private RefereeInfoService refereeInfoService;
 
 
     /**
     * 分页列表
     */
     @PostMapping("/list/page")
-    @RequiresPermissions("flowers:addressinfo:list")
+    @RequiresPermissions("finance:refereeinfo:list")
     public Result list(@RequestParam Map<String, Object> params){
-        PageUtils page = addressInfoService.queryPage(params);
+        PageUtils page = refereeInfoService.queryPage(params);
 
         return success(page);
     }
@@ -48,7 +48,7 @@ public class AddressInfoRest extends BaseRest {
      * 列表
      */
     @PostMapping("/list")
-    public Result list(@RequestBody AddressInfoForm addressInfoForm){
+    public Result list(@RequestBody RefereeInfoForm refereeInfoForm){
         //TODO
         return success();
     }
@@ -60,22 +60,22 @@ public class AddressInfoRest extends BaseRest {
     @GetMapping("/info/{id}")
     public Result info(@PathVariable("id") String id){
 
-        AddressInfo addressInfo = addressInfoService.getById(id);
+        RefereeInfo refereeInfo = refereeInfoService.getById(id);
 
-        return success(addressInfo);
+        return success(refereeInfo);
     }
 
     /**
      * 保存
      */
     @PostMapping("/save")
-    public Result save(@RequestBody AddressInfoForm addressInfoForm){
+    public Result save(@RequestBody RefereeInfoForm refereeInfoForm){
 
-        AddressInfo addressInfo = new AddressInfo();
+        RefereeInfo refereeInfo = new RefereeInfo();
         //Form --> domain
-        BeanUtils.copyProperties(addressInfoForm,addressInfo);
-        addressInfo.setAddressNo(UUID.randomUUID().toString().replace("-",""));
-        addressInfoService.save(addressInfo);
+        BeanUtils.copyProperties(refereeInfoForm,refereeInfo);
+        refereeInfo.setId(UUID.randomUUID().toString().replace("-",""));
+        refereeInfoService.save(refereeInfo);
 
         return success();
     }
@@ -84,10 +84,9 @@ public class AddressInfoRest extends BaseRest {
      * 修改
      */
     @PostMapping("/update")
-    public Result update(@RequestBody AddressInfo addressInfo){
+    public Result update(@RequestBody RefereeInfo refereeInfo){
 
-        //全部更新
-        addressInfoService.updateById(addressInfo);
+        refereeInfoService.updateById(refereeInfo);
         
         return success();
     }
@@ -98,7 +97,7 @@ public class AddressInfoRest extends BaseRest {
     @GetMapping("/delete/{id}")
     public Result delete(@PathVariable("id") String id){
 
-        addressInfoService.removeById(id);
+        refereeInfoService.removeById(id);
 
         return success();
     }

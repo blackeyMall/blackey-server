@@ -1,9 +1,9 @@
 spring:
   application:
-    name: blackey-admin-server
+    name: flowers-server
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:8889/renren_fast?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://localhost:8889/flowers?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
     username: root
     password: root
   # jackson时间格式化
@@ -15,20 +15,20 @@ spring:
       max-file-size: 100MB
       max-request-size: 100MB
       enabled: true
-  redis:
-    host: localhost
-    port: 6379
-    password:
+#  redis:
+#    host: localhost
+#    port: 6379
+#    password:
 server:
-  port: 1098
+  port: 1099
 
 #mybatis
 mybatis-plus:
   # config-location:
   # classpath:/mapper/*Mapper.xml
-  mapper-locations: classpath:mapper/*Mapper.xml
+  mapper-locations: classpath:mapper/flowers/*Mapper.xml
   # 实体扫描，多个package用逗号或者分号分隔
-  type-aliases-package: com.blackey.admin.*.domain
+  type-aliases-package: com.blackey.flowers.*.domain
   configuration:
     # 驼峰下划线转换
     map-underscore-to-camel-case: true
@@ -46,7 +46,7 @@ mybatis-plus:
     db-config:
       db-type: mysql
       # 主键类型  AUTO:"数据库ID自增", INPUT:"用户输入ID",ID_WORKER:"全局唯一ID (数字类型唯一ID)", UUID:"全局唯一ID UUID";
-      id-type: AUTO
+      id-type: UUID
       # 字段策略 IGNORED:"忽略判断",NOT_NULL:"非 NULL 判断"),NOT_EMPTY:"非空判断"
       field-strategy: not_empty
       capital-mode: true
@@ -57,13 +57,35 @@ mybatis-plus:
 redis:
   serializer:
     name: kryo
-management:
-  security:
-    enabled: false
 
 application:
   captcha:
     enabled: false
+
 logging:
   level:
-    com.blackey.admin.component.mapper: debug
+    org.springframework.web: INFO
+    com.blackey.flowers.component.mapper: debug
+    me.chanjar.weixin: DEBUG
+
+file:
+  upload:
+    path: /opt/application/flowers/
+http:
+  domain: http://portal.chihei/opt/application/artisan/
+wx:
+  miniapp:
+    configs:
+      - appid: wxa8fd746b43616ab5
+        secret: b21e12ec6a15eb52c8ce1a7ceb63014f
+        token:
+        aesKey:
+        msgDataFormat: JSON
+  pay:
+    appId: wxa8fd746b43616ab5
+    mchId: 1501919461
+    mchKey: A1B2A1B2A1B2A1B2A1B2A1B2A1B2A1B2
+    keyPath: # p12证书的位置，可以指定绝对路径，也可以指定类路径（以classpath:开头）
+blackey:
+  swagger2:
+    basePackage: com.blackey.flowers.rest

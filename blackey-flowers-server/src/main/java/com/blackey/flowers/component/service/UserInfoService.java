@@ -1,9 +1,14 @@
 package com.blackey.flowers.component.service;
 
+import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
+import com.blackey.flowers.dto.form.UserInfoForm;
+import com.blackey.flowers.dto.form.WxMobileForm;
 import com.blackey.mybatis.service.BaseService;
 import com.blackey.mybatis.utils.PageUtils;
 import com.blackey.flowers.component.domain.UserInfo;
+import me.chanjar.weixin.common.error.WxErrorException;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
@@ -20,5 +25,40 @@ public interface UserInfoService extends BaseService<UserInfo> {
     * @return
     */
     PageUtils queryPage(Map<String, Object> params);
+
+    /**
+     * 微信登录
+     * @param request
+     * @param form
+     * @return
+     * @throws WxErrorException
+     */
+    WxMaJscode2SessionResult login(HttpServletRequest request, UserInfoForm form)  throws WxErrorException;
+
+    /**
+     * 登录完成后获取用户信息
+     * @param request
+     * @param encryptData
+     * @param vi
+     * @return
+     */
+
+    UserInfoForm saveWxUserForm(HttpServletRequest request, String encryptData, String vi);
+
+    /**
+     * 根据openid查找用户信息
+     * @param openId
+     * @return
+     */
+    UserInfo findByOpenId(String openId);
+
+    /**
+     * 获取微信手机号
+     * @param wxMobileForm
+     * @return
+     */
+    String getWxMobile(WxMobileForm wxMobileForm);
+
+
 }
 
