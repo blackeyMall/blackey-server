@@ -26,11 +26,6 @@ public class WxMpController extends BaseRest {
     @Autowired
     private UserInfoService userInfoService;
 
-    @PostMapping("/save")
-    public Result save(HttpServletRequest request, @RequestParam String encryptData, @RequestParam String vi){
-        userInfoService.saveWxUserForm(request,encryptData,vi);
-        return success();
-    }
 
     @PostMapping("/login")
     public Result login(@RequestBody UserInfoForm form, HttpServletRequest request){

@@ -9,6 +9,7 @@ import com.blackey.common.result.ResultCodeEnum;
 import com.blackey.flowers.component.domain.UserInfo;
 import com.blackey.flowers.component.service.UserInfoService;
 import com.blackey.flowers.dto.bo.OrderInfoBo;
+import com.blackey.flowers.dto.form.OrderStatusChangeForm;
 import com.blackey.flowers.dto.form.PayUnifiedOrderForm;
 import com.blackey.flowers.global.constants.OrderStatus;
 import com.blackey.flowers.global.constants.PayStatus;
@@ -142,6 +143,18 @@ public class OrderInfoRest extends BaseRest {
     }
 
     /**
+     * 订单状态修改
+     */
+    @PostMapping("/status/change")
+    public Result update(@RequestBody OrderStatusChangeForm form){
+
+        orderInfoService.changeOrderStatus(form.getOrderNo(),form.getOrderStatus());
+
+        return success();
+    }
+
+
+    /**
      * 根据主键id删除
      */
     @GetMapping("/delete/{id}")
@@ -178,5 +191,8 @@ public class OrderInfoRest extends BaseRest {
 
         return success();
     }
+
+
+
 
 }

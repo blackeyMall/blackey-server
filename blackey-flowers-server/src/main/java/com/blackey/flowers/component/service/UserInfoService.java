@@ -26,9 +26,6 @@ public interface UserInfoService extends BaseService<UserInfo> {
     */
     PageUtils queryPage(Map<String, Object> params);
 
-
-
-
     /**
      * 微信登录
      * @param request
