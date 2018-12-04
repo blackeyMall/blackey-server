@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -83,5 +84,20 @@ public class OrderInfoBo implements Serializable {
 	 * 备注
 	 */
     private String remark;
+
+	/**
+	 * 订单总额
+	 */
+	private BigDecimal amount;
+	/**
+	 * 商品名称
+	 */
+	private String goodsDesc;
+
+	/**
+	 * 类型 0 一周一次  1 三周三次
+	 */
+	private String goodsType;
+
 
 }

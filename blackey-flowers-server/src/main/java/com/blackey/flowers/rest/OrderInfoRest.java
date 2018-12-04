@@ -71,17 +71,11 @@ public class OrderInfoRest extends BaseRest {
     @PostMapping("/list")
     public Result list(@RequestBody OrderInfoForm orderInfoForm){
 
-        Page page = new Page(orderInfoForm.getCurrent(),orderInfoForm.getSize());
+        Page<OrderInfoBo> page = new Page<>(orderInfoForm.getCurrent(),orderInfoForm.getSize());
 
-        OrderInfo orderInfo = new OrderInfo();
-        BeanUtils.copyProperties(orderInfoForm,orderInfo);
+        List<OrderInfoBo> orderlistPage = orderInfoService.getOrderlistPage(orderInfoForm, page);
 
-
-        Wrapper<OrderInfo> queryWrapper = new QueryWrapper();
-        ((QueryWrapper<OrderInfo>) queryWrapper).setEntity(orderInfo);
-        List<OrderInfo> orderInfos = orderInfoService.list(queryWrapper);
-
-        return success(orderInfos);
+        return success(page.setRecords(orderlistPage));
     }
 
     /**

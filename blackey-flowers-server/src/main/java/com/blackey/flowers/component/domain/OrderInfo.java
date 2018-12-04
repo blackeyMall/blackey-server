@@ -40,6 +40,11 @@ public class OrderInfo extends BaseModel<OrderInfo> implements Serializable {
 	 */
 	private Integer goodsCount;
 	/**
+	 * 商品名称
+	 */
+	private String goodsDesc;
+
+	/**
 	 * 地址编号
 	 */
 	private String addressNo;
