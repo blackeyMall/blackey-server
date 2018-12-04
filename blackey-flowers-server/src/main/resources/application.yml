@@ -76,13 +76,13 @@ http:
 wx:
   miniapp:
     configs:
-      - appid: wxa8fd746b43616ab5
-        secret: b21e12ec6a15eb52c8ce1a7ceb63014f
+      - appid: wx8d2f4db66425055e
+        secret: ec5aba57844d0957f87f1ac08addfd95
         token:
         aesKey:
         msgDataFormat: JSON
   pay:
-    appId: wxa8fd746b43616ab5
+    appId: wx8d2f4db66425055e
     mchId: 1501919461
     mchKey: A1B2A1B2A1B2A1B2A1B2A1B2A1B2A1B2
     keyPath: # p12证书的位置，可以指定绝对路径，也可以指定类路径（以classpath:开头）
