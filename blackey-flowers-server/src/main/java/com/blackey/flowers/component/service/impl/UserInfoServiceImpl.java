@@ -3,12 +3,15 @@ package com.blackey.flowers.component.service.impl;
 import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.common.utils.WXUtils;
 import com.blackey.flowers.component.domain.UserInfo;
 import com.blackey.flowers.component.mapper.UserInfoMapper;
 import com.blackey.flowers.component.service.UserInfoService;
+import com.blackey.flowers.dto.bo.WxMobileBo;
 import com.blackey.flowers.dto.form.UserInfoForm;
+import com.blackey.flowers.dto.form.WxMobileForm;
 import com.blackey.flowers.global.config.WxMaConfiguration;
 import com.blackey.flowers.global.config.WxMaProperties;
 import com.blackey.mybatis.service.impl.BaseServiceImpl;
@@ -69,6 +72,26 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoMapper, UserInf
         Wrapper querWrapper = new QueryWrapper();
         ((QueryWrapper) querWrapper).eq("open_id",openId);
         return this.getOne(querWrapper);
+    }
+
+    /**
+     * 获取微信手机号
+     *
+     * @param wxMobileForm
+     * @return
+     */
+    @Override
+    public String getWxMobile(WxMobileForm wxMobileForm) {
+
+        String wxMobile = WXUtils.decryptWxMobile(wxMobileForm.getEncrypData(),
+                wxMobileForm.getSessionKey(), wxMobileForm.getIv());
+
+        WxMobileBo wxMobileBo = new Gson().fromJson(wxMobile, WxMobileBo.class);
+        UserInfo userInfo = new UserInfo();
+        userInfo.setTelephone(wxMobileBo.getPurePhoneNumber());
+        this.update(userInfo,new UpdateWrapper<UserInfo>().set("open_id",wxMobileForm.getOpenId()));
+
+        return wxMobileBo.getPurePhoneNumber();
     }
 
 }

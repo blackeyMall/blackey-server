@@ -2,6 +2,7 @@ package com.blackey.flowers.component.service;
 
 import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
 import com.blackey.flowers.dto.form.UserInfoForm;
+import com.blackey.flowers.dto.form.WxMobileForm;
 import com.blackey.mybatis.service.BaseService;
 import com.blackey.mybatis.utils.PageUtils;
 import com.blackey.flowers.component.domain.UserInfo;
@@ -53,6 +54,13 @@ public interface UserInfoService extends BaseService<UserInfo> {
      * @return
      */
     UserInfo findByOpenId(String openId);
+
+    /**
+     * 获取微信手机号
+     * @param wxMobileForm
+     * @return
+     */
+    String getWxMobile(WxMobileForm wxMobileForm);
 
 
 }

@@ -1,7 +1,9 @@
 package com.blackey.flowers.rest;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.common.rest.BaseRest;
+import com.blackey.flowers.dto.bo.GoodsInfoBo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -58,6 +60,18 @@ public class GoodsInfoRest extends BaseRest {
         List<GoodsInfo> goodsInfos = goodsInfoService.list(new QueryWrapper<GoodsInfo>(goodsInfo));
 
         return success(goodsInfos);
+    }
+
+    /**
+     * 小程序 分页列表
+     */
+    @PostMapping("/wechat/list/page")
+    public Result getGoodsList(@RequestBody GoodsInfoForm goodsInfoForm){
+
+        Page<GoodsInfoBo> page = new Page<>(goodsInfoForm.getCurrent(),goodsInfoForm.getSize());
+
+        List<GoodsInfoBo> goodsInfos = goodsInfoService.getGoodsListPage(goodsInfoForm,page);
+        return success(page.setRecords(goodsInfos));
     }
 
 

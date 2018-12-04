@@ -3,6 +3,7 @@ package com.blackey.flowers.rest;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.blackey.common.rest.BaseRest;
+import com.google.gson.Gson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -27,7 +28,7 @@ import java.util.UUID;
  * @date 2018-11-20 23:49:38
  */
 @RestController
-@RequestMapping("/flowers/userinfo")
+@RequestMapping("/flowers/user")
 public class UserInfoRest extends BaseRest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserInfoRest.class);
@@ -78,12 +79,17 @@ public class UserInfoRest extends BaseRest {
     @PostMapping("/save")
     public Result save(@RequestBody UserInfoForm userInfoForm){
 
-        UserInfo userInfo = new UserInfo();
-        //Form --> domain
-        BeanUtils.copyProperties(userInfoForm,userInfo);
+        UserInfo user = userInfoService.findByOpenId(userInfoForm.getOpenId());
 
-        userInfo.setUniqueId(UUID.randomUUID().toString().replace("-",""));
-        userInfoService.save(userInfo);
+        if (user == null){
+            user = new UserInfo();
+            BeanUtils.copyProperties(userInfoForm,user);
+            userInfoService.save(user);
+        }else{
+            BeanUtils.copyProperties(userInfoForm,user);
+            user.setId(userInfoService.findByOpenId(userInfoForm.getOpenId()).getId());
+            this.update(user);
+        }
 
         return success();
     }

@@ -8,37 +8,31 @@ import lombok.Setter;
 import java.io.Serializable;
 
 /**
- * 收货地址信息表
+ * 
  *
  * @author kaven
- * @date 2018-11-20 23:49:38
+ * @date 2018-11-28 20:43:34
  */
 @Getter
 @Setter
-@TableName("t_address_info")
-public class AddressInfo extends BaseModel<AddressInfo> implements Serializable {
+@TableName("t_referee_info")
+public class RefereeInfo extends BaseModel<RefereeInfo> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-
 	/**
-	 * 地址编号
+	 * 推荐人姓名
 	 */
-	private String addressNo;
+	private String name;
 	/**
-	 * 地址详情
+	 * 渠道来源
 	 */
-	private String addressDetail;
-	/**
-	 * 用户编号
-	 */
-	private String userNo;
-
+	private String channel;
 
     @Override
     protected Serializable pkVal() {
-        return this.getId();
+        return this.getName();
     }
-                                    
+        
 
 }

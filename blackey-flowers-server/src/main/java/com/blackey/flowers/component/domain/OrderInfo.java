@@ -1,14 +1,13 @@
 package com.blackey.flowers.component.domain;
 
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.blackey.flowers.global.constants.OrderStatus;
 import com.blackey.mybatis.model.BaseModel;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
 
 /**
  * 订单信息表
@@ -55,7 +54,7 @@ public class OrderInfo extends BaseModel<OrderInfo> implements Serializable {
 	/**
 	 * 订单状态
 	 */
-	private String tradeStatus;
+	private OrderStatus tradeStatus;
 	/**
 	 * 支付状态
 	 */
@@ -68,6 +67,18 @@ public class OrderInfo extends BaseModel<OrderInfo> implements Serializable {
 	 * 订单总额
 	 */
 	private BigDecimal amount;
+	/**
+	 * 推荐人id
+	 */
+	private String refereeId;
+	/**
+	 * 类型 0 一周一次  1 三周三次
+	 */
+	private String goodsType;
+	/**
+	 * 微信支付订单号
+	 */
+	private String transactionId;
 
     @Override
     protected Serializable pkVal() {
