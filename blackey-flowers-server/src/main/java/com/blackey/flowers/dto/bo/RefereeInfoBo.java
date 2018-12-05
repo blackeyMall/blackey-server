@@ -18,6 +18,7 @@ public class RefereeInfoBo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+	private String id;
 	/**
 	 * 推荐人姓名
 	 */
@@ -26,5 +27,9 @@ public class RefereeInfoBo implements Serializable {
 	 * 渠道来源
 	 */
     private String channel;
+	/**
+	 * 订单数量
+	 */
+    private int orderNum;
 
 }

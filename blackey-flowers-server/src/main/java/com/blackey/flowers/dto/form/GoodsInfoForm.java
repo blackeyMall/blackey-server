@@ -32,6 +32,10 @@ public class GoodsInfoForm extends BaseSearch implements Serializable {
 	 */
     private String goodsName;
 	/**
+	 * 商品描述
+	 */
+	private String goodsDesc;
+	/**
 	 * 删除标志
 	 */
     private Integer isDeleted;

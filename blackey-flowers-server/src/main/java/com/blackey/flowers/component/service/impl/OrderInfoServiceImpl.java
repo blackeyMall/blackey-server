@@ -118,6 +118,7 @@ public class OrderInfoServiceImpl extends BaseServiceImpl<OrderInfoMapper, Order
         orderInfo.setGoodsNo(payUnifiedOrderForm.getGoodsNo());
         orderInfo.setGoodsName(payUnifiedOrderForm.getGoodsName());
         orderInfo.setGoodsType(payUnifiedOrderForm.getGoodsType());
+        orderInfo.setGoodsDesc(payUnifiedOrderForm.getGoodsDesc());
         orderInfo.setGoodsCount(1);
         orderInfo.setRefereeId(payUnifiedOrderForm.getRefereeId());
         this.save(orderInfo);

@@ -20,8 +20,8 @@ import java.util.List;
 
 public interface OrderInfoMapper extends BaseDAO<OrderInfo> {
 
-    @Select("<script>select * from t_user_info u ,t_order_info o " +
-            "where u.id = o.user_no " +
+    @Select("<script>select o.*,u.nick_name,u.telephone,r.name AS refereeName from t_user_info u ,t_order_info o ,t_referee_info r " +
+            "where u.id = o.user_no and o.referee_id = r.id " +
             "<if test=\"form.openId != '' and form.openId != null\">" +
             " and u.open_id = #{form.openId}\n" +
             "</if>" +
