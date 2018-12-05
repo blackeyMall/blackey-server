@@ -7,8 +7,6 @@ import com.github.binarywang.wxpay.bean.request.*;
 import com.github.binarywang.wxpay.bean.result.*;
 import com.github.binarywang.wxpay.exception.WxPayException;
 import com.github.binarywang.wxpay.service.WxPayService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 /**
  * @author Binary Wang
  */
-@Api("微信支付")
 @RestController
 @RequestMapping("flowers/wx/pay")
 public class WxPayController {
@@ -42,7 +39,6 @@ public class WxPayController {
    * @param transactionId 微信订单号
    * @param outTradeNo    商户系统内部的订单号，当没提供transactionId时需要传这个。
    */
-  @ApiOperation(value = "查询订单")
   @GetMapping("/queryOrder")
   public WxPayOrderQueryResult queryOrder(@RequestParam(required = false) String transactionId,
                                           @RequestParam(required = false) String outTradeNo)
@@ -50,7 +46,6 @@ public class WxPayController {
     return this.wxService.queryOrder(transactionId, outTradeNo);
   }
 
-  @ApiOperation(value = "查询订单")
   @PostMapping("/queryOrder")
   public WxPayOrderQueryResult queryOrder(WxPayOrderQueryRequest wxPayOrderQueryRequest) throws WxPayException {
     return this.wxService.queryOrder(wxPayOrderQueryRequest);
@@ -70,13 +65,11 @@ public class WxPayController {
    *
    * @param outTradeNo 商户系统内部的订单号
    */
-  @ApiOperation(value = "关闭订单")
   @GetMapping("/closeOrder/{outTradeNo}")
   public WxPayOrderCloseResult closeOrder(@PathVariable String outTradeNo) throws WxPayException {
     return this.wxService.closeOrder(outTradeNo);
   }
 
-  @ApiOperation(value = "关闭订单")
   @PostMapping("/closeOrder")
   public WxPayOrderCloseResult closeOrder(WxPayOrderCloseRequest wxPayOrderCloseRequest) throws WxPayException {
     return this.wxService.closeOrder(wxPayOrderCloseRequest);
@@ -89,7 +82,6 @@ public class WxPayController {
    * @param <T>     请使用{@link com.github.binarywang.wxpay.bean.order}包下的类
    * @return 返回 {@link com.github.binarywang.wxpay.bean.order}包下的类对象
    */
-  @ApiOperation(value = "统一下单，并组装所需支付参数")
   @PostMapping("/createOrder")
   public <T> T createOrder(@RequestBody WxPayUnifiedOrderRequest request) throws WxPayException {
     return this.wxService.createOrder(request);
@@ -105,7 +97,6 @@ public class WxPayController {
    *
    * @param request 请求对象，注意一些参数如appid、mchid等不用设置，方法内会自动从配置对象中获取到（前提是对应配置中已经设置）
    */
-  @ApiOperation(value = "原生的统一下单接口")
   @PostMapping("/unifiedOrder")
   public WxPayUnifiedOrderResult unifiedOrder(@RequestBody WxPayUnifiedOrderRequest request) throws WxPayException {
     return this.wxService.unifiedOrder(request);
@@ -121,7 +112,6 @@ public class WxPayController {
    * @param request 请求对象
    * @return 退款操作结果
    */
-  @ApiOperation(value = "退款")
   @PostMapping("/refund")
   public WxPayRefundResult refund(@RequestBody WxPayRefundRequest request) throws WxPayException {
     return this.wxService.refund(request);
@@ -144,7 +134,6 @@ public class WxPayController {
    * @param refundId      微信退款单号
    * @return 退款信息
    */
-  @ApiOperation(value = "退款查询")
   @GetMapping("/refundQuery")
   public WxPayRefundQueryResult refundQuery(@RequestParam(required = false) String transactionId,
                                             @RequestParam(required = false) String outTradeNo,
@@ -154,13 +143,11 @@ public class WxPayController {
     return this.wxService.refundQuery(transactionId, outTradeNo, outRefundNo, refundId);
   }
 
-  @ApiOperation(value = "退款查询")
   @PostMapping("/refundQuery")
   public WxPayRefundQueryResult refundQuery(WxPayRefundQueryRequest wxPayRefundQueryRequest) throws WxPayException {
     return this.wxService.refundQuery(wxPayRefundQueryRequest);
   }
 
-  @ApiOperation(value = "支付回调通知处理")
   @PostMapping("/notify/order")
   public String parseOrderNotifyResult(@RequestBody String xmlData) throws WxPayException {
     final WxPayOrderNotifyResult notifyResult = this.wxService.parseOrderNotifyResult(xmlData);
@@ -168,7 +155,6 @@ public class WxPayController {
     return WxPayNotifyResponse.success("成功");
   }
 
-  @ApiOperation(value = "退款回调通知处理")
   @PostMapping("/notify/refund")
   public String parseRefundNotifyResult(@RequestBody String xmlData) throws WxPayException {
     final WxPayRefundNotifyResult result = this.wxService.parseRefundNotifyResult(xmlData);
@@ -187,7 +173,6 @@ public class WxPayController {
    * 是否需要证书：不需要
    * </pre>
    */
-  @ApiOperation(value = "提交交易保障数据")
   @PostMapping("/report")
   public void report(@RequestBody WxPayReportRequest request) throws WxPayException {
     this.wxService.report(request);
@@ -212,7 +197,6 @@ public class WxPayController {
    * @param deviceInfo 设备号	device_info	非必传参数，终端设备号
    * @return 保存到本地的临时文件
    */
-  @ApiOperation(value = "下载对账单")
   @GetMapping("/downloadBill/{billDate}/{billType}/{tarType}/{deviceInfo}")
   public WxPayBillResult downloadBill(@PathVariable String billDate,
                                       @PathVariable String billType,
@@ -221,7 +205,6 @@ public class WxPayController {
     return this.wxService.downloadBill(billDate, billType, tarType, deviceInfo);
   }
 
-  @ApiOperation(value = "下载对账单")
   @PostMapping("/downloadBill")
   public WxPayBillResult downloadBill(WxPayDownloadBillRequest wxPayDownloadBillRequest) throws WxPayException {
     return this.wxService.downloadBill(wxPayDownloadBillRequest);
@@ -239,7 +222,6 @@ public class WxPayController {
    *  是否需要证书：请求需要双向证书。
    * </pre>
    */
-  @ApiOperation(value = "撤销订单")
   @PostMapping("/reverseOrder")
   public WxPayOrderReverseResult reverseOrder(@RequestBody WxPayOrderReverseRequest request) throws WxPayException {
     return this.wxService.reverseOrder(request);
