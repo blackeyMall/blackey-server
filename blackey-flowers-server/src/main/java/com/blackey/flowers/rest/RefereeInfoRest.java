@@ -1,6 +1,8 @@
 package com.blackey.flowers.rest;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.common.rest.BaseRest;
+import com.blackey.flowers.dto.bo.RefereeInfoBo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -24,7 +26,7 @@ import java.util.UUID;
  * @date 2018-11-28 20:43:34
  */
 @RestController
-@RequestMapping("/flowers/refereeinfo")
+@RequestMapping("/flowers/referee")
 public class RefereeInfoRest extends BaseRest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RefereeInfoRest.class);
@@ -37,17 +39,19 @@ public class RefereeInfoRest extends BaseRest {
     * 分页列表
     */
     @PostMapping("/list/page")
-    @RequiresPermissions("finance:refereeinfo:list")
-    public Result list(@RequestParam Map<String, Object> params){
-        PageUtils page = refereeInfoService.queryPage(params);
+    @RequiresPermissions("flowers:referee:list")
+    public Result listPage(@RequestBody RefereeInfoForm refereeInfoForm){
 
-        return success(page);
+        Page<RefereeInfoBo> page = new Page<>(refereeInfoForm.getCurrent(),refereeInfoForm.getSize());
+
+        return success(page.setRecords(refereeInfoService.queryPage(refereeInfoForm,page)));
     }
 
     /**
      * 列表
      */
     @PostMapping("/list")
+    @RequiresPermissions("flowers:referee:list")
     public Result list(@RequestBody RefereeInfoForm refereeInfoForm){
         //TODO
         return success();
@@ -58,6 +62,7 @@ public class RefereeInfoRest extends BaseRest {
      * 查看详情信息
      */
     @GetMapping("/info/{id}")
+    @RequiresPermissions("flowers:referee:info")
     public Result info(@PathVariable("id") String id){
 
         RefereeInfo refereeInfo = refereeInfoService.getById(id);
@@ -69,6 +74,7 @@ public class RefereeInfoRest extends BaseRest {
      * 保存
      */
     @PostMapping("/save")
+    @RequiresPermissions("flowers:referee:save")
     public Result save(@RequestBody RefereeInfoForm refereeInfoForm){
 
         RefereeInfo refereeInfo = new RefereeInfo();
@@ -84,6 +90,7 @@ public class RefereeInfoRest extends BaseRest {
      * 修改
      */
     @PostMapping("/update")
+    @RequiresPermissions("flowers:referee:update")
     public Result update(@RequestBody RefereeInfo refereeInfo){
 
         refereeInfoService.updateById(refereeInfo);
@@ -95,6 +102,7 @@ public class RefereeInfoRest extends BaseRest {
      * 根据主键id删除
      */
     @GetMapping("/delete/{id}")
+    @RequiresPermissions("flowers:referee:delete")
     public Result delete(@PathVariable("id") String id){
 
         refereeInfoService.removeById(id);

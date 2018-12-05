@@ -99,5 +99,18 @@ public class OrderInfoBo implements Serializable {
 	 */
 	private String goodsType;
 
+	/**
+	 * 微信昵称
+	 */
+	private String nickName;
+	/**
+	 * 手机号
+	 */
+	private String telephone;
+	/**
+	 * 推荐人姓名
+	 */
+	private String refereeName;
+
 
 }
