@@ -64,28 +64,46 @@ public class WxMpController extends BaseRest {
     @PostMapping("/getWXCode")
     public void getWXACode(@RequestBody WxCodeForm wxCodeForm,HttpServletResponse response)throws WxErrorException {
 
+        InputStream fis = null;
+        OutputStream out = null;
         try {
 
             WxMaService qrcodeHandler = WxMaConfiguration.getMaServices().get(wxMaProperties.getConfigs().get(0).getAppid());
             WxMaQrcodeService qrcodeService = qrcodeHandler.getQrcodeService();
 
             File wxaCodeUnlimit = qrcodeService.createWxaCodeUnlimit("refereeId="+wxCodeForm.getRefereeId(), wxCodeForm.getPath());
-            InputStream fis = new BufferedInputStream(new FileInputStream(wxaCodeUnlimit));
+            fis = new BufferedInputStream(new FileInputStream(wxaCodeUnlimit));
             byte[] buffer = new byte[fis.available()];
             fis.read(buffer);
             fis.close();
 
             response.reset();
             // 设置response的Header
-            response.addHeader("Content-Disposition", "attachment;filename=" + new String("".getBytes("utf-8"),"ISO-8859-1"));
+            response.addHeader("Content-Disposition", "attachment;filename=" + new String("flowers".getBytes("utf-8"),"ISO-8859-1"));
             response.addHeader("Content-Length", "");
-            OutputStream toClient = new BufferedOutputStream(response.getOutputStream());
-            response.setContentType("application/octet-stream");
-            toClient.write(buffer);
-            toClient.flush();
-            toClient.close();
+            out = new BufferedOutputStream(response.getOutputStream());
+            response.setContentType("image/gif");
+            out.write(buffer);
+            out.flush();
         } catch (IOException ex) {
             logger.error(ex.getMessage());
+        }finally {
+            if(fis != null){
+                try {
+                    fis.close();
+                }catch (Exception e){
+
+                }
+            }
+            if(out != null){
+                try {
+                    out.close();
+                }catch (Exception e){
+
+                }
+            }
+
+
         }
     }
 }
