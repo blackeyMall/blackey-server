@@ -13,29 +13,33 @@ import java.util.Date;
  * 用户点赞项目表
  *
  * @author kaven
- * @date 2018-11-20 23:27:03
+ * @date 2018-12-07 09:40:20
  */
 @Getter
 @Setter
-@TableName("user_project_like")
+@TableName("t_user_project_like")
 public class UserProjectLike extends BaseModel<UserProjectLike> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-
 	/**
-	 * 
+	 * 用户id
 	 */
-	private String userId;
+	@TableId
+	private String openId;
 	/**
-	 * 
+	 * 项目id
 	 */
 	private String projectId;
+	/**
+	 * 备注
+	 */
+	private String remark;
 
     @Override
     protected Serializable pkVal() {
-        return this.getId();
+        return this.getOpenId();
     }
-                                
+            
 
 }

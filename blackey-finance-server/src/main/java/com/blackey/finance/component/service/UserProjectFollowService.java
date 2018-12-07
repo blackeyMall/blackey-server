@@ -10,7 +10,7 @@ import java.util.Map;
  * 用户关注项目表 UserProjectFollowService
  *
  * @author kaven
- * @date 2018-11-20 23:27:03
+ * @date 2018-12-07 09:40:20
  */
 public interface UserProjectFollowService extends BaseService<UserProjectFollow> {
 

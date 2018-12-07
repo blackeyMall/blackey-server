@@ -10,7 +10,7 @@ import java.util.Date;
  * 用户需求关注表 Form表单
  * 
  * @author kaven
- * @date 2018-11-20 23:27:03
+ * @date 2018-12-07 09:40:20
  */
 @Getter
 @Setter
@@ -19,36 +19,16 @@ public class UserRequireFollowForm implements Serializable {
     private static final long serialVersionUID = 1L;
 
 	/**
-	 * 
-	 */
-    private String id;
-	/**
-	 * 
-	 */
-    private Integer isDeleted;
-	/**
-	 * 
-	 */
-    private String createdBy;
-	/**
-	 * 
-	 */
-    private Date createdDate;
-	/**
-	 * 
-	 */
-    private String updatedBy;
-	/**
-	 * 
-	 */
-    private Date updatedDate;
-	/**
 	 * 用户id
 	 */
-    private String userId;
+    private String openId;
 	/**
 	 * 需求id
 	 */
     private String requireId;
+	/**
+	 * 备注
+	 */
+    private String remark;
 
 }

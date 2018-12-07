@@ -13,19 +13,19 @@ import java.util.Date;
  * 审批详情表
  *
  * @author kaven
- * @date 2018-11-20 23:27:02
+ * @date 2018-12-07 09:48:54
  */
 @Getter
 @Setter
-@TableName("audit_detail")
+@TableName("t_audit_detail")
 public class AuditDetail extends BaseModel<AuditDetail> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-
 	/**
 	 * 对象id
 	 */
+	@TableId
 	private String objectId;
 	/**
 	 * 审批类型
@@ -39,11 +39,15 @@ public class AuditDetail extends BaseModel<AuditDetail> implements Serializable 
 	 * 审批人
 	 */
 	private String auditBy;
+	/**
+	 * 审批状态
+	 */
+	private String auditStatus;
 
     @Override
     protected Serializable pkVal() {
-        return this.getId();
+        return this.getObjectId();
     }
-                                        
+                    
 
 }

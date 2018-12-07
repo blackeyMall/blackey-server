@@ -19,7 +19,7 @@ import java.util.Map;
  * 账户流水明细表 AccountDetailServiceImpl
  *
  * @author kaven
- * @date 2018-11-20 23:27:02
+ * @date 2018-12-07 09:40:20
  */
 @Service
 public class AccountDetailServiceImpl extends BaseServiceImpl<AccountDetailMapper, AccountDetail> implements AccountDetailService {

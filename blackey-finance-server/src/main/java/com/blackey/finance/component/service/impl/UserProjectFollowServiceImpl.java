@@ -19,7 +19,7 @@ import java.util.Map;
  * 用户关注项目表 UserProjectFollowServiceImpl
  *
  * @author kaven
- * @date 2018-11-20 23:27:03
+ * @date 2018-12-07 09:40:20
  */
 @Service
 public class UserProjectFollowServiceImpl extends BaseServiceImpl<UserProjectFollowMapper, UserProjectFollow> implements UserProjectFollowService {

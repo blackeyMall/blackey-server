@@ -20,7 +20,7 @@ import java.util.Map;
  * 用户关注项目表 API REST
  *
  * @author kaven
- * @date 2018-11-20 23:27:03
+ * @date 2018-12-07 09:40:20
  */
 @RestController
 @RequestMapping("/finance/userprojectfollow")
@@ -56,10 +56,10 @@ public class UserProjectFollowRest extends BaseRest {
     /**
      * 查看详情信息
      */
-    @GetMapping("/info/{id}")
-    public Result info(@PathVariable("id") String id){
+    @GetMapping("/info/{openId}")
+    public Result info(@PathVariable("openId") String openId){
 
-        UserProjectFollow userProjectFollow = userProjectFollowService.getById(id);
+        UserProjectFollow userProjectFollow = userProjectFollowService.getById(openId);
 
         return success(userProjectFollow);
     }
@@ -93,10 +93,10 @@ public class UserProjectFollowRest extends BaseRest {
     /**
      * 根据主键id删除
      */
-    @GetMapping("/delete/{id}")
-    public Result delete(@PathVariable("id") String id){
+    @GetMapping("/delete/{openId}")
+    public Result delete(@PathVariable("openId") String openId){
 
-        userProjectFollowService.removeById(id);
+        userProjectFollowService.removeById(openId);
 
         return success();
     }

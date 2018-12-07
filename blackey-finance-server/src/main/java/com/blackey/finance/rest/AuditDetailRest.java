@@ -20,7 +20,7 @@ import java.util.Map;
  * 审批详情表 API REST
  *
  * @author kaven
- * @date 2018-11-20 23:27:02
+ * @date 2018-12-07 09:48:54
  */
 @RestController
 @RequestMapping("/finance/auditdetail")
@@ -56,10 +56,10 @@ public class AuditDetailRest extends BaseRest {
     /**
      * 查看详情信息
      */
-    @GetMapping("/info/{id}")
-    public Result info(@PathVariable("id") String id){
+    @GetMapping("/info/{objectId}")
+    public Result info(@PathVariable("objectId") String objectId){
 
-        AuditDetail auditDetail = auditDetailService.getById(id);
+        AuditDetail auditDetail = auditDetailService.getById(objectId);
 
         return success(auditDetail);
     }
@@ -93,10 +93,10 @@ public class AuditDetailRest extends BaseRest {
     /**
      * 根据主键id删除
      */
-    @GetMapping("/delete/{id}")
-    public Result delete(@PathVariable("id") String id){
+    @GetMapping("/delete/{objectId}")
+    public Result delete(@PathVariable("objectId") String objectId){
 
-        auditDetailService.removeById(id);
+        auditDetailService.removeById(objectId);
 
         return success();
     }

@@ -10,7 +10,7 @@ import java.util.Map;
  * 审批详情表 AuditDetailService
  *
  * @author kaven
- * @date 2018-11-20 23:27:02
+ * @date 2018-12-07 09:48:54
  */
 public interface AuditDetailService extends BaseService<AuditDetail> {
 

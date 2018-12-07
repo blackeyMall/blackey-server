@@ -24,48 +24,6 @@
             </el-table-column>
 
                             <el-table-column
-                        prop="id"
-                        header-align="center"
-                        align="center"
-                        width="100"
-                        label="">
-                </el-table-column>
-                            <el-table-column
-                        prop="isDeleted"
-                        header-align="center"
-                        align="center"
-                        width="100"
-                        label="">
-                </el-table-column>
-                            <el-table-column
-                        prop="createdBy"
-                        header-align="center"
-                        align="center"
-                        width="100"
-                        label="">
-                </el-table-column>
-                            <el-table-column
-                        prop="createdDate"
-                        header-align="center"
-                        align="center"
-                        width="100"
-                        label="">
-                </el-table-column>
-                            <el-table-column
-                        prop="updatedBy"
-                        header-align="center"
-                        align="center"
-                        width="100"
-                        label="">
-                </el-table-column>
-                            <el-table-column
-                        prop="updatedDate"
-                        header-align="center"
-                        align="center"
-                        width="100"
-                        label="">
-                </el-table-column>
-                            <el-table-column
                         prop="objectId"
                         header-align="center"
                         align="center"
@@ -93,6 +51,13 @@
                         width="100"
                         label="审批人">
                 </el-table-column>
+                            <el-table-column
+                        prop="auditStatus"
+                        header-align="center"
+                        align="center"
+                        width="100"
+                        label="审批状态">
+                </el-table-column>
             
                                                 <el-table-column
                             fixed="right"
@@ -102,12 +67,12 @@
                             label="操作">
                         <template slot-scope="scope">
                             <el-button v-if="isAuth('finance:auditDetail:update')" type="text" size="small"
-                                       @click="addOrUpdateHandle(scope.row.id)">修改</el-button>
+                                       @click="addOrUpdateHandle(scope.row.objectId)">修改</el-button>
                             <el-button v-if="isAuth('finance:auditDetail:delete')" type="text" size="small"
-                                       @click="deleteHandle(scope.row.id)">删除</el-button>
+                                       @click="deleteHandle(scope.row.objectId)">删除</el-button>
                         </template>
                     </el-table-column>
-                                                                                                                                                                                                                                                                                        
+                                                                                                                                            
         </el-table>
         <el-pagination
                 @size-change="sizeChangeHandle"
@@ -156,6 +121,7 @@
                     method: 'get',
                     params: this.$http.adornParams({
 
+
                     })
                 }).then(({data}) => {
                     if (data && data.code === 200) {
@@ -194,7 +160,7 @@
                                     // 删除
                 deleteHandle (id) {
                     var ids = id ? [id] : this.dataListSelections.map(item => {
-                        return item.id
+                        return item.objectId
                     })
                     this.$confirm(`确定对[id=${ids.join(',')}]进行[${id} ? '删除' : '批量删除'}]操作?`, '提示', {
                         confirmButtonText: '确定',
@@ -222,7 +188,7 @@
                         })
                     }).catch(() => {})
                 }
-                                                                                                                                                                                                        
+                                                                                                    
         }
     }
 </script>

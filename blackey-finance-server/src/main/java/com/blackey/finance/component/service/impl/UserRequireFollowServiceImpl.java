@@ -19,7 +19,7 @@ import java.util.Map;
  * 用户需求关注表 UserRequireFollowServiceImpl
  *
  * @author kaven
- * @date 2018-11-20 23:27:03
+ * @date 2018-12-07 09:40:20
  */
 @Service
 public class UserRequireFollowServiceImpl extends BaseServiceImpl<UserRequireFollowMapper, UserRequireFollow> implements UserRequireFollowService {

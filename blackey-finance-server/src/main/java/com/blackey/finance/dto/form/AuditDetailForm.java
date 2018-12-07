@@ -10,7 +10,7 @@ import java.util.Date;
  * 审批详情表 Form表单
  * 
  * @author kaven
- * @date 2018-11-20 23:27:02
+ * @date 2018-12-07 09:48:54
  */
 @Getter
 @Setter
@@ -18,30 +18,6 @@ public class AuditDetailForm implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-	/**
-	 * 
-	 */
-    private String id;
-	/**
-	 * 
-	 */
-    private Integer isDeleted;
-	/**
-	 * 
-	 */
-    private String createdBy;
-	/**
-	 * 
-	 */
-    private Date createdDate;
-	/**
-	 * 
-	 */
-    private String updatedBy;
-	/**
-	 * 
-	 */
-    private Date updatedDate;
 	/**
 	 * 对象id
 	 */
@@ -58,5 +34,9 @@ public class AuditDetailForm implements Serializable {
 	 * 审批人
 	 */
     private String auditBy;
+	/**
+	 * 审批状态
+	 */
+    private String auditStatus;
 
 }

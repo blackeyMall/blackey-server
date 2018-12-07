@@ -20,7 +20,7 @@ import java.util.Map;
  * 用户好友关联表 API REST
  *
  * @author kaven
- * @date 2018-11-20 23:27:03
+ * @date 2018-12-07 09:40:20
  */
 @RestController
 @RequestMapping("/finance/userrelation")
@@ -56,10 +56,10 @@ public class UserRelationRest extends BaseRest {
     /**
      * 查看详情信息
      */
-    @GetMapping("/info/{id}")
-    public Result info(@PathVariable("id") String id){
+    @GetMapping("/info/{openId}")
+    public Result info(@PathVariable("openId") String openId){
 
-        UserRelation userRelation = userRelationService.getById(id);
+        UserRelation userRelation = userRelationService.getById(openId);
 
         return success(userRelation);
     }
@@ -93,10 +93,10 @@ public class UserRelationRest extends BaseRest {
     /**
      * 根据主键id删除
      */
-    @GetMapping("/delete/{id}")
-    public Result delete(@PathVariable("id") String id){
+    @GetMapping("/delete/{openId}")
+    public Result delete(@PathVariable("openId") String openId){
 
-        userRelationService.removeById(id);
+        userRelationService.removeById(openId);
 
         return success();
     }
