@@ -1,5 +1,7 @@
 package com.blackey.finance.component.service.impl;
 
+import com.blackey.finance.dto.bo.UserRequireFollowBo;
+import com.blackey.finance.dto.form.UserRequireFollowForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,7 @@ import com.blackey.finance.component.mapper.UserRequireFollowMapper;
 import com.blackey.finance.component.domain.UserRequireFollow;
 import com.blackey.finance.component.service.UserRequireFollowService;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -26,14 +29,16 @@ public class UserRequireFollowServiceImpl extends BaseServiceImpl<UserRequireFol
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserRequireFollowServiceImpl.class);
 
+
+    /**
+     * 分页查询
+     *
+     * @param form
+     * @param page
+     * @return
+     */
     @Override
-    public PageUtils queryPage(Map<String, Object> params) {
-        Page<UserRequireFollow> page = (Page<UserRequireFollow>) this.page(
-                new Query<UserRequireFollow>(params).getPage(),
-                new QueryWrapper<UserRequireFollow>()
-        );
-
-        return new PageUtils(page);
+    public List<UserRequireFollowBo> queryPage(UserRequireFollowForm form, Page<UserRequireFollowBo> page) {
+        return baseMapper.queryPage(form,page);
     }
-
 }

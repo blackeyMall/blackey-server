@@ -91,7 +91,8 @@ public class RequirementInfoRest extends BaseRest {
     @PostMapping("/update")
     public Result update(@RequestBody RequirementInfo requirementInfo){
 
-        requirementInfoService.updateById(requirementInfo);//全部更新
+        requirementInfoService.updateById(requirementInfo);
+        //全部更新
         
         return success();
     }

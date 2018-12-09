@@ -1,6 +1,9 @@
 package com.blackey.finance.rest;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.common.rest.BaseRest;
+import com.blackey.finance.dto.bo.RequirementInfoBo;
+import com.blackey.finance.dto.bo.UserRequireFollowBo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -14,6 +17,7 @@ import com.blackey.finance.component.service.UserRequireFollowService;
 import com.blackey.common.result.Result;
 import com.blackey.mybatis.utils.PageUtils;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -33,14 +37,17 @@ public class UserRequireFollowRest extends BaseRest {
 
 
     /**
-    * 分页列表
+    * 关注需求分页列表
     */
     @PostMapping("/list/page")
     @RequiresPermissions("finance:userrequirefollow:list")
-    public Result list(@RequestParam Map<String, Object> params){
-        PageUtils page = userRequireFollowService.queryPage(params);
+    public Result listPage(@RequestBody UserRequireFollowForm form){
 
-        return success(page);
+        Page<UserRequireFollowBo> page = new Page<>(form.getCurrent(),form.getSize());
+
+        List<UserRequireFollowBo> userRequireFollowBos = userRequireFollowService.queryPage(form,page);
+
+        return success(page.setRecords(userRequireFollowBos));
     }
 
     /**

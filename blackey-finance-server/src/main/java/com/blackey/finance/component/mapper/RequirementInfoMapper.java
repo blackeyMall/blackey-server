@@ -28,7 +28,7 @@ public interface RequirementInfoMapper extends BaseDAO<RequirementInfo> {
      * @return
      */
     @Select("<script>" +
-            "SELECT * FROM t_requirement_info r WHERE 1=1 " +
+            "SELECT * FROM t_requirement_info r WHERE r.is_deleted = 0  " +
             "<if test=\"form.openId != '' and form.openId != null\">" +
             " and r.open_id = #{form.openId}\n" +
             "</if>" +

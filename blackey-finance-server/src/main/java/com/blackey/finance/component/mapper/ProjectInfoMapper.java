@@ -27,7 +27,7 @@ public interface ProjectInfoMapper extends BaseDAO<ProjectInfo> {
      * @return
      */
     @Select("<script>" +
-            "SELECT * FROM t_project_info p WHERE 1=1 " +
+            "SELECT * FROM t_project_info p WHERE p.is_deleted = 0 " +
             "<if test=\"form.openId != '' and form.openId != null\">" +
             " and p.open_id = #{form.openId}\n" +
             "</if>" +

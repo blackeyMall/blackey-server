@@ -1,10 +1,12 @@
 package com.blackey.finance.component.service;
 
-import com.blackey.mybatis.service.BaseService;
-import com.blackey.mybatis.utils.PageUtils;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.finance.component.domain.UserRequireFollow;
+import com.blackey.finance.dto.bo.UserRequireFollowBo;
+import com.blackey.finance.dto.form.UserRequireFollowForm;
+import com.blackey.mybatis.service.BaseService;
 
-import java.util.Map;
+import java.util.List;
 
 /**
  * 用户需求关注表 UserRequireFollowService
@@ -15,10 +17,11 @@ import java.util.Map;
 public interface UserRequireFollowService extends BaseService<UserRequireFollow> {
 
     /**
-    * 分页查询
-    * @param params
-    * @return
-    */
-    PageUtils queryPage(Map<String, Object> params);
+     * 分页查询
+     * @param form
+     * @param page
+     * @return
+     */
+    List<UserRequireFollowBo> queryPage(UserRequireFollowForm form, Page<UserRequireFollowBo> page);
 }
 

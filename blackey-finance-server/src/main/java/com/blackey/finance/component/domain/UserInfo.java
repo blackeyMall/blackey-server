@@ -68,6 +68,14 @@ public class UserInfo extends BaseModel<UserInfo> implements Serializable {
 	 * 是否实名认证 
 	 */
 	private String isIdentity;
+	/**
+	 * 姓名
+	 */
+	private String name;
+	/**
+	 * 性别
+	 */
+	private String sex;
 
     @Override
     protected Serializable pkVal() {

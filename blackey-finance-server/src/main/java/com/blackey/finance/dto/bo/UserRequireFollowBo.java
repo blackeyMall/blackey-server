@@ -1,5 +1,6 @@
 package com.blackey.finance.dto.bo;
 
+import com.blackey.finance.global.constants.AuditStatusEnum;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,12 +24,59 @@ public class UserRequireFollowBo implements Serializable {
 	 */
     private String openId;
 	/**
-	 * 需求id
+	 * 需求名称
 	 */
-    private String requireId;
+	private String title;
+	/**
+	 * 需求内容
+	 */
+	private String content;
+	/**
+	 * 标签
+	 */
+	private String label;
+	/**
+	 * 点赞数量
+	 */
+	private Integer likeNum;
+	/**
+	 * 附件地址
+	 */
+	private String attachment;
+	/**
+	 * 关注数量
+	 */
+	private Integer followNum;
+	/**
+	 * 认证状态
+	 */
+	private AuditStatusEnum auditStatus;
+	/**
+	 * 红包
+	 */
+	private String redPaper;
+	/**
+	 * 是否精品
+	 */
+	private String isRecommend;
+	/**
+	 * 类别
+	 */
+	private String category;
+
+	private Date createdDate;
 	/**
 	 * 备注
 	 */
     private String remark;
+
+	/**
+	 * 姓名
+	 */
+	private String name;
+	/**
+	 * 性别
+	 */
+	private String sex;
 
 }

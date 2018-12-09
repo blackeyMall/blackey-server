@@ -1,6 +1,9 @@
 package com.blackey.finance.rest;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.common.rest.BaseRest;
+import com.blackey.finance.dto.bo.UserProjectFollowBo;
+import com.blackey.finance.dto.bo.UserRequireFollowBo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -14,6 +17,7 @@ import com.blackey.finance.component.service.UserProjectFollowService;
 import com.blackey.common.result.Result;
 import com.blackey.mybatis.utils.PageUtils;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -37,10 +41,13 @@ public class UserProjectFollowRest extends BaseRest {
     */
     @PostMapping("/list/page")
     @RequiresPermissions("finance:userprojectfollow:list")
-    public Result list(@RequestParam Map<String, Object> params){
-        PageUtils page = userProjectFollowService.queryPage(params);
+    public Result listPage(@RequestBody UserProjectFollowForm form){
 
-        return success(page);
+        Page<UserProjectFollowBo> page = new Page<>(form.getCurrent(),form.getSize());
+
+        List<UserProjectFollowBo> userProjectFollowBos = userProjectFollowService.queryPage(form,page);
+
+        return success(page.setRecords(userProjectFollowBos));
     }
 
     /**

@@ -1,9 +1,13 @@
 package com.blackey.finance.component.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.blackey.finance.dto.bo.UserProjectFollowBo;
+import com.blackey.finance.dto.form.UserProjectFollowForm;
 import com.blackey.mybatis.service.BaseService;
 import com.blackey.mybatis.utils.PageUtils;
 import com.blackey.finance.component.domain.UserProjectFollow;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -15,10 +19,11 @@ import java.util.Map;
 public interface UserProjectFollowService extends BaseService<UserProjectFollow> {
 
     /**
-    * 分页查询
-    * @param params
-    * @return
-    */
-    PageUtils queryPage(Map<String, Object> params);
+     * 分页查询
+     * @param form
+     * @param page
+     * @return
+     */
+    List<UserProjectFollowBo> queryPage(UserProjectFollowForm form, Page<UserProjectFollowBo> page);
 }
 

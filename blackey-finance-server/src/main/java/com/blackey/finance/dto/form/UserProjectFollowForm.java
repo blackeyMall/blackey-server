@@ -1,5 +1,7 @@
 package com.blackey.finance.dto.form;
 
+import com.blackey.finance.dto.BaseSearch;
+import com.blackey.finance.global.constants.OrderbyEnum;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,7 +16,7 @@ import java.util.Date;
  */
 @Getter
 @Setter
-public class UserProjectFollowForm implements Serializable {
+public class UserProjectFollowForm extends BaseSearch implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -30,5 +32,9 @@ public class UserProjectFollowForm implements Serializable {
 	 * 备注
 	 */
     private String remark;
+	/**
+	 * 排序方式
+	 */
+	private OrderbyEnum orderbyEnum = OrderbyEnum.DEFAULT;
 
 }

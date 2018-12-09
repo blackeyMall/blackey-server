@@ -20,7 +20,7 @@ spring:
 #    port: 6379
 #    password:
 server:
-  port: 1099
+  port: 1079
 
 #mybatis
 mybatis-plus:
