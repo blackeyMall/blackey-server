@@ -18,6 +18,7 @@ public class ProjectInfoBo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    private String id;
 	/**
 	 * 项目名称
 	 */
@@ -66,5 +67,7 @@ public class ProjectInfoBo implements Serializable {
 	 * 类别
 	 */
     private String category;
+
+    private Date createdDate;
 
 }

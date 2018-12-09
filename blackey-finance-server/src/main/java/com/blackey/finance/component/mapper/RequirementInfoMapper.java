@@ -5,6 +5,7 @@ import com.blackey.finance.component.domain.RequirementInfo;
 import com.blackey.finance.dto.bo.RequirementInfoBo;
 import com.blackey.finance.dto.form.RequirementInfoForm;
 import com.blackey.mybatis.dao.BaseDAO;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -31,13 +32,15 @@ public interface RequirementInfoMapper extends BaseDAO<RequirementInfo> {
             "<if test=\"form.openId != '' and form.openId != null\">" +
             " and r.open_id = #{form.openId}\n" +
             "</if>" +
-            "<if test=\"form.orderbyEnum.value != 'FOLLOWNUM' \">\n" +
+            "<if test=\"form.orderbyEnum.value == 'FOLLOWNUM' \">\n" +
             " order by r.follow_num desc \n" +
             "</if>" +
-            "<if test=\"form.orderbyEnum.value != 'LIKENUM' \">\n" +
+            "<if test=\"form.orderbyEnum.value == 'LIKENUM' \">\n" +
             " order by r.like_num desc \n" +
             "</if>" +
-            "order by r.created_date desc " +
+            "<if test=\"form.orderbyEnum.value == 'DEFAULT' or form.orderbyEnum.value == '' \">\n" +
+            " order by r.created_date desc \n" +
+            "</if>" +
             "</script>")
-    List<RequirementInfoBo> queryPage(RequirementInfoForm form, Page<RequirementInfoBo> page);
+    List<RequirementInfoBo> queryPage(@Param("form") RequirementInfoForm form, Page<RequirementInfoBo> page);
 }
