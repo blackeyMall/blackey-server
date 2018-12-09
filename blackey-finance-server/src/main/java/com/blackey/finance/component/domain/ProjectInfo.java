@@ -1,13 +1,11 @@
 package com.blackey.finance.component.domain;
 
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.blackey.mybatis.model.BaseModel;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * 项目信息表
@@ -25,7 +23,6 @@ public class ProjectInfo extends BaseModel<ProjectInfo> implements Serializable 
 	/**
 	 * 项目名称
 	 */
-	@TableId
 	private String name;
 	/**
 	 * 项目简介
@@ -74,7 +71,7 @@ public class ProjectInfo extends BaseModel<ProjectInfo> implements Serializable 
 
     @Override
     protected Serializable pkVal() {
-        return this.getName();
+        return this.getId();
     }
                                                 
 

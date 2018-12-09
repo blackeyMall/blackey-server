@@ -1,5 +1,7 @@
 package com.blackey.finance.component.service.impl;
 
+import com.blackey.finance.dto.bo.RequirementInfoBo;
+import com.blackey.finance.dto.form.RequirementInfoForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,7 @@ import com.blackey.finance.component.mapper.RequirementInfoMapper;
 import com.blackey.finance.component.domain.RequirementInfo;
 import com.blackey.finance.component.service.RequirementInfoService;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -26,14 +29,19 @@ public class RequirementInfoServiceImpl extends BaseServiceImpl<RequirementInfoM
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RequirementInfoServiceImpl.class);
 
+
+    /**
+     * 分页查询
+     *
+     * @param form
+     * @param page
+     * @return
+     */
     @Override
-    public PageUtils queryPage(Map<String, Object> params) {
-        Page<RequirementInfo> page = (Page<RequirementInfo>) this.page(
-                new Query<RequirementInfo>(params).getPage(),
-                new QueryWrapper<RequirementInfo>()
-        );
+    public List<RequirementInfoBo> queryPage(RequirementInfoForm form, Page<RequirementInfoBo> page) {
 
-        return new PageUtils(page);
+        List<RequirementInfoBo> requirementInfoBos = baseMapper.queryPage(form,page);
+
+        return requirementInfoBos;
     }
-
 }

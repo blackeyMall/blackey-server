@@ -1,13 +1,11 @@
 package com.blackey.finance.component.domain;
 
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.blackey.mybatis.model.BaseModel;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * 用户点赞项目表
@@ -25,7 +23,6 @@ public class UserProjectLike extends BaseModel<UserProjectLike> implements Seria
 	/**
 	 * 用户id
 	 */
-	@TableId
 	private String openId;
 	/**
 	 * 项目id
@@ -38,7 +35,7 @@ public class UserProjectLike extends BaseModel<UserProjectLike> implements Seria
 
     @Override
     protected Serializable pkVal() {
-        return this.getOpenId();
+        return this.getId();
     }
             
 

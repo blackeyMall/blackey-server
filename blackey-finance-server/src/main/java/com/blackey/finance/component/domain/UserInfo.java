@@ -1,13 +1,11 @@
 package com.blackey.finance.component.domain;
 
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.blackey.mybatis.model.BaseModel;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * 用户信息表
@@ -25,7 +23,6 @@ public class UserInfo extends BaseModel<UserInfo> implements Serializable {
 	/**
 	 * 手机号
 	 */
-	@TableId
 	private String telephone;
 	/**
 	 * 邮箱
@@ -74,7 +71,7 @@ public class UserInfo extends BaseModel<UserInfo> implements Serializable {
 
     @Override
     protected Serializable pkVal() {
-        return this.getTelephone();
+        return this.getId();
     }
                                                 
 

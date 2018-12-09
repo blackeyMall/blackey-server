@@ -1,14 +1,12 @@
 package com.blackey.finance.component.domain;
 
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.blackey.mybatis.model.BaseModel;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.math.BigDecimal;
 import java.io.Serializable;
-import java.util.Date;
+import java.math.BigDecimal;
 
 /**
  * 账户信息表
@@ -26,7 +24,6 @@ public class AccountInfo extends BaseModel<AccountInfo> implements Serializable 
 	/**
 	 * 用户id
 	 */
-	@TableId
 	private String openId;
 	/**
 	 * 微信id
@@ -43,7 +40,7 @@ public class AccountInfo extends BaseModel<AccountInfo> implements Serializable 
 
     @Override
     protected Serializable pkVal() {
-        return this.getOpenId();
+        return this.getId();
     }
                 
 

@@ -24,7 +24,7 @@
             </el-table-column>
 
                             <el-table-column
-                        prop="titile"
+                        prop="title"
                         header-align="center"
                         align="center"
                         width="100"
@@ -109,9 +109,9 @@
                             label="操作">
                         <template slot-scope="scope">
                             <el-button v-if="isAuth('finance:requirementInfo:update')" type="text" size="small"
-                                       @click="addOrUpdateHandle(scope.row.titile)">修改</el-button>
+                                       @click="addOrUpdateHandle(scope.row.title)">修改</el-button>
                             <el-button v-if="isAuth('finance:requirementInfo:delete')" type="text" size="small"
-                                       @click="deleteHandle(scope.row.titile)">删除</el-button>
+                                       @click="deleteHandle(scope.row.title)">删除</el-button>
                         </template>
                     </el-table-column>
                                                                                                                                                                                                                                                                                                                     
@@ -202,7 +202,7 @@
                                     // 删除
                 deleteHandle (id) {
                     var ids = id ? [id] : this.dataListSelections.map(item => {
-                        return item.titile
+                        return item.title
                     })
                     this.$confirm(`确定对[id=${ids.join(',')}]进行[${id} ? '删除' : '批量删除'}]操作?`, '提示', {
                         confirmButtonText: '确定',

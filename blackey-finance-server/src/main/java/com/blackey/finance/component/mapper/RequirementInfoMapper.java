@@ -1,7 +1,13 @@
 package com.blackey.finance.component.mapper;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.finance.component.domain.RequirementInfo;
+import com.blackey.finance.dto.bo.RequirementInfoBo;
+import com.blackey.finance.dto.form.RequirementInfoForm;
 import com.blackey.mybatis.dao.BaseDAO;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 
 /**
@@ -12,5 +18,26 @@ import com.blackey.mybatis.dao.BaseDAO;
  */
 
 public interface RequirementInfoMapper extends BaseDAO<RequirementInfo> {
-	
+
+
+    /**
+     * 分页查询
+     * @param form
+     * @param page
+     * @return
+     */
+    @Select("<script>" +
+            "SELECT * FROM t_requirement_info r WHERE 1=1 " +
+            "<if test=\"form.openId != '' and form.openId != null\">" +
+            " and r.open_id = #{form.openId}\n" +
+            "</if>" +
+            "<if test=\"form.orderbyEnum.value != 'FOLLOWNUM' \">\n" +
+            " order by r.follow_num desc \n" +
+            "</if>" +
+            "<if test=\"form.orderbyEnum.value != 'LIKENUM' \">\n" +
+            " order by r.like_num desc \n" +
+            "</if>" +
+            "order by r.created_date desc " +
+            "</script>")
+    List<RequirementInfoBo> queryPage(RequirementInfoForm form, Page<RequirementInfoBo> page);
 }

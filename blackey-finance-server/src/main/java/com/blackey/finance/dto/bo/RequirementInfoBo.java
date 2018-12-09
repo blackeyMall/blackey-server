@@ -1,5 +1,6 @@
 package com.blackey.finance.dto.bo;
 
+import com.blackey.finance.global.constants.AuditStatusEnum;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,10 +19,11 @@ public class RequirementInfoBo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    private String id;
 	/**
 	 * 需求名称
 	 */
-    private String titile;
+    private String title;
 	/**
 	 * 需求内容
 	 */
@@ -49,7 +51,7 @@ public class RequirementInfoBo implements Serializable {
 	/**
 	 * 认证状态
 	 */
-    private String auditStatus;
+    private AuditStatusEnum auditStatus;
 	/**
 	 * 红包
 	 */
@@ -62,5 +64,7 @@ public class RequirementInfoBo implements Serializable {
 	 * 类别
 	 */
     private String category;
+
+    private Date createdDate;
 
 }

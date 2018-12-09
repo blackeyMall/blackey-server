@@ -25,7 +25,6 @@ public class WechatUserInfo extends BaseModel<WechatUserInfo> implements Seriali
 	/**
 	 * 
 	 */
-	@TableId
 	private String city;
 	/**
 	 * 
@@ -82,7 +81,7 @@ public class WechatUserInfo extends BaseModel<WechatUserInfo> implements Seriali
 
     @Override
     protected Serializable pkVal() {
-        return this.getCity();
+        return this.getId();
     }
                                                         
 

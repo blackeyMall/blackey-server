@@ -1,6 +1,8 @@
 package com.blackey.finance.rest;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.common.rest.BaseRest;
+import com.blackey.finance.dto.bo.RequirementInfoBo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -14,6 +16,7 @@ import com.blackey.finance.component.service.RequirementInfoService;
 import com.blackey.common.result.Result;
 import com.blackey.mybatis.utils.PageUtils;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -23,7 +26,7 @@ import java.util.Map;
  * @date 2018-12-07 09:40:20
  */
 @RestController
-@RequestMapping("/finance/requirementinfo")
+@RequestMapping("/finance/requirement")
 public class RequirementInfoRest extends BaseRest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RequirementInfoRest.class);
@@ -36,11 +39,14 @@ public class RequirementInfoRest extends BaseRest {
     * 分页列表
     */
     @PostMapping("/list/page")
-    @RequiresPermissions("finance:requirementinfo:list")
-    public Result list(@RequestParam Map<String, Object> params){
-        PageUtils page = requirementInfoService.queryPage(params);
+    @RequiresPermissions("finance:requirement:list")
+    public Result listPage(@RequestBody RequirementInfoForm form){
 
-        return success(page);
+        Page<RequirementInfoBo> page = new Page<>(form.getCurrent(),form.getSize());
+
+        List<RequirementInfoBo> requirementInfoBos = requirementInfoService.queryPage(form,page);
+
+        return success(page.setRecords(requirementInfoBos));
     }
 
     /**
@@ -56,10 +62,10 @@ public class RequirementInfoRest extends BaseRest {
     /**
      * 查看详情信息
      */
-    @GetMapping("/info/{titile}")
-    public Result info(@PathVariable("titile") String titile){
+    @GetMapping("/info/{title}")
+    public Result info(@PathVariable("title") String title){
 
-        RequirementInfo requirementInfo = requirementInfoService.getById(titile);
+        RequirementInfo requirementInfo = requirementInfoService.getById(title);
 
         return success(requirementInfo);
     }
@@ -93,10 +99,10 @@ public class RequirementInfoRest extends BaseRest {
     /**
      * 根据主键id删除
      */
-    @GetMapping("/delete/{titile}")
-    public Result delete(@PathVariable("titile") String titile){
+    @GetMapping("/delete/{title}")
+    public Result delete(@PathVariable("title") String title){
 
-        requirementInfoService.removeById(titile);
+        requirementInfoService.removeById(title);
 
         return success();
     }

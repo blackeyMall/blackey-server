@@ -1,13 +1,11 @@
 package com.blackey.finance.component.domain;
 
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.blackey.mybatis.model.BaseModel;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * 图片表
@@ -25,7 +23,6 @@ public class ImageInfo extends BaseModel<ImageInfo> implements Serializable {
 	/**
 	 * 图片类型
 	 */
-	@TableId
 	private String imageType;
 	/**
 	 * 对象id
@@ -42,7 +39,7 @@ public class ImageInfo extends BaseModel<ImageInfo> implements Serializable {
 
     @Override
     protected Serializable pkVal() {
-        return this.getImageType();
+        return this.getId();
     }
                 
 

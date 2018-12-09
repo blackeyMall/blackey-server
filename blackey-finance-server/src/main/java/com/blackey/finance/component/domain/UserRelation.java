@@ -1,13 +1,11 @@
 package com.blackey.finance.component.domain;
 
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.blackey.mybatis.model.BaseModel;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * 用户好友关联表
@@ -25,7 +23,6 @@ public class UserRelation extends BaseModel<UserRelation> implements Serializabl
 	/**
 	 * 用户id
 	 */
-	@TableId
 	private String openId;
 	/**
 	 * 朋友id
@@ -42,7 +39,7 @@ public class UserRelation extends BaseModel<UserRelation> implements Serializabl
 
     @Override
     protected Serializable pkVal() {
-        return this.getOpenId();
+        return this.getId();
     }
                 
 
