@@ -3,6 +3,7 @@ package com.blackey.finance.component.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.finance.dto.bo.RequirementInfoBo;
 import com.blackey.finance.dto.form.RequirementInfoForm;
+import com.blackey.finance.global.constants.AddCancelEnum;
 import com.blackey.mybatis.service.BaseService;
 import com.blackey.mybatis.utils.PageUtils;
 import com.blackey.finance.component.domain.RequirementInfo;
@@ -25,5 +26,13 @@ public interface RequirementInfoService extends BaseService<RequirementInfo> {
      * @return
      */
     List<RequirementInfoBo> queryPage(RequirementInfoForm form, Page<RequirementInfoBo> page);
+
+    /**
+     *
+     * @param objectId
+     * @param addCancelEnum
+     * @return
+     */
+    boolean addFollowNum(String objectId, AddCancelEnum addCancelEnum);
 }
 

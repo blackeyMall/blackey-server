@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.common.rest.BaseRest;
 import com.blackey.finance.dto.bo.ProjectInfoBo;
 import com.blackey.finance.dto.bo.RequirementInfoBo;
+import com.blackey.finance.global.constants.AuditStatusEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -63,16 +64,16 @@ public class ProjectInfoRest extends BaseRest {
     /**
      * 查看详情信息
      */
-    @GetMapping("/info/{name}")
-    public Result info(@PathVariable("name") String name){
+    @GetMapping("/info/{id}")
+    public Result info(@PathVariable("id") String id){
 
-        ProjectInfo projectInfo = projectInfoService.getById(name);
+        ProjectInfo projectInfo = projectInfoService.getById(id);
 
         return success(projectInfo);
     }
 
     /**
-     * 保存
+     * 保存--项目创建
      */
     @PostMapping("/save")
     public Result save(@RequestBody ProjectInfoForm projectInfoForm){
@@ -80,9 +81,8 @@ public class ProjectInfoRest extends BaseRest {
         ProjectInfo projectInfo = new ProjectInfo();
         //Form --> domain
         BeanUtils.copyProperties(projectInfoForm,projectInfo);
-
+        projectInfo.setAuditStatus(AuditStatusEnum.WAITING);
         projectInfoService.save(projectInfo);
-
         return success();
     }
 
@@ -90,20 +90,25 @@ public class ProjectInfoRest extends BaseRest {
      * 修改
      */
     @PostMapping("/update")
-    public Result update(@RequestBody ProjectInfo projectInfo){
+    public Result update(@RequestBody ProjectInfoForm form){
 
-        projectInfoService.updateById(projectInfo);//全部更新
-        
+        ProjectInfo projectInfo = new ProjectInfo();
+        //Form --> domain
+        BeanUtils.copyProperties(form,projectInfo);
+
+
+        projectInfoService.updateById(projectInfo);
+
         return success();
     }
 
     /**
      * 根据主键id删除
      */
-    @GetMapping("/delete/{name}")
-    public Result delete(@PathVariable("name") String name){
+    @GetMapping("/delete/{id}")
+    public Result delete(@PathVariable("id") String id){
 
-        projectInfoService.removeById(name);
+        projectInfoService.removeById(id);
 
         return success();
     }

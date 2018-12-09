@@ -3,6 +3,7 @@ package com.blackey.finance.rest;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.common.rest.BaseRest;
 import com.blackey.finance.dto.bo.RequirementInfoBo;
+import com.blackey.finance.global.constants.AuditStatusEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -62,16 +63,16 @@ public class RequirementInfoRest extends BaseRest {
     /**
      * 查看详情信息
      */
-    @GetMapping("/info/{title}")
-    public Result info(@PathVariable("title") String title){
+    @GetMapping("/info/{id}")
+    public Result info(@PathVariable("id") String id){
 
-        RequirementInfo requirementInfo = requirementInfoService.getById(title);
+        RequirementInfo requirementInfo = requirementInfoService.getById(id);
 
         return success(requirementInfo);
     }
 
     /**
-     * 保存
+     * 保存--创建需求信息
      */
     @PostMapping("/save")
     public Result save(@RequestBody RequirementInfoForm requirementInfoForm){
@@ -79,6 +80,7 @@ public class RequirementInfoRest extends BaseRest {
         RequirementInfo requirementInfo = new RequirementInfo();
         //Form --> domain
         BeanUtils.copyProperties(requirementInfoForm,requirementInfo);
+        requirementInfo.setAuditStatus(AuditStatusEnum.WAITING);
 
         requirementInfoService.save(requirementInfo);
 
@@ -89,21 +91,22 @@ public class RequirementInfoRest extends BaseRest {
      * 修改
      */
     @PostMapping("/update")
-    public Result update(@RequestBody RequirementInfo requirementInfo){
-
+    public Result update(@RequestBody RequirementInfoForm requirementInfoForm){
+        RequirementInfo requirementInfo = new RequirementInfo();
+        //Form --> domain
+        BeanUtils.copyProperties(requirementInfoForm,requirementInfo);
         requirementInfoService.updateById(requirementInfo);
         //全部更新
-        
         return success();
     }
 
     /**
      * 根据主键id删除
      */
-    @GetMapping("/delete/{title}")
-    public Result delete(@PathVariable("title") String title){
+    @GetMapping("/delete/{id}")
+    public Result delete(@PathVariable("id") String id){
 
-        requirementInfoService.removeById(title);
+        requirementInfoService.removeById(id);
 
         return success();
     }

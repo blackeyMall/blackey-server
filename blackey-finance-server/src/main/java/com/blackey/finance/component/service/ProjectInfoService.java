@@ -3,6 +3,7 @@ package com.blackey.finance.component.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.finance.dto.bo.ProjectInfoBo;
 import com.blackey.finance.dto.form.ProjectInfoForm;
+import com.blackey.finance.global.constants.AddCancelEnum;
 import com.blackey.mybatis.service.BaseService;
 import com.blackey.mybatis.utils.PageUtils;
 import com.blackey.finance.component.domain.ProjectInfo;
@@ -25,5 +26,13 @@ public interface ProjectInfoService extends BaseService<ProjectInfo> {
      * @return
      */
     List<ProjectInfoBo> queryPage(ProjectInfoForm form, Page<ProjectInfoBo> page);
+
+    /**
+     * 增加或减少关注数量
+     * @param objectId
+     * @param addCancelEnum
+     * @return
+     */
+    boolean addFollowNum(String objectId, AddCancelEnum addCancelEnum);
 }
 

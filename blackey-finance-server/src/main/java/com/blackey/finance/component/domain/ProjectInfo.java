@@ -1,6 +1,7 @@
 package com.blackey.finance.component.domain;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.blackey.finance.global.constants.AuditStatusEnum;
 import com.blackey.mybatis.model.BaseModel;
 import lombok.Getter;
 import lombok.Setter;
@@ -47,7 +48,7 @@ public class ProjectInfo extends BaseModel<ProjectInfo> implements Serializable 
 	/**
 	 * 认证状态
 	 */
-	private String auditStatus;
+	private AuditStatusEnum auditStatus;
 	/**
 	 * 是否精品
 	 */

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.common.rest.BaseRest;
 import com.blackey.finance.dto.bo.UserProjectFollowBo;
 import com.blackey.finance.dto.bo.UserRequireFollowBo;
+import com.blackey.finance.dto.form.AddOrCancelFollowForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -27,20 +28,18 @@ import java.util.Map;
  * @date 2018-12-07 09:40:20
  */
 @RestController
-@RequestMapping("/finance/userprojectfollow")
+@RequestMapping("/finance/follow/project")
 public class UserProjectFollowRest extends BaseRest {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserProjectFollowRest.class);
 
     @Autowired
     private UserProjectFollowService userProjectFollowService;
-
 
     /**
     * 分页列表
     */
     @PostMapping("/list/page")
-    @RequiresPermissions("finance:userprojectfollow:list")
+    @RequiresPermissions("finance:follow:project:list")
     public Result listPage(@RequestBody UserProjectFollowForm form){
 
         Page<UserProjectFollowBo> page = new Page<>(form.getCurrent(),form.getSize());
@@ -51,61 +50,15 @@ public class UserProjectFollowRest extends BaseRest {
     }
 
     /**
-     * 列表
-     */
-    @PostMapping("/list")
-    public Result list(@RequestBody UserProjectFollowForm userProjectFollowForm){
-        //TODO
-        return success();
-    }
-
-
-    /**
-     * 查看详情信息
-     */
-    @GetMapping("/info/{openId}")
-    public Result info(@PathVariable("openId") String openId){
-
-        UserProjectFollow userProjectFollow = userProjectFollowService.getById(openId);
-
-        return success(userProjectFollow);
-    }
-
-    /**
-     * 保存
+     * 保存--关注/取消项目
      */
     @PostMapping("/save")
-    public Result save(@RequestBody UserProjectFollowForm userProjectFollowForm){
+    public Result save(@RequestBody AddOrCancelFollowForm addOrCancelFollowForm){
 
-        UserProjectFollow userProjectFollow = new UserProjectFollow();
-        //Form --> domain
-        BeanUtils.copyProperties(userProjectFollowForm,userProjectFollow);
+        boolean b = userProjectFollowService.folloProject(addOrCancelFollowForm);
 
-        userProjectFollowService.save(userProjectFollow);
-
-        return success();
+        return success(b);
     }
 
-    /**
-     * 修改
-     */
-    @PostMapping("/update")
-    public Result update(@RequestBody UserProjectFollow userProjectFollow){
-
-        userProjectFollowService.updateById(userProjectFollow);//全部更新
-        
-        return success();
-    }
-
-    /**
-     * 根据主键id删除
-     */
-    @GetMapping("/delete/{openId}")
-    public Result delete(@PathVariable("openId") String openId){
-
-        userProjectFollowService.removeById(openId);
-
-        return success();
-    }
 
 }

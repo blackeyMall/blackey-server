@@ -1,5 +1,6 @@
 package com.blackey.finance.dto.bo;
 
+import com.blackey.finance.global.constants.AddCancelEnum;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -82,5 +83,10 @@ public class UserProjectFollowBo implements Serializable {
 	 * 性别
 	 */
 	private String sex;
+
+	/**
+	 * add 关注该项目
+	 */
+	private AddCancelEnum isAdd = AddCancelEnum.ADD;
 
 }

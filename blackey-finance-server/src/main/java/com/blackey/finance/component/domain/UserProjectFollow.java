@@ -1,11 +1,14 @@
 package com.blackey.finance.component.domain;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.blackey.mybatis.model.BaseModel;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 用户关注项目表
@@ -16,10 +19,27 @@ import java.io.Serializable;
 @Getter
 @Setter
 @TableName("t_user_project_follow")
-public class UserProjectFollow extends BaseModel<UserProjectFollow> implements Serializable {
+public class UserProjectFollow implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+	@TableId
+	private String id;
+
+	@TableField(fill = FieldFill.INSERT)
+	private Integer isDeleted;
+
+	@TableField(fill = FieldFill.INSERT)
+	private Date createdDate;
+
+	@TableField(fill = FieldFill.INSERT_UPDATE)
+	private Date updatedDate;
+
+	@TableField(fill = FieldFill.INSERT)
+	private String createdBy;
+
+	@TableField(fill = FieldFill.INSERT_UPDATE)
+	private String updatedBy;
 	/**
 	 * 用户id
 	 */
@@ -33,7 +53,7 @@ public class UserProjectFollow extends BaseModel<UserProjectFollow> implements S
 	 */
 	private String remark;
 
-    @Override
+
     protected Serializable pkVal() {
         return this.getId();
     }

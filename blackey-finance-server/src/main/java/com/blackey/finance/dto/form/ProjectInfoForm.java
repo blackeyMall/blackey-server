@@ -1,6 +1,7 @@
 package com.blackey.finance.dto.form;
 
 import com.blackey.finance.dto.BaseSearch;
+import com.blackey.finance.global.constants.AuditStatusEnum;
 import com.blackey.finance.global.constants.OrderbyEnum;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,6 +21,7 @@ public class ProjectInfoForm extends BaseSearch implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    private String id;
 	/**
 	 * 项目名称
 	 */
@@ -47,7 +49,7 @@ public class ProjectInfoForm extends BaseSearch implements Serializable {
 	/**
 	 * 认证状态
 	 */
-    private String auditStatus;
+    private AuditStatusEnum auditStatus = AuditStatusEnum.WAITING;
 	/**
 	 * 是否精品
 	 */

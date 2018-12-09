@@ -3,6 +3,7 @@ package com.blackey.finance.component.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.finance.component.domain.UserRequireFollow;
 import com.blackey.finance.dto.bo.UserRequireFollowBo;
+import com.blackey.finance.dto.form.AddOrCancelFollowForm;
 import com.blackey.finance.dto.form.UserRequireFollowForm;
 import com.blackey.mybatis.service.BaseService;
 
@@ -23,5 +24,12 @@ public interface UserRequireFollowService extends BaseService<UserRequireFollow>
      * @return
      */
     List<UserRequireFollowBo> queryPage(UserRequireFollowForm form, Page<UserRequireFollowBo> page);
+
+    /**
+     * 取消或关注需求
+     * @param form
+     * @return
+     */
+    boolean addFollowNum(AddOrCancelFollowForm form);
 }
 

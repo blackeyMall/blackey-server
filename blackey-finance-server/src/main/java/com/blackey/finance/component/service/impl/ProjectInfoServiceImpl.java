@@ -1,7 +1,12 @@
 package com.blackey.finance.component.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.blackey.common.exception.BusinessException;
+import com.blackey.common.result.ResultCodeEnum;
 import com.blackey.finance.dto.bo.ProjectInfoBo;
 import com.blackey.finance.dto.form.ProjectInfoForm;
+import com.blackey.finance.global.constants.AddCancelEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -41,5 +46,28 @@ public class ProjectInfoServiceImpl extends BaseServiceImpl<ProjectInfoMapper, P
     public List<ProjectInfoBo> queryPage(ProjectInfoForm form, Page<ProjectInfoBo> page) {
 
         return baseMapper.queryPage(form,page);
+    }
+
+    /**
+     * 增加或减少关注数量
+     *
+     * @param objectId
+     * @param addCancelEnum
+     * @return
+     */
+    @Override
+    public boolean addFollowNum(String objectId, AddCancelEnum addCancelEnum) {
+
+        ProjectInfo projectInfo = this.getById(objectId);
+        if(projectInfo == null){
+            throw new BusinessException(ResultCodeEnum.NOT_FOUND);
+        }
+        if(AddCancelEnum.ADD == addCancelEnum){
+            projectInfo.setFollowNum(projectInfo.getFollowNum() + 1);
+        }else {
+            projectInfo.setFollowNum(projectInfo.getFollowNum() - 1);
+        }
+        return this.updateById(projectInfo);
+
     }
 }
