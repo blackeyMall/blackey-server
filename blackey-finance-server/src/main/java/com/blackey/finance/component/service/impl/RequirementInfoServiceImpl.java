@@ -1,18 +1,25 @@
 package com.blackey.finance.component.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.common.exception.BusinessException;
 import com.blackey.common.result.ResultCodeEnum;
 import com.blackey.finance.component.domain.RequirementInfo;
+import com.blackey.finance.component.domain.UserRequireFollow;
+import com.blackey.finance.component.domain.UserRequireLike;
 import com.blackey.finance.component.mapper.RequirementInfoMapper;
 import com.blackey.finance.component.service.RequirementInfoService;
+import com.blackey.finance.component.service.UserRequireFollowService;
+import com.blackey.finance.component.service.UserRequireLikeService;
 import com.blackey.finance.dto.bo.RequirementInfoBo;
 import com.blackey.finance.dto.form.RequirementInfoForm;
 import com.blackey.finance.global.constants.AddCancelEnum;
 import com.blackey.mybatis.service.impl.BaseServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 
@@ -26,6 +33,12 @@ import java.util.List;
 public class RequirementInfoServiceImpl extends BaseServiceImpl<RequirementInfoMapper, RequirementInfo> implements RequirementInfoService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RequirementInfoServiceImpl.class);
+
+    @Autowired
+    UserRequireFollowService userRequireFollowService;
+
+    @Autowired
+    UserRequireLikeService userRequireLikeService;
 
 
     /**
@@ -82,5 +95,44 @@ public class RequirementInfoServiceImpl extends BaseServiceImpl<RequirementInfoM
             requirementInfo.setLikeNum(requirementInfo.getLikeNum() - 1);
         }
         return this.updateById(requirementInfo);
+    }
+
+    /**
+     * 分页查询--所有需求
+     *
+     * @param form
+     * @param page
+     * @return
+     */
+    @Override
+    public List<RequirementInfoBo> listAllPage(RequirementInfoForm form, Page<RequirementInfoBo> page) {
+
+        List<RequirementInfoBo> requirementInfoBos = baseMapper.listAllPage(form, page);
+
+        if(CollectionUtils.isEmpty(requirementInfoBos)){
+            return null;
+        }
+        String openId;
+        String projectId;
+        for (RequirementInfoBo requirementInfoBo : requirementInfoBos){
+            openId = requirementInfoBo.getOpenId();
+            projectId = requirementInfoBo.getId();
+            List<UserRequireFollow> userProjectFollows = userRequireFollowService.list(new QueryWrapper<UserRequireFollow>().eq("open_id", openId)
+                    .eq("require_id", projectId));
+            if(!CollectionUtils.isEmpty(userProjectFollows)){
+                //已关注
+                requirementInfoBo.setIsFollow(AddCancelEnum.ADD);
+            }
+
+            List<UserRequireLike> userProjectLikes = userRequireLikeService.list(new QueryWrapper<UserRequireLike>().eq("open_id", openId)
+                    .eq("require_id", projectId));
+            if(!CollectionUtils.isEmpty(userProjectLikes)){
+                //已点赞
+                requirementInfoBo.setIsLike(AddCancelEnum.ADD);
+            }
+
+        }
+
+        return requirementInfoBos;
     }
 }

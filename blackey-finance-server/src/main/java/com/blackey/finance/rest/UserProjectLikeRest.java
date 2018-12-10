@@ -4,6 +4,7 @@ import com.blackey.common.rest.BaseRest;
 import com.blackey.common.result.Result;
 import com.blackey.finance.component.service.UserProjectLikeService;
 import com.blackey.finance.dto.form.AddOrCancelFollowForm;
+import com.blackey.finance.global.constants.AddCancelEnum;
 import com.blackey.mybatis.utils.PageUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class UserProjectLikeRest extends BaseRest {
 
 
     /**
-    * 分页列表
+    * 分页列表--我点赞的项目
     */
     @PostMapping("/list/page")
     @RequiresPermissions("finance:userprojectlike:list")
@@ -43,8 +44,8 @@ public class UserProjectLikeRest extends BaseRest {
     @PostMapping("/save")
     public Result save(@RequestBody AddOrCancelFollowForm addOrCancelFollowForm){
 
-        boolean b = userProjectLikeService.likeProject(addOrCancelFollowForm);
-        return success(b);
+        AddCancelEnum addCancelEnum = userProjectLikeService.likeProject(addOrCancelFollowForm);
+        return success(addCancelEnum);
     }
 
 

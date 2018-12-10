@@ -2,6 +2,7 @@ package com.blackey.finance.rest;
 
 import com.blackey.common.rest.BaseRest;
 import com.blackey.finance.dto.form.AddOrCancelFollowForm;
+import com.blackey.finance.global.constants.AddCancelEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -34,7 +35,7 @@ public class UserRequireLikeRest extends BaseRest {
 
 
     /**
-    * 分页列表
+    * 分页列表--我点赞的需求
     */
     @PostMapping("/list/page")
     @RequiresPermissions("finance:userrequirelike:list")
@@ -50,9 +51,9 @@ public class UserRequireLikeRest extends BaseRest {
     @PostMapping("/save")
     public Result save(@RequestBody AddOrCancelFollowForm addOrCancelFollowForm){
 
-        userRequireLikeService.likeRequire(addOrCancelFollowForm);
+        AddCancelEnum addCancelEnum = userRequireLikeService.likeRequire(addOrCancelFollowForm);
 
-        return success();
+        return success(addCancelEnum);
     }
 
 

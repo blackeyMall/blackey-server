@@ -20,7 +20,7 @@ import java.util.Map;
 public interface RequirementInfoService extends BaseService<RequirementInfo> {
 
     /**
-     * 分页查询
+     * 分页查询--我的需求
      * @param form
      * @param page
      * @return
@@ -43,5 +43,13 @@ public interface RequirementInfoService extends BaseService<RequirementInfo> {
      * @return
      */
     boolean addLikeNum(String objectId, AddCancelEnum addCancelEnum);
+
+    /**
+     * 分页查询--所有需求
+     * @param form
+     * @param page
+     * @return
+     */
+    List<RequirementInfoBo> listAllPage(RequirementInfoForm form, Page<RequirementInfoBo> page);
 }
 

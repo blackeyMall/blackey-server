@@ -38,7 +38,7 @@ public class ProjectInfoRest extends BaseRest {
 
 
     /**
-    * 分页列表
+    * 分页列表--我的项目
     */
     @PostMapping("/list/page")
     @RequiresPermissions("finance:projectinfo:list")
@@ -52,12 +52,14 @@ public class ProjectInfoRest extends BaseRest {
     }
 
     /**
-     * 列表
+     * 列表--所有项目
+     * 标记已关注和已点赞
      */
     @PostMapping("/list")
-    public Result list(@RequestBody ProjectInfoForm projectInfoForm){
-        //TODO
-        return success();
+    public Result listAllPage(@RequestBody ProjectInfoForm form){
+        Page<ProjectInfoBo> page = new Page<>(form.getCurrent(),form.getSize());
+        List<ProjectInfoBo> projectInfoBos = projectInfoService.listAllPage(form,page);
+        return success(page.setRecords(projectInfoBos));
     }
 
 

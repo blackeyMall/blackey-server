@@ -52,36 +52,30 @@ public class UserProjectFollowServiceImpl extends BaseServiceImpl<UserProjectFol
      * @return
      */
     @Override
-    public boolean followProject(AddOrCancelFollowForm addOrCancelFollowForm) {
+    public AddCancelEnum followProject(AddOrCancelFollowForm addOrCancelFollowForm) {
 
-        boolean flag ;
         AddCancelEnum addCancelEnum = AddCancelEnum.ADD;
 
         Wrapper<UserProjectFollow> queryWrapper = new QueryWrapper();
         ((QueryWrapper<UserProjectFollow>) queryWrapper)
                 .eq("open_id",addOrCancelFollowForm.getOpenId())
-                .eq("project_id",addOrCancelFollowForm.getObjectId());
+                .eq("project_id",addOrCancelFollowForm.getObjectId())
+                .orderByDesc("created_date");
         UserProjectFollow projectFollow = this.getOne(queryWrapper);
 
         if(projectFollow == null){
             projectFollow = new UserProjectFollow();
             projectFollow.setProjectId(addOrCancelFollowForm.getObjectId());
             projectFollow.setOpenId(addOrCancelFollowForm.getOpenId());
-            projectFollow.setIsDeleted(0);
             this.save(projectFollow);
         }else {
-            if(AddCancelEnum.ADD.getValue().equals(addOrCancelFollowForm.getAddCancel())){
-                projectFollow.setIsDeleted(0);
-            }else {
-                projectFollow.setIsDeleted(1);
-                addCancelEnum = AddCancelEnum.CANCEL;
-            }
-            this.updateById(projectFollow);
+            this.removeById(projectFollow.getId());
+            addCancelEnum = AddCancelEnum.CANCEL;
         }
         //关注数加1或者减1
-        flag = projectInfoService.addFollowNum(addOrCancelFollowForm.getObjectId(),addCancelEnum);
+        projectInfoService.addFollowNum(addOrCancelFollowForm.getObjectId(),addCancelEnum);
 
-        return flag;
+        return addCancelEnum;
 
     }
 }

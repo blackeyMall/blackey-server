@@ -52,34 +52,29 @@ public class UserRequireFollowServiceImpl extends BaseServiceImpl<UserRequireFol
      * @return
      */
     @Override
-    public boolean addFollowNum(AddOrCancelFollowForm form) {
-        boolean flag ;
+    public AddCancelEnum addFollowNum(AddOrCancelFollowForm form) {
+
         AddCancelEnum addCancelEnum = AddCancelEnum.ADD;
 
-        Wrapper<UserRequireFollow> queryWrapper = new QueryWrapper();
-        ((QueryWrapper<UserRequireFollow>) queryWrapper)
+        QueryWrapper<UserRequireFollow> queryWrapper = new QueryWrapper<>();
+        queryWrapper
                 .eq("open_id",form.getOpenId())
-                .eq("require_id",form.getObjectId());
+                .eq("require_id",form.getObjectId())
+                .orderByDesc("created_date");
         UserRequireFollow userRequireFollow = this.getOne(queryWrapper);
 
         if(userRequireFollow == null){
             userRequireFollow = new UserRequireFollow();
             userRequireFollow.setRequireId(form.getObjectId());
             userRequireFollow.setOpenId(form.getOpenId());
-            userRequireFollow.setIsDeleted(0);
             this.save(userRequireFollow);
         }else {
-            if(AddCancelEnum.ADD.getValue().equals(form.getAddCancel())){
-                userRequireFollow.setIsDeleted(0);
-            }else {
-                userRequireFollow.setIsDeleted(1);
-                addCancelEnum = AddCancelEnum.CANCEL;
-            }
             this.updateById(userRequireFollow);
+            addCancelEnum = AddCancelEnum.CANCEL;
         }
         //关注数加1或者减1
-        flag = requirementInfoService.addFollowNum(form.getObjectId(),addCancelEnum);
+        requirementInfoService.addFollowNum(form.getObjectId(),addCancelEnum);
 
-        return flag;
+        return addCancelEnum;
     }
 }

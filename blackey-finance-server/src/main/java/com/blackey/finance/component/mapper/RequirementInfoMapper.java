@@ -43,4 +43,25 @@ public interface RequirementInfoMapper extends BaseDAO<RequirementInfo> {
             "</if>" +
             "</script>")
     List<RequirementInfoBo> queryPage(@Param("form") RequirementInfoForm form, Page<RequirementInfoBo> page);
+    /**
+     * 分页查询--所有需求
+     *
+     * @param form
+     * @param page
+     * @return
+     */
+    @Select("<script>" +
+            "SELECT r.*,u.name,u.sex FROM t_requirement_info r left join t_user_info u on r.open_id = u.open_id" +
+            "  WHERE r.is_deleted = 0  and u.is_deleted = 0 " +
+            "<if test=\"form.orderbyEnum.value == 'FOLLOWNUM' \">\n" +
+            " order by r.follow_num desc \n" +
+            "</if>" +
+            "<if test=\"form.orderbyEnum.value == 'LIKENUM' \">\n" +
+            " order by r.like_num desc \n" +
+            "</if>" +
+            "<if test=\"form.orderbyEnum.value == 'DEFAULT' or form.orderbyEnum.value == '' \">\n" +
+            " order by r.created_date desc \n" +
+            "</if>" +
+            "</script>")
+    List<RequirementInfoBo>  listAllPage(RequirementInfoForm form, Page<RequirementInfoBo> page);
 }

@@ -5,6 +5,7 @@ import com.blackey.common.rest.BaseRest;
 import com.blackey.finance.dto.bo.RequirementInfoBo;
 import com.blackey.finance.dto.bo.UserRequireFollowBo;
 import com.blackey.finance.dto.form.AddOrCancelFollowForm;
+import com.blackey.finance.global.constants.AddCancelEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -38,7 +39,7 @@ public class UserRequireFollowRest extends BaseRest {
 
 
     /**
-    * 关注需求分页列表
+    * 关注需求分页列表---我关注的需求
     */
     @PostMapping("/list/page")
     @RequiresPermissions("finance:follow:require:list")
@@ -57,9 +58,9 @@ public class UserRequireFollowRest extends BaseRest {
     @PostMapping("/save")
     public Result save(@RequestBody AddOrCancelFollowForm form){
 
-        boolean b = userRequireFollowService.addFollowNum(form);
+        AddCancelEnum addCancelEnum = userRequireFollowService.addFollowNum(form);
 
-        return success(b);
+        return success(addCancelEnum);
     }
 
 }

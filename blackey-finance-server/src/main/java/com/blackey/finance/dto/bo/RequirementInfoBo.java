@@ -1,5 +1,6 @@
 package com.blackey.finance.dto.bo;
 
+import com.blackey.finance.global.constants.AddCancelEnum;
 import com.blackey.finance.global.constants.AuditStatusEnum;
 import lombok.Getter;
 import lombok.Setter;
@@ -66,5 +67,15 @@ public class RequirementInfoBo implements Serializable {
     private String category;
 
     private Date createdDate;
+
+	/**
+	 * 是否关注标示，add 关注 cancel 未关注
+	 */
+	private AddCancelEnum isFollow = AddCancelEnum.CANCEL;
+	/**
+	 * 是否关注标示，add 关注 cancel 未关注
+	 */
+	private AddCancelEnum isLike = AddCancelEnum.CANCEL;
+
 
 }

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.blackey.mybatis.model.BaseModel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,27 +20,11 @@ import java.util.Date;
 @Getter
 @Setter
 @TableName("t_user_require_follow")
-public class UserRequireFollow implements Serializable {
+public class UserRequireFollow extends BaseModel<UserRequireFollow> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-	@TableId
-	private String id;
 
-	@TableField(fill = FieldFill.INSERT)
-	private Integer isDeleted;
-
-	@TableField(fill = FieldFill.INSERT)
-	private Date createdDate;
-
-	@TableField(fill = FieldFill.INSERT_UPDATE)
-	private Date updatedDate;
-
-	@TableField(fill = FieldFill.INSERT)
-	private String createdBy;
-
-	@TableField(fill = FieldFill.INSERT_UPDATE)
-	private String updatedBy;
 	/**
 	 * 用户id
 	 */
@@ -54,6 +39,7 @@ public class UserRequireFollow implements Serializable {
 	private String remark;
 
 
+	@Override
     protected Serializable pkVal() {
         return this.getId();
     }

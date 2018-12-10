@@ -21,7 +21,7 @@ import java.util.List;
 public interface ProjectInfoMapper extends BaseDAO<ProjectInfo> {
 
     /**
-     * 分页查询
+     * 分页查询--我的项目
      * @param form
      * @param page
      * @return
@@ -42,4 +42,25 @@ public interface ProjectInfoMapper extends BaseDAO<ProjectInfo> {
             "</if>" +
             "</script>")
     List<ProjectInfoBo> queryPage(@Param("form") ProjectInfoForm form, Page<ProjectInfoBo> page);
+
+    /**
+     * 分页查询 -- 所有项目信息
+     * @param form
+     * @param page
+     * @return
+     */
+    @Select("<script>" +
+            "SELECT p.*,u.name,u.sex FROM t_project_info p left join t_user_info u on p.open_id = u.open_id " +
+            " where p.is_deleted = 0 and u.is_deleted = 0 " +
+            "<if test=\"form.orderbyEnum.value == 'FOLLOWNUM' \">\n" +
+            " order by p.follow_num desc \n" +
+            "</if>" +
+            "<if test=\"form.orderbyEnum.value == 'LIKENUM' \">\n" +
+            " order by p.like_num desc \n" +
+            "</if>" +
+            "<if test=\"form.orderbyEnum.value == 'DEFAULT' or form.orderbyEnum.value == '' \">\n" +
+            " order by p.created_date desc \n" +
+            "</if>" +
+            "</script>")
+    List<ProjectInfoBo>  listAllPage(ProjectInfoForm form, Page<ProjectInfoBo> page);
 }

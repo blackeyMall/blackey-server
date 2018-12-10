@@ -53,35 +53,29 @@ public class UserRequireLikeServiceImpl extends BaseServiceImpl<UserRequireLikeM
      * @return
      */
     @Override
-    public boolean likeRequire(AddOrCancelFollowForm form) {
-        boolean flag ;
+    public AddCancelEnum likeRequire(AddOrCancelFollowForm form) {
         AddCancelEnum addCancelEnum = AddCancelEnum.ADD;
 
         Wrapper<UserRequireLike> queryWrapper = new QueryWrapper();
         ((QueryWrapper<UserRequireLike>) queryWrapper)
                 .eq("open_id",form.getOpenId())
-                .eq("require_id",form.getObjectId());
+                .eq("require_id",form.getObjectId())
+                .orderByDesc("created_date");
         UserRequireLike userRequireLike = this.getOne(queryWrapper);
 
         if(userRequireLike == null){
             userRequireLike = new UserRequireLike();
             userRequireLike.setRequireId(form.getObjectId());
             userRequireLike.setOpenId(form.getOpenId());
-            userRequireLike.setIsDeleted(0);
             this.save(userRequireLike);
         }else {
-            if(AddCancelEnum.ADD.getValue().equals(form.getAddCancel())){
-                userRequireLike.setIsDeleted(0);
-            }else {
-                userRequireLike.setIsDeleted(1);
-                addCancelEnum = AddCancelEnum.CANCEL;
-            }
-            this.updateById(userRequireLike);
+            this.removeById(userRequireLike);
+            addCancelEnum = AddCancelEnum.CANCEL;
         }
         //关注数加1或者减1
-        flag = requirementInfoService.addLikeNum(form.getObjectId(),addCancelEnum);
+        requirementInfoService.addLikeNum(form.getObjectId(),addCancelEnum);
 
-        return flag;
+        return addCancelEnum;
     }
 
 }

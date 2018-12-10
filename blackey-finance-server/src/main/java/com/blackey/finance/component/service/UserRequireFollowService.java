@@ -5,6 +5,7 @@ import com.blackey.finance.component.domain.UserRequireFollow;
 import com.blackey.finance.dto.bo.UserRequireFollowBo;
 import com.blackey.finance.dto.form.AddOrCancelFollowForm;
 import com.blackey.finance.dto.form.UserRequireFollowForm;
+import com.blackey.finance.global.constants.AddCancelEnum;
 import com.blackey.mybatis.service.BaseService;
 
 import java.util.List;
@@ -30,6 +31,6 @@ public interface UserRequireFollowService extends BaseService<UserRequireFollow>
      * @param form
      * @return
      */
-    boolean addFollowNum(AddOrCancelFollowForm form);
+    AddCancelEnum addFollowNum(AddOrCancelFollowForm form);
 }
 

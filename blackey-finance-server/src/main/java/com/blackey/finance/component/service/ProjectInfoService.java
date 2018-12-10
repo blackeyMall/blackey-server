@@ -42,5 +42,12 @@ public interface ProjectInfoService extends BaseService<ProjectInfo> {
      * @return
      */
     boolean addLikeNum(String objectId, AddCancelEnum addCancelEnum);
+    /**
+     * 分页查询--所有项目
+     * @param form
+     * @param page
+     * @return
+     */
+    List<ProjectInfoBo> listAllPage(ProjectInfoForm form, Page<ProjectInfoBo> page);
 }
 
