@@ -20,7 +20,7 @@ spring:
 #    port: 6379
 #    password:
 server:
-  port: 1079
+  port: 1099
 
 #mybatis
 mybatis-plus:
@@ -75,8 +75,8 @@ http:
 wx:
   miniapp:
     configs:
-      - appid: wxe8d9cc02ebb02721
-        secret: 5018e4c6d939ba3d40f9b821e600ee63
+      - appid: wx30a31ffd0cc7494f
+        secret: 8ae975c75c3f18f0a94cbbd5764544e5
         token:
         aesKey:
         msgDataFormat: JSON
