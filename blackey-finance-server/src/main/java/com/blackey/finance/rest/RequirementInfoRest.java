@@ -81,12 +81,7 @@ public class RequirementInfoRest extends BaseRest {
     @PostMapping("/save")
     public Result save(@RequestBody RequirementInfoForm requirementInfoForm){
 
-        RequirementInfo requirementInfo = new RequirementInfo();
-        //Form --> domain
-        BeanUtils.copyProperties(requirementInfoForm,requirementInfo);
-        requirementInfo.setAuditStatus(AuditStatusEnum.WAITING);
-
-        requirementInfoService.save(requirementInfo);
+        requirementInfoService.createRequirement(requirementInfoForm);
 
         return success();
     }

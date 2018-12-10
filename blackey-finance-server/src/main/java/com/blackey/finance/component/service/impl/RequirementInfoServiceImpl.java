@@ -4,19 +4,24 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.common.exception.BusinessException;
 import com.blackey.common.result.ResultCodeEnum;
+import com.blackey.finance.component.domain.AuditDetail;
 import com.blackey.finance.component.domain.RequirementInfo;
 import com.blackey.finance.component.domain.UserRequireFollow;
 import com.blackey.finance.component.domain.UserRequireLike;
 import com.blackey.finance.component.mapper.RequirementInfoMapper;
+import com.blackey.finance.component.service.AuditDetailService;
 import com.blackey.finance.component.service.RequirementInfoService;
 import com.blackey.finance.component.service.UserRequireFollowService;
 import com.blackey.finance.component.service.UserRequireLikeService;
 import com.blackey.finance.dto.bo.RequirementInfoBo;
 import com.blackey.finance.dto.form.RequirementInfoForm;
 import com.blackey.finance.global.constants.AddCancelEnum;
+import com.blackey.finance.global.constants.AuditStatusEnum;
+import com.blackey.finance.global.constants.ObjectTypeEnum;
 import com.blackey.mybatis.service.impl.BaseServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -40,6 +45,8 @@ public class RequirementInfoServiceImpl extends BaseServiceImpl<RequirementInfoM
     @Autowired
     UserRequireLikeService userRequireLikeService;
 
+    @Autowired
+    AuditDetailService auditDetailService;
 
     /**
      * 分页查询
@@ -134,5 +141,25 @@ public class RequirementInfoServiceImpl extends BaseServiceImpl<RequirementInfoM
         }
 
         return requirementInfoBos;
+    }
+
+    /**
+     * 创建需求
+     *
+     * @param form
+     */
+    @Override
+    public void createRequirement(RequirementInfoForm form) {
+        RequirementInfo requirementInfo = new RequirementInfo();
+        //Form --> domain
+        BeanUtils.copyProperties(form,requirementInfo);
+        requirementInfo.setAuditStatus(AuditStatusEnum.WAITING);
+        this.save(requirementInfo);
+        //待审批记录
+        AuditDetail auditDetail = new AuditDetail();
+        auditDetail.setObjectId(requirementInfo.getId());
+        auditDetail.setObjectType(ObjectTypeEnum.REQUIRE);
+        auditDetail.setAuditStatus(AuditStatusEnum.WAITING);
+        auditDetailService.save(auditDetail);
     }
 }

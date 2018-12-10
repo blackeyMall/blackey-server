@@ -4,19 +4,24 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.common.exception.BusinessException;
 import com.blackey.common.result.ResultCodeEnum;
+import com.blackey.finance.component.domain.AuditDetail;
 import com.blackey.finance.component.domain.ProjectInfo;
 import com.blackey.finance.component.domain.UserProjectFollow;
 import com.blackey.finance.component.domain.UserProjectLike;
 import com.blackey.finance.component.mapper.ProjectInfoMapper;
+import com.blackey.finance.component.service.AuditDetailService;
 import com.blackey.finance.component.service.ProjectInfoService;
 import com.blackey.finance.component.service.UserProjectFollowService;
 import com.blackey.finance.component.service.UserProjectLikeService;
 import com.blackey.finance.dto.bo.ProjectInfoBo;
 import com.blackey.finance.dto.form.ProjectInfoForm;
 import com.blackey.finance.global.constants.AddCancelEnum;
+import com.blackey.finance.global.constants.AuditStatusEnum;
+import com.blackey.finance.global.constants.ObjectTypeEnum;
 import com.blackey.mybatis.service.impl.BaseServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -39,6 +44,8 @@ public class ProjectInfoServiceImpl extends BaseServiceImpl<ProjectInfoMapper, P
 
     @Autowired
     UserProjectLikeService userProjectLikeService;
+    @Autowired
+    AuditDetailService auditDetailService;
 
     /**
      * 分页查询
@@ -132,5 +139,25 @@ public class ProjectInfoServiceImpl extends BaseServiceImpl<ProjectInfoMapper, P
 
         }
         return projectInfoBos;
+    }
+
+    /**
+     * 创建项目
+     *
+     * @param projectInfoForm
+     */
+    @Override
+    public void createProject(ProjectInfoForm projectInfoForm) {
+        ProjectInfo projectInfo = new ProjectInfo();
+        //Form --> domain
+        BeanUtils.copyProperties(projectInfoForm,projectInfo);
+        projectInfo.setAuditStatus(AuditStatusEnum.WAITING);
+        this.save(projectInfo);
+        //待审批记录
+        AuditDetail auditDetail = new AuditDetail();
+        auditDetail.setObjectId(projectInfo.getId());
+        auditDetail.setObjectType(ObjectTypeEnum.PROJECT);
+        auditDetail.setAuditStatus(AuditStatusEnum.WAITING);
+        auditDetailService.save(auditDetail);
     }
 }

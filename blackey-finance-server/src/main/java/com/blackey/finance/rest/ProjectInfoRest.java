@@ -80,11 +80,8 @@ public class ProjectInfoRest extends BaseRest {
     @PostMapping("/save")
     public Result save(@RequestBody ProjectInfoForm projectInfoForm){
 
-        ProjectInfo projectInfo = new ProjectInfo();
-        //Form --> domain
-        BeanUtils.copyProperties(projectInfoForm,projectInfo);
-        projectInfo.setAuditStatus(AuditStatusEnum.WAITING);
-        projectInfoService.save(projectInfo);
+        projectInfoService.createProject(projectInfoForm);
+
         return success();
     }
 

@@ -1,15 +1,13 @@
 package com.blackey.finance.component.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.blackey.finance.component.domain.RequirementInfo;
 import com.blackey.finance.dto.bo.RequirementInfoBo;
 import com.blackey.finance.dto.form.RequirementInfoForm;
 import com.blackey.finance.global.constants.AddCancelEnum;
 import com.blackey.mybatis.service.BaseService;
-import com.blackey.mybatis.utils.PageUtils;
-import com.blackey.finance.component.domain.RequirementInfo;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * 需求信息表 RequirementInfoService
@@ -51,5 +49,11 @@ public interface RequirementInfoService extends BaseService<RequirementInfo> {
      * @return
      */
     List<RequirementInfoBo> listAllPage(RequirementInfoForm form, Page<RequirementInfoBo> page);
+
+    /**
+     * 创建需求
+     * @param form
+     */
+    void createRequirement(RequirementInfoForm form);
 }
 
