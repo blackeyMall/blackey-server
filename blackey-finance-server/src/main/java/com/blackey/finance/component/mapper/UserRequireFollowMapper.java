@@ -27,7 +27,7 @@ public interface UserRequireFollowMapper extends BaseDAO<UserRequireFollow> {
      * @return
      */
     @Select("<script>" +
-            "SELECT r.* ,ur.created_date,u.name,u.sex FROM t_user_require_follow ur,t_requirement_info r" +
+            "SELECT r.* ,ur.created_date,u.name,u.sex,u.company,u.duties FROM t_user_require_follow ur,t_requirement_info r" +
             ",t_user_info u \n" +
             "WHERE ur.require_id = r.id and u.open_id = r.open_id " +
             "AND ur.is_deleted = 0 and r.is_deleted = 0 and u.is_deleted = 0 "+

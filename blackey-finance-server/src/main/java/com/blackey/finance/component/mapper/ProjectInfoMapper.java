@@ -50,8 +50,17 @@ public interface ProjectInfoMapper extends BaseDAO<ProjectInfo> {
      * @return
      */
     @Select("<script>" +
-            "SELECT p.*,u.name,u.sex FROM t_project_info p left join t_user_info u on p.open_id = u.open_id " +
+            "SELECT p.*,u.name,u.sex,u.company,u.duties FROM t_project_info p left join t_user_info u on p.open_id = u.open_id " +
             " where p.is_deleted = 0 and u.is_deleted = 0 " +
+            "<if test=\"form.openId != '' and form.openId != null\">" +
+            " and p.open_id != #{form.openId}\n" +
+            "</if>" +
+            "<if test=\"form.isRecommend != '' and form.isRecommend != null\">" +
+            " and p.is_recommend != #{form.isRecommend}\n" +
+            "</if>" +
+            "<if test=\"form.auditStatus.value != '' and form.auditStatus.value != null and form.auditStatus.value != 'DEFAULT' \">" +
+            " and p.audit_status = #{form.auditStatus.value}\n" +
+            "</if>" +
             "<if test=\"form.orderbyEnum.value == 'FOLLOWNUM' \">\n" +
             " order by p.follow_num desc \n" +
             "</if>" +
@@ -62,5 +71,5 @@ public interface ProjectInfoMapper extends BaseDAO<ProjectInfo> {
             " order by p.created_date desc \n" +
             "</if>" +
             "</script>")
-    List<ProjectInfoBo>  listAllPage(ProjectInfoForm form, Page<ProjectInfoBo> page);
+    List<ProjectInfoBo>  listAllPage(@Param("form") ProjectInfoForm form, Page<ProjectInfoBo> page);
 }

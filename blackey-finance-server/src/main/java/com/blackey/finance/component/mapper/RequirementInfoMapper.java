@@ -51,8 +51,17 @@ public interface RequirementInfoMapper extends BaseDAO<RequirementInfo> {
      * @return
      */
     @Select("<script>" +
-            "SELECT r.*,u.name,u.sex FROM t_requirement_info r left join t_user_info u on r.open_id = u.open_id" +
+            "SELECT r.*,u.name,u.sex,u.company,u.duties FROM t_requirement_info r left join t_user_info u on r.open_id = u.open_id" +
             "  WHERE r.is_deleted = 0  and u.is_deleted = 0 " +
+            "<if test=\"form.openId != '' and form.openId != null\">" +
+            " and r.open_id != #{form.openId}\n" +
+            "</if>" +
+            "<if test=\"form.isRecommend != '' and form.isRecommend != null\">" +
+            " and r.is_recommend != #{form.isRecommend}\n" +
+            "</if>" +
+            "<if test=\"form.auditStatus.value != '' and form.auditStatus.value != null and form.auditStatus.value != 'DEFAULT' \">" +
+            " and r.audit_status = #{form.auditStatus.value}\n" +
+            "</if>" +
             "<if test=\"form.orderbyEnum.value == 'FOLLOWNUM' \">\n" +
             " order by r.follow_num desc \n" +
             "</if>" +
@@ -63,5 +72,5 @@ public interface RequirementInfoMapper extends BaseDAO<RequirementInfo> {
             " order by r.created_date desc \n" +
             "</if>" +
             "</script>")
-    List<RequirementInfoBo>  listAllPage(RequirementInfoForm form, Page<RequirementInfoBo> page);
+    List<RequirementInfoBo>  listAllPage(@Param("form") RequirementInfoForm form, Page<RequirementInfoBo> page);
 }

@@ -77,5 +77,14 @@ public class RequirementInfoBo implements Serializable {
 	 */
 	private AddCancelEnum isLike = AddCancelEnum.CANCEL;
 
+	/**
+	 * 公司名称
+	 */
+	private String company;
+	/**
+	 * 职位
+	 */
+	private String duties;
+
 
 }
