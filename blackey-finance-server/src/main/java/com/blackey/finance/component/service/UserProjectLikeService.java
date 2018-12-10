@@ -1,5 +1,6 @@
 package com.blackey.finance.component.service;
 
+import com.blackey.finance.dto.form.AddOrCancelFollowForm;
 import com.blackey.mybatis.service.BaseService;
 import com.blackey.mybatis.utils.PageUtils;
 import com.blackey.finance.component.domain.UserProjectLike;
@@ -20,5 +21,12 @@ public interface UserProjectLikeService extends BaseService<UserProjectLike> {
     * @return
     */
     PageUtils queryPage(Map<String, Object> params);
+
+    /**
+     * 点赞/取消点赞项目
+     * @param addOrCancelFollowForm
+     * @return
+     */
+    boolean likeProject(AddOrCancelFollowForm addOrCancelFollowForm);
 }
 

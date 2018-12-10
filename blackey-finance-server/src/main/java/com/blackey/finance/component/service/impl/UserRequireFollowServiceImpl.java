@@ -1,28 +1,23 @@
 package com.blackey.finance.component.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
-import com.blackey.finance.component.domain.UserProjectFollow;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.blackey.finance.component.domain.UserRequireFollow;
+import com.blackey.finance.component.mapper.UserRequireFollowMapper;
 import com.blackey.finance.component.service.RequirementInfoService;
+import com.blackey.finance.component.service.UserRequireFollowService;
 import com.blackey.finance.dto.bo.UserRequireFollowBo;
 import com.blackey.finance.dto.form.AddOrCancelFollowForm;
 import com.blackey.finance.dto.form.UserRequireFollowForm;
 import com.blackey.finance.global.constants.AddCancelEnum;
+import com.blackey.mybatis.service.impl.BaseServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.blackey.mybatis.service.impl.BaseServiceImpl;
-import com.blackey.mybatis.utils.PageUtils;
-import com.blackey.mybatis.utils.Query;
-
-import com.blackey.finance.component.mapper.UserRequireFollowMapper;
-import com.blackey.finance.component.domain.UserRequireFollow;
-import com.blackey.finance.component.service.UserRequireFollowService;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * 用户需求关注表 UserRequireFollowServiceImpl

@@ -28,11 +28,20 @@ public interface RequirementInfoService extends BaseService<RequirementInfo> {
     List<RequirementInfoBo> queryPage(RequirementInfoForm form, Page<RequirementInfoBo> page);
 
     /**
-     *
+     * 增加或减少关注数量
      * @param objectId
      * @param addCancelEnum
      * @return
      */
     boolean addFollowNum(String objectId, AddCancelEnum addCancelEnum);
+
+
+    /**
+     * 增加或减少点赞数量
+     * @param objectId
+     * @param addCancelEnum
+     * @return
+     */
+    boolean addLikeNum(String objectId, AddCancelEnum addCancelEnum);
 }
 

@@ -34,5 +34,13 @@ public interface ProjectInfoService extends BaseService<ProjectInfo> {
      * @return
      */
     boolean addFollowNum(String objectId, AddCancelEnum addCancelEnum);
+
+    /**
+     * 增加或减少点赞数量
+     * @param objectId
+     * @param addCancelEnum
+     * @return
+     */
+    boolean addLikeNum(String objectId, AddCancelEnum addCancelEnum);
 }
 

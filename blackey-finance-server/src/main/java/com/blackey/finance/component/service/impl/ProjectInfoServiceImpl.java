@@ -1,27 +1,20 @@
 package com.blackey.finance.component.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.common.exception.BusinessException;
 import com.blackey.common.result.ResultCodeEnum;
+import com.blackey.finance.component.domain.ProjectInfo;
+import com.blackey.finance.component.mapper.ProjectInfoMapper;
+import com.blackey.finance.component.service.ProjectInfoService;
 import com.blackey.finance.dto.bo.ProjectInfoBo;
 import com.blackey.finance.dto.form.ProjectInfoForm;
 import com.blackey.finance.global.constants.AddCancelEnum;
+import com.blackey.mybatis.service.impl.BaseServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.blackey.mybatis.service.impl.BaseServiceImpl;
-import com.blackey.mybatis.utils.PageUtils;
-import com.blackey.mybatis.utils.Query;
-
-import com.blackey.finance.component.mapper.ProjectInfoMapper;
-import com.blackey.finance.component.domain.ProjectInfo;
-import com.blackey.finance.component.service.ProjectInfoService;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * 项目信息表 ProjectInfoServiceImpl
@@ -69,5 +62,26 @@ public class ProjectInfoServiceImpl extends BaseServiceImpl<ProjectInfoMapper, P
         }
         return this.updateById(projectInfo);
 
+    }
+
+    /**
+     * 增加或减少点赞数量
+     *
+     * @param objectId
+     * @param addCancelEnum
+     * @return
+     */
+    @Override
+    public boolean addLikeNum(String objectId, AddCancelEnum addCancelEnum) {
+        ProjectInfo projectInfo = this.getById(objectId);
+        if(projectInfo == null){
+            throw new BusinessException(ResultCodeEnum.NOT_FOUND);
+        }
+        if(AddCancelEnum.ADD == addCancelEnum){
+            projectInfo.setLikeNum(projectInfo.getLikeNum() + 1);
+        }else {
+            projectInfo.setLikeNum(projectInfo.getLikeNum() - 1);
+        }
+        return this.updateById(projectInfo);
     }
 }

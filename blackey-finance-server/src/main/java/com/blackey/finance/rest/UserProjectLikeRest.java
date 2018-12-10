@@ -1,6 +1,7 @@
 package com.blackey.finance.rest;
 
 import com.blackey.common.rest.BaseRest;
+import com.blackey.finance.dto.form.AddOrCancelFollowForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -43,62 +44,18 @@ public class UserProjectLikeRest extends BaseRest {
         return success(page);
     }
 
-    /**
-     * 列表
-     */
-    @PostMapping("/list")
-    public Result list(@RequestBody UserProjectLikeForm userProjectLikeForm){
-        //TODO
-        return success();
-    }
-
-
-    /**
-     * 查看详情信息
-     */
-    @GetMapping("/info/{openId}")
-    public Result info(@PathVariable("openId") String openId){
-
-        UserProjectLike userProjectLike = userProjectLikeService.getById(openId);
-
-        return success(userProjectLike);
-    }
 
     /**
      * 保存
      */
     @PostMapping("/save")
-    public Result save(@RequestBody UserProjectLikeForm userProjectLikeForm){
+    public Result save(@RequestBody AddOrCancelFollowForm addOrCancelFollowForm){
 
-        UserProjectLike userProjectLike = new UserProjectLike();
-        //Form --> domain
-        BeanUtils.copyProperties(userProjectLikeForm,userProjectLike);
 
-        userProjectLikeService.save(userProjectLike);
+        userProjectLikeService.likeProject(addOrCancelFollowForm);
 
         return success();
     }
 
-    /**
-     * 修改
-     */
-    @PostMapping("/update")
-    public Result update(@RequestBody UserProjectLike userProjectLike){
-
-        userProjectLikeService.updateById(userProjectLike);//全部更新
-        
-        return success();
-    }
-
-    /**
-     * 根据主键id删除
-     */
-    @GetMapping("/delete/{openId}")
-    public Result delete(@PathVariable("openId") String openId){
-
-        userProjectLikeService.removeById(openId);
-
-        return success();
-    }
 
 }
