@@ -67,6 +67,7 @@ public class UserRequireFollowServiceImpl extends BaseServiceImpl<UserRequireFol
             userRequireFollow.setRequireId(form.getObjectId());
             userRequireFollow.setOpenId(form.getOpenId());
             userRequireFollow.setIsDeleted(0);
+            this.save(userRequireFollow);
         }else {
             if(AddCancelEnum.ADD.getValue().equals(form.getAddCancel())){
                 userRequireFollow.setIsDeleted(0);

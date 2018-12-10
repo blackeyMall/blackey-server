@@ -32,6 +32,6 @@ public interface UserProjectFollowService extends BaseService<UserProjectFollow>
      * @param addOrCancelFollowForm
      * @return
      */
-    boolean folloProject(AddOrCancelFollowForm addOrCancelFollowForm);
+    boolean followProject(AddOrCancelFollowForm addOrCancelFollowForm);
 }
 

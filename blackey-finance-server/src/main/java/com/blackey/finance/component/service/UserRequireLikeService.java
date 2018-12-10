@@ -1,5 +1,6 @@
 package com.blackey.finance.component.service;
 
+import com.blackey.finance.dto.form.AddOrCancelFollowForm;
 import com.blackey.mybatis.service.BaseService;
 import com.blackey.mybatis.utils.PageUtils;
 import com.blackey.finance.component.domain.UserRequireLike;
@@ -20,5 +21,12 @@ public interface UserRequireLikeService extends BaseService<UserRequireLike> {
     * @return
     */
     PageUtils queryPage(Map<String, Object> params);
+
+    /**
+     * 点赞
+     * @param addOrCancelFollowForm
+     * @return
+     */
+    boolean likeRequire(AddOrCancelFollowForm addOrCancelFollowForm);
 }
 

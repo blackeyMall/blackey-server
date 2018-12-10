@@ -55,7 +55,7 @@ public class UserProjectFollowRest extends BaseRest {
     @PostMapping("/save")
     public Result save(@RequestBody AddOrCancelFollowForm addOrCancelFollowForm){
 
-        boolean b = userProjectFollowService.folloProject(addOrCancelFollowForm);
+        boolean b = userProjectFollowService.followProject(addOrCancelFollowForm);
 
         return success(b);
     }

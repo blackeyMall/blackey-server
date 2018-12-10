@@ -57,9 +57,9 @@ public class UserRequireFollowRest extends BaseRest {
     @PostMapping("/save")
     public Result save(@RequestBody AddOrCancelFollowForm form){
 
-        userRequireFollowService.addFollowNum(form);
+        boolean b = userRequireFollowService.addFollowNum(form);
 
-        return success();
+        return success(b);
     }
 
 }

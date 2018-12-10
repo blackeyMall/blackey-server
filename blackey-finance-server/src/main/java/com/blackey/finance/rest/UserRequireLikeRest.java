@@ -1,6 +1,7 @@
 package com.blackey.finance.rest;
 
 import com.blackey.common.rest.BaseRest;
+import com.blackey.finance.dto.form.AddOrCancelFollowForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -44,61 +45,15 @@ public class UserRequireLikeRest extends BaseRest {
     }
 
     /**
-     * 列表
-     */
-    @PostMapping("/list")
-    public Result list(@RequestBody UserRequireLikeForm userRequireLikeForm){
-        //TODO
-        return success();
-    }
-
-
-    /**
-     * 查看详情信息
-     */
-    @GetMapping("/info/{openId}")
-    public Result info(@PathVariable("openId") String openId){
-
-        UserRequireLike userRequireLike = userRequireLikeService.getById(openId);
-
-        return success(userRequireLike);
-    }
-
-    /**
-     * 保存
+     * 保存----点赞或取消点赞
      */
     @PostMapping("/save")
-    public Result save(@RequestBody UserRequireLikeForm userRequireLikeForm){
+    public Result save(@RequestBody AddOrCancelFollowForm addOrCancelFollowForm){
 
-        UserRequireLike userRequireLike = new UserRequireLike();
-        //Form --> domain
-        BeanUtils.copyProperties(userRequireLikeForm,userRequireLike);
-
-        userRequireLikeService.save(userRequireLike);
+        userRequireLikeService.likeRequire(addOrCancelFollowForm);
 
         return success();
     }
 
-    /**
-     * 修改
-     */
-    @PostMapping("/update")
-    public Result update(@RequestBody UserRequireLike userRequireLike){
-
-        userRequireLikeService.updateById(userRequireLike);//全部更新
-        
-        return success();
-    }
-
-    /**
-     * 根据主键id删除
-     */
-    @GetMapping("/delete/{openId}")
-    public Result delete(@PathVariable("openId") String openId){
-
-        userRequireLikeService.removeById(openId);
-
-        return success();
-    }
 
 }

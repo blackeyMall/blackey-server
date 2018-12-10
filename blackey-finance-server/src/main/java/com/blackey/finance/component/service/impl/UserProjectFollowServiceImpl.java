@@ -52,7 +52,7 @@ public class UserProjectFollowServiceImpl extends BaseServiceImpl<UserProjectFol
      * @return
      */
     @Override
-    public boolean folloProject(AddOrCancelFollowForm addOrCancelFollowForm) {
+    public boolean followProject(AddOrCancelFollowForm addOrCancelFollowForm) {
 
         boolean flag ;
         AddCancelEnum addCancelEnum = AddCancelEnum.ADD;
@@ -68,17 +68,15 @@ public class UserProjectFollowServiceImpl extends BaseServiceImpl<UserProjectFol
             projectFollow.setProjectId(addOrCancelFollowForm.getObjectId());
             projectFollow.setOpenId(addOrCancelFollowForm.getOpenId());
             projectFollow.setIsDeleted(0);
+            this.save(projectFollow);
         }else {
             if(AddCancelEnum.ADD.getValue().equals(addOrCancelFollowForm.getAddCancel())){
-
                 projectFollow.setIsDeleted(0);
-                this.updateById(projectFollow);
-
             }else {
                 projectFollow.setIsDeleted(1);
-                this.updateById(projectFollow);
                 addCancelEnum = AddCancelEnum.CANCEL;
             }
+            this.updateById(projectFollow);
         }
         //关注数加1或者减1
         flag = projectInfoService.addFollowNum(addOrCancelFollowForm.getObjectId(),addCancelEnum);

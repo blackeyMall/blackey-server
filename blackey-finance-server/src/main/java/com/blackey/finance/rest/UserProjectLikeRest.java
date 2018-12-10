@@ -1,19 +1,13 @@
 package com.blackey.finance.rest;
 
 import com.blackey.common.rest.BaseRest;
+import com.blackey.common.result.Result;
+import com.blackey.finance.component.service.UserProjectLikeService;
 import com.blackey.finance.dto.form.AddOrCancelFollowForm;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
+import com.blackey.mybatis.utils.PageUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import com.blackey.finance.component.domain.UserProjectLike;
-import com.blackey.finance.dto.form.UserProjectLikeForm;
-import com.blackey.finance.component.service.UserProjectLikeService;
-import com.blackey.common.result.Result;
-import com.blackey.mybatis.utils.PageUtils;
 
 import java.util.Map;
 
@@ -27,7 +21,6 @@ import java.util.Map;
 @RequestMapping("/finance/userprojectlike")
 public class UserProjectLikeRest extends BaseRest {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserProjectLikeRest.class);
 
     @Autowired
     private UserProjectLikeService userProjectLikeService;
@@ -44,17 +37,14 @@ public class UserProjectLikeRest extends BaseRest {
         return success(page);
     }
 
-
     /**
-     * 保存
+     * 保存--点赞或取消点赞
      */
     @PostMapping("/save")
     public Result save(@RequestBody AddOrCancelFollowForm addOrCancelFollowForm){
 
-
-        userProjectLikeService.likeProject(addOrCancelFollowForm);
-
-        return success();
+        boolean b = userProjectLikeService.likeProject(addOrCancelFollowForm);
+        return success(b);
     }
 
 
