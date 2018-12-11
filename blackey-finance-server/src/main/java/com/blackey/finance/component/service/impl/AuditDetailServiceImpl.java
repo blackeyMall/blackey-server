@@ -2,17 +2,24 @@ package com.blackey.finance.component.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.finance.component.domain.AuditDetail;
+import com.blackey.finance.component.domain.ProjectInfo;
+import com.blackey.finance.component.domain.RequirementInfo;
 import com.blackey.finance.component.mapper.AuditDetailMapper;
 import com.blackey.finance.component.service.AuditDetailService;
+import com.blackey.finance.component.service.ProjectInfoService;
+import com.blackey.finance.component.service.RequirementInfoService;
 import com.blackey.finance.dto.form.AuditDetailForm;
 import com.blackey.finance.global.constants.AuditStatusEnum;
+import com.blackey.finance.global.constants.ObjectTypeEnum;
 import com.blackey.mybatis.service.impl.BaseServiceImpl;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -26,6 +33,11 @@ public class AuditDetailServiceImpl extends BaseServiceImpl<AuditDetailMapper, A
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AuditDetailServiceImpl.class);
 
+    @Autowired
+    RequirementInfoService requirementInfoService;
+
+    @Autowired
+    ProjectInfoService projectInfoService;
 
     /**
      * 分页查询
@@ -55,5 +67,29 @@ public class AuditDetailServiceImpl extends BaseServiceImpl<AuditDetailMapper, A
         IPage<AuditDetail> auditDetailIPage = this.page(page, queryWrapper);
 
         return auditDetailIPage;
+    }
+
+    /**
+     * 记录审批
+     *
+     * @param auditDetail
+     */
+    @Override
+    public void audit(AuditDetail auditDetail) {
+
+        this.updateById(auditDetail);
+        //项目审批
+        if(ObjectTypeEnum.PROJECT.getValue().equals(auditDetail.getObjectType().getValue())){
+            ProjectInfo projectInfo = new ProjectInfo();
+            projectInfo.setAuditStatus(auditDetail.getAuditStatus());
+            projectInfoService.update(projectInfo,new UpdateWrapper<ProjectInfo>().eq("id",auditDetail.getObjectId()));
+        }
+        //需求审批
+        if(ObjectTypeEnum.REQUIRE.getValue().equals(auditDetail.getObjectType().getValue())){
+            RequirementInfo requirementInfo = new RequirementInfo();
+            requirementInfo.setAuditStatus(auditDetail.getAuditStatus());
+            requirementInfoService.update(requirementInfo,new UpdateWrapper<RequirementInfo>().eq("id",auditDetail.getObjectId()));
+        }
+
     }
 }

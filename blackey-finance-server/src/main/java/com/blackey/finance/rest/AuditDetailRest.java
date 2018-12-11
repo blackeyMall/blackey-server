@@ -68,8 +68,8 @@ public class AuditDetailRest extends BaseRest {
     @PostMapping("/update")
     public Result update(@RequestBody AuditDetail auditDetail){
 
-        auditDetailService.updateById(auditDetail);
-        
+        auditDetailService.audit(auditDetail);
+
         return success();
     }
 

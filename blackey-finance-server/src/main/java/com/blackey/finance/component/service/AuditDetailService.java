@@ -20,5 +20,11 @@ public interface AuditDetailService extends BaseService<AuditDetail> {
     * @return
     */
     IPage<AuditDetail> queryPage(AuditDetailForm form, Page<AuditDetail> page);
+
+    /**
+     * 记录审批
+     * @param auditDetail
+     */
+    void audit(AuditDetail auditDetail);
 }
 
