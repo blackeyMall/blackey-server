@@ -13,10 +13,11 @@ import lombok.Getter;
 public enum ApplyStatus {
 
     /**
-     * 待审核
+     * 通过，拒绝，待同意
      */
-    ADD("关注"),
-    CANCEL("取消");
+    ACCEPT("通过"),
+    REFUSE("取消"),
+    APPLY("待同意");
 
     private String name;
     private String value;

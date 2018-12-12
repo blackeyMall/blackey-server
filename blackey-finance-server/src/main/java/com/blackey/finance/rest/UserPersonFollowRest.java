@@ -32,16 +32,7 @@ public class UserPersonFollowRest extends BaseRest {
     private UserPersonFollowService userPersonFollowService;
 
 
-    /**
-    * 分页列表
-    */
-    @PostMapping("/list/page")
-    @RequiresPermissions("finance:userpersonfollow:list")
-    public Result list(@RequestParam Map<String, Object> params){
-        PageUtils page = userPersonFollowService.queryPage(params);
 
-        return success(page);
-    }
 
     /**
      * 列表
@@ -64,20 +55,7 @@ public class UserPersonFollowRest extends BaseRest {
         return success(userPersonFollow);
     }
 
-    /**
-     * 保存
-     */
-    @PostMapping("/save")
-    public Result save(@RequestBody UserPersonFollowForm userPersonFollowForm){
 
-        UserPersonFollow userPersonFollow = new UserPersonFollow();
-        //Form --> domain
-        BeanUtils.copyProperties(userPersonFollowForm,userPersonFollow);
-
-        userPersonFollowService.save(userPersonFollow);
-
-        return success();
-    }
 
     /**
      * 修改
@@ -99,6 +77,33 @@ public class UserPersonFollowRest extends BaseRest {
         userPersonFollowService.removeById(openId);
 
         return success();
+    }
+
+
+    /**
+     * 用户关注
+     */
+    @PostMapping("/save")
+    public Result save(@RequestBody UserPersonFollowForm userPersonFollowForm){
+
+        UserPersonFollow userPersonFollow = new UserPersonFollow();
+        //Form --> domain
+        BeanUtils.copyProperties(userPersonFollowForm,userPersonFollow);
+
+        userPersonFollowService.save(userPersonFollow);
+
+        return success();
+    }
+
+    /**
+     * 我关注的人列表
+     */
+    @PostMapping("/list/page")
+    @RequiresPermissions("finance:userpersonfollow:list")
+    public Result list(@RequestParam Map<String, Object> params){
+        PageUtils page = userPersonFollowService.queryPage(params);
+
+        return success(page);
     }
 
 }

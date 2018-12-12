@@ -1,6 +1,7 @@
 package com.blackey.finance.rest;
 
 import com.blackey.common.rest.BaseRest;
+import com.blackey.finance.global.constants.ApplyStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -32,16 +33,7 @@ public class UserRelationRest extends BaseRest {
     private UserRelationService userRelationService;
 
 
-    /**
-    * 分页列表
-    */
-    @PostMapping("/list/page")
-    @RequiresPermissions("finance:userrelation:list")
-    public Result list(@RequestParam Map<String, Object> params){
-        PageUtils page = userRelationService.queryPage(params);
 
-        return success(page);
-    }
 
     /**
      * 列表
@@ -65,30 +57,16 @@ public class UserRelationRest extends BaseRest {
     }
 
     /**
-     * 保存
-     */
-    @PostMapping("/save")
-    public Result save(@RequestBody UserRelationForm userRelationForm){
-
-        UserRelation userRelation = new UserRelation();
-        //Form --> domain
-        BeanUtils.copyProperties(userRelationForm,userRelation);
-
-        userRelationService.save(userRelation);
-
-        return success();
-    }
-
-    /**
-     * 修改
+     * 更新
      */
     @PostMapping("/update")
     public Result update(@RequestBody UserRelation userRelation){
 
         userRelationService.updateById(userRelation);//全部更新
-        
+
         return success();
     }
+
 
     /**
      * 根据主键id删除
@@ -98,6 +76,59 @@ public class UserRelationRest extends BaseRest {
 
         userRelationService.removeById(openId);
 
+        return success();
+    }
+
+    /**
+     * 申请好友
+     */
+    @PostMapping("/save")
+    public Result save(@RequestBody UserRelationForm userRelationForm){
+
+        UserRelation userRelation = new UserRelation();
+        //Form --> domain
+        BeanUtils.copyProperties(userRelationForm,userRelation);
+
+        userRelation.setStatus(ApplyStatus.APPLY);
+        userRelationService.save(userRelation);
+
+        return success();
+    }
+
+    /**
+     * 申请列表
+     */
+    @PostMapping("/list/page")
+    @RequiresPermissions("finance:userrelation:list")
+    public Result list(@RequestParam Map<String, Object> params){
+        PageUtils page = userRelationService.queryPage(params);
+        return success(page);
+    }
+
+    /**
+     * 通过
+     */
+    @PostMapping("/accept")
+    public Result accept(@RequestBody UserRelationForm userRelationForm){
+        UserRelation userRelation = new UserRelation();
+        BeanUtils.copyProperties(userRelationForm,userRelation);
+
+        userRelation.setStatus(ApplyStatus.ACCEPT);
+        userRelationService.updateById(userRelation);//全部更新
+
+        return success();
+    }
+
+    /**
+     * 拒绝
+     */
+    @PostMapping("/refuse")
+    public Result refuse(@RequestBody UserRelationForm userRelationForm){
+        UserRelation userRelation = new UserRelation();
+        BeanUtils.copyProperties(userRelationForm,userRelation);
+
+        userRelation.setStatus(ApplyStatus.REFUSE);
+        userRelationService.updateById(userRelation);//全部更新
         return success();
     }
 

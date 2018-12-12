@@ -1,6 +1,7 @@
 package com.blackey.finance.component.domain;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.blackey.finance.global.constants.ApplyStatus;
 import com.blackey.mybatis.model.BaseModel;
 import lombok.Getter;
 import lombok.Setter;
