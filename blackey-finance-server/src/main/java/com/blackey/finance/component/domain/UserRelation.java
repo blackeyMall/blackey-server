@@ -31,7 +31,7 @@ public class UserRelation extends BaseModel<UserRelation> implements Serializabl
 	/**
 	 * 申请状态（通过，拒绝，待同意）
 	 */
-	private String status;
+	private ApplyStatus status;
 	/**
 	 * 备注
 	 */

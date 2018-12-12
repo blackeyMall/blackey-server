@@ -1,6 +1,9 @@
 package com.blackey.finance.rest;
 
 import com.blackey.common.rest.BaseRest;
+import com.blackey.finance.dto.bo.UserInfoBo;
+import com.blackey.wx.bean.WxEncyptBean;
+import me.chanjar.weixin.common.error.WxErrorException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -14,6 +17,7 @@ import com.blackey.finance.component.service.UserInfoService;
 import com.blackey.common.result.Result;
 import com.blackey.mybatis.utils.PageUtils;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
@@ -52,16 +56,41 @@ public class UserInfoRest extends BaseRest {
         return success();
     }
 
+    /**
+     * 修改
+     */
+    @PostMapping("/update")
+    public Result update(@RequestBody UserInfo userInfo){
+
+        userInfoService.updateById(userInfo);//全部更新
+        return success();
+    }
 
     /**
-     * 查看详情信息
+     * 根据主键id删除
      */
-    @GetMapping("/info/{telephone}")
-    public Result info(@PathVariable("telephone") String telephone){
+    @GetMapping("/delete/{telephone}")
+    public Result delete(@PathVariable("telephone") String telephone){
 
-        UserInfo userInfo = userInfoService.getById(telephone);
+        userInfoService.removeById(telephone);
+        return success();
+    }
 
-        return success(userInfo);
+
+    /**
+     * 微信登录
+     * @param code
+     * @param request
+     * @return
+     */
+    @RequestMapping("/login")
+    @PostMapping
+    public Result login(String code, HttpServletRequest request){
+        try {
+            return success(userInfoService.login(request,code));
+        } catch (WxErrorException e){
+            return failure(e.getMessage());
+        }
     }
 
     /**
@@ -73,32 +102,29 @@ public class UserInfoRest extends BaseRest {
         UserInfo userInfo = new UserInfo();
         //Form --> domain
         BeanUtils.copyProperties(userInfoForm,userInfo);
-
         userInfoService.save(userInfo);
-
         return success();
     }
+
 
     /**
-     * 修改
+     * 获取手机号
      */
-    @PostMapping("/update")
-    public Result update(@RequestBody UserInfo userInfo){
-
-        userInfoService.updateById(userInfo);//全部更新
-        
-        return success();
+    @PostMapping("/phone")
+    public  Result getTelephone(@RequestBody WxEncyptBean wxEncyptBean){
+        return success(userInfoService.getPhoneNumber(wxEncyptBean));
     }
+
 
     /**
-     * 根据主键id删除
+     * 查看详情信息
      */
-    @GetMapping("/delete/{telephone}")
-    public Result delete(@PathVariable("telephone") String telephone){
+    @GetMapping("/info/{openid}")
+    public Result info(@PathVariable("openid") String openid){
 
-        userInfoService.removeById(telephone);
-
-        return success();
+        UserInfoBo userInfobo = userInfoService.findByOpenId(openid);
+        return success(userInfobo);
     }
+
 
 }

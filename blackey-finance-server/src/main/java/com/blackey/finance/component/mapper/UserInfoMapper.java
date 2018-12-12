@@ -1,6 +1,7 @@
 package com.blackey.finance.component.mapper;
 
 import com.blackey.finance.component.domain.UserInfo;
+import com.blackey.finance.dto.bo.UserInfoBo;
 import com.blackey.mybatis.dao.BaseDAO;
 
 
@@ -12,5 +13,8 @@ import com.blackey.mybatis.dao.BaseDAO;
  */
 
 public interface UserInfoMapper extends BaseDAO<UserInfo> {
+
+
+    UserInfoBo findByOpenid(String openid);
 	
 }

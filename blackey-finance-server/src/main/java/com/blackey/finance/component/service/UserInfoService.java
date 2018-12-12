@@ -1,9 +1,16 @@
 package com.blackey.finance.component.service;
 
+import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
+import cn.binarywang.wx.miniapp.bean.WxMaPhoneNumberInfo;
+import com.blackey.finance.dto.bo.UserInfoBo;
+import com.blackey.finance.dto.form.UserInfoForm;
 import com.blackey.mybatis.service.BaseService;
 import com.blackey.mybatis.utils.PageUtils;
 import com.blackey.finance.component.domain.UserInfo;
+import com.blackey.wx.bean.WxEncyptBean;
+import me.chanjar.weixin.common.error.WxErrorException;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
@@ -20,5 +27,26 @@ public interface UserInfoService extends BaseService<UserInfo> {
     * @return
     */
     PageUtils queryPage(Map<String, Object> params);
+
+    /**
+     * 登录
+     * @param request
+     * @param code
+     * @return
+     */
+    WxMaJscode2SessionResult login(HttpServletRequest request, String code) throws WxErrorException;
+
+    /**
+     * 解密获取微信授权的手机号
+     * @return
+     */
+    WxMaPhoneNumberInfo getPhoneNumber(WxEncyptBean wxEncyptBean);
+
+    /**
+     * 通过openid查询用户信息
+     * @param openid
+     * @return
+     */
+    UserInfoBo findByOpenId(String openid);
 }
 

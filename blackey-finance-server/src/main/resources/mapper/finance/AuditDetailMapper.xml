@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.blackey.finance.component.mapper.AuditDetailMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.blackey.finance.component.domain.AuditDetail" id="auditDetailMap">
+        <result property="objectId" column="object_id"/>
+        <result property="objectType" column="object_type"/>
+        <result property="reason" column="reason"/>
+        <result property="auditBy" column="audit_by"/>
+        <result property="auditStatus" column="audit_status"/>
+    </resultMap>
+
+
+</mapper>
