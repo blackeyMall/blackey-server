@@ -1,9 +1,10 @@
 package com.blackey.finance.component.service;
 
+import com.blackey.finance.component.domain.UserProjectLike;
 import com.blackey.finance.dto.form.AddOrCancelFollowForm;
+import com.blackey.finance.global.constants.AddCancelEnum;
 import com.blackey.mybatis.service.BaseService;
 import com.blackey.mybatis.utils.PageUtils;
-import com.blackey.finance.component.domain.UserProjectLike;
 
 import java.util.Map;
 
@@ -27,6 +28,6 @@ public interface UserProjectLikeService extends BaseService<UserProjectLike> {
      * @param addOrCancelFollowForm
      * @return
      */
-    boolean likeProject(AddOrCancelFollowForm addOrCancelFollowForm);
+    AddCancelEnum likeProject(AddOrCancelFollowForm addOrCancelFollowForm);
 }
 

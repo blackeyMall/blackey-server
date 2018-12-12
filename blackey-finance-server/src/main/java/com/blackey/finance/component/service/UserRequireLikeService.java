@@ -1,9 +1,10 @@
 package com.blackey.finance.component.service;
 
+import com.blackey.finance.component.domain.UserRequireLike;
 import com.blackey.finance.dto.form.AddOrCancelFollowForm;
+import com.blackey.finance.global.constants.AddCancelEnum;
 import com.blackey.mybatis.service.BaseService;
 import com.blackey.mybatis.utils.PageUtils;
-import com.blackey.finance.component.domain.UserRequireLike;
 
 import java.util.Map;
 
@@ -27,6 +28,6 @@ public interface UserRequireLikeService extends BaseService<UserRequireLike> {
      * @param addOrCancelFollowForm
      * @return
      */
-    boolean likeRequire(AddOrCancelFollowForm addOrCancelFollowForm);
+    AddCancelEnum likeRequire(AddOrCancelFollowForm addOrCancelFollowForm);
 }
 

@@ -18,7 +18,7 @@
 
     <select id="getOrderList" parameterType="com.blackey.artisan.dto.form.OrderForm" resultType="com.blackey.artisan.dto.bo.OrderInfoBo">
 		SELECT
-			o.id,
+		  o.id,
 		  o.material_id,
 		  o.service_no,
 		  o.created_date,

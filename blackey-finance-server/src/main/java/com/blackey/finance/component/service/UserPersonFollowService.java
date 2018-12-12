@@ -1,8 +1,8 @@
 package com.blackey.finance.component.service;
 
+import com.blackey.finance.component.domain.UserPersonFollow;
 import com.blackey.mybatis.service.BaseService;
 import com.blackey.mybatis.utils.PageUtils;
-import com.blackey.finance.component.domain.UserPersonFollow;
 
 import java.util.Map;
 

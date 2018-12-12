@@ -89,4 +89,13 @@ public class UserProjectFollowBo implements Serializable {
 	 */
 	private AddCancelEnum isAdd = AddCancelEnum.ADD;
 
+	/**
+	 * 公司名称
+	 */
+	private String company;
+	/**
+	 * 职位
+	 */
+	private String duties;
+
 }

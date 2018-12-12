@@ -37,7 +37,7 @@ public class RequirementInfoRest extends BaseRest {
 
 
     /**
-    * 分页列表
+    * 分页列表--我的需求
     */
     @PostMapping("/list/page")
     @RequiresPermissions("finance:requirement:list")
@@ -51,12 +51,16 @@ public class RequirementInfoRest extends BaseRest {
     }
 
     /**
-     * 列表
+     * 列表--所有需求
+     * 标记已关注和已点赞
      */
     @PostMapping("/list")
-    public Result list(@RequestBody RequirementInfoForm requirementInfoForm){
-        //TODO
-        return success();
+    public Result listAllPage(@RequestBody RequirementInfoForm form){
+        Page<RequirementInfoBo> page = new Page<>(form.getCurrent(),form.getSize());
+
+        List<RequirementInfoBo> requirementInfoBos = requirementInfoService.listAllPage(form,page);
+
+        return success(page.setRecords(requirementInfoBos));
     }
 
 
@@ -77,12 +81,7 @@ public class RequirementInfoRest extends BaseRest {
     @PostMapping("/save")
     public Result save(@RequestBody RequirementInfoForm requirementInfoForm){
 
-        RequirementInfo requirementInfo = new RequirementInfo();
-        //Form --> domain
-        BeanUtils.copyProperties(requirementInfoForm,requirementInfo);
-        requirementInfo.setAuditStatus(AuditStatusEnum.WAITING);
-
-        requirementInfoService.save(requirementInfo);
+        requirementInfoService.createRequirement(requirementInfoForm);
 
         return success();
     }

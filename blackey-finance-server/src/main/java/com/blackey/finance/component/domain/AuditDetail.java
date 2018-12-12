@@ -1,6 +1,8 @@
 package com.blackey.finance.component.domain;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.blackey.finance.global.constants.AuditStatusEnum;
+import com.blackey.finance.global.constants.ObjectTypeEnum;
 import com.blackey.mybatis.model.BaseModel;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,7 +29,7 @@ public class AuditDetail extends BaseModel<AuditDetail> implements Serializable 
 	/**
 	 * 审批类型
 	 */
-	private String objectType;
+	private ObjectTypeEnum objectType = ObjectTypeEnum.PROJECT;
 	/**
 	 * 原因
 	 */
@@ -39,7 +41,7 @@ public class AuditDetail extends BaseModel<AuditDetail> implements Serializable 
 	/**
 	 * 审批状态
 	 */
-	private String auditStatus;
+	private AuditStatusEnum auditStatus = AuditStatusEnum.WAITING;
 
     @Override
     protected Serializable pkVal() {

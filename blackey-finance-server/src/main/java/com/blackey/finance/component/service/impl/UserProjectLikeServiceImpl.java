@@ -50,36 +50,31 @@ public class UserProjectLikeServiceImpl extends BaseServiceImpl<UserProjectLikeM
      * @return
      */
     @Override
-    public boolean likeProject(AddOrCancelFollowForm addOrCancelFollowForm) {
-        boolean flag ;
+    public AddCancelEnum likeProject(AddOrCancelFollowForm addOrCancelFollowForm) {
+
         AddCancelEnum addCancelEnum = AddCancelEnum.ADD;
 
-        Wrapper<UserProjectLike> queryWrapper = new QueryWrapper();
+        Wrapper<UserProjectLike> queryWrapper = new QueryWrapper<>();
         ((QueryWrapper<UserProjectLike>) queryWrapper)
                 .eq("open_id",addOrCancelFollowForm.getOpenId())
-                .eq("project_id",addOrCancelFollowForm.getObjectId());
+                .eq("project_id",addOrCancelFollowForm.getObjectId())
+                .orderByDesc("created_date");
         UserProjectLike userProjectLike = this.getOne(queryWrapper);
 
         if(userProjectLike == null){
             userProjectLike = new UserProjectLike();
             userProjectLike.setProjectId(addOrCancelFollowForm.getObjectId());
             userProjectLike.setOpenId(addOrCancelFollowForm.getOpenId());
-            userProjectLike.setIsDeleted(0);
             this.save(userProjectLike);
         }else {
-            if(AddCancelEnum.ADD.getValue().equals(addOrCancelFollowForm.getAddCancel())){
-                userProjectLike.setIsDeleted(0);
-            }else {
-                userProjectLike.setIsDeleted(1);
-                addCancelEnum = AddCancelEnum.CANCEL;
-            }
-            this.updateById(userProjectLike);
+            this.removeById(userProjectLike);
+            addCancelEnum = AddCancelEnum.CANCEL;
 
         }
         //点赞数加1或者减1
-        flag = projectInfoService.addLikeNum(addOrCancelFollowForm.getObjectId(),addCancelEnum);
+        projectInfoService.addLikeNum(addOrCancelFollowForm.getObjectId(),addCancelEnum);
 
-        return flag;
+        return addCancelEnum;
 
     }
 
