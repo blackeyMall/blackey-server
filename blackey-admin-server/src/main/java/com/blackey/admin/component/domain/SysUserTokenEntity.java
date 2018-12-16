@@ -26,6 +26,7 @@ public class SysUserTokenEntity implements Serializable {
 	//更新时间
 	private Date updateTime;
 
+
 	/**
 	 * 设置：用户ID
 	 */
@@ -74,4 +75,5 @@ public class SysUserTokenEntity implements Serializable {
 	public Date getUpdateTime() {
 		return updateTime;
 	}
+
 }

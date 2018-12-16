@@ -78,5 +78,5 @@ public class SysRoleMenuEntity implements Serializable {
 	public Long getMenuId() {
 		return menuId;
 	}
-	
+
 }

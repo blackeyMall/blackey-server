@@ -34,6 +34,10 @@ public class SysLogEntity implements Serializable {
 	private String ip;
 	//创建时间
 	private Date createDate;
+	/**
+	 * 租户id
+	 */
+	private Long tenantId;
 
 	/**
 	 * 设置：
@@ -126,5 +130,13 @@ public class SysLogEntity implements Serializable {
 
 	public void setTime(Long time) {
 		this.time = time;
+	}
+
+	public Long getTenantId() {
+		return tenantId;
+	}
+
+	public void setTenantId(Long tenantId) {
+		this.tenantId = tenantId;
 	}
 }

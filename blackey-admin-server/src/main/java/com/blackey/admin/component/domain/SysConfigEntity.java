@@ -17,6 +17,10 @@ public class SysConfigEntity {
 	private String paramKey;
 	private String paramValue;
 	private String remark;
+	/**
+	 * 租户id
+	 */
+	private Long tenantId;
 
 	public Long getId() {
 		return id;
@@ -46,5 +50,13 @@ public class SysConfigEntity {
 	}
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+
+	public Long getTenantId() {
+		return tenantId;
+	}
+
+	public void setTenantId(Long tenantId) {
+		this.tenantId = tenantId;
 	}
 }

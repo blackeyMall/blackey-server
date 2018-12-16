@@ -76,5 +76,5 @@ public class SysUserRoleEntity implements Serializable {
 	public Long getRoleId() {
 		return roleId;
 	}
-	
+
 }

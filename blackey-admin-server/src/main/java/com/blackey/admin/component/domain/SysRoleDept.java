@@ -29,6 +29,10 @@ public class SysRoleDept implements Serializable {
 	 * 部门ID
 	 */
 	private Long deptId;
+	/**
+	 * 租户id
+	 */
+	private Long tenantId;
 
 	/**
 	 * set：
@@ -67,6 +71,12 @@ public class SysRoleDept implements Serializable {
 		return deptId;
 	}
 
-            
 
+	public Long getTenantId() {
+		return tenantId;
+	}
+
+	public void setTenantId(Long tenantId) {
+		this.tenantId = tenantId;
+	}
 }
