@@ -15,6 +15,18 @@ spring:
       max-file-size: 100MB
       max-request-size: 100MB
       enabled: true
+  mail:
+    host: smtp.163.com
+    username: xxxxx.ok@163.com
+    password: xxxx
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+    default-encoding: utf-8
 #  redis:
 #    host: localhost
 #    port: 6379
@@ -81,7 +93,10 @@ wx:
         aesKey:
         msgDataFormat: JSON
 
-
 blackey:
   swagger2:
     basePackage: com.blackey.finance.rest
+
+mail:
+  fromMail:
+    address: wangwei1008.ok@163.com
