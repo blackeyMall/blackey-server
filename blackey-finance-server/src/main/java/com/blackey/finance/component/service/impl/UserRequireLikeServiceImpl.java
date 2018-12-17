@@ -69,7 +69,7 @@ public class UserRequireLikeServiceImpl extends BaseServiceImpl<UserRequireLikeM
             userRequireLike.setOpenId(form.getOpenId());
             this.save(userRequireLike);
         }else {
-            this.removeById(userRequireLike);
+            this.removeById(userRequireLike.getId());
             addCancelEnum = AddCancelEnum.CANCEL;
         }
         //关注数加1或者减1

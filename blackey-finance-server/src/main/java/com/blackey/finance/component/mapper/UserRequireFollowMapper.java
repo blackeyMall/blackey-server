@@ -33,7 +33,7 @@ public interface UserRequireFollowMapper extends BaseDAO<UserRequireFollow> {
             "AND ur.is_deleted = 0 and r.is_deleted = 0 and u.is_deleted = 0 "+
             " and r.audit_status = 'SUCCESS' "+
             "<if test=\"form.openId != '' and form.openId != null\">" +
-            " and r.open_id = #{form.openId}\n" +
+            " and ur.open_id = #{form.openId}\n" +
             "</if>" +
             "<if test=\"form.orderbyEnum.value == 'FOLLOWNUM' \">\n" +
             " order by r.follow_num desc \n" +
@@ -42,7 +42,7 @@ public interface UserRequireFollowMapper extends BaseDAO<UserRequireFollow> {
             " order by r.like_num desc \n" +
             "</if>" +
             "<if test=\"form.orderbyEnum.value == 'DEFAULT' or form.orderbyEnum.value == '' \">\n" +
-            " order by r.created_date desc \n" +
+            " order by ur.created_date desc \n" +
             "</if>" +
             "</script>")
     List<UserRequireFollowBo> queryPage(@Param("form") UserRequireFollowForm form, Page<UserRequireFollowBo> page);

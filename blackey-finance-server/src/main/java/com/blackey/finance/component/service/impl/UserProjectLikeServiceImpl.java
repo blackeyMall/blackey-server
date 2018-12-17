@@ -67,7 +67,7 @@ public class UserProjectLikeServiceImpl extends BaseServiceImpl<UserProjectLikeM
             userProjectLike.setOpenId(addOrCancelFollowForm.getOpenId());
             this.save(userProjectLike);
         }else {
-            this.removeById(userProjectLike);
+            this.removeById(userProjectLike.getId());
             addCancelEnum = AddCancelEnum.CANCEL;
 
         }

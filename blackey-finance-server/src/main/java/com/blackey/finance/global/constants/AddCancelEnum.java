@@ -4,7 +4,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 
 /**
- * 关注或取消
+ * 关注/点赞 或取消
+ *
  *
  * @author kaven
  * @date 2018/11/26

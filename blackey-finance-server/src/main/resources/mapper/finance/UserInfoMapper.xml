@@ -19,7 +19,7 @@
         <result property="isIdentity" column="is_identity"/>
     </resultMap>
 
-    <select id="findByOpenid" resultMap="com.blackey.finance.dto.bo.UserInfoBo">
+    <select id="findByOpenid" resultType="com.blackey.finance.dto.bo.UserInfoBo">
         select * from t_user_info t where t.open_id = #{openid}
     </select>
 

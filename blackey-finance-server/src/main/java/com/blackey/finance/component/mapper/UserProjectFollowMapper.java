@@ -33,7 +33,7 @@ public interface UserProjectFollowMapper extends BaseDAO<UserProjectFollow> {
             " AND up.is_deleted = 0 and p.is_deleted = 0 and u.is_deleted = 0 "+
             " and p.audit_status = 'SUCCESS' "+
             "<if test=\"form.openId != '' and form.openId != null\">" +
-            " and p.open_id = #{form.openId}\n" +
+            " and up.open_id = #{form.openId}\n" +
             "</if>" +
             "<if test=\"form.orderbyEnum.value == 'FOLLOWNUM' \">\n" +
             " order by p.follow_num desc \n" +
@@ -42,7 +42,7 @@ public interface UserProjectFollowMapper extends BaseDAO<UserProjectFollow> {
             " order by p.like_num desc \n" +
             "</if>" +
             "<if test=\"form.orderbyEnum.value == 'DEFAULT' or form.orderbyEnum.value == '' \">\n" +
-            " order by p.created_date desc \n" +
+            " order by up.created_date desc \n" +
             "</if>" +
             "</script>")
     List<UserProjectFollowBo> queryPage(@Param("form") UserProjectFollowForm form, Page<UserProjectFollowBo> page);

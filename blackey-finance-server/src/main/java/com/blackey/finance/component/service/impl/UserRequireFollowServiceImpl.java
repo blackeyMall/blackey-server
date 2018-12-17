@@ -69,7 +69,7 @@ public class UserRequireFollowServiceImpl extends BaseServiceImpl<UserRequireFol
             userRequireFollow.setOpenId(form.getOpenId());
             this.save(userRequireFollow);
         }else {
-            this.updateById(userRequireFollow);
+            this.removeById(userRequireFollow.getId());
             addCancelEnum = AddCancelEnum.CANCEL;
         }
         //关注数加1或者减1

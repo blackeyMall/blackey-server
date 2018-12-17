@@ -52,7 +52,7 @@ public class AuditDetailServiceImpl extends BaseServiceImpl<AuditDetailMapper, A
 
         Wrapper<AuditDetail> queryWrapper = new QueryWrapper();
         if(StringUtils.isNotBlank(form.getObjectType().getValue())){
-            ((QueryWrapper<AuditDetail>) queryWrapper).eq("object_type",form.getAuditStatus());
+            ((QueryWrapper<AuditDetail>) queryWrapper).eq("object_type",form.getObjectType());
         }
         if(StringUtils.isNotBlank(form.getAuditBy())){
             ((QueryWrapper<AuditDetail>) queryWrapper).eq("audit_by",form.getAuditBy());
