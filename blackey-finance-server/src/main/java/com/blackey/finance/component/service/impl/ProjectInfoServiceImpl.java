@@ -14,6 +14,7 @@ import com.blackey.finance.component.service.ProjectInfoService;
 import com.blackey.finance.component.service.UserProjectFollowService;
 import com.blackey.finance.component.service.UserProjectLikeService;
 import com.blackey.finance.dto.bo.ProjectInfoBo;
+import com.blackey.finance.dto.form.ProjectBpForm;
 import com.blackey.finance.dto.form.ProjectInfoForm;
 import com.blackey.finance.global.constants.AddCancelEnum;
 import com.blackey.finance.global.constants.AuditStatusEnum;
@@ -159,5 +160,20 @@ public class ProjectInfoServiceImpl extends BaseServiceImpl<ProjectInfoMapper, P
         auditDetail.setObjectType(ObjectTypeEnum.PROJECT);
         auditDetail.setAuditStatus(AuditStatusEnum.WAITING);
         auditDetailService.save(auditDetail);
+    }
+
+    /**
+     * 更新bp附近信息
+     *
+     * @param form
+     */
+    @Override
+    public void updateBpInfo(ProjectBpForm form) {
+        ProjectInfo projectInfo = baseMapper.selectById(form.getProjedtId());
+        if(null == projectInfo){
+            throw new BusinessException(ResultCodeEnum.NOT_FOUND);
+        }
+        projectInfo.setAttachment(form.getAttachment());
+        baseMapper.updateById(projectInfo);
     }
 }

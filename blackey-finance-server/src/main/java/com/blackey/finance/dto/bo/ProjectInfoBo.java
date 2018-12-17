@@ -68,6 +68,10 @@ public class ProjectInfoBo implements Serializable {
 	 * 类别
 	 */
     private String category;
+	/**
+	 * 附件地址
+	 */
+	private String attachment;
 
     private Date createdDate;
 	/**

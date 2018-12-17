@@ -69,6 +69,10 @@ public class ProjectInfo extends BaseModel<ProjectInfo> implements Serializable 
 	 * 类别
 	 */
 	private String category;
+	/**
+	 * 附件地址
+	 */
+	private String attachment;
 
     @Override
     protected Serializable pkVal() {

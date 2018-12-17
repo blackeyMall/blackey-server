@@ -3,6 +3,7 @@ package com.blackey.finance.component.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.finance.component.domain.ProjectInfo;
 import com.blackey.finance.dto.bo.ProjectInfoBo;
+import com.blackey.finance.dto.form.ProjectBpForm;
 import com.blackey.finance.dto.form.ProjectInfoForm;
 import com.blackey.finance.global.constants.AddCancelEnum;
 import com.blackey.mybatis.service.BaseService;
@@ -53,5 +54,11 @@ public interface ProjectInfoService extends BaseService<ProjectInfo> {
      * @param projectInfoForm
      */
     void createProject(ProjectInfoForm projectInfoForm);
+
+    /**
+     * 更新bp附近信息
+     * @param form
+     */
+    void updateBpInfo(ProjectBpForm form);
 }
 
