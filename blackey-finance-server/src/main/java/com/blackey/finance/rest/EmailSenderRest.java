@@ -46,6 +46,9 @@ public class EmailSenderRest extends BaseRest{
         String subject =  "金融圈BP上传邮件";
 
         UserInfoBo userInfoBo = userInfoService.findByOpenId(openid);
+        if (userInfoBo == null){
+            return failure();
+        }
 
         emailService.sendSimpleEmail(userInfoBo.getEmail(),subject,contentUrl);
         return success();
