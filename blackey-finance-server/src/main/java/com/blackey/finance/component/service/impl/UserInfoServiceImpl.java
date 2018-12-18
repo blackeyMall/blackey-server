@@ -71,4 +71,10 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoMapper, UserInf
     public UserInfoBo findByOpenId(String openid) {
         return userInfoMapper.findByOpenid(openid);
     }
+
+    @Override
+    public void updateUserByOpenid(String openId) {
+        userInfoMapper.updateByOpenid(openId);
+
+    }
 }

@@ -16,5 +16,7 @@ public interface UserInfoMapper extends BaseDAO<UserInfo> {
 
 
     UserInfoBo findByOpenid(String openid);
+
+    void updateByOpenid(String openid);
 	
 }

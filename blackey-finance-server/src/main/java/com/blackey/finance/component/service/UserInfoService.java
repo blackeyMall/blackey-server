@@ -47,5 +47,11 @@ public interface UserInfoService extends BaseService<UserInfo> {
      * @return
      */
     UserInfoBo findByOpenId(String openid);
+
+    /**
+     * 通过openid修改Email认证信息
+     * @param openId
+     */
+    void updateUserByOpenid(String openId);
 }
 

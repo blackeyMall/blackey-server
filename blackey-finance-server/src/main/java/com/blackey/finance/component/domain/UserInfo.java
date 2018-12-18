@@ -77,10 +77,15 @@ public class UserInfo extends BaseModel<UserInfo> implements Serializable {
 	 */
 	private String sex;
 
+	/**
+	 * 邮箱已认证
+	 */
+	private Boolean emailConfirm;
+
     @Override
     protected Serializable pkVal() {
         return this.getId();
     }
-                                                
+
 
 }

@@ -23,4 +23,8 @@
         select * from t_user_info t where t.open_id = #{openid}
     </select>
 
+    <update id="updateByOpenid" >
+        UPDATE FROM t_user_info t set t.emailConfirm = 1 WHERE t.open_id = #{openid}
+    </update>
+
 </mapper>
