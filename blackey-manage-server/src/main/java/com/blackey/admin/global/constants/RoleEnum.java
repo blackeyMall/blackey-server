@@ -1,25 +1,24 @@
 package com.blackey.admin.global.constants;
+
 import com.blackey.common.result.ResultCode;
 
 /**
- * 菜单enum
+ * 角色enum
  * Created by Kaven
  * Date: 2018/6/4
  */
-public enum MenuEnum implements ResultCode {
+public enum RoleEnum implements ResultCode {
 
-    CATALOG(0,"目录"),
-    MENU(1,"菜单"),
-    BUTTON(2,"按钮"),
-
-    VALIDATE_MENU(400010,"上级菜单只能为目录类型"),
-    VALIDATE_BUTTON(400010,"上级菜单只能为菜单类型");
+    ROLE_SUPER(1,"超级管理员"),
+    ROLE_ADMIN(2,"管理员"),
+    ROLE_USER(3,"用户"),
+    ROLE_VISITOR(4,"游客");
 
 
     private int code;
     private String msg;
 
-    MenuEnum(int code, String msg){
+    RoleEnum(int code,String msg){
         this.code = code;
         this.msg = msg;
     }
