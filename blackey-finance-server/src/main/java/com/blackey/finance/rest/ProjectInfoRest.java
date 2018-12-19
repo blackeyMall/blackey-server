@@ -24,7 +24,7 @@ import java.util.List;
  * @date 2018-12-07 09:40:20
  */
 @RestController
-@RequestMapping("/finance/projectinfo")
+@RequestMapping("/finance/project")
 public class ProjectInfoRest extends BaseRest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ProjectInfoRest.class);
@@ -109,7 +109,7 @@ public class ProjectInfoRest extends BaseRest {
     }
 
     /**
-     * 修改
+     * 上传bp回调方法-bp信息
      */
     @PostMapping("/bp/update")
     public Result updateBpInfo(@RequestBody ProjectBpForm form){
