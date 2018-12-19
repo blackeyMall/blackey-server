@@ -66,5 +66,9 @@ public class UserInfoForm implements Serializable {
 	 * 是否实名认证 
 	 */
     private String isIdentity;
+	/**
+	 * 姓名
+	 */
+	private String name;
 
 }

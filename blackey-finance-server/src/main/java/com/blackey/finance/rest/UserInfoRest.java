@@ -84,7 +84,6 @@ public class UserInfoRest extends BaseRest {
      * @return
      */
     @RequestMapping("/login")
-    @PostMapping
     public Result login(String code, HttpServletRequest request){
         try {
             return success(userInfoService.login(request,code));

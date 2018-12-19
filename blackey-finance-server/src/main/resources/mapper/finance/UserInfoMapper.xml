@@ -24,7 +24,7 @@
     </select>
 
     <update id="updateByOpenid" >
-        UPDATE FROM t_user_info t set t.emailConfirm = 1 WHERE t.open_id = #{openid}
+        UPDATE t_user_info t set t.email_confirm = 1 WHERE t.open_id = #{openid}
     </update>
 
 </mapper>
