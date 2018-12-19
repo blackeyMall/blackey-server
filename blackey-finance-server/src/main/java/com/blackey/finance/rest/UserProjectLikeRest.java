@@ -19,7 +19,7 @@ import java.util.Map;
  * @date 2018-12-07 09:40:20
  */
 @RestController
-@RequestMapping("/finance/userprojectlike")
+@RequestMapping("/finance/like/project")
 public class UserProjectLikeRest extends BaseRest {
 
 
@@ -31,7 +31,7 @@ public class UserProjectLikeRest extends BaseRest {
     * 分页列表--我点赞的项目
     */
     @PostMapping("/list/page")
-    @RequiresPermissions("finance:userprojectlike:list")
+    @RequiresPermissions("finance:like:project:list")
     public Result list(@RequestParam Map<String, Object> params){
         PageUtils page = userProjectLikeService.queryPage(params);
 

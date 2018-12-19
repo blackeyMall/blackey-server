@@ -25,7 +25,7 @@ import java.util.Map;
  * @date 2018-12-07 09:40:20
  */
 @RestController
-@RequestMapping("/finance/userrequirelike")
+@RequestMapping("/finance/like/require")
 public class UserRequireLikeRest extends BaseRest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserRequireLikeRest.class);
@@ -38,7 +38,7 @@ public class UserRequireLikeRest extends BaseRest {
     * 分页列表--我点赞的需求
     */
     @PostMapping("/list/page")
-    @RequiresPermissions("finance:userrequirelike:list")
+    @RequiresPermissions("finance:like:require:list")
     public Result list(@RequestParam Map<String, Object> params){
         PageUtils page = userRequireLikeService.queryPage(params);
 
