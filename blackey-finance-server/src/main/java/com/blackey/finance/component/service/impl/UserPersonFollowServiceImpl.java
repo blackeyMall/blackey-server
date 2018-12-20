@@ -1,5 +1,6 @@
 package com.blackey.finance.component.service.impl;
 
+import com.blackey.finance.dto.form.UserPersonFollowForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import com.blackey.finance.component.mapper.UserPersonFollowMapper;
 import com.blackey.finance.component.domain.UserPersonFollow;
 import com.blackey.finance.component.service.UserPersonFollowService;
 
+import javax.annotation.Resource;
 import java.util.Map;
 
 /**
@@ -26,6 +28,9 @@ public class UserPersonFollowServiceImpl extends BaseServiceImpl<UserPersonFollo
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserPersonFollowServiceImpl.class);
 
+    @Resource
+    private UserPersonFollowMapper userPersonFollowMapper;
+
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
         Page<UserPersonFollow> page = (Page<UserPersonFollow>) this.page(
@@ -36,4 +41,9 @@ public class UserPersonFollowServiceImpl extends BaseServiceImpl<UserPersonFollo
         return new PageUtils(page);
     }
 
+    @Override
+    public PageUtils queryByOpenid(UserPersonFollowForm form, Page page) {
+
+        return new PageUtils(page.setRecords(userPersonFollowMapper.findUserFollowByOpenId(form,page)));
+    }
 }

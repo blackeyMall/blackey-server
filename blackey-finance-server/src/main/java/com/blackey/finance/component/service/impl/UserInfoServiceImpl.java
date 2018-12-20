@@ -77,4 +77,9 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoMapper, UserInf
         userInfoMapper.updateByOpenid(openId);
 
     }
+
+    @Override
+    public PageUtils queryUserWithoutRelation(String openId, Page page) {
+        return new PageUtils(page.setRecords(userInfoMapper.queryAllUserWithoutRelation(openId,page)));
+    }
 }

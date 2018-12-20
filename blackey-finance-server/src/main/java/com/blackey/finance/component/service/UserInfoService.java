@@ -2,6 +2,7 @@ package com.blackey.finance.component.service;
 
 import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
 import cn.binarywang.wx.miniapp.bean.WxMaPhoneNumberInfo;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.finance.component.domain.UserInfo;
 import com.blackey.finance.dto.bo.UserInfoBo;
 import com.blackey.mybatis.service.BaseService;
@@ -53,5 +54,10 @@ public interface UserInfoService extends BaseService<UserInfo> {
      * @param openId
      */
     void updateUserByOpenid(String openId);
+
+    /**
+     * 查询无关系的用户
+     */
+    PageUtils queryUserWithoutRelation(String openId,Page page);
 }
 

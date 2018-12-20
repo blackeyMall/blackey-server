@@ -1,6 +1,8 @@
 package com.blackey.finance.component.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.finance.component.domain.UserPersonFollow;
+import com.blackey.finance.dto.form.UserPersonFollowForm;
 import com.blackey.mybatis.service.BaseService;
 import com.blackey.mybatis.utils.PageUtils;
 
@@ -20,5 +22,11 @@ public interface UserPersonFollowService extends BaseService<UserPersonFollow> {
     * @return
     */
     PageUtils queryPage(Map<String, Object> params);
+
+
+    /**
+     * 通过openid 查询关注列表
+     */
+    PageUtils queryByOpenid(UserPersonFollowForm form,Page page);
 }
 

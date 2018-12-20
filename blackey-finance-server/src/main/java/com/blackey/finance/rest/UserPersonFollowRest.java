@@ -1,5 +1,6 @@
 package com.blackey.finance.rest;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.common.rest.BaseRest;
 import com.blackey.finance.component.service.UserInfoService;
 import org.slf4j.Logger;
@@ -105,6 +106,14 @@ public class UserPersonFollowRest extends BaseRest {
         PageUtils page = userPersonFollowService.queryPage(params);
 
         return success(page);
+    }
+
+    /**
+     * 我关注的人列表
+     */
+    @PostMapping("/list/openid")
+    public Result listByOpenid(@RequestBody UserPersonFollowForm form, Page page){
+        return success(userPersonFollowService.queryByOpenid(form,page));
     }
 
 }

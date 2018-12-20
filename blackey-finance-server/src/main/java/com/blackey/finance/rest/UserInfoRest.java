@@ -1,5 +1,6 @@
 package com.blackey.finance.rest;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.common.rest.BaseRest;
 import com.blackey.finance.dto.bo.UserInfoBo;
 import com.blackey.wx.bean.WxEncyptBean;
@@ -125,6 +126,14 @@ public class UserInfoRest extends BaseRest {
         return success(userInfobo);
     }
 
+    /**
+     * 查询无关系的用户
+     */
+    @GetMapping("/list/user")
+    public Result userWithoutRelation(@RequestParam String openid,Page page){
+
+        return success(userInfoService.queryUserWithoutRelation(openid,page));
+    }
 
 
 }
