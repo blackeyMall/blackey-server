@@ -1,5 +1,6 @@
 package com.blackey.finance.dto.form;
 
+import com.blackey.finance.global.constants.ApplyStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,6 +19,7 @@ public class UserRelationForm implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    private String id;
 	/**
 	 * 用户id
 	 */
@@ -29,7 +31,7 @@ public class UserRelationForm implements Serializable {
 	/**
 	 * 申请状态（通过，拒绝，待同意）
 	 */
-    private String status;
+    private ApplyStatus status;
 	/**
 	 * 备注
 	 */

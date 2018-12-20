@@ -1,6 +1,7 @@
 package com.blackey.finance.rest;
 
 import com.blackey.common.rest.BaseRest;
+import com.blackey.finance.component.service.UserInfoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -31,7 +32,8 @@ public class UserPersonFollowRest extends BaseRest {
     @Autowired
     private UserPersonFollowService userPersonFollowService;
 
-
+    @Autowired
+    private UserInfoService userInfoService;
 
 
     /**
@@ -73,7 +75,6 @@ public class UserPersonFollowRest extends BaseRest {
      */
     @GetMapping("/delete/{openId}")
     public Result delete(@PathVariable("openId") String openId){
-
         userPersonFollowService.removeById(openId);
 
         return success();

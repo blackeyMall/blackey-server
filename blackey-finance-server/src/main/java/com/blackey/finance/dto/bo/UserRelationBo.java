@@ -19,20 +19,60 @@ public class UserRelationBo implements Serializable {
     private static final long serialVersionUID = 1L;
 
 	/**
-	 * 用户id
-	 */
-    private String openId;
-	/**
-	 * 朋友id
-	 */
-    private String friendId;
-	/**
 	 * 申请状态（通过，拒绝，待同意）
 	 */
     private String status;
 	/**
-	 * 备注
+	 * 手机号
 	 */
-    private String remark;
+	private String telephone;
+	/**
+	 * 邮箱
+	 */
+	private String email;
+	/**
+	 * 微信号
+	 */
+	private String wechatNo;
+	/**
+	 * 微信头像
+	 */
+	private String avatarUrl;
+	/**
+	 * openid
+	 */
+	private String openId;
+	/**
+	 * 公司名称
+	 */
+	private String company;
+	/**
+	 * 职位
+	 */
+	private String duties;
+	/**
+	 * 公司简介
+	 */
+	private String companyBrief;
+	/**
+	 * 公司官网
+	 */
+	private String companyWebsite;
+	/**
+	 * 公司地址
+	 */
+	private String companyAddress;
+	/**
+	 * 名片图片地址
+	 */
+	private String visitingAcrd;
+	/**
+	 * 是否实名认证
+	 */
+	private String isIdentity;
+	/**
+	 * 姓名
+	 */
+	private String name;
 
 }

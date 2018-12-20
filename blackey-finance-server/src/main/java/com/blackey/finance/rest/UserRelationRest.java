@@ -1,5 +1,6 @@
 package com.blackey.finance.rest;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.common.rest.BaseRest;
 import com.blackey.finance.global.constants.ApplyStatus;
 import org.slf4j.Logger;
@@ -84,7 +85,7 @@ public class UserRelationRest extends BaseRest {
      */
     @PostMapping("/save")
     public Result save(@RequestBody UserRelationForm userRelationForm){
-
+        //校验两个用户是否是有效用户
         UserRelation userRelation = new UserRelation();
         //Form --> domain
         BeanUtils.copyProperties(userRelationForm,userRelation);
@@ -105,11 +106,17 @@ public class UserRelationRest extends BaseRest {
         return success(page);
     }
 
+    @PostMapping("/list/openid")
+    public Result listByOpenId(@RequestBody UserRelationForm form,Page page){
+        return success(userRelationService.queryPageByOpenId(form,page));
+    }
+
     /**
      * 通过
      */
     @PostMapping("/accept")
     public Result accept(@RequestBody UserRelationForm userRelationForm){
+
         UserRelation userRelation = new UserRelation();
         BeanUtils.copyProperties(userRelationForm,userRelation);
 
