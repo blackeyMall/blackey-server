@@ -1,5 +1,7 @@
 package com.blackey.admin.component.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.blackey.admin.dto.form.SysMenuForm;
 import com.blackey.mybatis.service.BaseService;
 import com.blackey.mybatis.utils.PageUtils;
 import com.blackey.admin.component.domain.SysMenu;
@@ -17,10 +19,11 @@ public interface SysMenuService extends BaseService<SysMenu> {
 
     /**
     * 分页查询
-    * @param params
+    * @param form
+     * @param page
     * @return
     */
-    PageUtils queryPage(Map<String, Object> params);
+    IPage<SysMenu> queryPage(SysMenuForm form,IPage<SysMenu> page);
     /**
      * 根据父菜单，查询子菜单
      * @param parentId 父菜单ID

@@ -1,5 +1,7 @@
 package com.blackey.admin.rest;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.admin.component.domain.SysMenu;
 import com.blackey.admin.component.service.SysMenuService;
 import com.blackey.admin.dto.form.SysMenuForm;
@@ -21,7 +23,7 @@ import java.util.Map;
  * @date 2018-12-18 14:45:19
  */
 @RestController
-@RequestMapping("/admin/sysmenu")
+@RequestMapping("/sys/menu")
 public class SysMenuRest extends AbstractController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SysMenuRest.class);
@@ -35,19 +37,14 @@ public class SysMenuRest extends AbstractController {
     */
     @PostMapping("/list/page")
     @RequiresPermissions("admin:sysmenu:list")
-    public Result list(@RequestParam Map<String, Object> params){
-        PageUtils page = sysMenuService.queryPage(params);
+    public Result listPage(@RequestBody SysMenuForm sysMenuForm){
+
+        sysMenuForm.setCreatedBy(getUserId());
+        sysMenuForm.setTenantId(getTenangtId());
+        IPage<SysMenu> page = sysMenuService.queryPage(sysMenuForm,
+                new Page<>(sysMenuForm.getCurrent(),sysMenuForm.getSize()));
 
         return success(page);
-    }
-
-    /**
-     * 列表
-     */
-    @PostMapping("/list")
-    public Result list(@RequestBody SysMenuForm sysMenuForm){
-        //TODO
-        return success();
     }
 
 

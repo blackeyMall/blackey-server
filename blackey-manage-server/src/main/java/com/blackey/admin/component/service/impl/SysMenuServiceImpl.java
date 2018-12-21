@@ -1,8 +1,10 @@
 package com.blackey.admin.component.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.blackey.admin.component.domain.SysUser;
 import com.blackey.admin.component.service.SysRoleMenuService;
 import com.blackey.admin.component.service.SysUserService;
+import com.blackey.admin.dto.form.SysMenuForm;
 import com.blackey.admin.global.constants.MenuEnum;
 import com.blackey.admin.global.constants.RoleEnum;
 import com.blackey.common.exception.BusinessException;
@@ -42,14 +44,20 @@ public class SysMenuServiceImpl extends BaseServiceImpl<SysMenuMapper, SysMenu> 
     @Autowired
     private SysRoleMenuService sysRoleMenuService;
 
-    @Override
-    public PageUtils queryPage(Map<String, Object> params) {
-        Page<SysMenu> page = (Page<SysMenu>) this.page(
-                new Query<SysMenu>(params).getPage(),
-                new QueryWrapper<SysMenu>()
-        );
 
-        return new PageUtils(page);
+    /**
+     * 分页查询
+     *
+     * @param form
+     * @param page
+     * @return
+     */
+    @Override
+    public IPage<SysMenu> queryPage(SysMenuForm form, IPage<SysMenu> page) {
+        QueryWrapper<SysMenu> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("tenant_id",form.getTenantId());
+        queryWrapper.orderByDesc("created_date");
+        return baseMapper.selectPage(page,queryWrapper);
     }
 
     /**

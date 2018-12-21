@@ -21,7 +21,7 @@ import java.util.Map;
  * @date 2018-12-18 14:45:19
  */
 @RestController
-@RequestMapping("/admin/sysrolemenu")
+@RequestMapping("/sy/sysrolemenu")
 public class SysRoleMenuRest extends AbstractController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SysRoleMenuRest.class);
@@ -29,17 +29,6 @@ public class SysRoleMenuRest extends AbstractController {
     @Autowired
     private SysRoleMenuService sysRoleMenuService;
 
-
-    /**
-    * 分页列表
-    */
-    @PostMapping("/list/page")
-    @RequiresPermissions("admin:sysrolemenu:list")
-    public Result list(@RequestParam Map<String, Object> params){
-        PageUtils page = sysRoleMenuService.queryPage(params);
-
-        return success(page);
-    }
 
     /**
      * 列表

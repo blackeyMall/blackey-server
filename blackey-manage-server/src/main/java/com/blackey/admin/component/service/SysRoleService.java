@@ -1,5 +1,7 @@
 package com.blackey.admin.component.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.blackey.admin.dto.form.SysRoleForm;
 import com.blackey.mybatis.service.BaseService;
 import com.blackey.mybatis.utils.PageUtils;
 import com.blackey.admin.component.domain.SysRole;
@@ -14,13 +16,6 @@ import java.util.Map;
  * @date 2018-12-18 14:45:19
  */
 public interface SysRoleService extends BaseService<SysRole> {
-
-    /**
-    * 分页查询
-    * @param params
-    * @return
-    */
-    PageUtils queryPage(Map<String, Object> params);
 
     /**
      * 创建角色
@@ -47,5 +42,13 @@ public interface SysRoleService extends BaseService<SysRole> {
      * @return
      */
     List<String> queryRoleIdList(String createUserId);
+
+    /**
+     * 分页查询
+     * @param sysRoleForm
+     * @param page
+     * @return
+     */
+    IPage<SysRole> queryPage(SysRoleForm sysRoleForm, IPage<SysRole> page);
 }
 

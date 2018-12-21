@@ -1,5 +1,6 @@
 package com.blackey.admin.component.domain;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.blackey.admin.global.constants.RoleEnum;
 import com.blackey.mybatis.model.BaseModel;
@@ -7,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 系统用户
@@ -59,7 +61,15 @@ public class SysUser extends BaseModel<SysUser> implements Serializable {
 	 */
 	private Integer roleType;
 
-    @Override
+
+	/**
+	 * 角色ID列表
+	 */
+	@TableField(exist=false)
+	private List<String> roleIdList;
+
+
+	@Override
     protected Serializable pkVal() {
         return this.getId();
     }

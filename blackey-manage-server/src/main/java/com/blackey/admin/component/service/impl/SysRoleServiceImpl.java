@@ -1,9 +1,11 @@
 package com.blackey.admin.component.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.blackey.admin.component.domain.SysUser;
 import com.blackey.admin.component.service.SysRoleMenuService;
 import com.blackey.admin.component.service.SysUserRoleService;
 import com.blackey.admin.component.service.SysUserService;
+import com.blackey.admin.dto.form.SysRoleForm;
 import com.blackey.admin.global.constants.RoleEnum;
 import com.blackey.common.exception.PermissionException;
 import org.apache.commons.lang.StringUtils;
@@ -44,20 +46,7 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRoleMapper, SysRole> 
     SysRoleMenuService sysRoleMenuService;
     @Autowired
     SysUserRoleService sysUserRoleService;
-    @Override
-    public PageUtils queryPage(Map<String, Object> params) {
-        String roleName = (String)params.get("roleName");
-        String createUserId = (String)params.get("createUserId");
 
-        Page<SysRole> page = (Page<SysRole>) this.page(
-                new Query<SysRole>(params).getPage(),
-                new QueryWrapper<SysRole>()
-                        .like(StringUtils.isNotBlank(roleName),"role_name", roleName)
-                        .eq(createUserId != null,"created_by", createUserId)
-        );
-
-        return new PageUtils(page);
-    }
 
     /**
      * 创建角色
@@ -122,6 +111,27 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRoleMapper, SysRole> 
     public List<String> queryRoleIdList(String createdBy) {
 
         return baseMapper.queryRoleIdList(createdBy);
+    }
+
+    /**
+     * 分页查询
+     *
+     * @param sysRoleForm
+     * @param page
+     * @return
+     */
+    @Override
+    public IPage<SysRole> queryPage(SysRoleForm sysRoleForm, IPage<SysRole> page) {
+
+        QueryWrapper<SysRole> queryWrapper = new QueryWrapper<>();
+        //超级管理员
+        if(sysRoleForm.getRoleType() == RoleEnum.ROLE_ADMIN.getCode()){
+            queryWrapper.eq("tenant_id",sysRoleForm.getTenantId());
+        }
+        queryWrapper.orderByDesc("created_date");
+        IPage<SysRole> sysRoleIPage = baseMapper.selectPage(page, queryWrapper);
+
+        return sysRoleIPage;
     }
 
 

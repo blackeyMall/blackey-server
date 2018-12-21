@@ -13,9 +13,7 @@ import com.blackey.admin.component.mapper.SysUserRoleMapper;
 import com.blackey.admin.component.domain.SysUserRole;
 import com.blackey.admin.component.service.SysUserRoleService;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 用户与角色对应关系 SysUserRoleServiceImpl
@@ -49,12 +47,39 @@ public class SysUserRoleServiceImpl extends BaseServiceImpl<SysUserRoleMapper, S
     }
 
     /**
+     * 保存用户和角色关联关系
+     *
+     * @param userId 用户id
+     * @param roleIdList
+     */
+    @Override
+    public void saveOrUpdateUserRole(String userId, List<String> roleIdList) {
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("user_id", userId);
+        //先删除用户与角色关系
+        this.removeByMap(map);
+        if(roleIdList == null || roleIdList.size() == 0){
+            return ;
+        }
+        //保存用户与角色关系
+        List<SysUserRole> list = new ArrayList<>(roleIdList.size());
+        roleIdList.forEach(roleId -> {
+            SysUserRole sysUserRoleEntity = new SysUserRole();
+            sysUserRoleEntity.setUserId(userId);
+            sysUserRoleEntity.setRoleId(roleId);
+            list.add(sysUserRoleEntity);
+        });
+        this.saveBatch(list);
+    }
+
+    /**
      * 根据用户id查询角色信息
      *
      * @param createUserId
      * @return
      */
-    @Override
+    //@Override
     public List<String> queryRoleIdList(String createUserId) {
         return null;
     }

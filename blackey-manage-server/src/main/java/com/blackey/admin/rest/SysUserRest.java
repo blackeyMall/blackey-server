@@ -1,18 +1,17 @@
 package com.blackey.admin.rest;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.admin.component.domain.SysUser;
 import com.blackey.admin.component.service.SysUserService;
+import com.blackey.admin.dto.form.PasswordForm;
 import com.blackey.admin.dto.form.SysUserForm;
+import com.blackey.admin.global.constants.RoleEnum;
 import com.blackey.common.result.Result;
-import com.blackey.mybatis.utils.PageUtils;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
+import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
+import java.util.List;
 
 /**
  * 系统用户 API REST
@@ -21,80 +20,114 @@ import java.util.Map;
  * @date 2018-12-18 14:45:19
  */
 @RestController
-@RequestMapping("/admin/sysuser")
+@RequestMapping("/sys/user")
 public class SysUserRest extends AbstractController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(SysUserRest.class);
 
     @Autowired
     private SysUserService sysUserService;
 
 
     /**
-    * 分页列表
-    */
-    @PostMapping("/list/page")
-    @RequiresPermissions("admin:sysuser:list")
-    public Result list(@RequestParam Map<String, Object> params){
-        PageUtils page = sysUserService.queryPage(params);
-
-        return success(page);
-    }
-
-    /**
-     * 列表
+     * 用户分页列表
      */
     @PostMapping("/list")
-    public Result list(@RequestBody SysUserForm sysUserForm){
-        //TODO
-        return success();
+    public Result list(@RequestBody SysUserForm form){
+
+        Page<SysUser> page = new Page<>(form.getCurrent(),form.getSize());
+        if(getUser().getRoleType() != RoleEnum.ROLE_SUPER.getCode()
+                && getUser().getRoleType() != RoleEnum.ROLE_ADMIN.getCode()){
+            return success(page.setRecords(null));
+        }
+        form.setCreatedBy(getUserId());
+        form.setTenantId(getTenangtId());
+        form.setRoleType(getUser().getRoleType());
+        List<SysUser> sysUsers = sysUserService.queryPage(form, page);
+        return success(page.setRecords(sysUsers));
     }
 
+    /**
+     * 获取登录的用户信息
+     * @return
+     */
+    @GetMapping("/info")
+    public Result getCurrentUser(){
+        return success(getUser());
+    }
 
     /**
-     * 查看详情信息
+     * 查看用户详情信息
+     * @param id
+     * @return
      */
-    @GetMapping("/info/{userName}")
-    public Result info(@PathVariable("userName") String userName){
+    @GetMapping("/info/{id}")
+    public Result info(@PathVariable("id") String id){
 
-        SysUser sysUser = sysUserService.getById(userName);
+        SysUser sysUser = sysUserService.getById(id);
 
         return success(sysUser);
     }
 
     /**
-     * 保存
+     * 管理员创建用户
      */
     @PostMapping("/save")
-    public Result save(@RequestBody SysUserForm sysUserForm){
-
-        SysUser sysUser = new SysUser();
-        //Form --> domain
-        BeanUtils.copyProperties(sysUserForm,sysUser);
-
-        sysUserService.save(sysUser);
-
+    public Result save(@RequestBody SysUser sysUser){
+        sysUser.setTenantId(getTenangtId());
+        sysUser.setCreatedBy(getUserId());
+        sysUser.setUpdatedBy(getUserId());
+        sysUserService.createUser(sysUser);
         return success();
     }
 
     /**
-     * 修改
+     * 修改用户信息
      */
     @PostMapping("/update")
     public Result update(@RequestBody SysUser sysUser){
-
-        sysUserService.updateById(sysUser);//全部更新
-        
+        //全部更新
+        sysUser.setUpdatedBy(getUserId());
+        sysUserService.updateUser(sysUser);
         return success();
     }
 
     /**
      * 根据主键id删除
      */
-    @GetMapping("/delete/{userName}")
-    public Result delete(@PathVariable("userName") String userName){
+    @PostMapping("/delete")
+    public Result delete(@RequestBody String[] ids){
 
-        sysUserService.removeById(userName);
+        for(String id : ids){
+            SysUser sysUser = sysUserService.getById(id);
+            if(sysUser.getRoleType() == RoleEnum.ROLE_SUPER.getCode()){
+                return failure("系统管理员不能删除");
+            }
+
+            if(id.equals(getUserId())){
+                return failure("当前用户不能删除");
+            }
+        }
+        sysUserService.deleteUserBatch(ids);
+        return success();
+    }
+
+    /**
+     * 修改登录用户密码
+     * @param form
+     * @return
+     */
+    @PostMapping("/password")
+    public Result password(@RequestBody PasswordForm form){
+
+        //sha256加密
+        String password = new Sha256Hash(form.getPassword(), getUser().getSalt()).toHex();
+        if(!getUser().getPassword().equals(password)){
+            return failure("原密码不正确");
+        }
+        //sha256加密
+        String newPassword = new Sha256Hash(form.getNewPassword(), getUser().getSalt()).toHex();
+        //更新密码
+        sysUserService.updatePassword(getUserId(), password, newPassword);
 
         return success();
     }

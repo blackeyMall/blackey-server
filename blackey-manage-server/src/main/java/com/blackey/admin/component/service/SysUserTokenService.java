@@ -15,10 +15,16 @@ import java.util.Map;
 public interface SysUserTokenService extends BaseService<SysUserToken> {
 
     /**
-    * 分页查询
-    * @param params
-    * @return
-    */
-    PageUtils queryPage(Map<String, Object> params);
+     * 生成token
+     * @param userId  用户ID
+     */
+    SysUserToken createToken(String userId);
+
+    /**
+     * 退出，修改token值
+     * @param userId  用户ID
+     */
+    void logout(String userId);
+
 }
 

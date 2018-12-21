@@ -1,5 +1,7 @@
 package com.blackey.admin.dto.form;
 
+import com.blackey.admin.dto.BaseSearch;
+import com.blackey.admin.global.constants.RoleEnum;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,7 +16,7 @@ import java.util.Date;
  */
 @Getter
 @Setter
-public class SysMenuForm implements Serializable {
+public class SysMenuForm extends BaseSearch implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -46,5 +48,18 @@ public class SysMenuForm implements Serializable {
 	 * 排序
 	 */
     private Integer orderNum;
+	/**
+	 * 租户ID
+	 */
+	private String tenantId;
+	/**
+	 * 创建人
+	 */
+	private String createdBy;
+	/**
+	 * 角色类型
+	 * @see RoleEnum
+	 */
+	private Integer roleType;
 
 }

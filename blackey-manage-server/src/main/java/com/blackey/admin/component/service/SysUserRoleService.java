@@ -28,5 +28,11 @@ public interface SysUserRoleService extends BaseService<SysUserRole> {
      */
     void deleteBatch(String[] roleIds);
 
+    /**
+     * 保存用户和角色关联关系
+     * @param userId
+     * @param roleIdList
+     */
+    void saveOrUpdateUserRole(String userId, List<String> roleIdList);
 }
 
