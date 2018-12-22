@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 
 /**
- * 关注/点赞 或取消
+ * 需求类别
  *
  *
  * @author kaven
@@ -12,18 +12,18 @@ import lombok.Getter;
  */
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 @Getter
-public enum AddCancelEnum {
+public enum CategoryEnum {
 
     /**
-     * 关注或取消
+     * 需求类别
      */
-    ADD("关注"),
-    CANCEL("取消");
+    PROJECT("找项目"),
+    FINANCE("找资金");
 
     private String name;
     private String value;
 
-    AddCancelEnum(String name) {
+    CategoryEnum(String name) {
         this.name = name;
         this.value = this.toString();
     }

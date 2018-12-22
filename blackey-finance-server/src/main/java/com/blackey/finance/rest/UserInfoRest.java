@@ -98,8 +98,15 @@ public class UserInfoRest extends BaseRest {
      */
     @PostMapping("/save")
     public Result save(@RequestBody UserInfoForm userInfoForm){
-
+        UserInfoBo userInfoBo = userInfoService.findByOpenId(userInfoForm.getOpenId());
         UserInfo userInfo = new UserInfo();
+
+        if(userInfoBo != null){
+            BeanUtils.copyProperties(userInfoForm,userInfo);
+            userInfoService.updateUserByOpenid(userInfo.getOpenId());
+            return success();
+        }
+
         //Form --> domain
         BeanUtils.copyProperties(userInfoForm,userInfo);
         userInfoService.save(userInfo);
@@ -119,8 +126,8 @@ public class UserInfoRest extends BaseRest {
     /**
      * 查看详情信息
      */
-    @GetMapping("/info/{openid}")
-    public Result info(@PathVariable("openid") String openid){
+    @GetMapping("/info")
+    public Result info(@RequestParam String openid){
 
         UserInfoBo userInfobo = userInfoService.findByOpenId(openid);
         return success(userInfobo);

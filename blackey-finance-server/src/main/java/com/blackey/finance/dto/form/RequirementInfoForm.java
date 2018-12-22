@@ -2,7 +2,9 @@ package com.blackey.finance.dto.form;
 
 import com.blackey.finance.dto.BaseSearch;
 import com.blackey.finance.global.constants.AuditStatusEnum;
+import com.blackey.finance.global.constants.CategoryEnum;
 import com.blackey.finance.global.constants.OrderbyEnum;
+import com.blackey.finance.global.constants.TableCodeEnum;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -63,12 +65,20 @@ public class RequirementInfoForm extends BaseSearch implements Serializable {
 	 */
     private String isRecommend;
 	/**
+	 * 是否金融发布，1 今日发布  0非今日发布
+	 */
+	private Integer isTodayPublish = 0;
+	/**
 	 * 类别
 	 */
-    private String category;
+    private CategoryEnum category = CategoryEnum.PROJECT;
 	/**
 	 * 排序方式
 	 */
     private OrderbyEnum orderbyEnum = OrderbyEnum.DEFAULT;
+	/**
+	 * 前端table列表
+	 */
+    private TableCodeEnum tableCode = TableCodeEnum.DEFAULT;
 
 }

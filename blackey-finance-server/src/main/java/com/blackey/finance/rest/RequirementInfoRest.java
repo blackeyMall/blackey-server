@@ -2,8 +2,10 @@ package com.blackey.finance.rest;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.common.rest.BaseRest;
+import com.blackey.finance.component.service.UserRequireFollowService;
 import com.blackey.finance.dto.bo.RequirementInfoBo;
 import com.blackey.finance.global.constants.AuditStatusEnum;
+import com.blackey.finance.global.constants.TableCodeEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -35,6 +37,9 @@ public class RequirementInfoRest extends BaseRest {
     @Autowired
     private RequirementInfoService requirementInfoService;
 
+    @Autowired
+    private UserRequireFollowService userRequireFollowService;
+
 
     /**
     * 分页列表--我的需求
@@ -58,8 +63,27 @@ public class RequirementInfoRest extends BaseRest {
     public Result listAllPage(@RequestBody RequirementInfoForm form){
         Page<RequirementInfoBo> page = new Page<>(form.getCurrent(),form.getSize());
 
-        List<RequirementInfoBo> requirementInfoBos = requirementInfoService.listAllPage(form,page);
+        List<RequirementInfoBo> requirementInfoBos;
+        switch (form.getTableCode().getValue()){
+            case "DEFAULT":
+                requirementInfoBos = requirementInfoService.listAllPage(form,page);
+                break;
+            case "TODAY_PUBLISH":
+                form.setIsTodayPublish(1);
+                requirementInfoBos = requirementInfoService.listAllPage(form,page);
+                break;
+            case "MY_CREATE":
+                requirementInfoBos = requirementInfoService.queryPage(form,page);
+                break;
+            case "MY_FOLLOW":
+                requirementInfoBos = userRequireFollowService.queryPage(form,page);
+                break;
+             default:
+                 requirementInfoBos = requirementInfoService.listAllPage(form,page);
+                 break;
 
+        }
+        
         return success(page.setRecords(requirementInfoBos));
     }
 

@@ -59,6 +59,9 @@ public interface RequirementInfoMapper extends BaseDAO<RequirementInfo> {
             "<if test=\"form.isRecommend != '' and form.isRecommend != null\">" +
             " and r.is_recommend != #{form.isRecommend}\n" +
             "</if>" +
+            "<if test=\"form.isTodayPublish != null and form.isTodayPublish == 1\">" +
+            " and DATE_FORMAT(r.created_date, '%Y-%m-%d') = DATE_FORMAT(NOW(),'%Y-%m-%d')\n" +
+            "</if>"+
             "<if test=\"form.auditStatus.value != '' and form.auditStatus.value != null and form.auditStatus.value != 'DEFAULT' \">" +
             " and r.audit_status = #{form.auditStatus.value}\n" +
             "</if>" +

@@ -2,7 +2,9 @@ package com.blackey.finance.component.mapper;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.finance.component.domain.UserRequireFollow;
+import com.blackey.finance.dto.bo.RequirementInfoBo;
 import com.blackey.finance.dto.bo.UserRequireFollowBo;
+import com.blackey.finance.dto.form.RequirementInfoForm;
 import com.blackey.finance.dto.form.UserRequireFollowForm;
 import com.blackey.mybatis.dao.BaseDAO;
 import org.apache.ibatis.annotations.Param;
@@ -45,5 +47,5 @@ public interface UserRequireFollowMapper extends BaseDAO<UserRequireFollow> {
             " order by ur.created_date desc \n" +
             "</if>" +
             "</script>")
-    List<UserRequireFollowBo> queryPage(@Param("form") UserRequireFollowForm form, Page<UserRequireFollowBo> page);
+    List<RequirementInfoBo> queryPage(@Param("form") RequirementInfoForm form, Page<RequirementInfoBo> page);
 }

@@ -47,9 +47,9 @@ public class UserRequireFollowRest extends BaseRest {
 
         Page<UserRequireFollowBo> page = new Page<>(form.getCurrent(),form.getSize());
 
-        List<UserRequireFollowBo> userRequireFollowBos = userRequireFollowService.queryPage(form,page);
+       // List<UserRequireFollowBo> userRequireFollowBos = userRequireFollowService.queryPage(form,page);
 
-        return success(page.setRecords(userRequireFollowBos));
+        return success(null);
     }
 
     /**

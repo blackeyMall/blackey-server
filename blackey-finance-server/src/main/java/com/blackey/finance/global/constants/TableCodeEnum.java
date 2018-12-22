@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 
 /**
- * 需求类别
+ * 前段table页面
  *
  *
  * @author kaven
@@ -12,18 +12,21 @@ import lombok.Getter;
  */
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 @Getter
-public enum CategoryEnum {
+public enum TableCodeEnum {
 
     /**
-     * 关注或取消
+     * 前端table页面
      */
-    PROJECT("找项目"),
-    FINANCE("找资金");
+    DEFAULT("全部"),
+    TODAY_PUBLISH("今日发布"),
+    RECOMMEND("精品"),
+    MY_FOLLOW("我的关注"),
+    MY_CREATE("我的");
 
     private String name;
     private String value;
 
-    CategoryEnum(String name) {
+    TableCodeEnum(String name) {
         this.name = name;
         this.value = this.toString();
     }

@@ -85,6 +85,14 @@ public class RequirementInfoBo implements Serializable {
 	 * 职位
 	 */
 	private String duties;
+	/**
+	 * 姓名
+	 */
+	private String name;
+	/**
+	 * 性别
+	 */
+	private String sex;
 
 
 }
