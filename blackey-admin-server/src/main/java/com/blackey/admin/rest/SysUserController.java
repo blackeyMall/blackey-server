@@ -98,6 +98,7 @@ public class SysUserController extends AbstractController {
 	public Result save(@RequestBody SysUserEntity user){
 
 		user.setCreateUserId(getUserId());
+		user.setTenantId(getTenangtId());
 		sysUserService.saveUser(user);
 		
 		return success();

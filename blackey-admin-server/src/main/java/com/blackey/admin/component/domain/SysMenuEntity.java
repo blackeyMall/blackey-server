@@ -65,7 +65,6 @@ public class SysMenuEntity implements Serializable {
 	 * 排序
 	 */
 	private Integer orderNum;
-	
 	/**
 	 * ztree属性
 	 */
@@ -202,4 +201,5 @@ public class SysMenuEntity implements Serializable {
 	public void setOpen(Boolean open) {
 		this.open = open;
 	}
+
 }

@@ -21,4 +21,8 @@ public abstract class AbstractController extends BaseRest {
 	protected Long getUserId() {
 		return getUser().getUserId();
 	}
+
+	protected Long getTenangtId() {
+		return getUser().getTenantId();
+	}
 }

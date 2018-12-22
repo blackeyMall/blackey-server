@@ -50,6 +50,10 @@ public class SysDict implements Serializable {
 	 * 删除标记  -1：已删除  0：正常
 	 */
 	private Integer delFlag;
+	/**
+	 * 租户id
+	 */
+	private Long tenantId;
 
 	/**
 	 * set：
@@ -148,6 +152,12 @@ public class SysDict implements Serializable {
 		return delFlag;
 	}
 
-                                
 
+	public Long getTenantId() {
+		return tenantId;
+	}
+
+	public void setTenantId(Long tenantId) {
+		this.tenantId = tenantId;
+	}
 }

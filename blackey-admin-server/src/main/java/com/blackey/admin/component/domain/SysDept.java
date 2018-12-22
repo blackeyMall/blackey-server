@@ -39,6 +39,10 @@ public class SysDept extends BaseModel<SysDept> implements Serializable {
 	 * 是否删除  -1：已删除  0：正常
 	 */
 	private Integer delFlag;
+	/**
+	 * 租户id
+	 */
+	private Long tenantId;
 
 	/**
 	 * set：
@@ -105,6 +109,13 @@ public class SysDept extends BaseModel<SysDept> implements Serializable {
     protected Serializable pkVal() {
         return this.deptId;
     }
-                    
 
+
+	public Long getTenantId() {
+		return tenantId;
+	}
+
+	public void setTenantId(Long tenantId) {
+		this.tenantId = tenantId;
+	}
 }

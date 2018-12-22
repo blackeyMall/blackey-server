@@ -50,6 +50,10 @@ public class SysRoleEntity implements Serializable {
 	 * 创建时间
 	 */
 	private Date createTime;
+	/**
+	 * 租户id
+	 */
+	private Long tenantId;
 
 	/**
 	 * 设置：
@@ -122,5 +126,12 @@ public class SysRoleEntity implements Serializable {
 	public void setCreateUserId(Long createUserId) {
 		this.createUserId = createUserId;
 	}
-	
+
+	public Long getTenantId() {
+		return tenantId;
+	}
+
+	public void setTenantId(Long tenantId) {
+		this.tenantId = tenantId;
+	}
 }
