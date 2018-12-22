@@ -71,7 +71,7 @@ public class SysTenantInfoRest extends BaseRest {
     }
 
     /**
-     * 保存
+     * 创建租户信息
      */
     @PostMapping("/save")
     @RequiresPermissions("sys:tenant:save")

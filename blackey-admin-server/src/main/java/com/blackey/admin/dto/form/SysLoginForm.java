@@ -16,13 +16,18 @@
 
 package com.blackey.admin.dto.form;
 
+import java.io.Serializable;
+
 /**
  * 登录表单
  *
  * @author kavaW
  * @since 2.0.0 2018-01-25
  */
-public class SysLoginForm {
+public class SysLoginForm implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     private String username;
     private String password;
     private String captcha;

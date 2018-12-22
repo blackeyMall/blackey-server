@@ -4,6 +4,8 @@ package com.blackey.admin.component.domain;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.blackey.mybatis.model.BaseModel;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 
@@ -13,6 +15,8 @@ import java.io.Serializable;
  * @author kavenW
  * @date 2018-06-29 14:18:31
  */
+@Getter
+@Setter
 @TableName("sys_dept")
 public class SysDept extends BaseModel<SysDept> implements Serializable {
 
@@ -110,12 +114,4 @@ public class SysDept extends BaseModel<SysDept> implements Serializable {
         return this.deptId;
     }
 
-
-	public Long getTenantId() {
-		return tenantId;
-	}
-
-	public void setTenantId(Long tenantId) {
-		this.tenantId = tenantId;
-	}
 }

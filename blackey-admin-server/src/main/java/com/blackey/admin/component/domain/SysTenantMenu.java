@@ -12,52 +12,29 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 租户信息
+ * 
  *
  * @author kaven
- * @date 2018-12-12 11:23:05
+ * @date 2018-12-18 14:45:19
  */
 @Getter
 @Setter
-@TableName("sys_tenant_info")
-public class SysTenantInfo implements Serializable {
+@TableName("sys_tenant_menu")
+public class SysTenantMenu implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId
-    private Long id;
+	@TableId
+	private Long id;
+
 	/**
-	 * 手机号
+	 * 租户id
 	 */
-	private String telephone;
+	private Long tenantId;
 	/**
-	 * 邮箱
+	 * 菜单id
 	 */
-	private String email;
-	/**
-	 * 法人姓名
-	 */
-	private String legalPerson;
-	/**
-	 * 公司名称
-	 */
-	private String company;
-	/**
-	 * 职位
-	 */
-	private String duties;
-	/**
-	 * 公司简介
-	 */
-	private String companyBrief;
-	/**
-	 * 公司官网
-	 */
-	private String companyWebsite;
-	/**
-	 * 公司地址
-	 */
-	private String companyAddress;
+	private Long menuId;
 
 	@TableField(fill = FieldFill.INSERT)
 	private Date createdDate;
