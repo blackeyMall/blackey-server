@@ -84,6 +84,14 @@ public class ProjectInfoBo implements Serializable {
 	private AddCancelEnum isLike = AddCancelEnum.CANCEL;
 
 	/**
+	 * 姓名
+	 */
+	private String userName;
+	/**
+	 * 性别
+	 */
+	private String sex;
+	/**
 	 * 公司名称
 	 */
 	private String company;

@@ -38,7 +38,7 @@ public interface RequirementInfoMapper extends BaseDAO<RequirementInfo> {
             "<if test=\"form.orderbyEnum.value == 'LIKENUM' \">\n" +
             " order by r.like_num desc \n" +
             "</if>" +
-            "<if test=\"form.orderbyEnum.value == 'DEFAULT' or form.orderbyEnum.value == '' \">\n" +
+            "<if test=\"form.orderbyEnum.value == 'DEFAULT' or form.orderbyEnum == null \">\n" +
             " order by r.created_date desc \n" +
             "</if>" +
             "</script>")
@@ -53,8 +53,11 @@ public interface RequirementInfoMapper extends BaseDAO<RequirementInfo> {
     @Select("<script>" +
             "SELECT r.*,u.name,u.sex,u.company,u.duties FROM t_requirement_info r left join t_user_info u on r.open_id = u.open_id" +
             "  WHERE r.is_deleted = 0  and u.is_deleted = 0 " +
-            "<if test=\"form.openId != '' and form.openId != null\">" +
-            " and r.open_id != #{form.openId}\n" +
+//            "<if test=\"form.openId != '' and form.openId != null\">" +
+//            " and r.open_id != #{form.openId}\n" +
+//            "</if>" +
+            "<if test=\"form.category != null \">" +
+            " and r.category = #{form.category.value}\n" +
             "</if>" +
             "<if test=\"form.isRecommend != '' and form.isRecommend != null\">" +
             " and r.is_recommend != #{form.isRecommend}\n" +
@@ -62,7 +65,7 @@ public interface RequirementInfoMapper extends BaseDAO<RequirementInfo> {
             "<if test=\"form.isTodayPublish != null and form.isTodayPublish == 1\">" +
             " and DATE_FORMAT(r.created_date, '%Y-%m-%d') = DATE_FORMAT(NOW(),'%Y-%m-%d')\n" +
             "</if>"+
-            "<if test=\"form.auditStatus.value != '' and form.auditStatus.value != null and form.auditStatus.value != 'DEFAULT' \">" +
+            "<if test=\"form.auditStatus != null and form.auditStatus.value != 'DEFAULT' \">" +
             " and r.audit_status = #{form.auditStatus.value}\n" +
             "</if>" +
             "<if test=\"form.orderbyEnum.value == 'FOLLOWNUM' \">\n" +
@@ -71,7 +74,7 @@ public interface RequirementInfoMapper extends BaseDAO<RequirementInfo> {
             "<if test=\"form.orderbyEnum.value == 'LIKENUM' \">\n" +
             " order by r.like_num desc \n" +
             "</if>" +
-            "<if test=\"form.orderbyEnum.value == 'DEFAULT' or form.orderbyEnum.value == '' \">\n" +
+            "<if test=\"form.orderbyEnum.value == 'DEFAULT' or form.orderbyEnum == null \">\n" +
             " order by r.created_date desc \n" +
             "</if>" +
             "</script>")

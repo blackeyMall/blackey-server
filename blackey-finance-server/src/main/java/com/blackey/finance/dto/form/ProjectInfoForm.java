@@ -1,8 +1,7 @@
 package com.blackey.finance.dto.form;
 
 import com.blackey.finance.dto.BaseSearch;
-import com.blackey.finance.global.constants.AuditStatusEnum;
-import com.blackey.finance.global.constants.OrderbyEnum;
+import com.blackey.finance.global.constants.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -69,11 +68,16 @@ public class ProjectInfoForm extends BaseSearch implements Serializable {
 	/**
 	 * 类别
 	 */
-    private String category;
+    private ProjectCategoryEnum category = ProjectCategoryEnum.STOCK;
 	/**
 	 * 排序方式
 	 */
 	private OrderbyEnum orderbyEnum = OrderbyEnum.DEFAULT;
+	/**
+	 * 前端table列表
+	 */
+	private TableCodeEnum tableCode = TableCodeEnum.DEFAULT;
+
 
 
 }

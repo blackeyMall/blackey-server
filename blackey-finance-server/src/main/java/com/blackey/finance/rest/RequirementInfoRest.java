@@ -83,7 +83,7 @@ public class RequirementInfoRest extends BaseRest {
                  break;
 
         }
-        
+
         return success(page.setRecords(requirementInfoBos));
     }
 

@@ -5,6 +5,7 @@ import com.blackey.common.rest.BaseRest;
 import com.blackey.common.result.Result;
 import com.blackey.finance.component.domain.ProjectInfo;
 import com.blackey.finance.component.service.ProjectInfoService;
+import com.blackey.finance.component.service.UserProjectFollowService;
 import com.blackey.finance.dto.bo.ProjectInfoBo;
 import com.blackey.finance.dto.form.ProjectBpForm;
 import com.blackey.finance.dto.form.ProjectInfoForm;
@@ -31,6 +32,8 @@ public class ProjectInfoRest extends BaseRest {
 
     @Autowired
     private ProjectInfoService projectInfoService;
+    @Autowired
+    UserProjectFollowService userProjectFollowService;
 
 
     /**
@@ -54,7 +57,28 @@ public class ProjectInfoRest extends BaseRest {
     @PostMapping("/list")
     public Result listAllPage(@RequestBody ProjectInfoForm form){
         Page<ProjectInfoBo> page = new Page<>(form.getCurrent(),form.getSize());
-        List<ProjectInfoBo> projectInfoBos = projectInfoService.listAllPage(form,page);
+        List<ProjectInfoBo> projectInfoBos ;
+
+        switch (form.getTableCode().getValue()){
+            case "DEFAULT":
+                projectInfoBos = projectInfoService.listAllPage(form,page);
+                break;
+            case "RECOMMEND":
+                form.setIsRecommend("1");
+                projectInfoBos = projectInfoService.listAllPage(form,page);
+                break;
+            case "MY_CREATE":
+                projectInfoBos = projectInfoService.queryPage(form,page);
+                break;
+            case "MY_FOLLOW":
+                projectInfoBos = userProjectFollowService.queryPage(form,page);
+                break;
+            default:
+                projectInfoBos = projectInfoService.listAllPage(form,page);
+                break;
+
+        }
+
         return success(page.setRecords(projectInfoBos));
     }
 

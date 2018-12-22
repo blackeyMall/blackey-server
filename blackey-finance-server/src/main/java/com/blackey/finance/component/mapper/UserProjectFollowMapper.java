@@ -2,8 +2,8 @@ package com.blackey.finance.component.mapper;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.finance.component.domain.UserProjectFollow;
-import com.blackey.finance.dto.bo.UserProjectFollowBo;
-import com.blackey.finance.dto.form.UserProjectFollowForm;
+import com.blackey.finance.dto.bo.ProjectInfoBo;
+import com.blackey.finance.dto.form.ProjectInfoForm;
 import com.blackey.mybatis.dao.BaseDAO;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -41,9 +41,9 @@ public interface UserProjectFollowMapper extends BaseDAO<UserProjectFollow> {
             "<if test=\"form.orderbyEnum.value == 'LIKENUM' \">\n" +
             " order by p.like_num desc \n" +
             "</if>" +
-            "<if test=\"form.orderbyEnum.value == 'DEFAULT' or form.orderbyEnum.value == '' \">\n" +
+            "<if test=\"form.orderbyEnum.value == 'DEFAULT' or form.orderbyEnum == null \">\n" +
             " order by up.created_date desc \n" +
             "</if>" +
             "</script>")
-    List<UserProjectFollowBo> queryPage(@Param("form") UserProjectFollowForm form, Page<UserProjectFollowBo> page);
+    List<ProjectInfoBo> queryPage(@Param("form") ProjectInfoForm form, Page<ProjectInfoBo> page);
 }

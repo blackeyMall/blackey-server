@@ -52,13 +52,16 @@ public interface ProjectInfoMapper extends BaseDAO<ProjectInfo> {
     @Select("<script>" +
             "SELECT p.*,u.name,u.sex,u.company,u.duties FROM t_project_info p left join t_user_info u on p.open_id = u.open_id " +
             " where p.is_deleted = 0 and u.is_deleted = 0 " +
-            "<if test=\"form.openId != '' and form.openId != null\">" +
-            " and p.open_id != #{form.openId}\n" +
+//            "<if test=\"form.openId != '' and form.openId != null\">" +
+//            " and p.open_id != #{form.openId}\n" +
+//            "</if>" +
+            "<if test=\"form.category != null \">" +
+            " and p.category = #{form.category.value}\n" +
             "</if>" +
             "<if test=\"form.isRecommend != '' and form.isRecommend != null\">" +
             " and p.is_recommend != #{form.isRecommend}\n" +
             "</if>" +
-            "<if test=\"form.auditStatus.value != '' and form.auditStatus.value != null and form.auditStatus.value != 'DEFAULT' \">" +
+            "<if test=\"form.auditStatus != null and form.auditStatus.value != 'DEFAULT' \">" +
             " and p.audit_status = #{form.auditStatus.value}\n" +
             "</if>" +
             "<if test=\"form.orderbyEnum.value == 'FOLLOWNUM' \">\n" +
@@ -67,7 +70,7 @@ public interface ProjectInfoMapper extends BaseDAO<ProjectInfo> {
             "<if test=\"form.orderbyEnum.value == 'LIKENUM' \">\n" +
             " order by p.like_num desc \n" +
             "</if>" +
-            "<if test=\"form.orderbyEnum.value == 'DEFAULT' or form.orderbyEnum.value == '' \">\n" +
+            "<if test=\"form.orderbyEnum.value == 'DEFAULT' or form.orderbyEnum == '' \">\n" +
             " order by p.created_date desc \n" +
             "</if>" +
             "</script>")

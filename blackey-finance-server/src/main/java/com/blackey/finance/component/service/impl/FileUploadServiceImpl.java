@@ -25,7 +25,7 @@ public class FileUploadServiceImpl implements FileUploadService {
     @Value("${file.upload.path}")
     private String fileStorePath;
 
-    @Value("${http.domain.file.path}")
+    @Value("${http.domain.access.path}")
     private String domain;
 
 

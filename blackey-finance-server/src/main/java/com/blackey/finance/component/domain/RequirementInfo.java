@@ -2,6 +2,7 @@ package com.blackey.finance.component.domain;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.blackey.finance.global.constants.AuditStatusEnum;
+import com.blackey.finance.global.constants.CategoryEnum;
 import com.blackey.mybatis.model.BaseModel;
 import lombok.Getter;
 import lombok.Setter;
@@ -64,7 +65,7 @@ public class RequirementInfo extends BaseModel<RequirementInfo> implements Seria
 	/**
 	 * 类别
 	 */
-	private String category;
+	private CategoryEnum category;
 
     @Override
     protected Serializable pkVal() {

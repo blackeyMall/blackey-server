@@ -55,7 +55,7 @@ public class RequirementInfoForm extends BaseSearch implements Serializable {
 	/**
 	 * 认证状态
 	 */
-   // private AuditStatusEnum auditStatus = AuditStatusEnum.WAITING;
+    private AuditStatusEnum auditStatus = AuditStatusEnum.DEFAULT;
 	/**
 	 * 红包
 	 */

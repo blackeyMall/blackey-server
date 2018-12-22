@@ -2,9 +2,9 @@ package com.blackey.finance.component.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.finance.component.domain.UserProjectFollow;
-import com.blackey.finance.dto.bo.UserProjectFollowBo;
+import com.blackey.finance.dto.bo.ProjectInfoBo;
 import com.blackey.finance.dto.form.AddOrCancelFollowForm;
-import com.blackey.finance.dto.form.UserProjectFollowForm;
+import com.blackey.finance.dto.form.ProjectInfoForm;
 import com.blackey.finance.global.constants.AddCancelEnum;
 import com.blackey.mybatis.service.BaseService;
 
@@ -24,7 +24,7 @@ public interface UserProjectFollowService extends BaseService<UserProjectFollow>
      * @param page
      * @return
      */
-    List<UserProjectFollowBo> queryPage(UserProjectFollowForm form, Page<UserProjectFollowBo> page);
+    List<ProjectInfoBo> queryPage(ProjectInfoForm form, Page<ProjectInfoBo> page);
 
     /**
      * 关注项目
