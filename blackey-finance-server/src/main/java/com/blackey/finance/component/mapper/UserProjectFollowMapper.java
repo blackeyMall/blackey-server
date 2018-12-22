@@ -27,7 +27,7 @@ public interface UserProjectFollowMapper extends BaseDAO<UserProjectFollow> {
      * @return
      */
     @Select("<script>" +
-            "SELECT p.* ,up.created_date,u.name AS userName,u.sex,u.company,u.duties FROM t_user_project_follow up,t_project_info p" +
+            "SELECT p.* ,up.created_date,u.name AS userName,u.sex,u.company,u.duties,u.avatar_url FROM t_user_project_follow up,t_project_info p" +
             ",t_user_info u \n" +
             "WHERE up.project_id = p.id and u.open_id = p.open_id " +
             " AND up.is_deleted = 0 and p.is_deleted = 0 and u.is_deleted = 0 "+

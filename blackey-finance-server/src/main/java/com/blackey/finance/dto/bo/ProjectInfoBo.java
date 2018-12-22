@@ -99,5 +99,10 @@ public class ProjectInfoBo implements Serializable {
 	 * 职位
 	 */
 	private String duties;
+	/**
+	 * 微信头像
+	 */
+	private String avatarUrl;
+
 
 }

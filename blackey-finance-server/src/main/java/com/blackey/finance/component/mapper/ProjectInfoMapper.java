@@ -50,7 +50,7 @@ public interface ProjectInfoMapper extends BaseDAO<ProjectInfo> {
      * @return
      */
     @Select("<script>" +
-            "SELECT p.*,u.name,u.sex,u.company,u.duties FROM t_project_info p left join t_user_info u on p.open_id = u.open_id " +
+            "SELECT p.*,u.name,u.sex,u.company,u.duties,u.avatar_url FROM t_project_info p left join t_user_info u on p.open_id = u.open_id " +
             " where p.is_deleted = 0 and u.is_deleted = 0 " +
 //            "<if test=\"form.openId != '' and form.openId != null\">" +
 //            " and p.open_id != #{form.openId}\n" +

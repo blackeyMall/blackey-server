@@ -94,5 +94,9 @@ public class RequirementInfoBo implements Serializable {
 	 */
 	private String sex;
 
+	/**
+	 * 微信头像
+	 */
+	private String avatarUrl;
 
 }

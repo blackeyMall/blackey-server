@@ -45,9 +45,9 @@ public class UserProjectFollowRest extends BaseRest {
 
         Page<UserProjectFollowBo> page = new Page<>(form.getCurrent(),form.getSize());
 
-        List<UserProjectFollowBo> userProjectFollowBos = userProjectFollowService.queryPage(form,page);
+        //List<UserProjectFollowBo> userProjectFollowBos = userProjectFollowService.queryPage(form,page);
 
-        return success(page.setRecords(userProjectFollowBos));
+        return success();
     }
 
     /**
