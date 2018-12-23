@@ -139,4 +139,10 @@ public class UserRelationRest extends BaseRest {
         return success();
     }
 
+    @PostMapping("/add")
+    public Result add(@RequestBody UserRelationForm userRelationForm){
+
+        return userRelationService.addFriend(userRelationForm);
+    }
+
 }

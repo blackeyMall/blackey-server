@@ -1,5 +1,6 @@
 package com.blackey.finance.component.service.impl;
 
+import com.blackey.common.result.Result;
 import com.blackey.finance.dto.form.UserRelationForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,5 +45,26 @@ public class UserRelationServiceImpl extends BaseServiceImpl<UserRelationMapper,
     @Override
     public PageUtils queryPageByOpenId(UserRelationForm form, Page page) {
         return new PageUtils(page.setRecords(userRelationMapper.findUserRelationByOpenId(form,page)));
+    }
+
+    @Override
+    public Result addFriend(UserRelationForm userRelationForm) {
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("open_id",userRelationForm.getOpenId());
+        queryWrapper.eq("friend_id",userRelationForm.getFriendId());
+        queryWrapper.or();
+        queryWrapper.eq("friend_id",userRelationForm.getOpenId());
+        queryWrapper.eq("open_id",userRelationForm.getFriendId());
+        UserRelation userRelation = userRelationMapper.selectOne(queryWrapper);
+
+        if (userRelation == null){
+            userRelation = new UserRelation();
+            userRelation.setOpenId(userRelationForm.getOpenId());
+            userRelation.setFriendId(userRelationForm.getFriendId());
+            userRelationMapper.insert(userRelation);
+            return new Result(200,"添加好友成功");
+        }
+;
+        return new Result(200,"不可重复添加");
     }
 }

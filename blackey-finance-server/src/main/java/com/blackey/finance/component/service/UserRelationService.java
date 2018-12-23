@@ -1,6 +1,7 @@
 package com.blackey.finance.component.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.blackey.common.result.Result;
 import com.blackey.finance.component.domain.UserRelation;
 import com.blackey.finance.dto.form.UserRelationForm;
 import com.blackey.mybatis.service.BaseService;
@@ -28,5 +29,12 @@ public interface UserRelationService extends BaseService<UserRelation> {
      * @return
      */
     PageUtils queryPageByOpenId(UserRelationForm form, Page page);
+
+    /**
+     * 添加好友
+     * @param userRelationForm
+     * @return
+     */
+    Result addFriend(UserRelationForm userRelationForm);
 }
 
