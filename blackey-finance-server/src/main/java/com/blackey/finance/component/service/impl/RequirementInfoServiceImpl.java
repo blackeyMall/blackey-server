@@ -4,15 +4,10 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.common.exception.BusinessException;
 import com.blackey.common.result.ResultCodeEnum;
-import com.blackey.finance.component.domain.AuditDetail;
-import com.blackey.finance.component.domain.RequirementInfo;
-import com.blackey.finance.component.domain.UserRequireFollow;
-import com.blackey.finance.component.domain.UserRequireLike;
+import com.blackey.finance.component.domain.*;
+import com.blackey.finance.component.mapper.ImageInfoMapper;
 import com.blackey.finance.component.mapper.RequirementInfoMapper;
-import com.blackey.finance.component.service.AuditDetailService;
-import com.blackey.finance.component.service.RequirementInfoService;
-import com.blackey.finance.component.service.UserRequireFollowService;
-import com.blackey.finance.component.service.UserRequireLikeService;
+import com.blackey.finance.component.service.*;
 import com.blackey.finance.dto.bo.RequirementInfoBo;
 import com.blackey.finance.dto.form.RequirementInfoForm;
 import com.blackey.finance.global.constants.AddCancelEnum;
@@ -26,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import java.awt.*;
 import java.util.List;
 
 /**
@@ -47,6 +43,9 @@ public class RequirementInfoServiceImpl extends BaseServiceImpl<RequirementInfoM
 
     @Autowired
     AuditDetailService auditDetailService;
+
+    @Autowired
+    ImageInfoService imageInfoService;
 
     /**
      * 分页查询
@@ -153,13 +152,24 @@ public class RequirementInfoServiceImpl extends BaseServiceImpl<RequirementInfoM
         RequirementInfo requirementInfo = new RequirementInfo();
         //Form --> domain
         BeanUtils.copyProperties(form,requirementInfo);
-        requirementInfo.setAuditStatus(AuditStatusEnum.SUCCESS);
+        requirementInfo.setAuditStatus(AuditStatusEnum.WAITING);
         baseMapper.insert(requirementInfo);
+        //保存需求图片
+        if(form.getImages() != null && form.getImages().length > 0){
+            for(String imageUrl : form.getImages()){
+                ImageInfo imageInfo = new ImageInfo();
+                imageInfo.setObjectId(requirementInfo.getId());
+                imageInfo.setImageUrl(imageUrl);
+                imageInfo.setImageType(ObjectTypeEnum.REQUIRE.getValue());
+                imageInfoService.save(imageInfo);
+            }
+
+        }
         //待审批记录
         AuditDetail auditDetail = new AuditDetail();
         auditDetail.setObjectId(requirementInfo.getId());
         auditDetail.setObjectType(ObjectTypeEnum.REQUIRE);
-        auditDetail.setAuditStatus(AuditStatusEnum.SUCCESS);
+        auditDetail.setAuditStatus(AuditStatusEnum.WAITING);
         auditDetailService.save(auditDetail);
     }
 }

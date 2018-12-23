@@ -80,5 +80,9 @@ public class RequirementInfoForm extends BaseSearch implements Serializable {
 	 * 前端table列表
 	 */
     private TableCodeEnum tableCode = TableCodeEnum.DEFAULT;
+	/**
+	 * 图片链接
+	 */
+	private String[] images;
 
 }
