@@ -6,6 +6,7 @@ import com.blackey.common.result.Result;
 import com.blackey.finance.component.domain.UserPersonFollow;
 import com.blackey.finance.component.mapper.UserPersonFollowMapper;
 import com.blackey.finance.component.service.UserPersonFollowService;
+import com.blackey.finance.dto.bo.UserPersonFollowBo;
 import com.blackey.finance.dto.form.UserPersonFollowForm;
 import com.blackey.mybatis.service.impl.BaseServiceImpl;
 import com.blackey.mybatis.utils.PageUtils;
@@ -15,6 +16,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -43,8 +46,23 @@ public class UserPersonFollowServiceImpl extends BaseServiceImpl<UserPersonFollo
 
     @Override
     public PageUtils queryByOpenid(UserPersonFollowForm form, Page page) {
+        List<UserPersonFollowBo> userPersonFollowBos = userPersonFollowMapper.findUserFollowByOpenId(form,page);
+        List<UserPersonFollowBo> resultBos = new ArrayList<>();
 
-        return new PageUtils(page.setRecords(userPersonFollowMapper.findUserFollowByOpenId(form,page)));
+        for (UserPersonFollowBo userPersonFollowBo: userPersonFollowBos
+             ) {
+            QueryWrapper queryWrapper = new QueryWrapper();
+            queryWrapper.eq("open_id",form.getOpenId());
+            queryWrapper.eq("person_id",userPersonFollowBo.getOpenId());
+            UserPersonFollow userPersonFollow = userPersonFollowMapper.selectOne(queryWrapper);
+            if (userPersonFollow != null){
+                userPersonFollowBo.setRelation(1);
+            }
+            resultBos.add(userPersonFollowBo);
+        }
+
+
+        return new PageUtils(page.setRecords(resultBos));
     }
 
     @Override

@@ -75,4 +75,5 @@ public class UserRelationBo implements Serializable {
 	 */
 	private String name;
 
+	private int focus;
 }

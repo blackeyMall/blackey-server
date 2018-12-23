@@ -1,6 +1,7 @@
 package com.blackey.finance.component.service.impl;
 
 import com.blackey.common.result.Result;
+import com.blackey.finance.dto.bo.UserRelationBo;
 import com.blackey.finance.dto.form.UserRelationForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +17,8 @@ import com.blackey.finance.component.domain.UserRelation;
 import com.blackey.finance.component.service.UserRelationService;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -44,7 +47,21 @@ public class UserRelationServiceImpl extends BaseServiceImpl<UserRelationMapper,
 
     @Override
     public PageUtils queryPageByOpenId(UserRelationForm form, Page page) {
-        return new PageUtils(page.setRecords(userRelationMapper.findUserRelationByOpenId(form,page)));
+        List<UserRelationBo> userRelationBos = userRelationMapper.findUserRelationByOpenId(form,page);
+        List<UserRelationBo> resultRelation = new ArrayList<>();
+
+        for (UserRelationBo userRelation  :userRelationBos
+             ) {
+            QueryWrapper queryWrapper = new QueryWrapper();
+            queryWrapper.eq("open_id",form.getOpenId());
+            queryWrapper.eq("friend_id",userRelation.getOpenId());
+            if (userRelationMapper.selectOne(queryWrapper) == null){
+                userRelation.setFocus(1);
+            }
+            resultRelation.add(userRelation);
+        }
+
+        return new PageUtils(page.setRecords(resultRelation));
     }
 
     @Override
