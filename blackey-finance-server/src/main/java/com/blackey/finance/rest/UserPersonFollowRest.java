@@ -33,9 +33,6 @@ public class UserPersonFollowRest extends BaseRest {
     @Autowired
     private UserPersonFollowService userPersonFollowService;
 
-    @Autowired
-    private UserInfoService userInfoService;
-
 
     /**
      * 列表
@@ -87,13 +84,11 @@ public class UserPersonFollowRest extends BaseRest {
      */
     @PostMapping("/save")
     public Result save(@RequestBody UserPersonFollowForm userPersonFollowForm){
-
         UserPersonFollow userPersonFollow = new UserPersonFollow();
         //Form --> domain
         BeanUtils.copyProperties(userPersonFollowForm,userPersonFollow);
 
         userPersonFollowService.save(userPersonFollow);
-
         return success();
     }
 
@@ -116,4 +111,9 @@ public class UserPersonFollowRest extends BaseRest {
         return success(userPersonFollowService.queryByOpenid(form,page));
     }
 
+
+    @PostMapping("/foucs")
+    public Result foucs(@RequestBody UserPersonFollowForm form){
+        return userPersonFollowService.foucsOrCancel(form);
+    }
 }

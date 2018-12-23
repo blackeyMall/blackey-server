@@ -22,21 +22,32 @@ import java.util.List;
 
 public interface UserRelationMapper extends BaseDAO<UserRelation> {
 
-
     @Select("<script>SELECT\n" +
-            "\tui.*,ur.status\n" +
+            "\t* \n" +
             "FROM\n" +
-            "\tt_user_relation ur,\n" +
-            "\tt_user_info ui\n" +
+            "\tt_user_info ui \n" +
             "WHERE\n" +
-            "\tur.friend_id = ui.open_id\n" +
-            "<if test=\"form.openId != '' and form.openId != null\">" +
-            "AND ur.open_id = #{form.openId}\n" +
-            "</if>" +
+            "\tui.open_id IN (\n" +
+            "\tSELECT\n" +
+            "\t\tur.open_id AS friends \n" +
+            "\tFROM\n" +
+            "\t\tt_user_relation ur \n" +
+            "\tWHERE\n" +
+            "\t\tur.friend_id = #{form.openId} \n" +
             "<if test=\"form.status != null\">" +
             "AND ur.`status` = #{form.status.value}\n" +
             "</if>" +
-            "AND ui.is_deleted = 0\n" +
-            "AND ur.is_deleted = 0</script>")
+            "\t\tAND ur.is_deleted = 0 UNION ALL\n" +
+            "\tSELECT\n" +
+            "\t\tur.friend_id AS friends \n" +
+            "\tFROM\n" +
+            "\t\tt_user_relation ur \n" +
+            "\tWHERE\n" +
+            "\t\tur.open_id = #{form.openId} \n" +
+            "<if test=\"form.status != null\">" +
+            "\t\tAND ur.`status` = 'ACCEPT' \n" +
+            "</if>" +
+            "\tAND ur.is_deleted = 0 \n" +
+            "\t)</script>")
     List<UserRelationBo> findUserRelationByOpenId(@Param("form") UserRelationForm form, Page page);
 }
