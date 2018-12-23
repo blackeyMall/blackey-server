@@ -81,11 +81,12 @@ logging:
     com.blackey.artisan.component.mapper: debug
 file:
   upload:
-    path: /opt/application/artisan/
+    path: /opt/application/finance/
 http:
   domain:
    base: http://127.0.0.1:1099
-   uploadUlr: http://127.0.0.1:1099/opt/application/artisan/
+   access:
+    path: http://127.0.0.1:1099/opt/application/finance/
 wx:
   miniapp:
     configs:
