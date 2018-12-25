@@ -33,6 +33,9 @@ public interface RequirementInfoMapper extends BaseDAO<RequirementInfo> {
             "<if test=\"form.openId != '' and form.openId != null\">" +
             " and r.open_id = #{form.openId}\n" +
             "</if>" +
+            "<if test=\"form.label != null and form.label != '' \">" +
+            " and r.label like concat(concat('%',#{form.label}),'%')\n" +
+            "</if>" +
             "<if test=\"form.orderbyEnum.value == 'FOLLOWNUM' \">\n" +
             " order by r.follow_num desc \n" +
             "</if>" +
@@ -59,6 +62,9 @@ public interface RequirementInfoMapper extends BaseDAO<RequirementInfo> {
 //            "</if>" +
             "<if test=\"form.category != null \">" +
             " and r.category = #{form.category.value}\n" +
+            "</if>" +
+            "<if test=\"form.label != null and form.label != '' \">" +
+            " and r.label like concat(concat('%',#{form.label}),'%')\n" +
             "</if>" +
             "<if test=\"form.isRecommend != '' and form.isRecommend != null\">" +
             " and r.is_recommend != #{form.isRecommend}\n" +

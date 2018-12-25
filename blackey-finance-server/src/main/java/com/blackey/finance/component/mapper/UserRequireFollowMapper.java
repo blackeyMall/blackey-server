@@ -37,6 +37,9 @@ public interface UserRequireFollowMapper extends BaseDAO<UserRequireFollow> {
             "<if test=\"form.openId != '' and form.openId != null\">" +
             " and ur.open_id = #{form.openId}\n" +
             "</if>" +
+            "<if test=\"form.label != null and form.label != '' \">" +
+            " and r.label like concat(concat('%',#{form.label}),'%')\n" +
+            "</if>" +
             "<if test=\"form.orderbyEnum.value == 'FOLLOWNUM' \">\n" +
             " order by r.follow_num desc \n" +
             "</if>" +

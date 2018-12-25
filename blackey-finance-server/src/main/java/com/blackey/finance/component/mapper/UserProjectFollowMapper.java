@@ -35,6 +35,12 @@ public interface UserProjectFollowMapper extends BaseDAO<UserProjectFollow> {
             "<if test=\"form.openId != '' and form.openId != null\">" +
             " and up.open_id = #{form.openId}\n" +
             "</if>" +
+            "<if test=\"form.name != null and form.name != '' \">" +
+            " and p.name like concat(concat('%',#{form.name}),'%')\n" +
+            "</if>" +
+            "<if test=\"form.label != null and form.label != '' \">" +
+            " and p.label like concat(concat('%',#{form.label}),'%')\n" +
+            "</if>" +
             "<if test=\"form.orderbyEnum.value == 'FOLLOWNUM' \">\n" +
             " order by p.follow_num desc \n" +
             "</if>" +

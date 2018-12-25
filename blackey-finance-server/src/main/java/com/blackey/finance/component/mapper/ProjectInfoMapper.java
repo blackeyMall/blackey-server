@@ -32,6 +32,12 @@ public interface ProjectInfoMapper extends BaseDAO<ProjectInfo> {
             "<if test=\"form.openId != '' and form.openId != null\">" +
             " and p.open_id = #{form.openId}\n" +
             "</if>" +
+            "<if test=\"form.name != null and form.name != '' \">" +
+            " and p.name like concat(concat('%',#{form.name}),'%')\n" +
+            "</if>" +
+            "<if test=\"form.label != null and form.label != '' \">" +
+            " and p.label like concat(concat('%',#{form.label}),'%')\n" +
+            "</if>" +
             "<if test=\"form.orderbyEnum.value == 'FOLLOWNUM' \">\n" +
             " order by p.follow_num desc \n" +
             "</if>" +
@@ -58,6 +64,12 @@ public interface ProjectInfoMapper extends BaseDAO<ProjectInfo> {
 //            "</if>" +
             "<if test=\"form.category != null \">" +
             " and p.category = #{form.category.value}\n" +
+            "</if>" +
+            "<if test=\"form.name != null and form.name != '' \">" +
+            " and p.name like concat(concat('%',#{form.name}),'%')\n" +
+            "</if>" +
+            "<if test=\"form.label != null and form.label != '' \">" +
+            " and p.label like concat(concat('%',#{form.label}),'%')\n" +
             "</if>" +
             "<if test=\"form.isRecommend != '' and form.isRecommend != null\">" +
             " and p.is_recommend != #{form.isRecommend}\n" +
