@@ -4,7 +4,9 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.common.result.Result;
 import com.blackey.finance.component.domain.UserPersonFollow;
+import com.blackey.finance.component.domain.UserRelation;
 import com.blackey.finance.component.mapper.UserPersonFollowMapper;
+import com.blackey.finance.component.mapper.UserRelationMapper;
 import com.blackey.finance.component.service.UserPersonFollowService;
 import com.blackey.finance.dto.bo.UserPersonFollowBo;
 import com.blackey.finance.dto.form.UserPersonFollowForm;
@@ -34,6 +36,9 @@ public class UserPersonFollowServiceImpl extends BaseServiceImpl<UserPersonFollo
     @Resource
     private UserPersonFollowMapper userPersonFollowMapper;
 
+    @Resource
+    private UserRelationMapper userRelationMapper;
+
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
         Page<UserPersonFollow> page = (Page<UserPersonFollow>) this.page(
@@ -53,10 +58,10 @@ public class UserPersonFollowServiceImpl extends BaseServiceImpl<UserPersonFollo
              ) {
             QueryWrapper queryWrapper = new QueryWrapper();
             queryWrapper.eq("open_id",form.getOpenId());
-            queryWrapper.eq("person_id",userPersonFollowBo.getOpenId());
-            UserPersonFollow userPersonFollow = userPersonFollowMapper.selectOne(queryWrapper);
-            if (userPersonFollow != null){
-                userPersonFollowBo.setRelation(1);
+            queryWrapper.eq("friend_id",userPersonFollowBo.getOpenId());
+            UserRelation userRelation = userRelationMapper.selectOne(queryWrapper);
+            if (userRelation != null){
+                userPersonFollowBo.setIsAddFriend(1);
             }
             resultBos.add(userPersonFollowBo);
         }

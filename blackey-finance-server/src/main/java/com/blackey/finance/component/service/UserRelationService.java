@@ -36,5 +36,12 @@ public interface UserRelationService extends BaseService<UserRelation> {
      * @return
      */
     Result addFriend(UserRelationForm userRelationForm);
+
+
+    /**
+     * 通过id 和好友id 更新关系
+     * @param userRelationForm
+     */
+    void updateByFriend(UserRelationForm userRelationForm);
 }
 

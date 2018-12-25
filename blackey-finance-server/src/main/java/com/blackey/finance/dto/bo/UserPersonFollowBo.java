@@ -71,6 +71,6 @@ public class UserPersonFollowBo implements Serializable {
 	 */
 	private String name;
 
-	private int relation;
+	private int isAddFriend;
 
 }

@@ -116,13 +116,9 @@ public class UserRelationRest extends BaseRest {
      */
     @PostMapping("/accept")
     public Result accept(@RequestBody UserRelationForm userRelationForm){
+        userRelationForm.setStatus(ApplyStatus.ACCEPT);
 
-        UserRelation userRelation = new UserRelation();
-        BeanUtils.copyProperties(userRelationForm,userRelation);
-
-        userRelation.setStatus(ApplyStatus.ACCEPT);
-        userRelationService.updateById(userRelation);//全部更新
-
+        userRelationService.updateByFriend(userRelationForm);//全部更新
         return success();
     }
 
@@ -131,11 +127,9 @@ public class UserRelationRest extends BaseRest {
      */
     @PostMapping("/refuse")
     public Result refuse(@RequestBody UserRelationForm userRelationForm){
-        UserRelation userRelation = new UserRelation();
-        BeanUtils.copyProperties(userRelationForm,userRelation);
+        userRelationForm.setStatus(ApplyStatus.REFUSE);
+        userRelationService.updateByFriend(userRelationForm);//全部更新
 
-        userRelation.setStatus(ApplyStatus.REFUSE);
-        userRelationService.updateById(userRelation);//全部更新
         return success();
     }
 

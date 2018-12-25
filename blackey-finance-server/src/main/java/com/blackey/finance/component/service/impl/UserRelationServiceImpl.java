@@ -1,6 +1,8 @@
 package com.blackey.finance.component.service.impl;
 
 import com.blackey.common.result.Result;
+import com.blackey.finance.component.domain.UserPersonFollow;
+import com.blackey.finance.component.mapper.UserPersonFollowMapper;
 import com.blackey.finance.dto.bo.UserRelationBo;
 import com.blackey.finance.dto.form.UserRelationForm;
 import org.slf4j.Logger;
@@ -35,6 +37,9 @@ public class UserRelationServiceImpl extends BaseServiceImpl<UserRelationMapper,
     @Resource
     private UserRelationMapper userRelationMapper;
 
+    @Resource
+    private UserPersonFollowMapper userPersonFollowMapper;
+
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
         Page<UserRelation> page = (Page<UserRelation>) this.page(
@@ -54,9 +59,9 @@ public class UserRelationServiceImpl extends BaseServiceImpl<UserRelationMapper,
              ) {
             QueryWrapper queryWrapper = new QueryWrapper();
             queryWrapper.eq("open_id",form.getOpenId());
-            queryWrapper.eq("friend_id",userRelation.getOpenId());
-            if (userRelationMapper.selectOne(queryWrapper) == null){
-                userRelation.setFocus(1);
+            queryWrapper.eq("person_id",userRelation.getOpenId());
+            if (userPersonFollowMapper.selectOne(queryWrapper) != null){
+                userRelation.setIsFocus(1);
             }
             resultRelation.add(userRelation);
         }
@@ -83,5 +88,11 @@ public class UserRelationServiceImpl extends BaseServiceImpl<UserRelationMapper,
         }
 ;
         return new Result(200,"不可重复添加");
+    }
+
+
+    @Override
+    public void updateByFriend(UserRelationForm userRelationForm) {
+        userRelationMapper.updateByFriend(userRelationForm);
     }
 }

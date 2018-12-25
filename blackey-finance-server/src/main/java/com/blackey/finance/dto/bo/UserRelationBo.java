@@ -18,6 +18,7 @@ public class UserRelationBo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    private String id;
 	/**
 	 * 申请状态（通过，拒绝，待同意）
 	 */
@@ -75,5 +76,5 @@ public class UserRelationBo implements Serializable {
 	 */
 	private String name;
 
-	private int focus;
+	private int isFocus;
 }

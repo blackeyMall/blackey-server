@@ -9,6 +9,7 @@ import com.blackey.finance.global.constants.ApplyStatus;
 import com.blackey.mybatis.dao.BaseDAO;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -45,9 +46,14 @@ public interface UserRelationMapper extends BaseDAO<UserRelation> {
             "\tWHERE\n" +
             "\t\tur.open_id = #{form.openId} \n" +
             "<if test=\"form.status != null\">" +
-            "\t\tAND ur.`status` = 'ACCEPT' \n" +
+            "\t\tAND ur.`status` = #{form.status.value} \n" +
             "</if>" +
             "\tAND ur.is_deleted = 0 \n" +
             "\t)</script>")
     List<UserRelationBo> findUserRelationByOpenId(@Param("form") UserRelationForm form, Page page);
+
+
+    @Update("UPDATE t_user_relation SET `status` = #{form.status.value} WHERE " +
+            "open_id = #{form.friendId} and friend_id = #{form.openId} and is_deleted = 0")
+    void updateByFriend(@Param("form") UserRelationForm form);
 }

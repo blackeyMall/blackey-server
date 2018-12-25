@@ -102,8 +102,9 @@ public class UserInfoRest extends BaseRest {
         UserInfo userInfo = new UserInfo();
 
         if(userInfoBo != null){
+            BeanUtils.copyProperties(userInfoBo,userInfo);
             BeanUtils.copyProperties(userInfoForm,userInfo);
-            userInfoService.updateUserByOpenid(userInfo.getOpenId());
+            userInfoService.updateById(userInfo);
             return success();
         }
 
