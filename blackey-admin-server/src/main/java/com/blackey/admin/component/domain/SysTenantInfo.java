@@ -10,6 +10,7 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 租户信息
@@ -70,5 +71,18 @@ public class SysTenantInfo implements Serializable {
 
 	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private String updatedBy;
+
+	/**
+	 * 菜单信息
+	 */
+	@TableField(exist = false)
+	private List<Long> menuIdList;
+	/**
+	 * 用户名
+	 */
+	@TableField(exist = false)
+	private String userName;
+
+
 
 }

@@ -2,8 +2,13 @@ package com.blackey.admin.rest;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.blackey.admin.component.domain.SysMenuEntity;
+import com.blackey.admin.component.service.SysMenuService;
+import com.blackey.admin.component.service.SysTenantMenuService;
 import com.blackey.admin.dto.bo.SysTenantInfoBo;
+import com.blackey.admin.global.constants.RoleEnum;
 import com.blackey.common.rest.BaseRest;
+import com.blackey.common.result.ResultCodeEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -17,6 +22,8 @@ import com.blackey.admin.component.service.SysTenantInfoService;
 import com.blackey.common.result.Result;
 import com.blackey.mybatis.utils.PageUtils;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,13 +34,15 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/sys/tenant")
-public class SysTenantInfoRest extends BaseRest {
+public class SysTenantInfoRest extends AbstractController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SysTenantInfoRest.class);
 
     @Autowired
     private SysTenantInfoService sysTenantInfoService;
 
+    @Autowired
+    SysTenantMenuService sysTenantMenuService;
 
     /**
     * 分页列表
@@ -63,9 +72,11 @@ public class SysTenantInfoRest extends BaseRest {
      */
     @GetMapping("/info/{id}")
     @RequiresPermissions("sys:tenant:info")
-    public Result info(@PathVariable("id") String id){
+    public Result info(@PathVariable("id") Long id){
 
         SysTenantInfo sysTenantInfo = sysTenantInfoService.getById(id);
+        List<Long> menuIds = sysTenantMenuService.queryMenuIdByTenantId(id);
+        sysTenantInfo.setMenuIdList(menuIds);
 
         return success(sysTenantInfo);
     }
@@ -75,13 +86,11 @@ public class SysTenantInfoRest extends BaseRest {
      */
     @PostMapping("/save")
     @RequiresPermissions("sys:tenant:save")
-    public Result save(@RequestBody SysTenantInfoForm sysTenantInfoForm){
-
-        SysTenantInfo sysTenantInfo = new SysTenantInfo();
-        //Form --> domain
-        BeanUtils.copyProperties(sysTenantInfoForm,sysTenantInfo);
-
-        sysTenantInfoService.save(sysTenantInfo);
+    public Result save(@RequestBody SysTenantInfo sysTenantInfo){
+        if(RoleEnum.ROLE_SUPER.getCode() != getUser().getRoleType()){
+            return failure("用户权限不足");
+        }
+        sysTenantInfoService.saveTenant(sysTenantInfo);
 
         return success();
     }
@@ -92,8 +101,10 @@ public class SysTenantInfoRest extends BaseRest {
     @PostMapping("/update")
     @RequiresPermissions("sys:tenant:update")
     public Result update(@RequestBody SysTenantInfo sysTenantInfo){
-
-        sysTenantInfoService.updateById(sysTenantInfo);
+        if(RoleEnum.ROLE_SUPER.getCode() != getUser().getRoleType()){
+            return failure("用户权限不足");
+        }
+        sysTenantInfoService.updateTenant(sysTenantInfo);
         
         return success();
     }
@@ -105,7 +116,11 @@ public class SysTenantInfoRest extends BaseRest {
     @RequiresPermissions("sys:tenant:delete")
     public Result delete(@PathVariable("id") String id){
 
-        sysTenantInfoService.removeById(id);
+
+        if(RoleEnum.ROLE_SUPER.getCode() != getUser().getRoleType()){
+            return failure("用户权限不足");
+        }
+        sysTenantInfoService.deleteTenant(id);
 
         return success();
     }

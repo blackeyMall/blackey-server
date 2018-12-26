@@ -32,5 +32,23 @@ public interface SysTenantInfoService extends BaseService<SysTenantInfo> {
      * @return
      */
     IPage<SysTenantInfo> listPage(SysTenantInfoForm form, Page<SysTenantInfo> page);
+
+    /**
+     * 创建租户
+     * @param sysTenantInfo
+     */
+    void saveTenant(SysTenantInfo sysTenantInfo);
+
+    /**
+     * 更新租户信息
+     * @param sysTenantInfo
+     */
+    void updateTenant(SysTenantInfo sysTenantInfo);
+
+    /**
+     * 删除租户
+     * @param id
+     */
+    void deleteTenant(String id);
 }
 
