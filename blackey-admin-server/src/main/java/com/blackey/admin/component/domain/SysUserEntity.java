@@ -71,11 +71,6 @@ public class SysUserEntity implements Serializable {
 	 */
 	private Date createTime;
 	/**
-	 * 租户id
-	 */
-	private Long tenantId;
-
-	/**
 	 * 设置：
 	 * @param userId 
 	 */
@@ -211,11 +206,4 @@ public class SysUserEntity implements Serializable {
 		this.salt = salt;
 	}
 
-	public Long getTenantId() {
-		return tenantId;
-	}
-
-	public void setTenantId(Long tenantId) {
-		this.tenantId = tenantId;
-	}
 }

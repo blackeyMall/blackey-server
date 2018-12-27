@@ -33,7 +33,7 @@ public class AuditDetailRest extends BaseRest {
     * 分页列表--我的审批
     */
     @PostMapping("/list/page")
-    @RequiresPermissions("finance:audit:list")
+    //@RequiresPermissions("finance:audit:list")
     public Result listPage(@RequestBody AuditDetailForm form){
 
         IPage<AuditDetail> detailIPage = auditDetailService.queryPage(form, new Page<>(form.getCurrent(),form.getSize()));
@@ -45,6 +45,7 @@ public class AuditDetailRest extends BaseRest {
      * 列表--待审批列表
      */
     @PostMapping("/list")
+    @RequiresPermissions("finance:audit:list")
     public Result list(@RequestBody AuditDetailForm form){
         IPage<AuditDetail> detailIPage = auditDetailService.queryPage(form, new Page<>(form.getCurrent(),form.getSize()));
         return success(detailIPage);
@@ -55,6 +56,7 @@ public class AuditDetailRest extends BaseRest {
      * 查看详情信息
      */
     @GetMapping("/info/{id}")
+    @RequiresPermissions("finance:audit:info")
     public Result info(@PathVariable("id") String id){
 
         AuditDetail auditDetail = auditDetailService.getById(id);
@@ -66,6 +68,7 @@ public class AuditDetailRest extends BaseRest {
      * 修改--审批
      */
     @PostMapping("/update")
+    @RequiresPermissions("finance:audit:update")
     public Result update(@RequestBody AuditDetail auditDetail){
 
         auditDetailService.audit(auditDetail);
@@ -77,6 +80,7 @@ public class AuditDetailRest extends BaseRest {
      * 根据主键id删除
      */
     @GetMapping("/delete/{id}")
+    @RequiresPermissions("finance:audit:delete")
     public Result delete(@PathVariable("id") String id){
 
         auditDetailService.removeById(id);

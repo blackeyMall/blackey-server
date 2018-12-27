@@ -51,11 +51,6 @@ public class SysDict implements Serializable {
 	 */
 	private Integer delFlag;
 	/**
-	 * 租户id
-	 */
-	private Long tenantId;
-
-	/**
 	 * set：
 	 */
 	public void setId(Long id) {
@@ -152,12 +147,4 @@ public class SysDict implements Serializable {
 		return delFlag;
 	}
 
-
-	public Long getTenantId() {
-		return tenantId;
-	}
-
-	public void setTenantId(Long tenantId) {
-		this.tenantId = tenantId;
-	}
 }

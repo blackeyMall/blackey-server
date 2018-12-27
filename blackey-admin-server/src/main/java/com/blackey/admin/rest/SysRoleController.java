@@ -84,7 +84,6 @@ public class SysRoleController extends AbstractController {
 	public Result save(@RequestBody SysRoleEntity role){
 
 		role.setCreateUserId(getUserId());
-		role.setTenantId(getTenangtId());
 		sysRoleService.saveRole(role);
 		
 		return success();
@@ -98,7 +97,6 @@ public class SysRoleController extends AbstractController {
 	public Result update(@RequestBody SysRoleEntity role){
 
 		role.setCreateUserId(getUserId());
-		role.setTenantId(getTenangtId());
 		sysRoleService.updateRole(role);
 		
 		return success();

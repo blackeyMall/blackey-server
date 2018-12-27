@@ -23,10 +23,6 @@ public class SysCaptchaEntity {
      * 过期时间
      */
     private Date expireTime;
-    /**
-     * 租户id
-     */
-    private Long tenantId;
 
     public String getUuid() {
         return uuid;
@@ -52,11 +48,4 @@ public class SysCaptchaEntity {
         this.expireTime = expireTime;
     }
 
-    public Long getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(Long tenantId) {
-        this.tenantId = tenantId;
-    }
 }

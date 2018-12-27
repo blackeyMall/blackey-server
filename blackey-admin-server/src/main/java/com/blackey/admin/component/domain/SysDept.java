@@ -40,11 +40,6 @@ public class SysDept extends BaseModel<SysDept> implements Serializable {
 	 */
 	private Integer delFlag;
 	/**
-	 * 租户id
-	 */
-	private Long tenantId;
-
-	/**
 	 * set：
 	 */
 	public void setDeptId(Long deptId) {
@@ -110,12 +105,4 @@ public class SysDept extends BaseModel<SysDept> implements Serializable {
         return this.deptId;
     }
 
-
-	public Long getTenantId() {
-		return tenantId;
-	}
-
-	public void setTenantId(Long tenantId) {
-		this.tenantId = tenantId;
-	}
 }

@@ -35,11 +35,6 @@ public class SysLogEntity implements Serializable {
 	//创建时间
 	private Date createDate;
 	/**
-	 * 租户id
-	 */
-	private Long tenantId;
-
-	/**
 	 * 设置：
 	 */
 	public void setId(Long id) {
@@ -132,11 +127,4 @@ public class SysLogEntity implements Serializable {
 		this.time = time;
 	}
 
-	public Long getTenantId() {
-		return tenantId;
-	}
-
-	public void setTenantId(Long tenantId) {
-		this.tenantId = tenantId;
-	}
 }
