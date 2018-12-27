@@ -8,9 +8,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * AdminApplication 启动类
- * Created by Kaven
- * Date: 2018/6/4
+ * admin 启动类
+ * @author  Kaven
+ * @date : 2018/6/4
  */
 @SpringBootApplication
 @MapperScan("com.blackey.admin.component.mapper")
