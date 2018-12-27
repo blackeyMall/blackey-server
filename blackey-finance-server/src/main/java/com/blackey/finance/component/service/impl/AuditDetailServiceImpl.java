@@ -12,6 +12,7 @@ import com.blackey.finance.component.mapper.AuditDetailMapper;
 import com.blackey.finance.component.service.AuditDetailService;
 import com.blackey.finance.component.service.ProjectInfoService;
 import com.blackey.finance.component.service.RequirementInfoService;
+import com.blackey.finance.dto.bo.AuditDetailBo;
 import com.blackey.finance.dto.form.AuditDetailForm;
 import com.blackey.finance.global.constants.AuditStatusEnum;
 import com.blackey.finance.global.constants.ObjectTypeEnum;
@@ -21,6 +22,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * 审批详情表 AuditDetailServiceImpl
@@ -78,18 +81,41 @@ public class AuditDetailServiceImpl extends BaseServiceImpl<AuditDetailMapper, A
     public void audit(AuditDetail auditDetail) {
 
         this.updateById(auditDetail);
+        String id = auditDetail.getObjectId();
         //项目审批
         if(ObjectTypeEnum.PROJECT.getValue().equals(auditDetail.getObjectType().getValue())){
             ProjectInfo projectInfo = new ProjectInfo();
+            projectInfo.setId(id);
             projectInfo.setAuditStatus(auditDetail.getAuditStatus());
             projectInfoService.update(projectInfo,new UpdateWrapper<ProjectInfo>().eq("id",auditDetail.getObjectId()));
         }
         //需求审批
         if(ObjectTypeEnum.REQUIRE.getValue().equals(auditDetail.getObjectType().getValue())){
             RequirementInfo requirementInfo = new RequirementInfo();
+            requirementInfo.setId(id);
             requirementInfo.setAuditStatus(auditDetail.getAuditStatus());
             requirementInfoService.update(requirementInfo,new UpdateWrapper<RequirementInfo>().eq("id",auditDetail.getObjectId()));
         }
 
+    }
+
+    /**
+     * 分页查询审批记录
+     *
+     * @param form
+     * @param page
+     * @return
+     */
+    @Override
+    public List<AuditDetailBo> queryListPage(AuditDetailForm form, Page<AuditDetailBo> page) {
+
+        List<AuditDetailBo> detailBoList;
+        if(ObjectTypeEnum.REQUIRE == form.getObjectType()){
+            detailBoList = baseMapper.queryRequireAuditListPage(form,page);
+        }else {
+            detailBoList = baseMapper.queryProjectAuditListPage(form,page);
+        }
+
+        return detailBoList;
     }
 }

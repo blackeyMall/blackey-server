@@ -34,6 +34,22 @@ public class ProjectInfo extends BaseModel<ProjectInfo> implements Serializable 
 	 */
 	private String logo;
 	/**
+	 * 项目网址
+	 */
+	private String websiteUrl;
+	/**
+	 * 城市
+	 */
+	private String city;
+	/**
+	 * 项目领域
+	 */
+	private String projectDomain;
+	/**
+	 * 项目描述
+	 */
+	private String projectDesc;
+	/**
 	 * 点赞数量
 	 */
 	private Integer likeNum;

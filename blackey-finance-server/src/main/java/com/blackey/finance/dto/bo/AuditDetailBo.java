@@ -1,5 +1,7 @@
 package com.blackey.finance.dto.bo;
 
+import com.blackey.finance.global.constants.AuditStatusEnum;
+import com.blackey.finance.global.constants.ObjectTypeEnum;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,6 +20,7 @@ public class AuditDetailBo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    private String id;
 	/**
 	 * 对象id
 	 */
@@ -25,7 +28,7 @@ public class AuditDetailBo implements Serializable {
 	/**
 	 * 审批类型
 	 */
-    private String objectType;
+    private ObjectTypeEnum objectType;
 	/**
 	 * 原因
 	 */
@@ -37,6 +40,19 @@ public class AuditDetailBo implements Serializable {
 	/**
 	 * 审批状态
 	 */
-    private String auditStatus;
+    private AuditStatusEnum auditStatus;
+	/**
+	 * 项目名称
+	 */
+	private String name;
+	/**
+	 * 姓名
+	 */
+	private String userName;
+	/**
+	 * 创建时间
+	 */
+	private Date createdDate;
+
 
 }

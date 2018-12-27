@@ -6,12 +6,15 @@ import com.blackey.common.rest.BaseRest;
 import com.blackey.common.result.Result;
 import com.blackey.finance.component.domain.AuditDetail;
 import com.blackey.finance.component.service.AuditDetailService;
+import com.blackey.finance.dto.bo.AuditDetailBo;
 import com.blackey.finance.dto.form.AuditDetailForm;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 审批详情表 API REST
@@ -47,8 +50,11 @@ public class AuditDetailRest extends BaseRest {
     @PostMapping("/list")
     @RequiresPermissions("finance:audit:list")
     public Result list(@RequestBody AuditDetailForm form){
-        IPage<AuditDetail> detailIPage = auditDetailService.queryPage(form, new Page<>(form.getCurrent(),form.getSize()));
-        return success(detailIPage);
+
+        Page<AuditDetailBo> page = new Page<>(form.getCurrent(),form.getSize());
+        List<AuditDetailBo> auditDetailBoList = auditDetailService.queryListPage(form,page);
+
+        return success(page.setRecords(auditDetailBoList));
     }
 
 

@@ -1,23 +1,23 @@
 package com.blackey.finance.component.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.finance.component.domain.UserRequireFollow;
+import com.blackey.finance.component.domain.UserRequireLike;
 import com.blackey.finance.component.mapper.UserRequireFollowMapper;
 import com.blackey.finance.component.service.RequirementInfoService;
 import com.blackey.finance.component.service.UserRequireFollowService;
+import com.blackey.finance.component.service.UserRequireLikeService;
 import com.blackey.finance.dto.bo.RequirementInfoBo;
-import com.blackey.finance.dto.bo.UserRequireFollowBo;
 import com.blackey.finance.dto.form.AddOrCancelFollowForm;
 import com.blackey.finance.dto.form.RequirementInfoForm;
-import com.blackey.finance.dto.form.UserRequireFollowForm;
 import com.blackey.finance.global.constants.AddCancelEnum;
 import com.blackey.mybatis.service.impl.BaseServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 
@@ -35,6 +35,11 @@ public class UserRequireFollowServiceImpl extends BaseServiceImpl<UserRequireFol
 
     @Autowired
     RequirementInfoService requirementInfoService;
+    @Autowired
+    UserRequireFollowService userRequireFollowService;
+
+    @Autowired
+    UserRequireLikeService userRequireLikeService;
     /**
      * 分页查询
      *
@@ -44,7 +49,32 @@ public class UserRequireFollowServiceImpl extends BaseServiceImpl<UserRequireFol
      */
     @Override
     public List<RequirementInfoBo> queryPage(RequirementInfoForm form, Page<RequirementInfoBo> page) {
-        return baseMapper.queryPage(form,page);
+
+        List<RequirementInfoBo> requirementInfoBos = baseMapper.queryPage(form,page);
+        if(CollectionUtils.isEmpty(requirementInfoBos)){
+            return null;
+        }
+        String openId = form.getOpenId();
+        String projectId;
+        for (RequirementInfoBo requirementInfoBo : requirementInfoBos){
+            projectId = requirementInfoBo.getId();
+            List<UserRequireFollow> userProjectFollows = userRequireFollowService.list(new QueryWrapper<UserRequireFollow>().eq("open_id", openId)
+                    .eq("require_id", projectId));
+            if(!CollectionUtils.isEmpty(userProjectFollows)){
+                //已关注
+                requirementInfoBo.setIsFollow(AddCancelEnum.ADD);
+            }
+
+            List<UserRequireLike> userProjectLikes = userRequireLikeService.list(new QueryWrapper<UserRequireLike>().eq("open_id", openId)
+                    .eq("require_id", projectId));
+            if(!CollectionUtils.isEmpty(userProjectLikes)){
+                //已点赞
+                requirementInfoBo.setIsLike(AddCancelEnum.ADD);
+            }
+
+        }
+
+        return requirementInfoBos;
     }
 
     /**

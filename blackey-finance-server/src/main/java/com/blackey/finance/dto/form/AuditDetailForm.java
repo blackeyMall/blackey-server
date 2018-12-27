@@ -28,7 +28,7 @@ public class AuditDetailForm extends BaseSearch implements Serializable {
 	/**
 	 * 审批类型
 	 */
-    private ObjectTypeEnum objectType;
+    private ObjectTypeEnum objectType = ObjectTypeEnum.PROJECT;
 	/**
 	 * 原因
 	 */

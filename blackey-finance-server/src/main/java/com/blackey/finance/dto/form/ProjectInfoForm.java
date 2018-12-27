@@ -66,6 +66,22 @@ public class ProjectInfoForm extends BaseSearch implements Serializable {
 	 */
     private String financeRound;
 	/**
+	 * 项目网址
+	 */
+	private String websiteUrl;
+	/**
+	 * 城市
+	 */
+	private String city;
+	/**
+	 * 项目领域
+	 */
+	private String projectDomain;
+	/**
+	 * 项目描述
+	 */
+	private String projectDesc;
+	/**
 	 * 类别
 	 */
     private ProjectCategoryEnum category = ProjectCategoryEnum.STOCK;
@@ -77,6 +93,11 @@ public class ProjectInfoForm extends BaseSearch implements Serializable {
 	 * 前端table列表
 	 */
 	private TableCodeEnum tableCode = TableCodeEnum.DEFAULT;
+	/**
+	 * 图片链接
+	 */
+	private String[] images;
+
 
 
 

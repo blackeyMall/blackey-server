@@ -118,10 +118,9 @@ public class RequirementInfoServiceImpl extends BaseServiceImpl<RequirementInfoM
         if(CollectionUtils.isEmpty(requirementInfoBos)){
             return null;
         }
-        String openId;
+        String openId = form.getOpenId();
         String projectId;
         for (RequirementInfoBo requirementInfoBo : requirementInfoBos){
-            openId = requirementInfoBo.getOpenId();
             projectId = requirementInfoBo.getId();
             List<UserRequireFollow> userProjectFollows = userRequireFollowService.list(new QueryWrapper<UserRequireFollow>().eq("open_id", openId)
                     .eq("require_id", projectId));

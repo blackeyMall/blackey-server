@@ -4,6 +4,8 @@ import com.blackey.finance.global.constants.AddCancelEnum;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 /**
  * 关注或取消
  * creat_user: kaven
@@ -12,7 +14,9 @@ import lombok.Setter;
  **/
 @Setter
 @Getter
-public class AddOrCancelFollowForm {
+public class AddOrCancelFollowForm implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * 用户id

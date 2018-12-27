@@ -4,15 +4,9 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.common.exception.BusinessException;
 import com.blackey.common.result.ResultCodeEnum;
-import com.blackey.finance.component.domain.AuditDetail;
-import com.blackey.finance.component.domain.ProjectInfo;
-import com.blackey.finance.component.domain.UserProjectFollow;
-import com.blackey.finance.component.domain.UserProjectLike;
+import com.blackey.finance.component.domain.*;
 import com.blackey.finance.component.mapper.ProjectInfoMapper;
-import com.blackey.finance.component.service.AuditDetailService;
-import com.blackey.finance.component.service.ProjectInfoService;
-import com.blackey.finance.component.service.UserProjectFollowService;
-import com.blackey.finance.component.service.UserProjectLikeService;
+import com.blackey.finance.component.service.*;
 import com.blackey.finance.dto.bo.ProjectInfoBo;
 import com.blackey.finance.dto.form.ProjectBpForm;
 import com.blackey.finance.dto.form.ProjectInfoForm;
@@ -47,6 +41,9 @@ public class ProjectInfoServiceImpl extends BaseServiceImpl<ProjectInfoMapper, P
     UserProjectLikeService userProjectLikeService;
     @Autowired
     AuditDetailService auditDetailService;
+
+    @Autowired
+    ImageInfoService imageInfoService;
 
     /**
      * 分页查询
@@ -119,10 +116,9 @@ public class ProjectInfoServiceImpl extends BaseServiceImpl<ProjectInfoMapper, P
         if(CollectionUtils.isEmpty(projectInfoBos)){
             return null;
         }
-        String openId;
+        String openId = form.getOpenId();
         String projectId;
         for (ProjectInfoBo projectInfoBo : projectInfoBos){
-            openId = projectInfoBo.getOpenId();
             projectId = projectInfoBo.getId();
             List<UserProjectFollow> userProjectFollows = userProjectFollowService.list(new QueryWrapper<UserProjectFollow>().eq("open_id", openId)
                     .eq("project_id", projectId));
@@ -154,6 +150,17 @@ public class ProjectInfoServiceImpl extends BaseServiceImpl<ProjectInfoMapper, P
         BeanUtils.copyProperties(projectInfoForm,projectInfo);
         projectInfo.setAuditStatus(AuditStatusEnum.WAITING);
         this.save(projectInfo);
+        //保存需求图片
+        if(projectInfoForm.getImages() != null && projectInfoForm.getImages().length > 0){
+            for(String imageUrl : projectInfoForm.getImages()){
+                ImageInfo imageInfo = new ImageInfo();
+                imageInfo.setObjectId(projectInfo.getId());
+                imageInfo.setImageUrl(imageUrl);
+                imageInfo.setImageType(ObjectTypeEnum.REQUIRE.getValue());
+                imageInfoService.save(imageInfo);
+            }
+
+        }
         //待审批记录
         AuditDetail auditDetail = new AuditDetail();
         auditDetail.setObjectId(projectInfo.getId());
