@@ -20,14 +20,15 @@ import java.util.List;
 
 public interface OrderInfoMapper extends BaseDAO<OrderInfo> {
 
-    @Select("<script>select * from t_user_info u ,t_order_info o " +
-            "where u.id = o.user_no " +
+    @Select("<script>SELECT a.*,r.name AS refereeName FROM (SELECT o.*,u.nick_name,u.telephone" +
+            " FROM t_order_info o, t_user_info u where o.user_no = u.id "+
             "<if test=\"form.openId != '' and form.openId != null\">" +
             " and u.open_id = #{form.openId}\n" +
             "</if>" +
             "<if test=\"form.tradeStatus.value != '' and form.tradeStatus.value != null and form.tradeStatus.value != 'DEFAULT'\">\n" +
             " and o.trade_status = #{form.tradeStatus.value}\n" +
             "</if>" +
-            " order by o.created_date desc </script>")
+            " order by o.created_date desc " +
+            ") a LEFT JOIN t_referee_info r on a.referee_id = r.id </script>")
     List<OrderInfoBo> getOrderlistPage(@Param("form") OrderInfoForm orderInfoForm, Page<OrderInfoBo> page);
 }

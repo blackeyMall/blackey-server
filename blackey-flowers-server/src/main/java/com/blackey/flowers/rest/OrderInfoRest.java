@@ -1,36 +1,28 @@
 package com.blackey.flowers.rest;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.common.exception.BusinessException;
 import com.blackey.common.rest.BaseRest;
+import com.blackey.common.result.Result;
 import com.blackey.common.result.ResultCodeEnum;
+import com.blackey.flowers.component.domain.OrderInfo;
 import com.blackey.flowers.component.domain.UserInfo;
+import com.blackey.flowers.component.service.OrderInfoService;
 import com.blackey.flowers.component.service.UserInfoService;
 import com.blackey.flowers.dto.bo.OrderInfoBo;
+import com.blackey.flowers.dto.form.OrderInfoForm;
 import com.blackey.flowers.dto.form.OrderStatusChangeForm;
 import com.blackey.flowers.dto.form.PayUnifiedOrderForm;
 import com.blackey.flowers.global.constants.OrderStatus;
 import com.blackey.flowers.global.constants.PayStatus;
-import com.github.binarywang.wxpay.bean.notify.WxPayNotifyResponse;
-import com.github.binarywang.wxpay.bean.notify.WxPayOrderNotifyResult;
-import com.github.binarywang.wxpay.bean.order.WxPayAppOrderResult;
-import com.github.binarywang.wxpay.bean.request.WxPayUnifiedOrderRequest;
+import com.blackey.mybatis.utils.PageUtils;
 import com.github.binarywang.wxpay.exception.WxPayException;
-import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import com.blackey.flowers.component.domain.OrderInfo;
-import com.blackey.flowers.dto.form.OrderInfoForm;
-import com.blackey.flowers.component.service.OrderInfoService;
-import com.blackey.common.result.Result;
-import com.blackey.mybatis.utils.PageUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -168,7 +160,6 @@ public class OrderInfoRest extends BaseRest {
      * @param payUnifiedOrderForm 统一下单请求参数
      * @return 返回 {@link com.github.binarywang.wxpay.bean.order}包下的类对象
      */
-    @ApiOperation(value = "统一下单，并组装所需支付参数")
     @PostMapping("/createOrder")
     public Result createOrder(@RequestBody PayUnifiedOrderForm payUnifiedOrderForm) throws WxPayException {
 

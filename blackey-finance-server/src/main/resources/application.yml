@@ -3,7 +3,7 @@ spring:
     name: finance-server
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:8889/finance?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    url: jdbc:mysql://localhost:3306/finance?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
     username: root
     password: root
   # jackson时间格式化
@@ -15,6 +15,18 @@ spring:
       max-file-size: 100MB
       max-request-size: 100MB
       enabled: true
+  mail:
+    host: smtp.163.com
+    username: befairytale@163.com
+    password: syb792521
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+    default-encoding: utf-8
 #  redis:
 #    host: localhost
 #    port: 6379
@@ -69,18 +81,20 @@ logging:
     com.blackey.artisan.component.mapper: debug
 file:
   upload:
-    path: /opt/application/artisan/
+    path: /opt/application/finance/
 http:
-  domain: http://portal.chihei/opt/application/artisan/
+  domain:
+   base: http://127.0.0.1:1099
+   access:
+    path: http://127.0.0.1:1099/opt/application/finance/
 wx:
   miniapp:
     configs:
-      - appid: wxe8d9cc02ebb02721
-        secret: 5018e4c6d939ba3d40f9b821e600ee63
+      - appid: wx30a31ffd0cc7494f
+        secret: 8ae975c75c3f18f0a94cbbd5764544e5
         token:
         aesKey:
         msgDataFormat: JSON
-
 
 blackey:
   swagger2:

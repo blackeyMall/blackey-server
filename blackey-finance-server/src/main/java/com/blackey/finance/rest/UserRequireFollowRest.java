@@ -1,6 +1,11 @@
 package com.blackey.finance.rest;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.common.rest.BaseRest;
+import com.blackey.finance.dto.bo.RequirementInfoBo;
+import com.blackey.finance.dto.bo.UserRequireFollowBo;
+import com.blackey.finance.dto.form.AddOrCancelFollowForm;
+import com.blackey.finance.global.constants.AddCancelEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -14,16 +19,17 @@ import com.blackey.finance.component.service.UserRequireFollowService;
 import com.blackey.common.result.Result;
 import com.blackey.mybatis.utils.PageUtils;
 
+import java.util.List;
 import java.util.Map;
 
 /**
  * 用户需求关注表 API REST
  *
  * @author kaven
- * @date 2018-11-20 23:27:03
+ * @date 2018-12-07 09:40:20
  */
 @RestController
-@RequestMapping("/finance/userrequirefollow")
+@RequestMapping("/finance/follow/require")
 public class UserRequireFollowRest extends BaseRest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserRequireFollowRest.class);
@@ -33,72 +39,28 @@ public class UserRequireFollowRest extends BaseRest {
 
 
     /**
-    * 分页列表
+    * 关注需求分页列表---我关注的需求
     */
     @PostMapping("/list/page")
-    @RequiresPermissions("finance:userrequirefollow:list")
-    public Result list(@RequestParam Map<String, Object> params){
-        PageUtils page = userRequireFollowService.queryPage(params);
+    @RequiresPermissions("finance:follow:require:list")
+    public Result listPage(@RequestBody UserRequireFollowForm form){
 
-        return success(page);
+        Page<UserRequireFollowBo> page = new Page<>(form.getCurrent(),form.getSize());
+
+       // List<UserRequireFollowBo> userRequireFollowBos = userRequireFollowService.queryPage(form,page);
+
+        return success(null);
     }
 
     /**
-     * 列表
-     */
-    @PostMapping("/list")
-    public Result list(@RequestBody UserRequireFollowForm userRequireFollowForm){
-        //TODO
-        return success();
-    }
-
-
-    /**
-     * 查看详情信息
-     */
-    @GetMapping("/info/{id}")
-    public Result info(@PathVariable("id") String id){
-
-        UserRequireFollow userRequireFollow = userRequireFollowService.getById(id);
-
-        return success(userRequireFollow);
-    }
-
-    /**
-     * 保存
+     * 保存---关注或取消需求
      */
     @PostMapping("/save")
-    public Result save(@RequestBody UserRequireFollowForm userRequireFollowForm){
+    public Result save(@RequestBody AddOrCancelFollowForm form){
 
-        UserRequireFollow userRequireFollow = new UserRequireFollow();
-        //Form --> domain
-        BeanUtils.copyProperties(userRequireFollowForm,userRequireFollow);
+        AddCancelEnum addCancelEnum = userRequireFollowService.addFollowNum(form);
 
-        userRequireFollowService.save(userRequireFollow);
-
-        return success();
-    }
-
-    /**
-     * 修改
-     */
-    @PostMapping("/update")
-    public Result update(@RequestBody UserRequireFollow userRequireFollow){
-
-        userRequireFollowService.updateById(userRequireFollow);//全部更新
-        
-        return success();
-    }
-
-    /**
-     * 根据主键id删除
-     */
-    @GetMapping("/delete/{id}")
-    public Result delete(@PathVariable("id") String id){
-
-        userRequireFollowService.removeById(id);
-
-        return success();
+        return success(addCancelEnum);
     }
 
 }

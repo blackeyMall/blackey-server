@@ -28,7 +28,7 @@ import java.util.UUID;
  * @date 2018-11-20 23:49:38
  */
 @RestController
-@RequestMapping("/flowers/goodsinfo")
+@RequestMapping("/flowers/goods")
 public class GoodsInfoRest extends BaseRest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GoodsInfoRest.class);
@@ -40,8 +40,8 @@ public class GoodsInfoRest extends BaseRest {
     /**
     * 分页列表
     */
-    @PostMapping("/list/page")
-    @RequiresPermissions("flowers:goodsinfo:list")
+    @GetMapping("/list/page")
+    @RequiresPermissions("flowers:goods:list")
     public Result list(@RequestParam Map<String, Object> params){
         PageUtils page = goodsInfoService.queryPage(params);
 
@@ -52,6 +52,7 @@ public class GoodsInfoRest extends BaseRest {
      * 列表
      */
     @PostMapping("/list")
+    @RequiresPermissions("flowers:goods:list")
     public Result list(@RequestBody GoodsInfoForm goodsInfoForm){
 
         GoodsInfo goodsInfo = new GoodsInfo();
@@ -79,6 +80,7 @@ public class GoodsInfoRest extends BaseRest {
      * 查看详情信息
      */
     @GetMapping("/info/{id}")
+    @RequiresPermissions("flowers:goods:select")
     public Result info(@PathVariable("id") String id){
 
         GoodsInfo goodsInfo = goodsInfoService.getById(id);
@@ -90,6 +92,7 @@ public class GoodsInfoRest extends BaseRest {
      * 保存
      */
     @PostMapping("/save")
+    @RequiresPermissions("flowers:goods:save")
     public Result save(@RequestBody GoodsInfoForm goodsInfoForm){
 
         GoodsInfo goodsInfo = new GoodsInfo();
@@ -105,6 +108,7 @@ public class GoodsInfoRest extends BaseRest {
      * 修改
      */
     @PostMapping("/update")
+    @RequiresPermissions("flowers:goods:update")
     public Result update(@RequestBody GoodsInfo goodsInfo){
 
         //全部更新
@@ -117,6 +121,7 @@ public class GoodsInfoRest extends BaseRest {
      * 根据主键id删除
      */
     @GetMapping("/delete/{id}")
+    @RequiresPermissions("flowers:goods:delete")
     public Result delete(@PathVariable("id") String id){
 
         goodsInfoService.removeById(id);

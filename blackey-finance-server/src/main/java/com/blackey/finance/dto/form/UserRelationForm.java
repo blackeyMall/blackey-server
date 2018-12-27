@@ -1,5 +1,6 @@
 package com.blackey.finance.dto.form;
 
+import com.blackey.finance.global.constants.ApplyStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,7 +11,7 @@ import java.util.Date;
  * 用户好友关联表 Form表单
  * 
  * @author kaven
- * @date 2018-11-20 23:27:03
+ * @date 2018-12-07 09:40:20
  */
 @Getter
 @Setter
@@ -18,41 +19,26 @@ public class UserRelationForm implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-	/**
-	 * 
-	 */
     private String id;
 	/**
-	 * 
+	 * 用户id
 	 */
-    private Integer isDeleted;
+    private String openId;
 	/**
-	 * 
-	 */
-    private String createdBy;
-	/**
-	 * 
-	 */
-    private Date createdDate;
-	/**
-	 * 
-	 */
-    private String updatedBy;
-	/**
-	 * 
-	 */
-    private Date updatedDate;
-	/**
-	 * 
-	 */
-    private String userId;
-	/**
-	 * 
+	 * 朋友id
 	 */
     private String friendId;
 	/**
-	 * 申请状态
+	 * 申请状态（通过，拒绝，待同意）
 	 */
-    private String status;
+    private ApplyStatus status;
+	/**
+	 * 备注
+	 */
+    private String remark;
+
+    private int size;
+
+    private int current;
 
 }

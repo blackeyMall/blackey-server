@@ -1,27 +1,26 @@
 package com.blackey.finance.component.domain;
 
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.blackey.finance.global.constants.AuditStatusEnum;
+import com.blackey.finance.global.constants.ObjectTypeEnum;
 import com.blackey.mybatis.model.BaseModel;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * 审批详情表
  *
  * @author kaven
- * @date 2018-11-20 23:27:02
+ * @date 2018-12-07 09:48:54
  */
 @Getter
 @Setter
-@TableName("audit_detail")
+@TableName("t_audit_detail")
 public class AuditDetail extends BaseModel<AuditDetail> implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
 
 	/**
 	 * 对象id
@@ -30,7 +29,7 @@ public class AuditDetail extends BaseModel<AuditDetail> implements Serializable 
 	/**
 	 * 审批类型
 	 */
-	private String objectType;
+	private ObjectTypeEnum objectType = ObjectTypeEnum.PROJECT;
 	/**
 	 * 原因
 	 */
@@ -39,11 +38,15 @@ public class AuditDetail extends BaseModel<AuditDetail> implements Serializable 
 	 * 审批人
 	 */
 	private String auditBy;
+	/**
+	 * 审批状态
+	 */
+	private AuditStatusEnum auditStatus = AuditStatusEnum.WAITING;
 
     @Override
     protected Serializable pkVal() {
         return this.getId();
     }
-                                        
+                    
 
 }

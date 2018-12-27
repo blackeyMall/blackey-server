@@ -13,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-@RequestMapping("/artisan/file")
+@RequestMapping("/finance/file")
 @RestController
 public class FileUploadRest extends BaseRest {
 

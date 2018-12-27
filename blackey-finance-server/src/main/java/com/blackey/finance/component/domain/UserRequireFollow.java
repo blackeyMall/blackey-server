@@ -1,5 +1,7 @@
 package com.blackey.finance.component.domain;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.blackey.mybatis.model.BaseModel;
@@ -13,11 +15,11 @@ import java.util.Date;
  * 用户需求关注表
  *
  * @author kaven
- * @date 2018-11-20 23:27:03
+ * @date 2018-12-07 09:40:20
  */
 @Getter
 @Setter
-@TableName("user_require_follow")
+@TableName("t_user_require_follow")
 public class UserRequireFollow extends BaseModel<UserRequireFollow> implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -26,16 +28,21 @@ public class UserRequireFollow extends BaseModel<UserRequireFollow> implements S
 	/**
 	 * 用户id
 	 */
-	private String userId;
+	private String openId;
 	/**
 	 * 需求id
 	 */
 	private String requireId;
+	/**
+	 * 备注
+	 */
+	private String remark;
 
-    @Override
+
+	@Override
     protected Serializable pkVal() {
         return this.getId();
     }
-                                
+            
 
 }

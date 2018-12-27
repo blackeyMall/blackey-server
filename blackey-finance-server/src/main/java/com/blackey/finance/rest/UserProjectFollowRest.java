@@ -1,6 +1,11 @@
 package com.blackey.finance.rest;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.common.rest.BaseRest;
+import com.blackey.finance.dto.bo.UserProjectFollowBo;
+import com.blackey.finance.dto.bo.UserRequireFollowBo;
+import com.blackey.finance.dto.form.AddOrCancelFollowForm;
+import com.blackey.finance.global.constants.AddCancelEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -14,91 +19,47 @@ import com.blackey.finance.component.service.UserProjectFollowService;
 import com.blackey.common.result.Result;
 import com.blackey.mybatis.utils.PageUtils;
 
+import java.util.List;
 import java.util.Map;
 
 /**
  * 用户关注项目表 API REST
  *
  * @author kaven
- * @date 2018-11-20 23:27:03
+ * @date 2018-12-07 09:40:20
  */
 @RestController
-@RequestMapping("/finance/userprojectfollow")
+@RequestMapping("/finance/follow/project")
 public class UserProjectFollowRest extends BaseRest {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserProjectFollowRest.class);
 
     @Autowired
     private UserProjectFollowService userProjectFollowService;
 
-
     /**
-    * 分页列表
+    * 分页列表--我关注的项目
     */
     @PostMapping("/list/page")
-    @RequiresPermissions("finance:userprojectfollow:list")
-    public Result list(@RequestParam Map<String, Object> params){
-        PageUtils page = userProjectFollowService.queryPage(params);
+    @RequiresPermissions("finance:follow:project:list")
+    public Result listPage(@RequestBody UserProjectFollowForm form){
 
-        return success(page);
-    }
+        Page<UserProjectFollowBo> page = new Page<>(form.getCurrent(),form.getSize());
 
-    /**
-     * 列表
-     */
-    @PostMapping("/list")
-    public Result list(@RequestBody UserProjectFollowForm userProjectFollowForm){
-        //TODO
+        //List<UserProjectFollowBo> userProjectFollowBos = userProjectFollowService.queryPage(form,page);
+
         return success();
     }
 
-
     /**
-     * 查看详情信息
-     */
-    @GetMapping("/info/{id}")
-    public Result info(@PathVariable("id") String id){
-
-        UserProjectFollow userProjectFollow = userProjectFollowService.getById(id);
-
-        return success(userProjectFollow);
-    }
-
-    /**
-     * 保存
+     * 保存--关注/取消项目
      */
     @PostMapping("/save")
-    public Result save(@RequestBody UserProjectFollowForm userProjectFollowForm){
+    public Result save(@RequestBody AddOrCancelFollowForm addOrCancelFollowForm){
 
-        UserProjectFollow userProjectFollow = new UserProjectFollow();
-        //Form --> domain
-        BeanUtils.copyProperties(userProjectFollowForm,userProjectFollow);
+        AddCancelEnum addCancelEnum = userProjectFollowService.followProject(addOrCancelFollowForm);
 
-        userProjectFollowService.save(userProjectFollow);
-
-        return success();
+        return success(addCancelEnum);
     }
 
-    /**
-     * 修改
-     */
-    @PostMapping("/update")
-    public Result update(@RequestBody UserProjectFollow userProjectFollow){
-
-        userProjectFollowService.updateById(userProjectFollow);//全部更新
-        
-        return success();
-    }
-
-    /**
-     * 根据主键id删除
-     */
-    @GetMapping("/delete/{id}")
-    public Result delete(@PathVariable("id") String id){
-
-        userProjectFollowService.removeById(id);
-
-        return success();
-    }
 
 }

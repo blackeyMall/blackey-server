@@ -1,6 +1,8 @@
 package com.blackey.finance.rest;
 
 import com.blackey.common.rest.BaseRest;
+import com.blackey.finance.dto.form.AddOrCancelFollowForm;
+import com.blackey.finance.global.constants.AddCancelEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -20,10 +22,10 @@ import java.util.Map;
  * 用户需求点赞表 API REST
  *
  * @author kaven
- * @date 2018-11-20 23:27:03
+ * @date 2018-12-07 09:40:20
  */
 @RestController
-@RequestMapping("/finance/userrequirelike")
+@RequestMapping("/finance/like/require")
 public class UserRequireLikeRest extends BaseRest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserRequireLikeRest.class);
@@ -33,10 +35,10 @@ public class UserRequireLikeRest extends BaseRest {
 
 
     /**
-    * 分页列表
+    * 分页列表--我点赞的需求
     */
     @PostMapping("/list/page")
-    @RequiresPermissions("finance:userrequirelike:list")
+    @RequiresPermissions("finance:like:require:list")
     public Result list(@RequestParam Map<String, Object> params){
         PageUtils page = userRequireLikeService.queryPage(params);
 
@@ -44,61 +46,15 @@ public class UserRequireLikeRest extends BaseRest {
     }
 
     /**
-     * 列表
-     */
-    @PostMapping("/list")
-    public Result list(@RequestBody UserRequireLikeForm userRequireLikeForm){
-        //TODO
-        return success();
-    }
-
-
-    /**
-     * 查看详情信息
-     */
-    @GetMapping("/info/{id}")
-    public Result info(@PathVariable("id") String id){
-
-        UserRequireLike userRequireLike = userRequireLikeService.getById(id);
-
-        return success(userRequireLike);
-    }
-
-    /**
-     * 保存
+     * 保存----点赞或取消点赞
      */
     @PostMapping("/save")
-    public Result save(@RequestBody UserRequireLikeForm userRequireLikeForm){
+    public Result save(@RequestBody AddOrCancelFollowForm addOrCancelFollowForm){
 
-        UserRequireLike userRequireLike = new UserRequireLike();
-        //Form --> domain
-        BeanUtils.copyProperties(userRequireLikeForm,userRequireLike);
+        AddCancelEnum addCancelEnum = userRequireLikeService.likeRequire(addOrCancelFollowForm);
 
-        userRequireLikeService.save(userRequireLike);
-
-        return success();
+        return success(addCancelEnum);
     }
 
-    /**
-     * 修改
-     */
-    @PostMapping("/update")
-    public Result update(@RequestBody UserRequireLike userRequireLike){
-
-        userRequireLikeService.updateById(userRequireLike);//全部更新
-        
-        return success();
-    }
-
-    /**
-     * 根据主键id删除
-     */
-    @GetMapping("/delete/{id}")
-    public Result delete(@PathVariable("id") String id){
-
-        userRequireLikeService.removeById(id);
-
-        return success();
-    }
 
 }

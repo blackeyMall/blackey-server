@@ -1,5 +1,6 @@
 package com.blackey.finance.dto.bo;
 
+import com.blackey.finance.global.constants.AddCancelEnum;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,7 +11,7 @@ import java.util.Date;
  * 用户关注项目表 BO
  * 
  * @author kaven
- * @date 2018-11-20 23:27:03
+ * @date 2018-12-07 09:40:20
  */
 @Getter
 @Setter
@@ -18,37 +19,87 @@ public class UserProjectFollowBo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+	private String id;
 	/**
-	 * 
+	 * 项目名称
 	 */
-    private String id;
+	private String name;
 	/**
-	 * 
+	 * 项目简介
 	 */
-    private Integer isDeleted;
+	private String brief;
 	/**
-	 * 
+	 * 项目logo
 	 */
-    private String createdBy;
+	private String logo;
 	/**
-	 * 
+	 * 点赞数量
 	 */
-    private Date createdDate;
+	private Integer likeNum;
 	/**
-	 * 
+	 * 关注数量
 	 */
-    private String updatedBy;
-	/**
-	 * 
-	 */
-    private Date updatedDate;
+	private Integer followNum;
 	/**
 	 * 用户id
 	 */
-    private String userId;
+	private String openId;
 	/**
-	 * 项目id
+	 * 认证状态
 	 */
-    private String projectId;
+	private String auditStatus;
+	/**
+	 * 是否精品
+	 */
+	private String isRecommend;
+	/**
+	 * 标签
+	 */
+	private String label;
+	/**
+	 * 融资金额
+	 */
+	private String financeAmount;
+	/**
+	 * 融资阶段
+	 */
+	private String financeRound;
+	/**
+	 * 类别
+	 */
+	private String category;
+	/**
+	 * 附件地址
+	 */
+	private String attachment;
+
+	private Date createdDate;
+	/**
+	 * 备注
+	 */
+    private String remark;
+
+	/**
+	 * 姓名
+	 */
+	private String userName;
+	/**
+	 * 性别
+	 */
+	private String sex;
+
+	/**
+	 * add 关注该项目
+	 */
+	private AddCancelEnum isAdd = AddCancelEnum.ADD;
+
+	/**
+	 * 公司名称
+	 */
+	private String company;
+	/**
+	 * 职位
+	 */
+	private String duties;
 
 }

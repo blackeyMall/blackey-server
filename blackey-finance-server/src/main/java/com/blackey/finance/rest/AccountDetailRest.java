@@ -20,7 +20,7 @@ import java.util.Map;
  * 账户流水明细表 API REST
  *
  * @author kaven
- * @date 2018-11-20 23:27:02
+ * @date 2018-12-07 09:40:20
  */
 @RestController
 @RequestMapping("/finance/accountdetail")
@@ -56,10 +56,10 @@ public class AccountDetailRest extends BaseRest {
     /**
      * 查看详情信息
      */
-    @GetMapping("/info/{id}")
-    public Result info(@PathVariable("id") String id){
+    @GetMapping("/info/{openId}")
+    public Result info(@PathVariable("openId") String openId){
 
-        AccountDetail accountDetail = accountDetailService.getById(id);
+        AccountDetail accountDetail = accountDetailService.getById(openId);
 
         return success(accountDetail);
     }
@@ -93,10 +93,10 @@ public class AccountDetailRest extends BaseRest {
     /**
      * 根据主键id删除
      */
-    @GetMapping("/delete/{id}")
-    public Result delete(@PathVariable("id") String id){
+    @GetMapping("/delete/{openId}")
+    public Result delete(@PathVariable("openId") String openId){
 
-        accountDetailService.removeById(id);
+        accountDetailService.removeById(openId);
 
         return success();
     }

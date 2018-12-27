@@ -1,6 +1,8 @@
 package com.blackey.finance.rest;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.common.rest.BaseRest;
+import com.blackey.finance.global.constants.ApplyStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -20,7 +22,7 @@ import java.util.Map;
  * 用户好友关联表 API REST
  *
  * @author kaven
- * @date 2018-11-20 23:27:03
+ * @date 2018-12-07 09:40:20
  */
 @RestController
 @RequestMapping("/finance/userrelation")
@@ -32,16 +34,7 @@ public class UserRelationRest extends BaseRest {
     private UserRelationService userRelationService;
 
 
-    /**
-    * 分页列表
-    */
-    @PostMapping("/list/page")
-    @RequiresPermissions("finance:userrelation:list")
-    public Result list(@RequestParam Map<String, Object> params){
-        PageUtils page = userRelationService.queryPage(params);
 
-        return success(page);
-    }
 
     /**
      * 列表
@@ -56,49 +49,94 @@ public class UserRelationRest extends BaseRest {
     /**
      * 查看详情信息
      */
-    @GetMapping("/info/{id}")
-    public Result info(@PathVariable("id") String id){
+    @GetMapping("/info/{openId}")
+    public Result info(@PathVariable("openId") String openId){
 
-        UserRelation userRelation = userRelationService.getById(id);
+        UserRelation userRelation = userRelationService.getById(openId);
 
         return success(userRelation);
     }
 
     /**
-     * 保存
+     * 更新
+     */
+    @PostMapping("/update")
+    public Result update(@RequestBody UserRelation userRelation){
+
+        userRelationService.updateById(userRelation);//全部更新
+
+        return success();
+    }
+
+
+    /**
+     * 根据主键id删除
+     */
+    @GetMapping("/delete/{openId}")
+    public Result delete(@PathVariable("openId") String openId){
+
+        userRelationService.removeById(openId);
+
+        return success();
+    }
+
+    /**
+     * 申请好友
      */
     @PostMapping("/save")
     public Result save(@RequestBody UserRelationForm userRelationForm){
-
+        //校验两个用户是否是有效用户
         UserRelation userRelation = new UserRelation();
         //Form --> domain
         BeanUtils.copyProperties(userRelationForm,userRelation);
 
+        userRelation.setStatus(ApplyStatus.APPLY);
         userRelationService.save(userRelation);
 
         return success();
     }
 
     /**
-     * 修改
+     * 申请列表
      */
-    @PostMapping("/update")
-    public Result update(@RequestBody UserRelation userRelation){
+    @PostMapping("/list/page")
+    @RequiresPermissions("finance:userrelation:list")
+    public Result list(@RequestParam Map<String, Object> params){
+        PageUtils page = userRelationService.queryPage(params);
+        return success(page);
+    }
 
-        userRelationService.updateById(userRelation);//全部更新
-        
+    @PostMapping("/list/openid")
+    public Result listByOpenId(@RequestBody UserRelationForm form){
+        return success(userRelationService.queryPageByOpenId(form,new Page(form.getCurrent(),form.getSize())));
+    }
+
+    /**
+     * 通过
+     */
+    @PostMapping("/accept")
+    public Result accept(@RequestBody UserRelationForm userRelationForm){
+        userRelationForm.setStatus(ApplyStatus.ACCEPT);
+
+        userRelationService.updateByFriend(userRelationForm);//全部更新
         return success();
     }
 
     /**
-     * 根据主键id删除
+     * 拒绝
      */
-    @GetMapping("/delete/{id}")
-    public Result delete(@PathVariable("id") String id){
-
-        userRelationService.removeById(id);
+    @PostMapping("/refuse")
+    public Result refuse(@RequestBody UserRelationForm userRelationForm){
+        userRelationForm.setStatus(ApplyStatus.REFUSE);
+        userRelationService.updateByFriend(userRelationForm);//全部更新
 
         return success();
+    }
+
+    @PostMapping("/add")
+    public Result add(@RequestBody UserRelationForm userRelationForm){
+
+        return userRelationService.addFriend(userRelationForm);
     }
 
 }
