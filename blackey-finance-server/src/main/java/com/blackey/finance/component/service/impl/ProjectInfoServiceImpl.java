@@ -185,4 +185,15 @@ public class ProjectInfoServiceImpl extends BaseServiceImpl<ProjectInfoMapper, P
         projectInfo.setAttachment(form.getAttachment());
         baseMapper.updateById(projectInfo);
     }
+
+    /**
+     * 项目详情
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public ProjectInfoBo queryProjectDetail(String id) {
+        return baseMapper.queryProjectDetail(id);
+    }
 }

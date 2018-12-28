@@ -86,12 +86,12 @@ public class ProjectInfoRest extends BaseRest {
     /**
      * 查看详情信息
      */
-    @GetMapping("/info/{id}")
-    public Result info(@PathVariable("id") String id){
+    @GetMapping("/info")
+    public Result info(@RequestParam("id") String id){
 
-        ProjectInfo projectInfo = projectInfoService.getById(id);
+        ProjectInfoBo bo = projectInfoService.queryProjectDetail(id);
 
-        return success(projectInfo);
+        return success(bo);
     }
 
     /**

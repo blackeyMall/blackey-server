@@ -1,6 +1,8 @@
 package com.blackey.finance.dto.bo;
 
 import com.blackey.finance.global.constants.AddCancelEnum;
+import com.blackey.finance.global.constants.AuditStatusEnum;
+import com.blackey.finance.global.constants.ProjectCategoryEnum;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -47,7 +49,7 @@ public class ProjectInfoBo implements Serializable {
 	/**
 	 * 认证状态
 	 */
-    private String auditStatus;
+    private AuditStatusEnum auditStatus;
 	/**
 	 * 是否精品
 	 */
@@ -67,7 +69,7 @@ public class ProjectInfoBo implements Serializable {
 	/**
 	 * 类别
 	 */
-    private String category;
+    private ProjectCategoryEnum category;
 	/**
 	 * 附件地址
 	 */
@@ -103,6 +105,27 @@ public class ProjectInfoBo implements Serializable {
 	 * 微信头像
 	 */
 	private String avatarUrl;
+
+	/**
+	 * 项目网址
+	 */
+	private String websiteUrl;
+	/**
+	 * 城市
+	 */
+	private String city;
+	/**
+	 * 项目领域
+	 */
+	private String projectDomain;
+	/**
+	 * 项目描述
+	 */
+	private String projectDesc;
+	/**
+	 * 手机号
+	 */
+	private String telephone;
 
 
 }

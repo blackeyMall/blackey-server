@@ -48,7 +48,7 @@ public class ProjectInfoForm extends BaseSearch implements Serializable {
 	/**
 	 * 认证状态
 	 */
-    private AuditStatusEnum auditStatus = AuditStatusEnum.WAITING;
+    private AuditStatusEnum auditStatus = AuditStatusEnum.SUCCESS;
 	/**
 	 * 是否精品
 	 */

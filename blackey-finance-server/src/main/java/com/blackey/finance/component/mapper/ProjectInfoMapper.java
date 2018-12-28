@@ -27,7 +27,7 @@ public interface ProjectInfoMapper extends BaseDAO<ProjectInfo> {
      * @return
      */
     @Select("<script>" +
-            "SELECT p.*,u.name,u.sex,u.company,u.duties,u.avatar_url FROM t_project_info p left join t_user_info u on p.open_id = u.open_id " +
+            "SELECT p.*,u.name as userName,u.sex,u.company,u.duties,u.avatar_url FROM t_project_info p left join t_user_info u on p.open_id = u.open_id " +
             " WHERE p.is_deleted = 0  and u.is_deleted = 0 " +
             "<if test=\"form.openId != '' and form.openId != null\">" +
             " and p.open_id = #{form.openId}\n" +
@@ -57,7 +57,7 @@ public interface ProjectInfoMapper extends BaseDAO<ProjectInfo> {
      * @return
      */
     @Select("<script>" +
-            "SELECT p.*,u.name,u.sex,u.company,u.duties,u.avatar_url FROM t_project_info p left join t_user_info u on p.open_id = u.open_id " +
+            "SELECT p.*,u.name as userName,u.sex,u.company,u.duties,u.avatar_url FROM t_project_info p left join t_user_info u on p.open_id = u.open_id " +
             " where p.is_deleted = 0 and u.is_deleted = 0 " +
 //            "<if test=\"form.openId != '' and form.openId != null\">" +
 //            " and p.open_id != #{form.openId}\n" +
@@ -88,4 +88,20 @@ public interface ProjectInfoMapper extends BaseDAO<ProjectInfo> {
             "</if>" +
             "</script>")
     List<ProjectInfoBo>  listAllPage(@Param("form") ProjectInfoForm form, Page<ProjectInfoBo> page);
+
+    /**
+     * 项目详情
+     * @param id
+     * @return
+     */
+    @Select("SELECT\n" +
+            " p.*,u.name as userName,u.sex,u.company,u.duties,u.avatar_url,u.telephone \n" +
+            " FROM\n" +
+            " t_project_info p,\n" +
+            " t_user_info u \n" +
+            " WHERE\n" +
+            " p.open_id = u.open_id \n" +
+            " AND p.is_deleted=0 AND u.is_deleted=0 \n" +
+            " AND p.id = #{id}")
+    ProjectInfoBo queryProjectDetail(@Param("id") String id);
 }

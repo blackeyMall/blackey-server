@@ -60,5 +60,12 @@ public interface ProjectInfoService extends BaseService<ProjectInfo> {
      * @param form
      */
     void updateBpInfo(ProjectBpForm form);
+
+    /**
+     * 项目详情
+     * @param id
+     * @return
+     */
+    ProjectInfoBo queryProjectDetail(String id);
 }
 
