@@ -193,7 +193,16 @@ public class ProjectInfoServiceImpl extends BaseServiceImpl<ProjectInfoMapper, P
      * @return
      */
     @Override
-    public ProjectInfoBo queryProjectDetail(String id) {
-        return baseMapper.queryProjectDetail(id);
+    public ProjectInfoBo queryProjectDetail(String id,String openId) {
+
+        ProjectInfoBo projectInfoBo = baseMapper.queryProjectDetail(id);
+        List<UserProjectFollow> userProjectFollows = userProjectFollowService.list(new QueryWrapper<UserProjectFollow>()
+                .eq("project_id", id).eq("open_id", openId));
+        if(CollectionUtils.isEmpty(userProjectFollows)){
+            projectInfoBo.setIsFollow(AddCancelEnum.CANCEL);
+        }else {
+            projectInfoBo.setIsFollow(AddCancelEnum.ADD);
+        }
+        return projectInfoBo;
     }
 }

@@ -64,8 +64,9 @@ public interface ProjectInfoService extends BaseService<ProjectInfo> {
     /**
      * 项目详情
      * @param id
+     * @param openId
      * @return
      */
-    ProjectInfoBo queryProjectDetail(String id);
+    ProjectInfoBo queryProjectDetail(String id,String openId);
 }
 
