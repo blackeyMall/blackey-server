@@ -144,7 +144,7 @@ public class ProjectInfoServiceImpl extends BaseServiceImpl<ProjectInfoMapper, P
      * @param projectInfoForm
      */
     @Override
-    public void createProject(ProjectInfoForm projectInfoForm) {
+    public String createProject(ProjectInfoForm projectInfoForm) {
         ProjectInfo projectInfo = new ProjectInfo();
         //Form --> domain
         BeanUtils.copyProperties(projectInfoForm,projectInfo);
@@ -167,6 +167,8 @@ public class ProjectInfoServiceImpl extends BaseServiceImpl<ProjectInfoMapper, P
         auditDetail.setObjectType(ObjectTypeEnum.PROJECT);
         auditDetail.setAuditStatus(AuditStatusEnum.WAITING);
         auditDetailService.save(auditDetail);
+
+        return projectInfo.getId();
     }
 
     /**

@@ -100,9 +100,9 @@ public class ProjectInfoRest extends BaseRest {
     @PostMapping("/save")
     public Result save(@RequestBody ProjectInfoForm projectInfoForm){
 
-        projectInfoService.createProject(projectInfoForm);
+        String projectId = projectInfoService.createProject(projectInfoForm);
 
-        return success();
+        return success(projectId);
     }
 
     /**

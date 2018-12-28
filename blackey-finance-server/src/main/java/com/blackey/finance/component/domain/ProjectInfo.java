@@ -2,6 +2,7 @@ package com.blackey.finance.component.domain;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.blackey.finance.global.constants.AuditStatusEnum;
+import com.blackey.finance.global.constants.ProjectCategoryEnum;
 import com.blackey.mybatis.model.BaseModel;
 import lombok.Getter;
 import lombok.Setter;
@@ -84,7 +85,7 @@ public class ProjectInfo extends BaseModel<ProjectInfo> implements Serializable 
 	/**
 	 * 类别
 	 */
-	private String category;
+	private ProjectCategoryEnum category;
 	/**
 	 * 附件地址
 	 */
