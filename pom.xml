@@ -31,7 +31,6 @@
         <module>blackey-invest-server</module>
         <module>blackey-finance-server</module>
         <module>blackey-flowers-server</module>
-        <module>blackey-framework-server</module>
     </modules>
 
     <dependencyManagement>
