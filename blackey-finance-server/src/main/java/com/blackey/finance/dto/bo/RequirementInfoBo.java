@@ -2,6 +2,7 @@ package com.blackey.finance.dto.bo;
 
 import com.blackey.finance.global.constants.AddCancelEnum;
 import com.blackey.finance.global.constants.AuditStatusEnum;
+import com.blackey.finance.global.constants.CategoryEnum;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -64,7 +65,7 @@ public class RequirementInfoBo implements Serializable {
 	/**
 	 * 类别
 	 */
-    private String category;
+    private CategoryEnum category;
 
     private Date createdDate;
 
