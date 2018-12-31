@@ -3,7 +3,6 @@ package com.blackey.finance.component.service.impl;
 import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
 import cn.binarywang.wx.miniapp.bean.WxMaPhoneNumberInfo;
 import com.blackey.finance.dto.bo.UserInfoBo;
-import com.blackey.finance.dto.form.UserInfoForm;
 import com.blackey.finance.global.config.WxMaConfiguration;
 import com.blackey.finance.global.config.WxMaProperties;
 import com.blackey.wx.bean.WxEncyptBean;
@@ -79,7 +78,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoMapper, UserInf
     }
 
     @Override
-    public PageUtils queryUserWithoutRelation(String openId, Page page) {
-        return new PageUtils(page.setRecords(userInfoMapper.queryAllUserWithoutRelation(openId,page)));
+    public Page queryUserWithoutRelation(String openId, Page page) {
+        return page.setRecords(userInfoMapper.queryAllUserWithoutRelation(openId,page));
     }
 }
