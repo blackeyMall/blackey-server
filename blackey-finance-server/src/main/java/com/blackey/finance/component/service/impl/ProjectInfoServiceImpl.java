@@ -196,6 +196,9 @@ public class ProjectInfoServiceImpl extends BaseServiceImpl<ProjectInfoMapper, P
     public ProjectInfoBo queryProjectDetail(String id,String openId) {
 
         ProjectInfoBo projectInfoBo = baseMapper.queryProjectDetail(id);
+        /**
+         * 判断是否关注
+         */
         List<UserProjectFollow> userProjectFollows = userProjectFollowService.list(new QueryWrapper<UserProjectFollow>()
                 .eq("project_id", id).eq("open_id", openId));
         if(CollectionUtils.isEmpty(userProjectFollows)){
@@ -203,6 +206,18 @@ public class ProjectInfoServiceImpl extends BaseServiceImpl<ProjectInfoMapper, P
         }else {
             projectInfoBo.setIsFollow(AddCancelEnum.ADD);
         }
+        return projectInfoBo;
+    }
+
+    /**
+     * 根据项目id查看项目详情
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public ProjectInfoBo projectDetailById(String id) {
+        ProjectInfoBo projectInfoBo = baseMapper.queryProjectDetail(id);
         return projectInfoBo;
     }
 }

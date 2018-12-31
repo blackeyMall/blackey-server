@@ -95,6 +95,17 @@ public class ProjectInfoRest extends BaseRest {
     }
 
     /**
+     * 查看详情信息
+     */
+    @GetMapping("/info/{id}")
+    public Result requireDetailById(@PathVariable("id") String id){
+
+        ProjectInfoBo bo = projectInfoService.projectDetailById(id);
+
+        return success(bo);
+    }
+
+    /**
      * 保存--项目创建
      */
     @PostMapping("/save")
