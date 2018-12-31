@@ -17,6 +17,7 @@ public enum CategoryEnum {
     /**
      * 需求类别
      */
+    DEFAULT("全部"),
     PROJECT("找项目"),
     FINANCE("找资金");
 

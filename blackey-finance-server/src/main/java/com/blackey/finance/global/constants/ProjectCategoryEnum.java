@@ -17,6 +17,7 @@ public enum ProjectCategoryEnum {
     /**
      * 项目类别
      */
+    DEFAULT("全部"),
     STOCK("股权项目"),
     OTHER("其他项目");
 

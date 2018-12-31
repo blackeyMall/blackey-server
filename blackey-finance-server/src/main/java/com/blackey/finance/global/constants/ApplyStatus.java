@@ -15,6 +15,7 @@ public enum ApplyStatus {
     /**
      * 通过，拒绝，待同意
      */
+    DEFAULT("全部"),
     ACCEPT("通过"),
     REFUSE("取消"),
     APPLY("待同意");

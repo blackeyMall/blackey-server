@@ -17,6 +17,7 @@ public enum AddCancelEnum {
     /**
      * 关注或取消
      */
+    DEFAULT("全部"),
     ADD("关注"),
     CANCEL("取消");
 
