@@ -58,6 +58,6 @@ public interface UserInfoService extends BaseService<UserInfo> {
     /**
      * 查询无关系的用户
      */
-    PageUtils queryUserWithoutRelation(String openId,Page page);
+    Page queryUserWithoutRelation(String openId, Page page);
 }
 
