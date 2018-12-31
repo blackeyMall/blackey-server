@@ -37,8 +37,8 @@ public class UserRelationForm implements Serializable {
 	 */
     private String remark;
 
-    private int size;
+    private int size = 10;
 
-    private int current;
+    private int current = 1;
 
 }

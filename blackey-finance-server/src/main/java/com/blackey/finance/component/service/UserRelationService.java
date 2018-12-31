@@ -43,5 +43,12 @@ public interface UserRelationService extends BaseService<UserRelation> {
      * @param userRelationForm
      */
     void updateByFriend(UserRelationForm userRelationForm);
+
+    /**
+     * 通过参数查询
+     * @return
+     */
+    Page queryApplyPageByOpenId(UserRelationForm form, Page page);
+
 }
 

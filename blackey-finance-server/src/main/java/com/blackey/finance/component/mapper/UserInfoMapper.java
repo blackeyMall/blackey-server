@@ -39,16 +39,27 @@ public interface UserInfoMapper extends BaseDAO<UserInfo> {
             "\t\tt_user_person_follow up \n" +
             "\tWHERE\n" +
             "\t\tup.open_id = #{openId} \n" +
+            "\tand up.is_deleted = 0\n" +
             "\t) \n" +
-            "\tAND t.open_id NOT IN(\n" +
-            "\tSELECT\n" +
-            "\t\tur.friend_id \n" +
-            "\tFROM\n" +
-            "\t\tt_user_relation ur \n" +
-            "\tWHERE\n" +
-            "\tur.open_id = #{openId}\n" +
-            "\t)\n" +
-            "\tAND t.open_id != #{openId}")
+            "\tAND t.open_id NOT IN(SELECT\n" +
+            "                ur.open_id AS friends \n" +
+            "            FROM\n" +
+            "                t_user_relation ur \n" +
+            "            WHERE\n" +
+            "                ur.friend_id = #{openId} \n" +
+            "                AND ur.`status` != 'REFUSE' \n" +
+            "                AND ur.is_deleted = 0 \n" +
+            "            UNION\n" +
+            "            ALL SELECT\n" +
+            "                ur.friend_id AS friends \n" +
+            "            FROM\n" +
+            "                t_user_relation ur \n" +
+            "            WHERE\n" +
+            "                ur.open_id = #{openId} \n" +
+            "                AND ur.`status` != 'REFUSE' \n" +
+            "                AND ur.is_deleted = 0 )\n" +
+            "\tAND t.open_id != #{openId}" +
+            "\tand t.is_deleted = 0")
     List<UserInfoBo> queryAllUserWithoutRelation(@Param("openId") String openId, Page page);
 
 }

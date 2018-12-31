@@ -69,6 +69,7 @@ public class UserRelationServiceImpl extends BaseServiceImpl<UserRelationMapper,
         return page.setRecords(resultRelation);
     }
 
+
     @Override
     public Result addFriend(UserRelationForm userRelationForm) {
         QueryWrapper queryWrapper = new QueryWrapper();
@@ -95,5 +96,17 @@ public class UserRelationServiceImpl extends BaseServiceImpl<UserRelationMapper,
     @Override
     public void updateByFriend(UserRelationForm userRelationForm) {
         userRelationMapper.updateByFriend(userRelationForm);
+    }
+
+    /**
+     * 查询好友申请的记录
+     *
+     * @param form
+     * @param page
+     * @return
+     */
+    @Override
+    public Page queryApplyPageByOpenId(UserRelationForm form, Page page) {
+        return page.setRecords(userRelationMapper.findUserApplyRelationByOpenId(form, page));
     }
 }

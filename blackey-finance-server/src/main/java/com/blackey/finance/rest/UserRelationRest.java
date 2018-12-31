@@ -109,7 +109,15 @@ public class UserRelationRest extends BaseRest {
      */
     @PostMapping("/list/openid")
     public Result listByOpenId(@RequestBody UserRelationForm form){
+
+
         return success(userRelationService.queryPageByOpenId(form,new Page(form.getCurrent(),form.getSize())));
+    }
+
+    @PostMapping("/list/apply/openid")
+    public Result listByOpenid(@RequestBody UserRelationForm form){
+
+        return success(userRelationService.queryApplyPageByOpenId(form,new Page(form.getCurrent(),form.getSize())));
     }
 
     /**

@@ -56,4 +56,23 @@ public interface UserRelationMapper extends BaseDAO<UserRelation> {
     @Update("UPDATE t_user_relation SET `status` = #{form.status.value} WHERE " +
             "open_id = #{form.friendId} and friend_id = #{form.openId} and is_deleted = 0")
     void updateByFriend(@Param("form") UserRelationForm form);
+
+    @Select("<script>SELECT\n" +
+            "\t* \n" +
+            "FROM\n" +
+            "\tt_user_info ui \n" +
+            "WHERE\n" +
+            "\tui.open_id IN (\n" +
+            "\tSELECT\n" +
+            "\t\tur.open_id AS friends \n" +
+            "\tFROM\n" +
+            "\t\tt_user_relation ur \n" +
+            "\tWHERE\n" +
+            "\t\tur.friend_id = #{form.openId} \n" +
+            "<if test=\"form.status != null\">" +
+            "AND ur.`status` = #{form.status.value}\n" +
+            "</if>" +
+            "\t\tAND ur.is_deleted = 0\n" +
+            "\t)</script>")
+    List<UserRelationBo> findUserApplyRelationByOpenId(@Param("form") UserRelationForm form, Page page);
 }
