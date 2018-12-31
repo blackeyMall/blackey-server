@@ -28,7 +28,7 @@ public interface UserPersonFollowService extends BaseService<UserPersonFollow> {
     /**
      * 通过openid 查询关注列表
      */
-    PageUtils queryByOpenid(UserPersonFollowForm form,Page page);
+    Page queryByOpenid(UserPersonFollowForm form, Page page);
 
 
     /**

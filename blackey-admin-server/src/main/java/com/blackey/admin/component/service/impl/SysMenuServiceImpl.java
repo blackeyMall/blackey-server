@@ -1,6 +1,7 @@
 package com.blackey.admin.component.service.impl;
 
 import com.blackey.admin.component.domain.SysMenuEntity;
+import com.blackey.admin.component.domain.SysUserEntity;
 import com.blackey.admin.component.mapper.SysMenuMapper;
 import com.blackey.admin.component.service.SysMenuService;
 import com.blackey.admin.component.service.SysRoleMenuService;
@@ -51,14 +52,14 @@ public class SysMenuServiceImpl extends BaseServiceImpl<SysMenuMapper, SysMenuEn
 	}
 
 	@Override
-	public List<SysMenuEntity> getUserMenuList(Long userId) {
+	public List<SysMenuEntity> getUserMenuList(SysUserEntity sysUserEntity) {
 		//系统管理员，拥有最高权限
-		if(userId == RoleEnum.ROLE_SUPER.getCode()){
+		if(sysUserEntity.getRoleType() == RoleEnum.ROLE_SUPER.getCode()){
 			return getAllMenuList(null);
 		}
 		
 		//用户菜单列表
-		List<Long> menuIdList = sysUserService.queryAllMenuId(userId);
+		List<Long> menuIdList = sysUserService.queryAllMenuId(sysUserEntity.getUserId());
 		return getAllMenuList(menuIdList);
 	}
 
@@ -71,6 +72,18 @@ public class SysMenuServiceImpl extends BaseServiceImpl<SysMenuMapper, SysMenuEn
 		//删除菜单与角色关联
         sysRoleMenuService.removeByMap(map);
     }
+
+	/**
+	 * 根据租户id查询菜单列表
+	 *
+	 * @param tenantId
+	 * @return
+	 */
+	@Override
+	public List<SysMenuEntity> queryMenuByTenantId(Long tenantId) {
+
+		return baseMapper.queryMenuByTenantId(tenantId);
+	}
 
 	/**
 	 * 获取所有菜单列表

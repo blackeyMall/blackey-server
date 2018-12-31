@@ -11,7 +11,10 @@ import java.util.Set;
  * Created by Kaven
  * Date: 2018/6/5
  */
-public class NavVO implements Serializable{
+public class NavVO implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
 
     private List<SysMenuEntity> menuList;
     private Set<String> permissions ;
