@@ -13,6 +13,7 @@ import com.blackey.finance.component.mapper.ImageInfoMapper;
 import com.blackey.finance.component.domain.ImageInfo;
 import com.blackey.finance.component.service.ImageInfoService;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -34,6 +35,16 @@ public class ImageInfoServiceImpl extends BaseServiceImpl<ImageInfoMapper, Image
         );
 
         return new PageUtils(page);
+    }
+
+    /**
+     * @param objectId
+     * @param imageType
+     * @return
+     */
+    @Override
+    public List<String> queryImagesUrl(String objectId, String imageType) {
+        return baseMapper.queryImagesUrl(objectId,imageType);
     }
 
 }

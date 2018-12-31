@@ -99,5 +99,12 @@ public class RequirementInfoBo implements Serializable {
 	 * 微信头像
 	 */
 	private String avatarUrl;
+	/**
+	 * 图片链接
+	 */
+	private String[] images;
+
+
+
 
 }

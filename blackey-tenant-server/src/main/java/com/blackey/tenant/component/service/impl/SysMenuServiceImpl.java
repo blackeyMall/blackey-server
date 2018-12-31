@@ -1,0 +1,120 @@
+package com.blackey.tenant.component.service.impl;
+
+import com.blackey.tenant.component.domain.SysMenuEntity;
+import com.blackey.tenant.component.domain.SysUserEntity;
+import com.blackey.tenant.component.mapper.SysMenuMapper;
+import com.blackey.tenant.component.service.SysMenuService;
+import com.blackey.tenant.component.service.SysRoleMenuService;
+import com.blackey.tenant.component.service.SysUserService;
+import com.blackey.tenant.global.constants.MenuEnum;
+import com.blackey.tenant.global.constants.RoleEnum;
+import com.blackey.mybatis.service.impl.BaseServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+
+@Service("sysMenuService")
+public class SysMenuServiceImpl extends BaseServiceImpl<SysMenuMapper, SysMenuEntity> implements SysMenuService {
+	@Autowired
+	private SysUserService sysUserService;
+	@Autowired
+	private SysRoleMenuService sysRoleMenuService;
+	
+	@Override
+	public List<SysMenuEntity> queryListParentId(Long parentId, List<Long> menuIdList) {
+		List<SysMenuEntity> menuList = queryListParentId(parentId);
+		if(menuIdList == null){
+			return menuList;
+		}
+		
+		List<SysMenuEntity> userMenuList = new ArrayList<>();
+		for(SysMenuEntity menu : menuList){
+			if(menuIdList.contains(menu.getMenuId())){
+				userMenuList.add(menu);
+			}
+		}
+		return userMenuList;
+	}
+
+	@Override
+	public List<SysMenuEntity> queryListParentId(Long parentId) {
+		return baseMapper.queryListParentId(parentId);
+	}
+
+	@Override
+	public List<SysMenuEntity> queryNotButtonList() {
+		return baseMapper.queryNotButtonList();
+	}
+
+	@Override
+	public List<SysMenuEntity> getUserMenuList(SysUserEntity sysUserEntity) {
+		//系统管理员，拥有最高权限
+		if(sysUserEntity.getRoleType() == RoleEnum.ROLE_SUPER.getCode()){
+			return getAllMenuList(null);
+		}
+		//租户管理员，拥有最高权限
+		if(sysUserEntity.getRoleType() == RoleEnum.ROLE_ADMIN.getCode()){
+			return getAllMenuList(baseMapper.queryMenuIdByTenantId(sysUserEntity.getTenantId()));
+		}
+		
+		//用户菜单列表
+		List<Long> menuIdList = sysUserService.queryAllMenuId(sysUserEntity.getUserId());
+		return getAllMenuList(menuIdList);
+	}
+
+	@Override
+	public void delete(Long menuId){
+		//删除菜单
+		this.removeById(menuId);
+		Map<String,Object> map = new HashMap<>();
+		map.put("menu_id", menuId);
+		//删除菜单与角色关联
+        sysRoleMenuService.removeByMap(map);
+    }
+
+	/**
+	 * 根据租户id查询菜单列表
+	 *
+	 * @param tenantId
+	 * @return
+	 */
+	@Override
+	public List<SysMenuEntity> queryMenuByTenantId(Long tenantId) {
+
+		return baseMapper.queryMenuByTenantId(tenantId);
+	}
+
+	/**
+	 * 获取所有菜单列表
+	 */
+	private List<SysMenuEntity> getAllMenuList(List<Long> menuIdList){
+		//查询根菜单列表
+		List<SysMenuEntity> menuList = queryListParentId(0L, menuIdList);
+		//递归获取子菜单
+		getMenuTreeList(menuList, menuIdList);
+		
+		return menuList;
+	}
+
+	/**
+	 * 递归
+	 */
+	private List<SysMenuEntity> getMenuTreeList(List<SysMenuEntity> menuList, List<Long> menuIdList){
+		List<SysMenuEntity> subMenuList = new ArrayList<SysMenuEntity>();
+		
+		for(SysMenuEntity entity : menuList){
+			//目录
+			if(entity.getType() == MenuEnum.CATALOG.getCode()){
+				entity.setList(getMenuTreeList(queryListParentId(entity.getMenuId(), menuIdList), menuIdList));
+			}
+			subMenuList.add(entity);
+		}
+		
+		return subMenuList;
+	}
+}

@@ -4,6 +4,7 @@ import com.blackey.finance.component.domain.ImageInfo;
 import com.blackey.mybatis.service.BaseService;
 import com.blackey.mybatis.utils.PageUtils;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,5 +21,13 @@ public interface ImageInfoService extends BaseService<ImageInfo> {
     * @return
     */
     PageUtils queryPage(Map<String, Object> params);
+
+    /**
+     *
+     * @param objectId
+     * @param imageType
+     * @return
+     */
+    List<String> queryImagesUrl(String objectId,String imageType);
 }
 

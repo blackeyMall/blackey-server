@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.common.exception.BusinessException;
 import com.blackey.common.result.ResultCodeEnum;
 import com.blackey.finance.component.domain.*;
-import com.blackey.finance.component.mapper.ImageInfoMapper;
 import com.blackey.finance.component.mapper.RequirementInfoMapper;
 import com.blackey.finance.component.service.*;
 import com.blackey.finance.dto.bo.RequirementInfoBo;
@@ -21,7 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import java.awt.*;
 import java.util.List;
 
 /**
@@ -119,23 +117,29 @@ public class RequirementInfoServiceImpl extends BaseServiceImpl<RequirementInfoM
             return null;
         }
         String openId = form.getOpenId();
-        String projectId;
+        String requireId;
         for (RequirementInfoBo requirementInfoBo : requirementInfoBos){
-            projectId = requirementInfoBo.getId();
+            requireId = requirementInfoBo.getId();
             List<UserRequireFollow> userProjectFollows = userRequireFollowService.list(new QueryWrapper<UserRequireFollow>().eq("open_id", openId)
-                    .eq("require_id", projectId));
+                    .eq("require_id", requireId));
             if(!CollectionUtils.isEmpty(userProjectFollows)){
                 //已关注
                 requirementInfoBo.setIsFollow(AddCancelEnum.ADD);
             }
 
             List<UserRequireLike> userProjectLikes = userRequireLikeService.list(new QueryWrapper<UserRequireLike>().eq("open_id", openId)
-                    .eq("require_id", projectId));
+                    .eq("require_id", requireId));
             if(!CollectionUtils.isEmpty(userProjectLikes)){
                 //已点赞
                 requirementInfoBo.setIsLike(AddCancelEnum.ADD);
             }
+            List<String> imageInfos = imageInfoService.queryImagesUrl(requireId,ObjectTypeEnum.REQUIRE.getValue());
+            if(!CollectionUtils.isEmpty(imageInfos)){
+                String[] images = new String[imageInfos.size()];
+                imageInfos.toArray(images);
+                requirementInfoBo.setImages(images);
 
+            }
         }
 
         return requirementInfoBos;
