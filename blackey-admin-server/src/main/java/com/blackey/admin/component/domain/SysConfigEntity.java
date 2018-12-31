@@ -2,8 +2,6 @@ package com.blackey.admin.component.domain;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Getter;
-import lombok.Setter;
 
 /**
  * 系统配置信息
@@ -12,8 +10,6 @@ import lombok.Setter;
  *
  * @date 2016年12月4日 下午6:43:36
  */
-@Getter
-@Setter
 @TableName("sys_config")
 public class SysConfigEntity {
 	@TableId
@@ -21,9 +17,35 @@ public class SysConfigEntity {
 	private String paramKey;
 	private String paramValue;
 	private String remark;
-	/**
-	 * 租户id
-	 */
-	private Long tenantId;
+
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getParamKey() {
+		return paramKey;
+	}
+
+	public void setParamKey(String paramKey) {
+		this.paramKey = paramKey;
+	}
+
+	public String getParamValue() {
+		return paramValue;
+	}
+
+	public void setParamValue(String paramValue) {
+		this.paramValue = paramValue;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
 
 }

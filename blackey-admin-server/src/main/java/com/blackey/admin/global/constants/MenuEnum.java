@@ -13,7 +13,9 @@ public enum MenuEnum implements ResultCode {
     BUTTON(2,"按钮"),
 
     VALIDATE_MENU(400010,"上级菜单只能为目录类型"),
-    VALIDATE_BUTTON(400010,"上级菜单只能为菜单类型");
+    VALIDATE_BUTTON(400010,"上级菜单只能为菜单类型")
+
+    ;
 
 
     private int code;

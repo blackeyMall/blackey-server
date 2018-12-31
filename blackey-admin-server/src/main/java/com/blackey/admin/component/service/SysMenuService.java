@@ -1,6 +1,5 @@
 package com.blackey.admin.component.service;
 
-import com.blackey.admin.component.domain.SysUserEntity;
 import com.blackey.mybatis.service.BaseService;
 import com.blackey.admin.component.domain.SysMenuEntity;
 
@@ -37,17 +36,10 @@ public interface SysMenuService extends BaseService<SysMenuEntity> {
 	/**
 	 * 获取用户菜单列表
 	 */
-	List<SysMenuEntity> getUserMenuList(SysUserEntity sysUserEntity);
+	List<SysMenuEntity> getUserMenuList(Long userId);
 
 	/**
 	 * 删除
 	 */
 	void delete(Long menuId);
-
-	/**
-	 * 根据租户id查询菜单列表
-	 * @param tenantId
-	 * @return
-	 */
-	List<SysMenuEntity> queryMenuByTenantId(Long tenantId);
 }

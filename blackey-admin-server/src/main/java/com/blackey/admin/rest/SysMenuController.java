@@ -1,8 +1,5 @@
 package com.blackey.admin.rest;
 
-import com.blackey.admin.component.domain.SysUserEntity;
-import com.blackey.admin.component.service.SysTenantMenuService;
-import com.blackey.admin.global.constants.RoleEnum;
 import com.blackey.common.exception.BusinessException;
 import com.blackey.common.result.Result;
 import com.blackey.admin.component.domain.SysMenuEntity;
@@ -33,8 +30,6 @@ public class SysMenuController extends AbstractController {
 	private SysMenuService sysMenuService;
 	@Autowired
 	private ShiroService shiroService;
-	@Autowired
-	SysTenantMenuService sysTenantMenuService;
 
 	/**
 	 * 导航菜单
@@ -42,8 +37,8 @@ public class SysMenuController extends AbstractController {
 	@GetMapping("/nav")
 	public Result nav(){
         NavVO navVO = new NavVO();
-		List<SysMenuEntity> menuList = sysMenuService.getUserMenuList(getUser());
-		Set<String> permissions = shiroService.getUserPermissions(getUser());
+		List<SysMenuEntity> menuList = sysMenuService.getUserMenuList(getUserId());
+		Set<String> permissions = shiroService.getUserPermissions(getUserId());
         navVO.setMenuList(menuList);
         navVO.setPermissions(permissions);
 		return success(navVO);
@@ -55,20 +50,13 @@ public class SysMenuController extends AbstractController {
 	@GetMapping("/list")
 	@RequiresPermissions("sys:menu:list")
 	public Result list(){
-		List<SysMenuEntity> menuList ;
-		SysUserEntity sysUserEntity = getUser();
-		if(RoleEnum.ROLE_SUPER.getCode() == sysUserEntity.getRoleType()){
-			//超级管理员 查询所有菜单
-			menuList = sysMenuService.list(null);
-		}else {
-			menuList = sysMenuService.queryMenuByTenantId(getTenangtId());
+		List<SysMenuEntity> menuList = sysMenuService.list(null);
+		for(SysMenuEntity sysMenuEntity : menuList){
+			SysMenuEntity parentMenuEntity = sysMenuService.getById(sysMenuEntity.getParentId());
+			if(parentMenuEntity != null){
+				sysMenuEntity.setParentName(parentMenuEntity.getName());
+			}
 		}
-        menuList.forEach(sysMenuEntity -> {
-            SysMenuEntity parentMenuEntity = sysMenuService.getById(sysMenuEntity.getParentId());
-            if (parentMenuEntity != null) {
-                sysMenuEntity.setParentName(parentMenuEntity.getName());
-            }
-        });
 
 		return success(menuList);
 	}

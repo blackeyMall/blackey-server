@@ -24,24 +24,18 @@ public class ShiroServiceImpl implements ShiroService {
     private SysUserTokenMapper sysUserTokenMapper;
 
     @Override
-    public Set<String> getUserPermissions(SysUserEntity sysUserEntity) {
+    public Set<String> getUserPermissions(long userId) {
         List<String> permsList;
 
         //系统管理员，拥有最高权限
-        if(sysUserEntity.getRoleType() == RoleEnum.ROLE_SUPER.getCode()){
+        if(userId == RoleEnum.ROLE_SUPER.getCode()){
             List<SysMenuEntity> menuList = sysMenuMapper.selectList(null);
             permsList = new ArrayList<>(menuList.size());
             for(SysMenuEntity menu : menuList){
                 permsList.add(menu.getPerms());
             }
-        }else if(sysUserEntity.getRoleType() == RoleEnum.ROLE_ADMIN.getCode()){
-            List<SysMenuEntity> menuList = sysMenuMapper.queryMenuByTenantId(sysUserEntity.getTenantId());
-            permsList = new ArrayList<>(menuList.size());
-            for(SysMenuEntity menu : menuList){
-                permsList.add(menu.getPerms());
-            }
-        }else {
-            permsList = sysUserMapper.queryAllPerms(sysUserEntity.getUserId());
+        }else{
+            permsList = sysUserMapper.queryAllPerms(userId);
         }
         //用户权限列表
         Set<String> permsSet = new HashSet<>();

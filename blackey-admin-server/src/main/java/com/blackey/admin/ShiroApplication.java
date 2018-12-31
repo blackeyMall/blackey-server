@@ -8,23 +8,23 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * admin 启动类
- * @author  Kaven
- * @date : 2018/6/4
+ * shiro 启动类
+ * Created by Kaven
+ * Date: 2018/6/4
  */
 @SpringBootApplication
 @MapperScan("com.blackey.admin.component.mapper")
-public class AdminApplication implements CommandLineRunner {
+public class ShiroApplication implements CommandLineRunner {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AdminApplication.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ShiroApplication.class);
     @Override
     public void run(String... strings) throws Exception {
 
-        LOGGER.info(">>>>>>>>>>>>[AdminApplication start success]<<<<<<<<<<<<");
+        LOGGER.info(">>>>>>>>>>>>[ShiroApplication start success]<<<<<<<<<<<<");
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(AdminApplication.class, args);
+        SpringApplication.run(ShiroApplication.class, args);
     }
 
 }

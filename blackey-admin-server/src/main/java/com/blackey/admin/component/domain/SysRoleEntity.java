@@ -4,8 +4,6 @@ package com.blackey.admin.component.domain;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.validator.constraints.NotBlank;
 
 import java.io.Serializable;
@@ -19,8 +17,6 @@ import java.util.List;
  *
  * @date 2016年9月18日 上午9:27:38
  */
-@Getter
-@Setter
 @TableName("sys_role")
 public class SysRoleEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -55,9 +51,75 @@ public class SysRoleEntity implements Serializable {
 	 */
 	private Date createTime;
 	/**
-	 * 租户id
+	 * 设置：
+	 * @param roleId
 	 */
-	private Long tenantId;
+	public void setRoleId(Long roleId) {
+		this.roleId = roleId;
+	}
 
+	/**
+	 * 获取：
+	 * @return Long
+	 */
+	public Long getRoleId() {
+		return roleId;
+	}
+
+	/**
+	 * 设置：角色名称
+	 * @param roleName 角色名称
+	 */
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
+	}
+
+	/**
+	 * 获取：角色名称
+	 * @return String
+	 */
+	public String getRoleName() {
+		return roleName;
+	}
+
+	/**
+	 * 设置：备注
+	 * @param remark 备注
+	 */
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
+	/**
+	 * 获取：备注
+	 * @return String
+	 */
+	public String getRemark() {
+		return remark;
+	}
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+
+	public List<Long> getMenuIdList() {
+		return menuIdList;
+	}
+
+	public void setMenuIdList(List<Long> menuIdList) {
+		this.menuIdList = menuIdList;
+	}
+
+	public Long getCreateUserId() {
+		return createUserId;
+	}
+
+	public void setCreateUserId(Long createUserId) {
+		this.createUserId = createUserId;
+	}
 
 }
