@@ -59,6 +59,10 @@ public class SysTenantInfo implements Serializable {
 	 * 公司地址
 	 */
 	private String companyAddress;
+	/**
+	 * 状态  0：禁用   1：正常
+	 */
+	private Integer status;
 
 	@TableField(fill = FieldFill.INSERT)
 	private Date createdDate;
