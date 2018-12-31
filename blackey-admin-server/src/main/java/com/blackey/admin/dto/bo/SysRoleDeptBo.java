@@ -1,5 +1,8 @@
 package com.blackey.admin.dto.bo;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 
 /**
@@ -8,6 +11,8 @@ import java.io.Serializable;
  * @author kavenW
  * @date 2018-06-29 14:18:32
  */
+@Setter
+@Getter
 public class SysRoleDeptBo implements Serializable {
 
     private static final long serialVersionUID = 1L;

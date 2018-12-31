@@ -16,6 +16,9 @@
 
 package com.blackey.admin.dto.form;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 
 /**
@@ -24,6 +27,8 @@ import java.io.Serializable;
  * @author kavaW
  * @since 2.0.0 2018-01-25
  */
+@Setter
+@Getter
 public class SysLoginForm implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -33,35 +38,4 @@ public class SysLoginForm implements Serializable {
     private String captcha;
     private String uuid;
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getCaptcha() {
-        return captcha;
-    }
-
-    public void setCaptcha(String captcha) {
-        this.captcha = captcha;
-    }
-
-    public String getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
-    }
 }

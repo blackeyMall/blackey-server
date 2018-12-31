@@ -1,6 +1,8 @@
 package com.blackey.admin.dto;
 
 import com.blackey.admin.component.domain.SysMenuEntity;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.List;
@@ -11,6 +13,8 @@ import java.util.Set;
  * Created by Kaven
  * Date: 2018/6/5
  */
+@Setter
+@Getter
 public class NavVO implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -19,19 +23,4 @@ public class NavVO implements Serializable {
     private List<SysMenuEntity> menuList;
     private Set<String> permissions ;
 
-    public List<SysMenuEntity> getMenuList() {
-        return menuList;
-    }
-
-    public void setMenuList(List<SysMenuEntity> menuList) {
-        this.menuList = menuList;
-    }
-
-    public Set<String> getPermissions() {
-        return permissions;
-    }
-
-    public void setPermissions(Set<String> permissions) {
-        this.permissions = permissions;
-    }
 }

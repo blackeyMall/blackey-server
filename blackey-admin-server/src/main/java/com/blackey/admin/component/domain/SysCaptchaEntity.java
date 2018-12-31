@@ -3,6 +3,8 @@ package com.blackey.admin.component.domain;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Date;
 
@@ -11,6 +13,8 @@ import java.util.Date;
  * @author Mark sunlightcs@gmail.com
  * @since 2.0.0 2018-02-10
  */
+@Setter
+@Getter
 @TableName("sys_captcha")
 public class SysCaptchaEntity {
     @TableId(type = IdType.INPUT)
@@ -23,29 +27,5 @@ public class SysCaptchaEntity {
      * 过期时间
      */
     private Date expireTime;
-
-    public String getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public Date getExpireTime() {
-        return expireTime;
-    }
-
-    public void setExpireTime(Date expireTime) {
-        this.expireTime = expireTime;
-    }
 
 }

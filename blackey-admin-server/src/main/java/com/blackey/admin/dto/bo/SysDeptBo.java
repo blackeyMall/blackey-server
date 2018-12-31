@@ -1,5 +1,8 @@
 package com.blackey.admin.dto.bo;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 
 /**
@@ -8,6 +11,8 @@ import java.io.Serializable;
  * @author kavenW
  * @date 2018-06-29 14:18:31
  */
+@Setter
+@Getter
 public class SysDeptBo implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -33,64 +38,4 @@ public class SysDeptBo implements Serializable {
 	 */
     private Integer delFlag;
 
-	/**
-	 * set：
-	 */
-	public void setDeptId(Long deptId) {
-		this.deptId = deptId;
-	}
-	/**
-	 * get：
-	 */
-	public Long getDeptId() {
-		return deptId;
-	}
-	/**
-	 * set：上级部门ID，一级部门为0
-	 */
-	public void setParentId(Long parentId) {
-		this.parentId = parentId;
-	}
-	/**
-	 * get：上级部门ID，一级部门为0
-	 */
-	public Long getParentId() {
-		return parentId;
-	}
-	/**
-	 * set：部门名称
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-	/**
-	 * get：部门名称
-	 */
-	public String getName() {
-		return name;
-	}
-	/**
-	 * set：排序
-	 */
-	public void setOrderNum(Integer orderNum) {
-		this.orderNum = orderNum;
-	}
-	/**
-	 * get：排序
-	 */
-	public Integer getOrderNum() {
-		return orderNum;
-	}
-	/**
-	 * set：是否删除  -1：已删除  0：正常
-	 */
-	public void setDelFlag(Integer delFlag) {
-		this.delFlag = delFlag;
-	}
-	/**
-	 * get：是否删除  -1：已删除  0：正常
-	 */
-	public Integer getDelFlag() {
-		return delFlag;
-	}
 }
