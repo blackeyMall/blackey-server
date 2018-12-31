@@ -86,4 +86,15 @@ public interface RequirementInfoMapper extends BaseDAO<RequirementInfo> {
             "</if>" +
             "</script>")
     List<RequirementInfoBo>  listAllPage(@Param("form") RequirementInfoForm form, Page<RequirementInfoBo> page);
+
+    /**
+     * 通过需求id查询详情信息
+     * @param id
+     * @return
+     */
+    @Select("<script>" +
+            "SELECT r.*,u.name,u.sex,u.company,u.duties,u.avatar_url FROM t_requirement_info r left join t_user_info u on r.open_id = u.open_id" +
+            "  WHERE r.is_deleted = 0  and u.is_deleted = 0 and r.id = #{id}" +
+            "</script>")
+    RequirementInfoBo queryDetailById(@Param("id") String id);
 }

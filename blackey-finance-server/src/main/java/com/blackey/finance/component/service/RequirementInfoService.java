@@ -55,5 +55,12 @@ public interface RequirementInfoService extends BaseService<RequirementInfo> {
      * @param form
      */
     void createRequirement(RequirementInfoForm form);
+
+    /**
+     * 通过需求id查询详情信息
+     * @param id
+     * @return
+     */
+    RequirementInfoBo queryDetailById(String id);
 }
 

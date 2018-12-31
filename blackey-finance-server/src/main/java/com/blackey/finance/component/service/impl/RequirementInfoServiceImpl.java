@@ -171,4 +171,15 @@ public class RequirementInfoServiceImpl extends BaseServiceImpl<RequirementInfoM
         auditDetail.setAuditStatus(AuditStatusEnum.WAITING);
         auditDetailService.save(auditDetail);
     }
+
+    /**
+     * 通过需求id查询详情信息
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public RequirementInfoBo queryDetailById(String id) {
+        return baseMapper.queryDetailById(id);
+    }
 }

@@ -94,9 +94,9 @@ public class RequirementInfoRest extends BaseRest {
     @GetMapping("/info/{id}")
     public Result info(@PathVariable("id") String id){
 
-        RequirementInfo requirementInfo = requirementInfoService.getById(id);
+        RequirementInfoBo requirementInfoBo = requirementInfoService.queryDetailById(id);
 
-        return success(requirementInfo);
+        return success(requirementInfoBo);
     }
 
     /**
