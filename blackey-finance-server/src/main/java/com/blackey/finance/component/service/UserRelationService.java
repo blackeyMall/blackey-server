@@ -28,7 +28,7 @@ public interface UserRelationService extends BaseService<UserRelation> {
      * 通过参数查询
      * @return
      */
-    PageUtils queryPageByOpenId(UserRelationForm form, Page page);
+    Page queryPageByOpenId(UserRelationForm form, Page page);
 
     /**
      * 添加好友

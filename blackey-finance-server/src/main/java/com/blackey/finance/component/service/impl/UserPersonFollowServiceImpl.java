@@ -50,7 +50,7 @@ public class UserPersonFollowServiceImpl extends BaseServiceImpl<UserPersonFollo
     }
 
     @Override
-    public PageUtils queryByOpenid(UserPersonFollowForm form, Page page) {
+    public Page queryByOpenid(UserPersonFollowForm form, Page page) {
         List<UserPersonFollowBo> userPersonFollowBos = userPersonFollowMapper.findUserFollowByOpenId(form,page);
         List<UserPersonFollowBo> resultBos = new ArrayList<>();
 
@@ -67,7 +67,7 @@ public class UserPersonFollowServiceImpl extends BaseServiceImpl<UserPersonFollo
         }
 
 
-        return new PageUtils(page.setRecords(resultBos));
+        return page.setRecords(resultBos);
     }
 
     @Override

@@ -96,9 +96,7 @@ public class UserRelationRest extends BaseRest {
         return success();
     }
 
-    /**
-     * 申请列表
-     */
+
     @PostMapping("/list/page")
     @RequiresPermissions("finance:userrelation:list")
     public Result list(@RequestParam Map<String, Object> params){
@@ -106,6 +104,9 @@ public class UserRelationRest extends BaseRest {
         return success(page);
     }
 
+    /**
+     * 申请列表
+     */
     @PostMapping("/list/openid")
     public Result listByOpenId(@RequestBody UserRelationForm form){
         return success(userRelationService.queryPageByOpenId(form,new Page(form.getCurrent(),form.getSize())));

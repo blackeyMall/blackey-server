@@ -1,7 +1,6 @@
 package com.blackey.finance.component.service.impl;
 
 import com.blackey.common.result.Result;
-import com.blackey.finance.component.domain.UserPersonFollow;
 import com.blackey.finance.component.mapper.UserPersonFollowMapper;
 import com.blackey.finance.dto.bo.UserRelationBo;
 import com.blackey.finance.dto.form.UserRelationForm;
@@ -51,7 +50,7 @@ public class UserRelationServiceImpl extends BaseServiceImpl<UserRelationMapper,
     }
 
     @Override
-    public PageUtils queryPageByOpenId(UserRelationForm form, Page page) {
+    public Page queryPageByOpenId(UserRelationForm form, Page page) {
         List<UserRelationBo> userRelationBos = userRelationMapper.findUserRelationByOpenId(form,page);
         List<UserRelationBo> resultRelation = new ArrayList<>();
 
@@ -66,7 +65,7 @@ public class UserRelationServiceImpl extends BaseServiceImpl<UserRelationMapper,
             resultRelation.add(userRelation);
         }
 
-        return new PageUtils(page.setRecords(resultRelation));
+        return page.setRecords(resultRelation);
     }
 
     @Override
