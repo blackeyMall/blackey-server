@@ -57,6 +57,18 @@ public class RequirementInfoServiceImpl extends BaseServiceImpl<RequirementInfoM
 
         List<RequirementInfoBo> requirementInfoBos = baseMapper.queryPage(form,page);
 
+        if(CollectionUtils.isEmpty(requirementInfoBos)){
+            return null;
+        }
+        for (RequirementInfoBo requirementInfoBo : requirementInfoBos){
+            List<String> imageInfos = imageInfoService.queryImagesUrl(requirementInfoBo.getId(),ObjectTypeEnum.REQUIRE.getValue());
+            if(!CollectionUtils.isEmpty(imageInfos)){
+                String[] images = new String[imageInfos.size()];
+                imageInfos.toArray(images);
+                requirementInfoBo.setImages(images);
+
+            }
+        }
         return requirementInfoBos;
     }
 

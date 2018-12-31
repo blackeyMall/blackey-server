@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.finance.component.domain.UserRequireFollow;
 import com.blackey.finance.component.domain.UserRequireLike;
 import com.blackey.finance.component.mapper.UserRequireFollowMapper;
+import com.blackey.finance.component.service.ImageInfoService;
 import com.blackey.finance.component.service.RequirementInfoService;
 import com.blackey.finance.component.service.UserRequireFollowService;
 import com.blackey.finance.component.service.UserRequireLikeService;
@@ -12,6 +13,7 @@ import com.blackey.finance.dto.bo.RequirementInfoBo;
 import com.blackey.finance.dto.form.AddOrCancelFollowForm;
 import com.blackey.finance.dto.form.RequirementInfoForm;
 import com.blackey.finance.global.constants.AddCancelEnum;
+import com.blackey.finance.global.constants.ObjectTypeEnum;
 import com.blackey.mybatis.service.impl.BaseServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,6 +42,8 @@ public class UserRequireFollowServiceImpl extends BaseServiceImpl<UserRequireFol
 
     @Autowired
     UserRequireLikeService userRequireLikeService;
+    @Autowired
+    ImageInfoService imageInfoService;
     /**
      * 分页查询
      *
@@ -55,21 +59,28 @@ public class UserRequireFollowServiceImpl extends BaseServiceImpl<UserRequireFol
             return null;
         }
         String openId = form.getOpenId();
-        String projectId;
+        String requireId;
         for (RequirementInfoBo requirementInfoBo : requirementInfoBos){
-            projectId = requirementInfoBo.getId();
+            requireId = requirementInfoBo.getId();
             List<UserRequireFollow> userProjectFollows = userRequireFollowService.list(new QueryWrapper<UserRequireFollow>().eq("open_id", openId)
-                    .eq("require_id", projectId));
+                    .eq("require_id", requireId));
             if(!CollectionUtils.isEmpty(userProjectFollows)){
                 //已关注
                 requirementInfoBo.setIsFollow(AddCancelEnum.ADD);
             }
 
             List<UserRequireLike> userProjectLikes = userRequireLikeService.list(new QueryWrapper<UserRequireLike>().eq("open_id", openId)
-                    .eq("require_id", projectId));
+                    .eq("require_id", requireId));
             if(!CollectionUtils.isEmpty(userProjectLikes)){
                 //已点赞
                 requirementInfoBo.setIsLike(AddCancelEnum.ADD);
+            }
+            List<String> imageInfos = imageInfoService.queryImagesUrl(requireId, ObjectTypeEnum.REQUIRE.getValue());
+            if(!CollectionUtils.isEmpty(imageInfos)){
+                String[] images = new String[imageInfos.size()];
+                imageInfos.toArray(images);
+                requirementInfoBo.setImages(images);
+
             }
 
         }

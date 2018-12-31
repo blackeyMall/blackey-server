@@ -60,7 +60,7 @@ public interface RequirementInfoMapper extends BaseDAO<RequirementInfo> {
 //            "<if test=\"form.openId != '' and form.openId != null\">" +
 //            " and r.open_id != #{form.openId}\n" +
 //            "</if>" +
-            "<if test=\"form.category != null and form.category != 'DEFAULT' \">" +
+            "<if test=\"form.category != null and form.category.value != 'DEFAULT' \">" +
             " and r.category = #{form.category.value}\n" +
             "</if>" +
             "<if test=\"form.label != null and form.label != '' \">" +
