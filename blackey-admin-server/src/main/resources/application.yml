@@ -58,9 +58,6 @@ mybatis-plus:
 redis:
   serializer:
     name: kryo
-management:
-  security:
-    enabled: false
 
 application:
   captcha:

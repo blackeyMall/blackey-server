@@ -57,6 +57,10 @@ public class SysMenuServiceImpl extends BaseServiceImpl<SysMenuMapper, SysMenuEn
 		if(sysUserEntity.getRoleType() == RoleEnum.ROLE_SUPER.getCode()){
 			return getAllMenuList(null);
 		}
+		//租户管理员，拥有最高权限
+		if(sysUserEntity.getRoleType() == RoleEnum.ROLE_ADMIN.getCode()){
+			return getAllMenuList(baseMapper.queryMenuIdByTenantId(sysUserEntity.getTenantId()));
+		}
 		
 		//用户菜单列表
 		List<Long> menuIdList = sysUserService.queryAllMenuId(sysUserEntity.getUserId());

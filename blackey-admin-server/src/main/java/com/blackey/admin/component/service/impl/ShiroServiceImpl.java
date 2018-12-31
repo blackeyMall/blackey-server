@@ -34,7 +34,13 @@ public class ShiroServiceImpl implements ShiroService {
             for(SysMenuEntity menu : menuList){
                 permsList.add(menu.getPerms());
             }
-        }else{
+        }else if(sysUserEntity.getRoleType() == RoleEnum.ROLE_ADMIN.getCode()){
+            List<SysMenuEntity> menuList = sysMenuMapper.queryMenuByTenantId(sysUserEntity.getTenantId());
+            permsList = new ArrayList<>(menuList.size());
+            for(SysMenuEntity menu : menuList){
+                permsList.add(menu.getPerms());
+            }
+        }else {
             permsList = sysUserMapper.queryAllPerms(sysUserEntity.getUserId());
         }
         //用户权限列表

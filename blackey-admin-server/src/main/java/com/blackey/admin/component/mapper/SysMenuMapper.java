@@ -42,4 +42,16 @@ public interface SysMenuMapper extends BaseMapper<SysMenuEntity> {
 			" where  m.menu_id = tm.menu_id and tm.tenant_id = #{tenantId}" +
 			" order by m.order_num asc")
 	List<SysMenuEntity> queryMenuByTenantId(@Param("tenantId") Long tenantId);
+
+	/**
+	 * 根据租户id查询菜单列表
+	 *
+	 * @param tenantId
+	 * @return
+	 */
+	@Select("select m.menu_id from sys_menu m,sys_tenant_menu tm " +
+			" where  m.menu_id = tm.menu_id and tm.tenant_id = #{tenantId}" +
+			" order by m.order_num asc")
+	List<Long> queryMenuIdByTenantId(@Param("tenantId") Long tenantId);
+
 }
