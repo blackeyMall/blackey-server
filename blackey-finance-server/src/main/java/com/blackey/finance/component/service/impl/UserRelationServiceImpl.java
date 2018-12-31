@@ -4,6 +4,7 @@ import com.blackey.common.result.Result;
 import com.blackey.finance.component.mapper.UserPersonFollowMapper;
 import com.blackey.finance.dto.bo.UserRelationBo;
 import com.blackey.finance.dto.form.UserRelationForm;
+import com.blackey.finance.global.constants.ApplyStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -82,6 +83,7 @@ public class UserRelationServiceImpl extends BaseServiceImpl<UserRelationMapper,
             userRelation = new UserRelation();
             userRelation.setOpenId(userRelationForm.getOpenId());
             userRelation.setFriendId(userRelationForm.getFriendId());
+            userRelation.setStatus(ApplyStatus.APPLY);
             userRelationMapper.insert(userRelation);
             return new Result(200,"添加好友成功");
         }
