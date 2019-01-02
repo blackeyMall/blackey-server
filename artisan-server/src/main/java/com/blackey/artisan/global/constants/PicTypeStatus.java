@@ -17,7 +17,8 @@ public enum PicTypeStatus {
      * 图片类型
      */
     PROCESS("进度图片"),
-    FEEDBACK("反馈图片");
+    FEEDBACK("反馈图片"),
+    COMMENT("评论图片");
 
 
     private String name;

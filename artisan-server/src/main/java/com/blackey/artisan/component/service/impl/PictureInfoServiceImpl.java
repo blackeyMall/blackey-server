@@ -16,6 +16,7 @@ import com.blackey.artisan.component.domain.PictureInfo;
 import com.blackey.artisan.component.service.PictureInfoService;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -50,4 +51,15 @@ public class PictureInfoServiceImpl extends BaseServiceImpl<PictureInfoMapper, P
         return pictureInfoMapper.queryPicList(objectId,picTypeStatus.getValue());
     }
 
+    @Override
+    public void savePic(String objectId,String[] pics, PicTypeStatus status) {
+        PictureInfo pictureInfo = null;
+        for (String pic: Arrays.asList(pics)) {
+            pictureInfo = new PictureInfo();
+            pictureInfo.setObjectId(objectId);
+            pictureInfo.setPicType(status);
+            pictureInfo.setPicUrl(pic);
+            this.save(pictureInfo);
+        }
+    }
 }
