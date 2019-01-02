@@ -1,11 +1,13 @@
 package com.blackey.tenant.rest;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.common.result.Result;
 import com.blackey.mybatis.utils.PageUtils;
 import com.blackey.tenant.component.domain.SysUserEntity;
 import com.blackey.tenant.component.service.SysUserRoleService;
 import com.blackey.tenant.component.service.SysUserService;
 import com.blackey.tenant.dto.form.PasswordForm;
+import com.blackey.tenant.dto.form.SysUserForm;
 import com.blackey.tenant.global.constants.RoleEnum;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -34,16 +36,16 @@ public class SysUserController extends AbstractController {
 	/**
 	 * 所有用户列表
 	 */
-	@GetMapping("/list")
+	@PostMapping("/list")
 	@RequiresPermissions("sys:user:list")
-	public Result list(@RequestParam Map<String, Object> params){
+	public Result list(@RequestBody SysUserForm form){
 		//只有超级管理员，才能查看所有管理员列表
 		if(getUserId() != RoleEnum.ROLE_SUPER.getCode()){
-			params.put("createUserId", getUserId());
+			form.setCreateUserId(getUserId());
 		}
-		PageUtils page = sysUserService.queryPage(params);
-
-		return success(page);
+		Page<SysUserEntity> page = new Page<>(form.getCurrent(),form.getSize());
+		List<SysUserEntity> sysUserEntities = sysUserService.queryPage(form, page);
+		return success(page.setRecords(sysUserEntities));
 	}
 	
 	/**

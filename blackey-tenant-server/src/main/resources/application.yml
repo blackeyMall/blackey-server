@@ -3,7 +3,7 @@ spring:
     name: blackey-tenant-server
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:8889/blackey_shop?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://localhost:8889/blackey_shop?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
     username: root
     password: root
   # jackson时间格式化
@@ -20,7 +20,7 @@ spring:
     port: 6379
     password:
 server:
-  port: 1010
+  port: 1098
 
 #mybatis
 mybatis-plus:

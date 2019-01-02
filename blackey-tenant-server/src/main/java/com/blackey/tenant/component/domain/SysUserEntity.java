@@ -84,5 +84,11 @@ public class SysUserEntity implements Serializable {
 	 */
 	private Integer roleType;
 
+	/**
+	 * 租户名称
+	 */
+	@TableField(exist=false)
+	private String tenantName;
+
 
 }
