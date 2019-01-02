@@ -167,7 +167,7 @@ public class RequirementInfoServiceImpl extends BaseServiceImpl<RequirementInfoM
         RequirementInfo requirementInfo = new RequirementInfo();
         //Form --> domain
         BeanUtils.copyProperties(form,requirementInfo);
-        requirementInfo.setAuditStatus(AuditStatusEnum.WAITING);
+        requirementInfo.setAuditStatus(AuditStatusEnum.SUCCESS);
         baseMapper.insert(requirementInfo);
         //保存需求图片
         if(form.getImages() != null && form.getImages().length > 0){
@@ -184,7 +184,7 @@ public class RequirementInfoServiceImpl extends BaseServiceImpl<RequirementInfoM
         AuditDetail auditDetail = new AuditDetail();
         auditDetail.setObjectId(requirementInfo.getId());
         auditDetail.setObjectType(ObjectTypeEnum.REQUIRE);
-        auditDetail.setAuditStatus(AuditStatusEnum.WAITING);
+        auditDetail.setAuditStatus(AuditStatusEnum.SUCCESS);
         auditDetailService.save(auditDetail);
     }
 

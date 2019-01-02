@@ -148,7 +148,7 @@ public class ProjectInfoServiceImpl extends BaseServiceImpl<ProjectInfoMapper, P
         ProjectInfo projectInfo = new ProjectInfo();
         //Form --> domain
         BeanUtils.copyProperties(projectInfoForm,projectInfo);
-        projectInfo.setAuditStatus(AuditStatusEnum.WAITING);
+        projectInfo.setAuditStatus(AuditStatusEnum.SUCCESS);
         this.save(projectInfo);
         //保存需求图片
         if(projectInfoForm.getImages() != null && projectInfoForm.getImages().length > 0){
@@ -165,7 +165,7 @@ public class ProjectInfoServiceImpl extends BaseServiceImpl<ProjectInfoMapper, P
         AuditDetail auditDetail = new AuditDetail();
         auditDetail.setObjectId(projectInfo.getId());
         auditDetail.setObjectType(ObjectTypeEnum.PROJECT);
-        auditDetail.setAuditStatus(AuditStatusEnum.WAITING);
+        auditDetail.setAuditStatus(AuditStatusEnum.SUCCESS);
         auditDetailService.save(auditDetail);
 
         return projectInfo.getId();
