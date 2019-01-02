@@ -75,6 +75,15 @@ public class User extends BaseModel<User> implements Serializable {
 
 	private String telephone;
 
+	/**
+	 * 来自我的好友的积分
+	 */
+	private String friendScore;
+
+	/**
+	 * 我的积分
+	 */
+	private String myScore;
 
 
 	@Override

@@ -1,10 +1,15 @@
 package com.blackey.artisan.rest;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.blackey.artisan.component.service.ServiceProcessService;
+import com.blackey.artisan.component.domain.NotifyRecord;
+import com.blackey.artisan.component.domain.User;
+import com.blackey.artisan.component.service.*;
 import com.blackey.artisan.dto.bo.OrderBo;
 import com.blackey.artisan.dto.bo.OrderInfoBo;
 import com.blackey.artisan.dto.bo.SumBo;
+import com.blackey.artisan.global.constants.NotifyContent;
+import com.blackey.artisan.global.constants.NotifyStatus;
+import com.blackey.artisan.global.constants.NotifyType;
 import com.blackey.artisan.global.constants.OrderStatus;
 import com.blackey.common.rest.BaseRest;
 import org.springframework.beans.BeanUtils;
@@ -14,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 
 import com.blackey.artisan.component.domain.Order;
 import com.blackey.artisan.dto.form.OrderForm;
-import com.blackey.artisan.component.service.OrderService;
 import com.blackey.common.result.Result;
 import com.blackey.mybatis.utils.PageUtils;
 
@@ -36,6 +40,15 @@ public class OrderRest extends BaseRest {
 
     @Autowired
     private ServiceProcessService serviceProcessService;
+
+    @Autowired
+    private NotifyRecordService notifyRecordService;
+
+    @Autowired
+    private ShareRelationService shareRelationService;
+
+    @Autowired
+    private UserService userService;
 
     /**
     * 分页列表
@@ -67,7 +80,33 @@ public class OrderRest extends BaseRest {
      */
     @PostMapping("/update")
     public Result update(@RequestBody Order order){
+        String notifyOpenId = shareRelationService.exsitParent(order.getOpenId());
+        OrderInfoBo order1 = orderService.detail(order.getId());
 
+        User user = userService.findByOpenId(order.getOpenId());
+
+        if(order.getOrderStatus().equals(OrderStatus.DONE) &&
+                !notifyOpenId.equals("")){
+            NotifyRecord notifyRecord = new NotifyRecord();
+            notifyRecord.setNotifyContent(
+                    String.format(
+                    NotifyContent.notifyOrderUrl,order1.getPrice(),order.getOrderNo(),order1.getPrice()));
+            notifyRecord.setObjectId(order.getId());
+            notifyRecord.setNotifyUserName(user.getNickName());
+            notifyRecord.setNotifyType(NotifyType.ORDER);
+            notifyRecord.setNotifyStatus(NotifyStatus.NOTIFY);
+            notifyRecord.setNotifyUserOpenid(notifyOpenId);
+
+            User friend = userService.findByOpenId(order.getOpenId());
+            friend.setFriendScore(friend.getFriendScore() + order1.getPrice());
+
+            userService.save(friend);
+            notifyRecordService.save(notifyRecord);
+        }
+        user.setMyScore(user.getMyScore() + order1.getPrice());
+
+
+        userService.save(user);
         orderService.updateById(order);
         
         return success();
