@@ -40,8 +40,13 @@ public class SysUserController extends AbstractController {
 	@RequiresPermissions("sys:user:list")
 	public Result list(@RequestBody SysUserForm form){
 		//只有超级管理员，才能查看所有管理员列表
-		if(getUserId() != RoleEnum.ROLE_SUPER.getCode()){
+		if(getUser().getRoleType() == RoleEnum.ROLE_USER.getCode()
+				|| getUser().getRoleType() == RoleEnum.ROLE_VISITOR.getCode() ){
 			form.setCreateUserId(getUserId());
+		}
+		//租户管理员,查询该租户下所有用户
+		if(getUser().getRoleType() == RoleEnum.ROLE_ADMIN.getCode()){
+			form.setTenantId(getTenangtId());
 		}
 		Page<SysUserEntity> page = new Page<>(form.getCurrent(),form.getSize());
 		List<SysUserEntity> sysUserEntities = sysUserService.queryPage(form, page);

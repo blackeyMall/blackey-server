@@ -4,6 +4,7 @@ import com.blackey.common.result.Result;
 import com.blackey.mybatis.utils.PageUtils;
 import com.blackey.tenant.component.domain.SysConfigEntity;
 import com.blackey.tenant.component.service.SysConfigService;
+import com.blackey.tenant.global.constants.RoleEnum;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +30,11 @@ public class SysConfigController extends AbstractController {
 	@GetMapping("/list")
 	@RequiresPermissions("sys:config:list")
 	public Result list(@RequestParam Map<String, Object> params){
+
+		//租户管理员，可以看到该租户下所有的角色
+		if(getUser().getRoleType() != RoleEnum.ROLE_SUPER.getCode()){
+			params.put("tenantId", getTenangtId());
+		}
 		PageUtils page = sysConfigService.queryPage(params);
 
 		return success(page);
@@ -53,6 +59,7 @@ public class SysConfigController extends AbstractController {
 	@RequiresPermissions("sys:config:save")
 	public Result save(@RequestBody SysConfigEntity config){
 
+		config.setTenantId(getTenangtId());
 		sysConfigService.saveConfig(config);
 		
 		return success();

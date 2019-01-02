@@ -30,12 +30,14 @@ public class SysConfigServiceImpl extends BaseServiceImpl<SysConfigMapper, SysCo
 	@Override
 	public PageUtils queryPage(Map<String, Object> params) {
 		String paramKey = (String)params.get("paramKey");
+		Long tenantId = (Long)params.get("tenantId");
 
 		Page<SysConfigEntity> page = (Page<SysConfigEntity>) this.page(
 				new Query<SysConfigEntity>(params).getPage(),
 				new QueryWrapper<SysConfigEntity>()
 					.like(StringUtils.isNotBlank(paramKey),"param_key", paramKey)
 					.eq("status", 1)
+						.eq(tenantId != null,"tenant_id",tenantId)
 		);
 
 		return new PageUtils(page);

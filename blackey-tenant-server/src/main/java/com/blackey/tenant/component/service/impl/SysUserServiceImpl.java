@@ -4,7 +4,9 @@ import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.blackey.common.exception.BusinessException;
 import com.blackey.common.exception.PermissionException;
+import com.blackey.common.result.ResultCodeEnum;
 import com.blackey.mybatis.service.impl.BaseServiceImpl;
 import com.blackey.mybatis.utils.PageUtils;
 import com.blackey.mybatis.utils.Query;
@@ -117,8 +119,10 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUserEn
 		if(user.getRoleIdList() == null || user.getRoleIdList().size() == 0){
 			return;
 		}
-		//如果不是超级管理员，则需要判断用户的角色是否自己创建
-		if(user.getCreateUserId() == RoleEnum.ROLE_SUPER.getCode()){
+
+		//如果不是超级管理员/租户管理员，则需要判断用户的角色是否自己创建
+		if(user.getRoleType() == RoleEnum.ROLE_SUPER.getCode()
+				|| user.getRoleType() == RoleEnum.ROLE_ADMIN.getCode()){
 			return ;
 		}
 		

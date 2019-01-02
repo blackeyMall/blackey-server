@@ -24,4 +24,6 @@ public class SysUserForm implements Serializable {
     private String userName;
 
     private long createUserId;
+
+    private Long tenantId;
 }
