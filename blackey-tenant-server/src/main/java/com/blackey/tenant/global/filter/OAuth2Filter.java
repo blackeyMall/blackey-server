@@ -1,7 +1,7 @@
 package com.blackey.tenant.global.filter;
 
 import com.blackey.tenant.global.HttpContextUtils;
-import com.blackey.tenant.global.shiro.OAuth2Token;
+import com.blackey.tenant.global.shiro.OAuthToken;
 import com.blackey.common.result.Result;
 import com.google.gson.Gson;
 import org.apache.commons.httpclient.HttpStatus;
@@ -32,7 +32,7 @@ public class OAuth2Filter extends AuthenticatingFilter {
             return null;
         }
 
-        return new OAuth2Token(token);
+        return new OAuthToken(token);
     }
 
     @Override

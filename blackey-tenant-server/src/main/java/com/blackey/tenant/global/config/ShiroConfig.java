@@ -1,7 +1,7 @@
 package com.blackey.tenant.global.config;
 
 import com.blackey.tenant.global.filter.OAuth2Filter;
-import com.blackey.tenant.global.shiro.OAuth2Realm;
+import com.blackey.tenant.global.shiro.OAuthRealm;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
@@ -47,7 +47,7 @@ public class ShiroConfig {
      * @return SecurityManager
      */
     @Bean("securityManager")
-    public SecurityManager securityManager(OAuth2Realm oAuth2Realm, SessionManager sessionManager) {
+    public SecurityManager securityManager(OAuthRealm oAuth2Realm, SessionManager sessionManager) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(oAuth2Realm);
         securityManager.setSessionManager(sessionManager);

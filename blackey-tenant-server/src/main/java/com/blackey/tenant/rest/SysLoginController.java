@@ -47,7 +47,7 @@ public class SysLoginController extends AbstractController {
 	 * 验证码
 	 */
 	@GetMapping("/sys/captcha.jpg")
-	public void captcha(HttpServletResponse response, String uuid)throws ServletException, IOException {
+	public void captcha(HttpServletResponse response, String uuid)throws IOException {
 		response.setHeader("Cache-Control", "no-store, no-cache");
 		response.setContentType("image/jpeg");
 

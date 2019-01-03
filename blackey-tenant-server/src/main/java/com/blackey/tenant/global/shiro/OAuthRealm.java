@@ -1,8 +1,11 @@
 package com.blackey.tenant.global.shiro;
 
+import com.blackey.common.result.ResultCodeEnum;
 import com.blackey.tenant.component.domain.SysUserEntity;
 import com.blackey.tenant.component.domain.SysUserTokenEntity;
 import com.blackey.tenant.component.service.ShiroService;
+import com.blackey.tenant.global.constants.StatusEnum;
+import com.blackey.tenant.global.constants.TenantResultEnum;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -16,20 +19,20 @@ import org.springframework.stereotype.Component;
 import java.util.Set;
 
 /**
- * TODO 描述
- * Created by Kaven
- * Date: 2018/6/4
+ * 认证 realm
+ * @author wangwei
+ * @date  2018/6/4
  */
 @Component
-public class OAuth2Realm extends AuthorizingRealm {
+public class OAuthRealm extends AuthorizingRealm {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(OAuth2Realm.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(OAuthRealm.class);
     @Autowired
     private ShiroService shiroService;
 
     @Override
     public boolean supports(AuthenticationToken token) {
-        return token instanceof OAuth2Token;
+        return token instanceof OAuthToken;
     }
 
 
@@ -62,14 +65,14 @@ public class OAuth2Realm extends AuthorizingRealm {
         SysUserTokenEntity tokenEntity = shiroService.queryByToken(accessToken);
         //token失效
         if(tokenEntity == null || tokenEntity.getExpireTime().getTime() < System.currentTimeMillis()){
-            throw new IncorrectCredentialsException("token失效，请重新登录");
+            throw new IncorrectCredentialsException(ResultCodeEnum.TOKEN_TIMEOUT_ERROR.getMsg());
         }
 
         //查询用户信息
         SysUserEntity user = shiroService.queryUser(tokenEntity.getUserId());
         //账号锁定
-        if(user.getStatus() == 0){
-            throw new LockedAccountException("账号已被锁定,请联系管理员");
+        if(user.getStatus() == StatusEnum.SATUS_DISABLE.getCode()){
+            throw new LockedAccountException(TenantResultEnum.USER_UNENABLE_ERROR.getMsg());
         }
 
         SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user, accessToken, getName());

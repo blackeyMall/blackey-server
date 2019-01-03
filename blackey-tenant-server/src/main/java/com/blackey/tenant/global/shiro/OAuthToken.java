@@ -10,10 +10,10 @@ import org.apache.shiro.authc.AuthenticationToken;
  * @email sunlightcs@gmail.com
  * @date 2017-05-20 13:22
  */
-public class OAuth2Token implements AuthenticationToken {
+public class OAuthToken implements AuthenticationToken {
     private String token;
 
-    public OAuth2Token(String token){
+    public OAuthToken(String token){
         this.token = token;
     }
 
