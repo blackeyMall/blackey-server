@@ -70,6 +70,11 @@ public class SysMenuEntity implements Serializable {
 	 */
 	private Integer orderNum;
 	/**
+	 * 是否系统菜单     0：否   1：是
+	 */
+	private Integer isSystemMenu;
+
+	/**
 	 * ztree属性
 	 */
 	@TableField(exist=false)

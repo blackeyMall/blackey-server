@@ -7,6 +7,7 @@ import com.blackey.tenant.component.service.SysTenantMenuService;
 import com.blackey.tenant.component.service.SysUserService;
 import com.blackey.tenant.dto.form.SysTenantInfoForm;
 import com.blackey.tenant.global.constants.RoleEnum;
+import com.blackey.tenant.global.constants.StatusEnum;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.slf4j.Logger;
@@ -96,7 +97,7 @@ public class SysTenantInfoServiceImpl extends BaseServiceImpl<SysTenantInfoMappe
         user.setUsername(sysTenantInfo.getUserName());
         user.setTenantId(sysTenantInfo.getId());
         user.setRoleType(RoleEnum.ROLE_ADMIN.getCode());
-        user.setStatus(1);
+        user.setStatus(StatusEnum.SATUS_EANBLE.getCode());
         sysUserService.save(user);
 
     }

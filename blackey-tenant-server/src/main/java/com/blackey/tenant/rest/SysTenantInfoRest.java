@@ -88,7 +88,7 @@ public class SysTenantInfoRest extends AbstractController {
     @RequiresPermissions("sys:tenant:save")
     public Result save(@RequestBody SysTenantInfo sysTenantInfo){
         if(RoleEnum.ROLE_SUPER.getCode() != getUser().getRoleType()){
-            return failure("用户权限不足");
+            return failure(ResultCodeEnum.PERMISSION_ERROR);
         }
         sysTenantInfoService.saveTenant(sysTenantInfo);
 
@@ -102,7 +102,7 @@ public class SysTenantInfoRest extends AbstractController {
     @RequiresPermissions("sys:tenant:update")
     public Result update(@RequestBody SysTenantInfo sysTenantInfo){
         if(RoleEnum.ROLE_SUPER.getCode() != getUser().getRoleType()){
-            return failure("用户权限不足");
+            return failure(ResultCodeEnum.PERMISSION_ERROR);
         }
         sysTenantInfoService.updateTenant(sysTenantInfo);
         
@@ -118,7 +118,7 @@ public class SysTenantInfoRest extends AbstractController {
 
 
         if(RoleEnum.ROLE_SUPER.getCode() != getUser().getRoleType()){
-            return failure("用户权限不足");
+            return failure(ResultCodeEnum.PERMISSION_ERROR);
         }
         sysTenantInfoService.deleteTenant(id);
 

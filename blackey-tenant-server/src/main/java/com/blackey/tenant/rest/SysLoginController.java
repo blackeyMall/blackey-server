@@ -7,6 +7,7 @@ import com.blackey.tenant.component.service.SysCaptchaService;
 import com.blackey.tenant.component.service.SysUserService;
 import com.blackey.tenant.component.service.SysUserTokenService;
 import com.blackey.tenant.dto.form.SysLoginForm;
+import com.blackey.tenant.global.constants.TenantResultEnum;
 import org.apache.commons.io.IOUtils;
 import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,7 +68,7 @@ public class SysLoginController extends AbstractController {
 	    if(captchaEnabled){
             boolean captcha = sysCaptchaService.validate(form.getUuid(), form.getCaptcha());
             if(!captcha){
-                return failure("验证码不正确");
+                return failure(TenantResultEnum.CAPTCHA_VALID_ERROR);
             }
         }
 
@@ -76,12 +77,12 @@ public class SysLoginController extends AbstractController {
 
 		//账号不存在、密码错误
 		if(user == null || !user.getPassword().equals(new Sha256Hash(form.getPassword(), user.getSalt()).toHex())) {
-			return failure("账号或密码不正确");
+			return failure(TenantResultEnum.PASSWORD_ACCOUNT_ERROR);
 		}
 
 		//账号锁定
 		if(user.getStatus() == 0){
-			return failure("账号已被锁定,请联系管理员");
+			return failure(TenantResultEnum.USER_UNENABLE_ERROR);
 		}
 
 		//生成token，并保存到数据库

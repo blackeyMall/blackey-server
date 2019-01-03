@@ -9,6 +9,7 @@ import com.blackey.tenant.component.service.SysUserService;
 import com.blackey.tenant.dto.form.PasswordForm;
 import com.blackey.tenant.dto.form.SysUserForm;
 import com.blackey.tenant.global.constants.RoleEnum;
+import com.blackey.tenant.global.constants.TenantResultEnum;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.crypto.hash.Sha256Hash;
@@ -76,7 +77,7 @@ public class SysUserController extends AbstractController {
 		//更新密码
 		boolean flag = sysUserService.updatePassword(getUserId(), password, newPassword);
 		if(!flag){
-			return failure("原密码不正确");
+			return failure(TenantResultEnum.PASSWORD_UPDATE_ERROR);
 		}
 		
 		return success();
@@ -131,11 +132,11 @@ public class SysUserController extends AbstractController {
 	@RequiresPermissions("sys:user:delete")
 	public Result delete(@RequestBody Long[] userIds){
 		if(ArrayUtils.contains(userIds, 1L)){
-			return failure("系统管理员不能删除");
+			return failure(TenantResultEnum.SUPER_USER_DEL_ERROR);
 		}
 		
 		if(ArrayUtils.contains(userIds, getUserId())){
-			return failure("当前用户不能删除");
+			return failure(TenantResultEnum.CURRENT_USER_DEL_ERROR);
 		}
 		
 		sysUserService.deleteBatch(userIds);
