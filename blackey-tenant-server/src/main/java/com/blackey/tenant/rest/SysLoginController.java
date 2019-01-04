@@ -6,8 +6,10 @@ import com.blackey.tenant.component.domain.SysUserTokenEntity;
 import com.blackey.tenant.component.service.SysCaptchaService;
 import com.blackey.tenant.component.service.SysUserService;
 import com.blackey.tenant.component.service.SysUserTokenService;
+import com.blackey.tenant.dto.form.JWTInfoForm;
 import com.blackey.tenant.dto.form.SysLoginForm;
 import com.blackey.tenant.global.constants.TenantResultEnum;
+import com.blackey.tenant.util.JWTUtil;
 import org.apache.commons.io.IOUtils;
 import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,9 +87,15 @@ public class SysLoginController extends AbstractController {
 			return failure(TenantResultEnum.USER_UNENABLE_ERROR);
 		}
 
+		JWTInfoForm infoForm = new JWTInfoForm();
+		infoForm.setUserId(String.valueOf(user.getUserId()));
+		infoForm.setUserName(user.getUsername());
+		infoForm.setSecret(user.getPassword());
+		infoForm.setExpireTime(5*60*1000);
+
 		//生成token，并保存到数据库
-        SysUserTokenEntity sysUserTokenEntity = sysUserTokenService.createToken(user.getUserId());
-		return success(sysUserTokenEntity);
+        //SysUserTokenEntity sysUserTokenEntity = sysUserTokenService.createToken(user.getUserId());
+		return success(JWTUtil.generToken(infoForm));
 	}
 
 
@@ -96,7 +104,7 @@ public class SysLoginController extends AbstractController {
 	 */
 	@PostMapping("/sys/logout")
 	public Result logout() {
-		sysUserTokenService.logout(getUserId());
+		//sysUserTokenService.logout(getUserId());
 		return success();
 	}
 	
