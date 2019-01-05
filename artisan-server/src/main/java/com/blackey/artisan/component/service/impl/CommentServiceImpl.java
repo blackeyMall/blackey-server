@@ -65,20 +65,13 @@ public class CommentServiceImpl extends BaseServiceImpl<CommentMapper, Comment> 
     }
 
     @Override
-    public Page<CommentBo> getByOpenid(String openid,Page page) throws InvocationTargetException, IllegalAccessException {
-        List<CommentBo> commentBos = Lists.newArrayList();
-        List<Comment> comments = commentMapper.getByOpenid(openid);
+    public Page<CommentBo> getByOpenid(String openid,Page page){
+        List<CommentBo> commentBos = commentMapper.getByOpenid(openid);
 
-        for (Comment comment : comments) {
-            CommentBo commentBo = new CommentBo();
-            BeanUtils.copyProperties(commentBo, comment);
-
+        for (CommentBo comment : commentBos) {
             List<String> pics = pictureInfoService.queryPicList(comment.getId(), PicTypeStatus.COMMENT);
-            commentBo.setPicUrls(pics);
-            commentBos.add(commentBo);
+            comment.setPicUrls(pics);
         }
-
-
 
         return page.setRecords(commentBos);
     }

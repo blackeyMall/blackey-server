@@ -36,7 +36,7 @@ public interface CommentService extends BaseService<Comment> {
      * @param openid
      * @return
      */
-    Page<CommentBo> getByOpenid(String openid,Page page) throws InvocationTargetException, IllegalAccessException;
+    Page<CommentBo> getByOpenid(String openid,Page page);
 
 
 }

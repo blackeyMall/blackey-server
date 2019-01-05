@@ -1,6 +1,7 @@
 package com.blackey.artisan.component.mapper;
 
 import com.blackey.artisan.component.domain.Comment;
+import com.blackey.artisan.dto.bo.CommentBo;
 import com.blackey.mybatis.dao.BaseDAO;
 import org.apache.ibatis.annotations.Select;
 
@@ -23,13 +24,17 @@ public interface CommentMapper extends BaseDAO<Comment> {
      * @return
      */
     @Select("SELECT\n" +
-            "\tc.* \n" +
+            "\tc.* ,\n" +
+            "\tp.pic_url,\n" +
+            "\tp.`name`\n" +
             "FROM\n" +
             "\t`comment` c,\n" +
-            "\torder_info o \n" +
+            "\torder_info o,\n" +
+            "\tproject p \n" +
             "WHERE\n" +
-            "\to.id = c.service_id \n" +
-            "\tAND o.open_id = #{openid}")
-    List<Comment> getByOpenid(String openid);
+            "\tp.id = o.project_id \n" +
+            "\tAND o.id = c.service_id\n" +
+            "\tand o.open_id =  #{openid}")
+    List<CommentBo> getByOpenid(String openid);
 	
 }

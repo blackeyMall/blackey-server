@@ -43,7 +43,7 @@ public class CommentRest extends BaseRest {
     * 分页列表
     */
     @GetMapping("/list/page")
-    public Result list(String openid,Page page) throws InvocationTargetException, IllegalAccessException {
+    public Result list(String openid,Page page) {
 
         return success(commentService.getByOpenid(openid, page));
     }
