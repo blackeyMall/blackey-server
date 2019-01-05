@@ -3,6 +3,7 @@ package com.blackey.artisan.dto.form;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -17,14 +18,15 @@ import java.util.Date;
 public class ShareRelationForm implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
 	/**
-	 * 
+	 * 父ID
 	 */
-    private String userOpenid;
+	@NotBlank(message = "父openid为空！")
+	private String parentOpenid;
 	/**
-	 * 
+	 * 本人id
 	 */
-    private String friendOpenid;
+	@NotBlank(message = "本人openid为空！")
+	private String openid;
 
 }

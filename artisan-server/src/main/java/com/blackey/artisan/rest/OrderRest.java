@@ -80,33 +80,37 @@ public class OrderRest extends BaseRest {
      */
     @PostMapping("/update")
     public Result update(@RequestBody Order order){
-        String notifyOpenId = shareRelationService.exsitParent(order.getOpenId());
         OrderInfoBo order1 = orderService.detail(order.getId());
+        if (order1.getOrderStatus() == OrderStatus.DONE){
+            return success();
+        }
 
-        User user = userService.findByOpenId(order.getOpenId());
+        String notifyOpenId = shareRelationService.exsitParent(order1.getOpenId());
+
+        User user = userService.findByOpenId(order1.getOpenId());
 
         if(order.getOrderStatus().equals(OrderStatus.DONE) &&
                 !notifyOpenId.equals("")){
             NotifyRecord notifyRecord = new NotifyRecord();
             notifyRecord.setNotifyContent(
                     String.format(
-                    NotifyContent.notifyOrderUrl,order1.getPrice(),order.getOrderNo(),order1.getPrice()));
+                    NotifyContent.notifyOrderUrl,order1.getPrice(),order1.getOrderNo(),order1.getPrice()));
             notifyRecord.setObjectId(order.getId());
             notifyRecord.setNotifyUserName(user.getNickName());
             notifyRecord.setNotifyType(NotifyType.ORDER);
             notifyRecord.setNotifyStatus(NotifyStatus.NOTIFY);
             notifyRecord.setNotifyUserOpenid(notifyOpenId);
 
-            User friend = userService.findByOpenId(order.getOpenId());
+            User friend = userService.findByOpenId(notifyOpenId);
             friend.setFriendScore(friend.getFriendScore() + order1.getPrice());
 
-            userService.save(friend);
+            userService.updateById(friend);
             notifyRecordService.save(notifyRecord);
         }
         user.setMyScore(user.getMyScore() + order1.getPrice());
 
 
-        userService.save(user);
+        userService.updateById(user);
         orderService.updateById(order);
         
         return success();

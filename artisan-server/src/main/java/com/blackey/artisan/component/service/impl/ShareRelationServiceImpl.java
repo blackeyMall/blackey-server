@@ -44,13 +44,13 @@ public class ShareRelationServiceImpl extends BaseServiceImpl<ShareRelationMappe
     @Override
     public String exsitParent(String openid) {
         QueryWrapper queryWrapper = new QueryWrapper();
-        queryWrapper.eq("friend_openid",openid);
+        queryWrapper.eq("openid",openid);
         ShareRelation shareRelation = shareRelationMapper.selectOne(queryWrapper);
 
-        if (shareRelation != null){
-            return shareRelation.getUserOpenid();
+        if (shareRelation == null){
+            return "";
         }
 
-        return "";
+        return shareRelation.getParentOpenid();
     }
 }

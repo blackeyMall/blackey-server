@@ -4,7 +4,7 @@
 <mapper namespace="com.blackey.admin.component.mapper.CommentMapper">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="com.blackey.admin.component.domain.Comment" id="commentMap">
+    <resultMap type="com.blackey.artisan.component.domain.Comment" id="commentMap">
         <result property="comment" column="comment"/>
         <result property="serviceStatus" column="service_status"/>
         <result property="responseSpeed" column="response_speed"/>

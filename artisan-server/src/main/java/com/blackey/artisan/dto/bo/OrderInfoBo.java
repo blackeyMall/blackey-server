@@ -15,6 +15,8 @@ import java.util.Date;
 @Setter
 public class OrderInfoBo {
 
+    private String openId;
+
     private String id;
 
     private Date createdDate;

@@ -27,7 +27,6 @@ public class NotifyRecord extends BaseModel<NotifyRecord> implements Serializabl
 	/**
 	 * 
 	 */
-	@TableId
 	private String notifyContent;
 	/**
 	 * 
@@ -50,7 +49,7 @@ public class NotifyRecord extends BaseModel<NotifyRecord> implements Serializabl
 
     @Override
     protected Serializable pkVal() {
-        return this.getNotifyContent();
+        return this.getId();
     }
 
 

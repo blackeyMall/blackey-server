@@ -78,12 +78,12 @@ public class User extends BaseModel<User> implements Serializable {
 	/**
 	 * 来自我的好友的积分
 	 */
-	private String friendScore;
+	private int friendScore;
 
 	/**
 	 * 我的积分
 	 */
-	private String myScore;
+	private int myScore;
 
 
 	@Override

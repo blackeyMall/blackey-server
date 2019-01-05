@@ -14,6 +14,7 @@ import com.blackey.artisan.component.service.ShareRelationService;
 import com.blackey.common.result.Result;
 import com.blackey.mybatis.utils.PageUtils;
 
+import javax.validation.Valid;
 import java.util.Map;
 
 /**
@@ -68,8 +69,8 @@ public class ShareRelationRest extends BaseRest {
      * 保存
      */
     @PostMapping("/save")
-    public Result save(@RequestBody ShareRelationForm shareRelationForm){
-        if ("".equals(shareRelationService.exsitParent(shareRelationForm.getFriendOpenid()))){
+    public Result save(@RequestBody @Valid ShareRelationForm shareRelationForm){
+        if (!"".equals(shareRelationService.exsitParent(shareRelationForm.getOpenid()))){
             return failure("已有好友关系！");
         }
 

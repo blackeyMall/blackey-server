@@ -22,19 +22,18 @@ public class ShareRelation extends BaseModel<ShareRelation> implements Serializa
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * 父ID
+     */
+	private String parentOpenid;
 	/**
-	 * 
+	 * 本人id
 	 */
-	@TableId
-	private String userOpenid;
-	/**
-	 * 
-	 */
-	private String friendOpenid;
+	private String openid;
 
     @Override
     protected Serializable pkVal() {
-        return this.getUserOpenid();
+        return this.getId();
     }
         
 

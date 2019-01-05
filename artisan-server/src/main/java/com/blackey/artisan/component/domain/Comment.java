@@ -25,7 +25,7 @@ public class Comment extends BaseModel<Comment> implements Serializable {
 	/**
 	 * 
 	 */
-	private Integer comment;
+	private String comment;
 	/**
 	 * 
 	 */
@@ -39,7 +39,7 @@ public class Comment extends BaseModel<Comment> implements Serializable {
 
     @Override
     protected Serializable pkVal() {
-        return this.getComment();
+        return this.getId();
     }
             
 
