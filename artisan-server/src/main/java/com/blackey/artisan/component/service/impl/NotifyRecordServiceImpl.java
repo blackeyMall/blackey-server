@@ -13,6 +13,7 @@ import com.blackey.artisan.component.mapper.NotifyRecordMapper;
 import com.blackey.artisan.component.domain.NotifyRecord;
 import com.blackey.artisan.component.service.NotifyRecordService;
 
+import javax.annotation.Resource;
 import java.util.Map;
 
 /**
@@ -26,6 +27,7 @@ public class NotifyRecordServiceImpl extends BaseServiceImpl<NotifyRecordMapper,
 
     private static final Logger LOGGER = LoggerFactory.getLogger(NotifyRecordServiceImpl.class);
 
+    @Resource
     private NotifyRecordMapper notifyRecordMapper;
 
     @Override

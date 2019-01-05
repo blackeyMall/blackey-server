@@ -14,6 +14,9 @@ import lombok.Getter;
 @Getter
 public enum ProjectCategoryEnum {
 
+
+
+
     /**
      * 项目类别
      */

@@ -20,7 +20,7 @@ public class CommentForm implements Serializable {
 	/**
 	 * 
 	 */
-    private Integer comment;
+    private String comment;
 	/**
 	 * 
 	 */

@@ -25,7 +25,7 @@ import java.util.Map;
  * @date 2019-01-02 09:47:38
  */
 @RestController
-@RequestMapping("/admin/comment")
+@RequestMapping("/artisan/comment")
 public class CommentRest extends BaseRest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CommentRest.class);
@@ -61,11 +61,11 @@ public class CommentRest extends BaseRest {
     /**
      * 查看详情信息
      */
-    @GetMapping("/info/{id}")
-    public Result info(@PathVariable("serviceId") String serviceId){
+    @GetMapping("/info")
+    public Result info(@RequestParam("orderid") String orderid){
         CommentBo comment = null;
         try {
-            comment = commentService.getByServiceId(serviceId);
+            comment = commentService.getByServiceId(orderid);
         } catch (Exception e) {
             logger.error("error from query detail!",e);
         }

@@ -59,6 +59,6 @@ public class CommentServiceImpl extends BaseServiceImpl<CommentMapper, Comment> 
         List<String> pics = pictureInfoService.queryPicList(comment.getId(), PicTypeStatus.COMMENT);
         commentBo.setPicUrls(pics);
 
-        return  null;
+        return  commentBo;
     }
 }
