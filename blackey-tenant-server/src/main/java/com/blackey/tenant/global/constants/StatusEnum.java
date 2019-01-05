@@ -9,7 +9,9 @@ import com.blackey.common.result.ResultCode;
  * @date: 2018/12/18 15:28
  **/
 public enum StatusEnum implements ResultCode {
-
+    /**
+     * 状态
+     */
     SATUS_EANBLE(1,"正常"),
     SATUS_DISABLE(0,"禁用");
 

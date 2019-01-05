@@ -1,8 +1,10 @@
 package com.blackey.tenant.component.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.mybatis.service.BaseService;
 import com.blackey.mybatis.utils.PageUtils;
 import com.blackey.tenant.component.domain.SysUserEntity;
+import com.blackey.tenant.dto.form.SysUserForm;
 
 import java.util.List;
 import java.util.Map;
@@ -17,7 +19,7 @@ import java.util.Map;
  */
 public interface SysUserService extends BaseService<SysUserEntity> {
 
-	PageUtils queryPage(Map<String, Object> params);
+	List<SysUserEntity> queryPage(SysUserForm form, Page<SysUserEntity> page);
 
 	/**
 	 * 查询用户的所有权限

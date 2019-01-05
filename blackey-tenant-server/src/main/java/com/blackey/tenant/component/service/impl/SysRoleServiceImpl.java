@@ -2,11 +2,14 @@ package com.blackey.tenant.component.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.blackey.common.exception.BusinessException;
 import com.blackey.common.exception.PermissionException;
+import com.blackey.common.result.ResultCodeEnum;
 import com.blackey.mybatis.service.impl.BaseServiceImpl;
 import com.blackey.mybatis.utils.PageUtils;
 import com.blackey.mybatis.utils.Query;
 import com.blackey.tenant.component.domain.SysRoleEntity;
+import com.blackey.tenant.component.domain.SysUserEntity;
 import com.blackey.tenant.component.mapper.SysRoleMapper;
 import com.blackey.tenant.component.service.SysRoleMenuService;
 import com.blackey.tenant.component.service.SysRoleService;
@@ -43,12 +46,14 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRoleMapper, SysRoleEn
 	public PageUtils queryPage(Map<String, Object> params) {
 		String roleName = (String)params.get("roleName");
 		Long createUserId = (Long)params.get("createUserId");
+		Long tenantId = (Long)params.get("tenantId");
 
 		Page<SysRoleEntity> page = (Page<SysRoleEntity>) this.page(
 			new Query<SysRoleEntity>(params).getPage(),
 			new QueryWrapper<SysRoleEntity>()
 				.like(StringUtils.isNotBlank(roleName),"role_name", roleName)
 				.eq(createUserId != null,"create_user_id", createUserId)
+				.eq(tenantId != null,"tenant_id",tenantId)
 		);
 
 		return new PageUtils(page);
@@ -102,8 +107,14 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRoleMapper, SysRoleEn
 	 * 检查权限是否越权
 	 */
 	private void checkPrems(SysRoleEntity role){
-		//如果不是超级管理员，则需要判断角色的权限是否超过自己的权限
-		if(role.getCreateUserId() == RoleEnum.ROLE_SUPER.getCode()){
+
+		SysUserEntity userEntity = sysUserService.getById(role.getCreateUserId());
+		if(null == userEntity){
+			throw new BusinessException(ResultCodeEnum.NOT_FOUND);
+		}
+		//如果不是超级管理员/租户管理员，则需要判断角色的权限是否超过自己的权限
+		if(userEntity.getRoleType() == RoleEnum.ROLE_SUPER.getCode()
+				|| userEntity.getRoleType() == RoleEnum.ROLE_ADMIN.getCode()){
 			return ;
 		}
 		

@@ -9,7 +9,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
-
+/**
+ * token service
+ * @author wangwei
+ * @date 2018-03-08
+ */
 @Service("sysUserTokenService")
 public class SysUserTokenServiceImpl extends BaseServiceImpl<SysUserTokenMapper, SysUserTokenEntity> implements SysUserTokenService {
 	//12小时后过期
@@ -18,7 +22,6 @@ public class SysUserTokenServiceImpl extends BaseServiceImpl<SysUserTokenMapper,
 
 	@Override
 	public SysUserTokenEntity createToken(long userId) {
-		//生成一个token
 		String token = TokenGenerator.generateValue();
 
 		//当前时间
@@ -53,7 +56,6 @@ public class SysUserTokenServiceImpl extends BaseServiceImpl<SysUserTokenMapper,
 	public void logout(long userId) {
 		//生成一个token
 		String token = TokenGenerator.generateValue();
-
 		//修改token
 		SysUserTokenEntity tokenEntity = new SysUserTokenEntity();
 		tokenEntity.setUserId(userId);

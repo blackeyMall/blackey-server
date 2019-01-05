@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 /**
  * 系统配置信息
  * 
@@ -15,7 +17,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @TableName("sys_config")
-public class SysConfigEntity {
+public class SysConfigEntity implements Serializable {
+	private static final long serialVersionUID = 1L;
 	@TableId
 	private Long id;
 	private String paramKey;

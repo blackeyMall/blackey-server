@@ -6,6 +6,7 @@ import com.blackey.tenant.component.domain.SysDept;
 import com.blackey.tenant.component.service.SysDeptService;
 import com.blackey.tenant.dto.form.SysDeptForm;
 import com.blackey.tenant.global.constants.RoleEnum;
+import com.blackey.tenant.global.constants.TenantResultEnum;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -137,7 +138,7 @@ public class SysDeptRest extends AbstractController{
         //判断是否有子部门
         List<Long> deptList = sysDeptService.queryDetpIdList(deptId);
         if(deptList.size() > 0){
-            return failure("请先删除子部门");
+            return failure(TenantResultEnum.EXIST_CHILD_DEPT);
         }
 
         sysDeptService.removeById(deptId);

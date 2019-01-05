@@ -4,11 +4,13 @@ import com.blackey.common.result.ResultCode;
 
 /**
  * 角色enum
- * Created by Kaven
- * Date: 2018/6/4
+ * @author wangwei  by Kaven
+ * @date : 2018/6/4
  */
 public enum RoleEnum implements ResultCode {
-
+    /**
+     * 用户角色类型
+     */
     ROLE_SUPER(1,"超级管理员"),
     ROLE_ADMIN(2,"管理员"),
     ROLE_USER(3,"用户"),

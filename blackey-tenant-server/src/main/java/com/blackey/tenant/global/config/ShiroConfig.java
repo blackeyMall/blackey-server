@@ -1,7 +1,10 @@
 package com.blackey.tenant.global.config;
 
+import com.blackey.tenant.global.filter.JWTFilter;
 import com.blackey.tenant.global.filter.OAuth2Filter;
-import com.blackey.tenant.global.shiro.OAuth2Realm;
+import com.blackey.tenant.global.shiro.MyJwtRealm;
+import org.apache.shiro.mgt.DefaultSessionStorageEvaluator;
+import org.apache.shiro.mgt.DefaultSubjectDAO;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
@@ -47,11 +50,23 @@ public class ShiroConfig {
      * @return SecurityManager
      */
     @Bean("securityManager")
-    public SecurityManager securityManager(OAuth2Realm oAuth2Realm, SessionManager sessionManager) {
+    public SecurityManager securityManager(MyJwtRealm oAuth2Realm, SessionManager sessionManager) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(oAuth2Realm);
         securityManager.setSessionManager(sessionManager);
         LOGGER.info("---init securityManager : {}",securityManager);
+
+
+        /*
+         * 关闭shiro自带的session，详情见文档
+         * http://shiro.apache.org/session-management.html#SessionManagement-StatelessApplications%28Sessionless%29
+         */
+        DefaultSubjectDAO subjectDAO = new DefaultSubjectDAO();
+        DefaultSessionStorageEvaluator defaultSessionStorageEvaluator = new DefaultSessionStorageEvaluator();
+        defaultSessionStorageEvaluator.setSessionStorageEnabled(false);
+        subjectDAO.setSessionStorageEvaluator(defaultSessionStorageEvaluator);
+        securityManager.setSubjectDAO(subjectDAO);
+
         return securityManager;
     }
 
@@ -68,7 +83,7 @@ public class ShiroConfig {
 
         //oauth过滤
         Map<String, Filter> filters = new HashMap<>();
-        filters.put("oauth2", new OAuth2Filter());
+        filters.put("jwt", new JWTFilter());
         shiroFilter.setFilters(filters);
 
         Map<String, String> filterMap = new LinkedHashMap<>();
@@ -81,7 +96,7 @@ public class ShiroConfig {
         filterMap.put("/swagger-ui.html", "anon");
         filterMap.put("/swagger-resources/**", "anon");
         filterMap.put("/sys/captcha.jpg", "anon");
-        filterMap.put("/**", "oauth2");
+        filterMap.put("/**", "jwt");
         shiroFilter.setFilterChainDefinitionMap(filterMap);
         LOGGER.info("---init shiroFilter : {}",shiroFilter);
         return shiroFilter;

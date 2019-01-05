@@ -1,5 +1,6 @@
 package com.blackey.tenant.rest;
 
+import com.blackey.common.result.ResultCodeEnum;
 import com.blackey.tenant.component.domain.SysUserEntity;
 import com.blackey.tenant.component.service.SysTenantMenuService;
 import com.blackey.tenant.global.constants.RoleEnum;
@@ -139,14 +140,18 @@ public class SysMenuController extends AbstractController {
 	@PostMapping("/delete/{menuId}")
 	@RequiresPermissions("sys:menu:delete")
 	public Result delete(@PathVariable("menuId") long menuId){
-		if(menuId <= 31){
-			return failure("系统菜单，不能删除");
-		}
 
+		SysMenuEntity sysMenuEntity = sysMenuService.getById(menuId);
+		if(null == sysMenuEntity){
+			return failure(ResultCodeEnum.NOT_FOUND);
+		}
+		if(sysMenuEntity.getIsSystemMenu() == MenuEnum.SYS_MENU_YES.getCode()){
+			return failure(MenuEnum.VALIDATE_SYSTEM_MENU);
+		}
 		//判断是否有子菜单或按钮
 		List<SysMenuEntity> menuList = sysMenuService.queryListParentId(menuId);
 		if(menuList.size() > 0){
-			return failure("请先删除子菜单或按钮");
+			return failure(MenuEnum.EXIST_CHILD_MENU);
 		}
 
 		sysMenuService.delete(menuId);

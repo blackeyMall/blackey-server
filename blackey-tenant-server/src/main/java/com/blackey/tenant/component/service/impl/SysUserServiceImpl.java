@@ -4,7 +4,9 @@ import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.blackey.common.exception.BusinessException;
 import com.blackey.common.exception.PermissionException;
+import com.blackey.common.result.ResultCodeEnum;
 import com.blackey.mybatis.service.impl.BaseServiceImpl;
 import com.blackey.mybatis.utils.PageUtils;
 import com.blackey.mybatis.utils.Query;
@@ -13,6 +15,7 @@ import com.blackey.tenant.component.mapper.SysUserMapper;
 import com.blackey.tenant.component.service.SysRoleService;
 import com.blackey.tenant.component.service.SysUserRoleService;
 import com.blackey.tenant.component.service.SysUserService;
+import com.blackey.tenant.dto.form.SysUserForm;
 import com.blackey.tenant.global.constants.RoleEnum;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
@@ -42,19 +45,9 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUserEn
 	private SysRoleService sysRoleService;
 
 	@Override
-	public PageUtils queryPage(Map<String, Object> params) {
-		String username = (String)params.get("username");
-		Long createUserId = (Long)params.get("createUserId");
+	public List<SysUserEntity> queryPage(SysUserForm form, Page<SysUserEntity> page) {
 
-
-		Page<SysUserEntity> page = (Page<SysUserEntity>) this.page(
-			new Query<SysUserEntity>(params).getPage(),
-			new QueryWrapper<SysUserEntity>()
-				.like(StringUtils.isNotBlank(username),"username", username)
-				.eq(createUserId != null,"create_user_id", createUserId)
-		);
-
-		return new PageUtils(page);
+		return baseMapper.queryPage(form,page);
 	}
 
 	@Override
@@ -126,8 +119,10 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUserEn
 		if(user.getRoleIdList() == null || user.getRoleIdList().size() == 0){
 			return;
 		}
-		//如果不是超级管理员，则需要判断用户的角色是否自己创建
-		if(user.getCreateUserId() == RoleEnum.ROLE_SUPER.getCode()){
+
+		//如果不是超级管理员/租户管理员，则需要判断用户的角色是否自己创建
+		if(user.getRoleType() == RoleEnum.ROLE_SUPER.getCode()
+				|| user.getRoleType() == RoleEnum.ROLE_ADMIN.getCode()){
 			return ;
 		}
 		

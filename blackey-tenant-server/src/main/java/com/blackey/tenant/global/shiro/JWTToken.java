@@ -4,16 +4,15 @@ package com.blackey.tenant.global.shiro;
 import org.apache.shiro.authc.AuthenticationToken;
 
 /**
- * token
+ * jwt token
  *
- * @author chenshun
- * @email sunlightcs@gmail.com
+ * @author kaven
  * @date 2017-05-20 13:22
  */
-public class OAuth2Token implements AuthenticationToken {
+public class JWTToken implements AuthenticationToken {
     private String token;
 
-    public OAuth2Token(String token){
+    public JWTToken(String token){
         this.token = token;
     }
 

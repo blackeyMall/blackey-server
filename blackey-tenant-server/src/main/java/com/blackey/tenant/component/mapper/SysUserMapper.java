@@ -1,7 +1,11 @@
 package com.blackey.tenant.component.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.tenant.component.domain.SysUserEntity;
+import com.blackey.tenant.dto.form.SysUserForm;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 
 import java.util.List;
@@ -32,4 +36,26 @@ public interface SysUserMapper extends BaseMapper<SysUserEntity> {
 	 */
 	SysUserEntity queryByUserName(String username);
 
+	/**
+	 * 分页查询用户信息
+	 * @param form
+	 * @param page
+	 * @return
+	 */
+	@Select("<script>" +
+			"SELECT\n" +
+			"\tu.*,\n" +
+			"\tt.company AS tenantName \n" +
+			"FROM\n" +
+			"\tsys_user u\n" +
+			"\tLEFT JOIN sys_tenant_info t ON u.tenant_id = t.id" +
+			" Where 1 = 1 " +
+			"<if test=\"form.userName != null and form.userName != '' \">" +
+			" AND u.username like concat('%', #{form.userName}, '%')" +
+			"</if>" +
+			"<if test=\"form.createUserId != null and form.createUserId != '' \">" +
+			" AND u.create_user_id = #{form.createUserId}" +
+			"</if>" +
+			"</script>")
+    List<SysUserEntity> queryPage(@Param("form") SysUserForm form, Page<SysUserEntity> page);
 }

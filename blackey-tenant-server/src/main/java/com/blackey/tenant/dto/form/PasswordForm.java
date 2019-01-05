@@ -1,5 +1,8 @@
 package com.blackey.tenant.dto.form;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 
 /**
@@ -8,6 +11,8 @@ import java.io.Serializable;
  * @author kavenW
  * @since 1.4.0 2018-01-25
  */
+@Setter
+@Getter
 public class PasswordForm implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -21,19 +26,4 @@ public class PasswordForm implements Serializable {
      */
     private String newPassword;
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getNewPassword() {
-        return newPassword;
-    }
-
-    public void setNewPassword(String newPassword) {
-        this.newPassword = newPassword;
-    }
 }

@@ -62,7 +62,7 @@ public interface ProjectInfoMapper extends BaseDAO<ProjectInfo> {
 //            "<if test=\"form.openId != '' and form.openId != null\">" +
 //            " and p.open_id != #{form.openId}\n" +
 //            "</if>" +
-            "<if test=\"form.category != null \">" +
+            "<if test=\"form.category != null and form.category.value != 'DEFAULT'  \">" +
             " and p.category = #{form.category.value}\n" +
             "</if>" +
             "<if test=\"form.name != null and form.name != '' \">" +

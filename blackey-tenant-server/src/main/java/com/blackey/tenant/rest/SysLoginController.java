@@ -6,7 +6,10 @@ import com.blackey.tenant.component.domain.SysUserTokenEntity;
 import com.blackey.tenant.component.service.SysCaptchaService;
 import com.blackey.tenant.component.service.SysUserService;
 import com.blackey.tenant.component.service.SysUserTokenService;
+import com.blackey.tenant.dto.form.JWTInfoForm;
 import com.blackey.tenant.dto.form.SysLoginForm;
+import com.blackey.tenant.global.constants.TenantResultEnum;
+import com.blackey.tenant.util.JWTUtil;
 import org.apache.commons.io.IOUtils;
 import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +49,7 @@ public class SysLoginController extends AbstractController {
 	 * 验证码
 	 */
 	@GetMapping("/sys/captcha.jpg")
-	public void captcha(HttpServletResponse response, String uuid)throws ServletException, IOException {
+	public void captcha(HttpServletResponse response, String uuid)throws IOException {
 		response.setHeader("Cache-Control", "no-store, no-cache");
 		response.setContentType("image/jpeg");
 
@@ -67,7 +70,7 @@ public class SysLoginController extends AbstractController {
 	    if(captchaEnabled){
             boolean captcha = sysCaptchaService.validate(form.getUuid(), form.getCaptcha());
             if(!captcha){
-                return failure("验证码不正确");
+                return failure(TenantResultEnum.CAPTCHA_VALID_ERROR);
             }
         }
 
@@ -76,17 +79,23 @@ public class SysLoginController extends AbstractController {
 
 		//账号不存在、密码错误
 		if(user == null || !user.getPassword().equals(new Sha256Hash(form.getPassword(), user.getSalt()).toHex())) {
-			return failure("账号或密码不正确");
+			return failure(TenantResultEnum.PASSWORD_ACCOUNT_ERROR);
 		}
 
 		//账号锁定
 		if(user.getStatus() == 0){
-			return failure("账号已被锁定,请联系管理员");
+			return failure(TenantResultEnum.USER_UNENABLE_ERROR);
 		}
 
+		JWTInfoForm infoForm = new JWTInfoForm();
+		infoForm.setUserId(String.valueOf(user.getUserId()));
+		infoForm.setUserName(user.getUsername());
+		infoForm.setSecret(user.getPassword());
+		infoForm.setExpireTime(5*60*1000);
+
 		//生成token，并保存到数据库
-        SysUserTokenEntity sysUserTokenEntity = sysUserTokenService.createToken(user.getUserId());
-		return success(sysUserTokenEntity);
+        //SysUserTokenEntity sysUserTokenEntity = sysUserTokenService.createToken(user.getUserId());
+		return success(JWTUtil.generToken(infoForm));
 	}
 
 
@@ -95,7 +104,7 @@ public class SysLoginController extends AbstractController {
 	 */
 	@PostMapping("/sys/logout")
 	public Result logout() {
-		sysUserTokenService.logout(getUserId());
+		//sysUserTokenService.logout(getUserId());
 		return success();
 	}
 	

@@ -97,7 +97,9 @@ public class SysMenuController extends AbstractController {
 	@PostMapping("/save")
 	@RequiresPermissions("sys:menu:save")
 	public Result save(@RequestBody SysMenuEntityForm menu){
-		//数据校验
+		/**
+		 * 数据校验
+		 */
 		verifyForm(menu);
         SysMenuEntity sysMenuEntity = new SysMenuEntity();
         BeanUtils.copyProperties(menu,sysMenuEntity);

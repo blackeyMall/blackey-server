@@ -1,12 +1,15 @@
 package com.blackey.tenant.rest;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.common.result.Result;
 import com.blackey.mybatis.utils.PageUtils;
 import com.blackey.tenant.component.domain.SysUserEntity;
 import com.blackey.tenant.component.service.SysUserRoleService;
 import com.blackey.tenant.component.service.SysUserService;
 import com.blackey.tenant.dto.form.PasswordForm;
+import com.blackey.tenant.dto.form.SysUserForm;
 import com.blackey.tenant.global.constants.RoleEnum;
+import com.blackey.tenant.global.constants.TenantResultEnum;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.crypto.hash.Sha256Hash;
@@ -34,16 +37,21 @@ public class SysUserController extends AbstractController {
 	/**
 	 * 所有用户列表
 	 */
-	@GetMapping("/list")
+	@PostMapping("/list")
 	@RequiresPermissions("sys:user:list")
-	public Result list(@RequestParam Map<String, Object> params){
+	public Result list(@RequestBody SysUserForm form){
 		//只有超级管理员，才能查看所有管理员列表
-		if(getUserId() != RoleEnum.ROLE_SUPER.getCode()){
-			params.put("createUserId", getUserId());
+		if(getUser().getRoleType() == RoleEnum.ROLE_USER.getCode()
+				|| getUser().getRoleType() == RoleEnum.ROLE_VISITOR.getCode() ){
+			form.setCreateUserId(getUserId());
 		}
-		PageUtils page = sysUserService.queryPage(params);
-
-		return success(page);
+		//租户管理员,查询该租户下所有用户
+		if(getUser().getRoleType() == RoleEnum.ROLE_ADMIN.getCode()){
+			form.setTenantId(getTenangtId());
+		}
+		Page<SysUserEntity> page = new Page<>(form.getCurrent(),form.getSize());
+		List<SysUserEntity> sysUserEntities = sysUserService.queryPage(form, page);
+		return success(page.setRecords(sysUserEntities));
 	}
 	
 	/**
@@ -69,7 +77,7 @@ public class SysUserController extends AbstractController {
 		//更新密码
 		boolean flag = sysUserService.updatePassword(getUserId(), password, newPassword);
 		if(!flag){
-			return failure("原密码不正确");
+			return failure(TenantResultEnum.PASSWORD_UPDATE_ERROR);
 		}
 		
 		return success();
@@ -124,11 +132,11 @@ public class SysUserController extends AbstractController {
 	@RequiresPermissions("sys:user:delete")
 	public Result delete(@RequestBody Long[] userIds){
 		if(ArrayUtils.contains(userIds, 1L)){
-			return failure("系统管理员不能删除");
+			return failure(TenantResultEnum.SUPER_USER_DEL_ERROR);
 		}
 		
 		if(ArrayUtils.contains(userIds, getUserId())){
-			return failure("当前用户不能删除");
+			return failure(TenantResultEnum.CURRENT_USER_DEL_ERROR);
 		}
 		
 		sysUserService.deleteBatch(userIds);

@@ -35,8 +35,13 @@ public class SysRoleController extends AbstractController {
 	@RequiresPermissions("sys:role:list")
 	public Result list(@RequestParam Map<String, Object> params){
 		//如果不是超级管理员，则只查询自己创建的角色列表
-		if(getUserId() != RoleEnum.ROLE_SUPER.getCode()){
+		if(getUser().getRoleType() == RoleEnum.ROLE_USER.getCode()
+				|| getUser().getRoleType() == RoleEnum.ROLE_VISITOR.getCode()){
 			params.put("createUserId", getUserId());
+		}
+		//租户管理员，可以看到该租户下所有的角色
+		if(getUser().getRoleType() == RoleEnum.ROLE_ADMIN.getCode()){
+			params.put("tenantId", getTenangtId());
 		}
 
 		PageUtils page = sysRoleService.queryPage(params);
@@ -52,9 +57,14 @@ public class SysRoleController extends AbstractController {
 	public Result select(){
 		Map<String, Object> map = new HashMap<>();
 		
-		//如果不是超级管理员，则只查询自己所拥有的角色列表
-		if(getUserId() != RoleEnum.ROLE_SUPER.getCode()){
-			map.put("createUserId", getUserId());
+		//用户和游客，只查询自己所拥有的角色列表
+		if(getUser().getRoleType() == RoleEnum.ROLE_USER.getCode()
+				|| getUser().getRoleType() == RoleEnum.ROLE_VISITOR.getCode()){
+			map.put("create_user_id", getUserId());
+		}
+		//租户管理员，可以看到该租户下所有的角色
+		if(getUser().getRoleType() == RoleEnum.ROLE_ADMIN.getCode()){
+			map.put("tenant_id", getTenangtId());
 		}
 		List<SysRoleEntity> list = (List<SysRoleEntity>) sysRoleService.listByMap(map);
 		
