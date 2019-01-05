@@ -45,7 +45,6 @@ public class NotifyRecordServiceImpl extends BaseServiceImpl<NotifyRecordMapper,
         QueryWrapper<NotifyRecord> queryWrapper = new QueryWrapper<NotifyRecord>();
         queryWrapper.eq("notify_user_openid",openid);
 
-
         return page.setRecords(notifyRecordMapper.selectList(queryWrapper));
     }
 

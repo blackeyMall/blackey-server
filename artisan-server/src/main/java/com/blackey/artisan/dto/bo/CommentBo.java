@@ -18,17 +18,11 @@ public class CommentBo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-	/**
-	 * 
-	 */
-    private Integer comment;
-	/**
-	 * 
-	 */
+
+    private String comment;
+
     private Integer serviceStatus;
-	/**
-	 * 
-	 */
+
     private Integer responseSpeed;
 
     private String serviceId;

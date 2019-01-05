@@ -1,5 +1,6 @@
 package com.blackey.artisan.rest;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.artisan.component.domain.Comment;
 import com.blackey.artisan.component.service.CommentService;
 import com.blackey.artisan.component.service.PictureInfoService;
@@ -16,6 +17,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
 /**
@@ -40,12 +42,10 @@ public class CommentRest extends BaseRest {
     /**
     * 分页列表
     */
-    @PostMapping("/list/page")
-    @RequiresPermissions("admin:comment:list")
-    public Result list(@RequestParam Map<String, Object> params){
-        PageUtils page = commentService.queryPage(params);
+    @GetMapping("/list/page")
+    public Result list(String openid,Page page) throws InvocationTargetException, IllegalAccessException {
 
-        return success(page);
+        return success(commentService.getByOpenid(openid, page));
     }
 
     /**
