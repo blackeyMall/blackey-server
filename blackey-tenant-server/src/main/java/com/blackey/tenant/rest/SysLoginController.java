@@ -91,7 +91,7 @@ public class SysLoginController extends AbstractController {
 		infoForm.setUserId(String.valueOf(user.getUserId()));
 		infoForm.setUserName(user.getUsername());
 		infoForm.setSecret(user.getPassword());
-		infoForm.setExpireTime(5*60*1000);
+		infoForm.setExpireTime(5*24*60*60*1000);
 
 		//生成token，并保存到数据库
         //SysUserTokenEntity sysUserTokenEntity = sysUserTokenService.createToken(user.getUserId());

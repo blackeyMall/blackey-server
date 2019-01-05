@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 public class ErrorExceptionRest extends BaseRest {
 
-    @GetMapping("/401")
+    @RequestMapping("/401")
     public Result handler401(HttpServletRequest request){
 
         Throwable throwable = (Throwable) request.getAttribute("javax.servlet.error.exception");
@@ -31,7 +31,7 @@ public class ErrorExceptionRest extends BaseRest {
         return failure(ResultCodeEnum.UNAUTHORIZED);
     }
 
-    @GetMapping("/500")
+    @RequestMapping("/500")
     public Result handler500(HttpServletRequest request){
 
         return failure(ResultCodeEnum.SYSTEM_ERROR);

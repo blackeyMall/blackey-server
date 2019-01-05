@@ -3,9 +3,9 @@ spring:
     name: blackey-tenant-server
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:8889/blackey_shop?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    url: jdbc:mysql://rm-bp1wn4zu9ibl04h881o.mysql.rds.aliyuncs.com:3306/tenant_admin?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
     username: root
-    password: root
+    password: Blackey!2
   # jackson时间格式化
   jackson:
     time-zone: GMT+8

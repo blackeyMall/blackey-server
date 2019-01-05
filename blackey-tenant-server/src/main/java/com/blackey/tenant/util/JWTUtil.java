@@ -77,9 +77,9 @@ public class JWTUtil {
         String userName = jwt.getClaim(USER_NAME).asString();
         Date expiresAt = jwt.getExpiresAt();
 
-        if(expiresAt.before(new Date())){
-            return new Result(ResultCodeEnum.TOKEN_TIMEOUT_ERROR);
-        }
+//        if(expiresAt.before(new Date())){
+//            return new Result(ResultCodeEnum.TOKEN_TIMEOUT_ERROR);
+//        }
 
         if(!jwtInfoForm.getUserId().equals(subject)
                 || !jwtInfoForm.getUserName().equals(userName)){
@@ -91,15 +91,14 @@ public class JWTUtil {
     /**
      * 校验token是否过期
      * @param token 密钥
-     * @param jwtInfoForm
      * @return 是否过期
      */
-    public static boolean verifyExpireTime(String token, JWTInfoForm jwtInfoForm) {
-        DecodedJWT jwt = getDecodedJWT(token, jwtInfoForm);
-        if(jwt != null){
+    public static boolean verifyExpireTime(String token) {
+        try {
+            DecodedJWT jwt = JWT.decode(token);
             Date expiresAt = jwt.getExpiresAt();
             return expiresAt.after(new Date());
-        }else {
+        } catch (JWTDecodeException e) {
             return false;
         }
     }
@@ -119,12 +118,25 @@ public class JWTUtil {
 
     /**
      * 获得token中的信息无需secret解密也能获得
-     * @return token中包含的用户名
+     * @return token中包含的subject
      */
     public static String getUserId(String token) {
         try {
             DecodedJWT jwt = JWT.decode(token);
             return jwt.getSubject();
+        } catch (JWTDecodeException e) {
+            return null;
+        }
+    }
+
+    /**
+     * 获得token中的信息无需secret解密也能获得
+     * @return token中包含的过期时间
+     */
+    public static Date getExpireAt(String token) {
+        try {
+            DecodedJWT jwt = JWT.decode(token);
+            return jwt.getExpiresAt();
         } catch (JWTDecodeException e) {
             return null;
         }

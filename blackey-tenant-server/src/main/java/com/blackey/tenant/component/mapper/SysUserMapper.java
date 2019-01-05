@@ -50,6 +50,9 @@ public interface SysUserMapper extends BaseMapper<SysUserEntity> {
 			"\tsys_user u\n" +
 			"\tLEFT JOIN sys_tenant_info t ON u.tenant_id = t.id" +
 			" Where 1 = 1 " +
+			"<if test=\"form.tenantId != null and form.tenantId != '' \">" +
+			" AND u.tenant_id = #{form.tenantId}" +
+			"</if>" +
 			"<if test=\"form.userName != null and form.userName != '' \">" +
 			" AND u.username like concat('%', #{form.userName}, '%')" +
 			"</if>" +
