@@ -55,5 +55,7 @@ public class OrderInfoBo {
 
     private String content;
 
+    private int type;
+
 
 }

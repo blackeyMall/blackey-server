@@ -26,7 +26,6 @@
 		  o.order_no,
 		  o.order_status,
 		  o.project_id,
-		  o.service_no,
 		  p.`name` as project_name,
 		  p.pic_url,
 		  p.pro_desc,
@@ -34,14 +33,40 @@
 		  s.`name` as service_user_name,
 		  s.remark,
 		  s.telephone,
-		  s.service_time
+		  s.service_time,
+		  r.type
 	  FROM
 		  order_info o,
 		  project p,
-		  service_info s
-	  WHERE
+		  service_info s,
+		(
+		SELECT
+		IF
+		(
+		isnull( c.id ),
+		1,
+		0
+		) AS type,
+		o.open_id,
+		o.id,
+		o.material_id,
+		o.service_no,
+		o.created_date,
+		o.price,
+		o.order_no,
+		o.order_status,
+		o.project_id
+		FROM
+		order_info o
+		LEFT JOIN `comment` c ON c.service_id = o.id
+		WHERE
+		o.open_id = #{form.openId}
+		) r
+		WHERE
 		  o.service_no = s.id
 		  AND p.id = o.project_id
+
+		and o.id = r.id
 		<if test="form.openId != '' and form.openId != null">
 			and	o.open_id = #{form.openId}
 		</if>
