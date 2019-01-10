@@ -26,5 +26,11 @@ public interface PictureInfoService extends BaseService<PictureInfo> {
 
 
     List<String> queryPicList(String objectId, PicTypeStatus picTypeStatus);
+
+    /**
+     * 保存图片
+     * @param pics
+     */
+    void savePic(String objectId,String[] pics,PicTypeStatus status);
 }
 

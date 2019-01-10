@@ -1,33 +1,29 @@
-package com.blackey.finance.global.constants;
+package com.blackey.artisan.global.constants;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 
 /**
- * 项目类别
+ * 订单状态
  *
- *
- * @author kaven
- * @date 2018/11/26
+ * @author blackey
+ * @date 2018/11/5
  */
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 @Getter
-public enum ProjectCategoryEnum {
-
-
-
+public enum NotifyStatus {
 
     /**
-     * 项目类别
+     * 订单状态
      */
     DEFAULT("全部"),
-    STOCK("股权项目"),
-    OTHER("其他项目");
+    NOTIFY("可以通知"),
+    NOTIFYED("已通知");
 
     private String name;
     private String value;
 
-    ProjectCategoryEnum(String name) {
+    NotifyStatus(String name) {
         this.name = name;
         this.value = this.toString();
     }

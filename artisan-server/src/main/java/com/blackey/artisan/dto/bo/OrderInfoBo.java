@@ -15,6 +15,8 @@ import java.util.Date;
 @Setter
 public class OrderInfoBo {
 
+    private String openId;
+
     private String id;
 
     private Date createdDate;
@@ -52,6 +54,8 @@ public class OrderInfoBo {
     private String materialId;
 
     private String content;
+
+    private int type;
 
 
 }

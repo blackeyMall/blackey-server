@@ -3,7 +3,7 @@ spring:
     name: finance-server
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:8889/finance?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    url: jdbc:mysql://localhost:3306/finance?allowMultiQueries=true&useUnicode=true&useSSL=false
     username: root
     password: root
   # jackson时间格式化

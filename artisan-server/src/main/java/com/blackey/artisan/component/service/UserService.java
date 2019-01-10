@@ -48,5 +48,6 @@ public interface UserService extends BaseService<User> {
 
     User findByOpenId(String openId);
 
+
 }
 
