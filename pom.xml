@@ -32,6 +32,7 @@
         <module>blackey-finance-server</module>
         <module>blackey-flowers-server</module>
         <module>blackey-tenant-server</module>
+        <module>blackey-moudle</module>
     </modules>
 
     <dependencyManagement>
