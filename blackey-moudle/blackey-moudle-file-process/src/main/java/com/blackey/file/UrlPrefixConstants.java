@@ -1,11 +1,22 @@
 package com.blackey.file;
 
+import lombok.Data;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
+
 /**
  *
  * @author blackey
  * @date 2019/1/8
  */
-public interface UrlPrefixConstants {
+@Data
+@Component
+@ConfigurationProperties(prefix = "blackey.file.upload")
+public class UrlPrefixConstants {
 
-    String getUrlPrefix();
+    private String serverName;
+
+    private String remoteAddress;
+
+    private String serverDomain;
 }

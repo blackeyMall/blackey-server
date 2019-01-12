@@ -1,3 +1,9 @@
 blackey:
   server:
     name: blackey
+blackey:
+  file:
+    upload:
+      serverName: artisan
+      remoteAddress: /opt/
+      serverDomain: localhost

@@ -1,18 +1,22 @@
 package com.blackey.file;
 
 
+import com.google.common.collect.Lists;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.annotation.Resource;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.security.SecureRandom;
+import java.util.List;
 
-
+@Slf4j
 @Service
 public class FileUploadServiceImpl implements FileUploadService {
 
@@ -25,19 +29,43 @@ public class FileUploadServiceImpl implements FileUploadService {
     @Value("${http.domain:localhost}")
     private String domain;
 
+    @Resource
+    private UrlPrefixConstants constants;
+
 
     @Override
-    public String uploadFile(HttpServletRequest request, MultipartFile file) {
-        String originalFileName = file.getOriginalFilename();
-        String fileName = generalFileName("A") + originalFileName.substring(originalFileName.lastIndexOf("."), originalFileName.length());
+    public String uploadFile(MultipartFile file) {
+        String originalFilename = file.getOriginalFilename();
+        String fileSuffix = originalFilename.substring(originalFilename.lastIndexOf("."), originalFilename.length());
 
+        String fileName = generalFileName(constants.getServerName()) +
+                fileSuffix;
+        logger.info("上传文件请求发送，文件名: [{}]", fileName);
         try {
-            this.uploadFile(file.getBytes(), fileStorePath, fileName);
-        } catch (Exception e) {
-            logger.error("upload file error !");
+            uploadFile(file.getBytes(), constants.getRemoteAddress(), fileName);
+        } catch (IOException e) {
+            logger.error("图片文件流读取失败");
         }
-        return domain + fileName;
+
+        return constants.getServerDomain() +
+                fileName;
     }
+
+    @Override
+    public List uploadFile(List<MultipartFile> files) {
+        List picList = Lists.newArrayList();
+
+        files.forEach(file -> {
+            picList.add(uploadFile(file));
+        });
+
+        return picList;
+    }
+
+
+    /**
+     * -----------------------------------
+     */
 
     /**
      * 文件夹需要赋权，mac 下应用启动是非root
@@ -47,15 +75,19 @@ public class FileUploadServiceImpl implements FileUploadService {
      * @param fileName
      * @throws Exception
      */
-    public void uploadFile(byte[] file, String filePath, String fileName) throws Exception {
-        File targetFile = new File(filePath);
-        if (!targetFile.exists()) {
-            targetFile.mkdirs();
+    public void uploadFile(byte[] file, String filePath, String fileName) {
+        //创建文件夹
+        File targetDire = new File(filePath);
+        if (!targetDire.exists()) {
+            targetDire.mkdirs();
         }
-        FileOutputStream out = new FileOutputStream(filePath + fileName);
-        out.write(file);
-        out.flush();
-        out.close();
+        try (FileOutputStream out = new FileOutputStream(filePath +
+                fileName)) {
+            out.write(file);
+        } catch (IOException ex) {
+            logger.error("图片文件流创建或写入失败");
+        }
+
     }
 
     /**
@@ -68,17 +100,15 @@ public class FileUploadServiceImpl implements FileUploadService {
      */
     public String generalFileName(String tag) {
         SecureRandom secureRandom = new SecureRandom();
-        int slat = secureRandom.nextInt(900) + 100;
+        int slat = secureRandom.nextInt(900) +
+                100;
 
         long timestamp = System.currentTimeMillis();
 
-        StringBuilder sBuilder = new StringBuilder();
-        sBuilder.append(tag)
-                .append(String.valueOf(slat))
-                .append(String.valueOf(timestamp));
 
-
-        return sBuilder.toString();
+        return tag +
+                String.valueOf(slat) +
+                String.valueOf(timestamp);
     }
 
 

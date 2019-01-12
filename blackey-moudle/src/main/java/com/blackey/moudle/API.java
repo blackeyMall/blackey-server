@@ -7,8 +7,8 @@ package com.blackey.moudle;
  */
 public class API {
 
-    public static String SERVER = "/artisan";
+    public final static String SERVER = "/artisan";
 
-    public static String SERVER_FILE = "/artisan/file";
+    public final static String SERVER_FILE = "/artisan/file";
 
 }

@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 
 @Slf4j
@@ -17,13 +18,12 @@ public class FileUploadRest extends BaseRest {
 
 
     @Resource
-    FileUploadService fileUploadService;
+    private FileUploadService fileUploadService;
 
-    @Resource
-    HttpServletRequest request;
 
     @PostMapping("/upload")
     public Result upload(@RequestParam("file") MultipartFile file){
+
         if (file.isEmpty()){
             logger.error("没有可用的文件");
             return success();
@@ -31,12 +31,24 @@ public class FileUploadRest extends BaseRest {
 
 
         try {
-            String fileName = fileUploadService.uploadFile(request,file);
+            String fileName = fileUploadService.uploadFile(file);
             return success(fileName);
         } catch (Exception e)
         {
             return failure();
         }
+    }
+
+    @PostMapping("/multi/upload")
+    public Result uploadMultiFiles(@RequestParam("file") List<MultipartFile> files){
+
+        if (files.size() < 1){
+            logger.error("没有可用的文件");
+            return success();
+        }
+
+        return success(fileUploadService.uploadFile(files));
+
     }
 
 }
