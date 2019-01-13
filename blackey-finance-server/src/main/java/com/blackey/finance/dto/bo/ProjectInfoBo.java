@@ -126,6 +126,10 @@ public class ProjectInfoBo implements Serializable {
 	 * 手机号
 	 */
 	private String telephone;
+	/**
+	 * 所属行业
+	 */
+	private String industry;
 
 
 }

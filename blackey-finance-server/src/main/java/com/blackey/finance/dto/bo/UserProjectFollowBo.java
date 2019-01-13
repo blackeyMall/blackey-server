@@ -101,5 +101,9 @@ public class UserProjectFollowBo implements Serializable {
 	 * 职位
 	 */
 	private String duties;
+	/**
+	 * 所属行业
+	 */
+	private String industry;
 
 }

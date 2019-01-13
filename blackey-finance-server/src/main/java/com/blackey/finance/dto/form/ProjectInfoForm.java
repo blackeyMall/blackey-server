@@ -82,6 +82,10 @@ public class ProjectInfoForm extends BaseSearch implements Serializable {
 	 */
 	private String projectDesc;
 	/**
+	 * 所属行业
+	 */
+	private String industry;
+	/**
 	 * 类别
 	 */
     private ProjectCategoryEnum category = ProjectCategoryEnum.STOCK;
