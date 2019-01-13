@@ -109,4 +109,10 @@ public class UserRelationServiceImpl extends BaseServiceImpl<UserRelationMapper,
     public Page queryApplyPageByOpenId(UserRelationForm form, Page page) {
         return page.setRecords(userRelationMapper.findUserApplyRelationByOpenId(form, page));
     }
+
+    @Override
+    public UserRelation findRelation(UserRelationForm form) {
+
+        return userRelationMapper.findRelation(form);
+    }
 }

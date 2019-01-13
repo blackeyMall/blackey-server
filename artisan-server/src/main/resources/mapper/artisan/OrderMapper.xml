@@ -59,8 +59,9 @@
 		FROM
 		order_info o
 		LEFT JOIN `comment` c ON c.service_id = o.id
-		WHERE
-		o.open_id = #{form.openId}
+		<if test="form.openId != '' and form.openId != null">
+			where	o.open_id = #{form.openId}
+		</if>
 		) r
 		WHERE
 		  o.service_no = s.id

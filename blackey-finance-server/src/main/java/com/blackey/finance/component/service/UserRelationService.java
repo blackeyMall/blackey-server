@@ -50,5 +50,12 @@ public interface UserRelationService extends BaseService<UserRelation> {
      */
     Page queryApplyPageByOpenId(UserRelationForm form, Page page);
 
+    /**
+     * 查询好友间的关系
+     * @param form
+     * @return
+     */
+    UserRelation findRelation(UserRelationForm form);
+
 }
 

@@ -75,4 +75,20 @@ public interface UserRelationMapper extends BaseDAO<UserRelation> {
             "\t\tAND ur.is_deleted = 0\n" +
             "\t)</script>")
     List<UserRelationBo> findUserApplyRelationByOpenId(@Param("form") UserRelationForm form, Page page);
+
+    @Select("SELECT\n" +
+            "\tu.* \n" +
+            "FROM\n" +
+            "\tt_user_relation u \n" +
+            "WHERE\n" +
+            "\t(\n" +
+            "\t\tu.open_id = #{form.openId} \n" +
+            "\t\tAND u.friend_id = #{form.friendId} \n" +
+            "\t) \n" +
+            "\tOR (\n" +
+            "\t\tu.friend_id = #{form.openId}\n" +
+            "\tAND u.open_id = #{form.friendId}\n" +
+            "\t)" +
+            "and u.is_deleted = 0")
+    UserRelation findRelation(@Param("form") UserRelationForm form);
 }

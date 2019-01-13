@@ -34,13 +34,11 @@ public class UserRelationRest extends BaseRest {
     private UserRelationService userRelationService;
 
 
-
-
     /**
      * 列表
      */
     @PostMapping("/list")
-    public Result list(@RequestBody UserRelationForm userRelationForm){
+    public Result list(@RequestBody UserRelationForm userRelationForm) {
         //TODO
         return success();
     }
@@ -50,7 +48,7 @@ public class UserRelationRest extends BaseRest {
      * 查看详情信息
      */
     @GetMapping("/info/{openId}")
-    public Result info(@PathVariable("openId") String openId){
+    public Result info(@PathVariable("openId") String openId) {
 
         UserRelation userRelation = userRelationService.getById(openId);
 
@@ -61,7 +59,7 @@ public class UserRelationRest extends BaseRest {
      * 更新
      */
     @PostMapping("/update")
-    public Result update(@RequestBody UserRelation userRelation){
+    public Result update(@RequestBody UserRelation userRelation) {
 
         userRelationService.updateById(userRelation);//全部更新
 
@@ -73,7 +71,7 @@ public class UserRelationRest extends BaseRest {
      * 根据主键id删除
      */
     @GetMapping("/delete/{openId}")
-    public Result delete(@PathVariable("openId") String openId){
+    public Result delete(@PathVariable("openId") String openId) {
 
         userRelationService.removeById(openId);
 
@@ -84,11 +82,11 @@ public class UserRelationRest extends BaseRest {
      * 申请好友
      */
     @PostMapping("/save")
-    public Result save(@RequestBody UserRelationForm userRelationForm){
+    public Result save(@RequestBody UserRelationForm userRelationForm) {
         //校验两个用户是否是有效用户
         UserRelation userRelation = new UserRelation();
         //Form --> domain
-        BeanUtils.copyProperties(userRelationForm,userRelation);
+        BeanUtils.copyProperties(userRelationForm, userRelation);
 
         userRelation.setStatus(ApplyStatus.APPLY);
         userRelationService.save(userRelation);
@@ -99,7 +97,7 @@ public class UserRelationRest extends BaseRest {
 
     @PostMapping("/list/page")
     @RequiresPermissions("finance:userrelation:list")
-    public Result list(@RequestParam Map<String, Object> params){
+    public Result list(@RequestParam Map<String, Object> params) {
         PageUtils page = userRelationService.queryPage(params);
         return success(page);
     }
@@ -108,23 +106,23 @@ public class UserRelationRest extends BaseRest {
      * 申请列表
      */
     @PostMapping("/list/openid")
-    public Result listByOpenId(@RequestBody UserRelationForm form){
+    public Result listByOpenId(@RequestBody UserRelationForm form) {
 
 
-        return success(userRelationService.queryPageByOpenId(form,new Page(form.getCurrent(),form.getSize())));
+        return success(userRelationService.queryPageByOpenId(form, new Page(form.getCurrent(), form.getSize())));
     }
 
     @PostMapping("/list/apply/openid")
-    public Result listByOpenid(@RequestBody UserRelationForm form){
+    public Result listByOpenid(@RequestBody UserRelationForm form) {
 
-        return success(userRelationService.queryApplyPageByOpenId(form,new Page(form.getCurrent(),form.getSize())));
+        return success(userRelationService.queryApplyPageByOpenId(form, new Page(form.getCurrent(), form.getSize())));
     }
 
     /**
      * 通过
      */
     @PostMapping("/accept")
-    public Result accept(@RequestBody UserRelationForm userRelationForm){
+    public Result accept(@RequestBody UserRelationForm userRelationForm) {
         userRelationForm.setStatus(ApplyStatus.ACCEPT);
 
         userRelationService.updateByFriend(userRelationForm);//全部更新
@@ -135,7 +133,7 @@ public class UserRelationRest extends BaseRest {
      * 拒绝
      */
     @PostMapping("/refuse")
-    public Result refuse(@RequestBody UserRelationForm userRelationForm){
+    public Result refuse(@RequestBody UserRelationForm userRelationForm) {
         userRelationForm.setStatus(ApplyStatus.REFUSE);
         userRelationService.updateByFriend(userRelationForm);//全部更新
 
@@ -143,9 +141,27 @@ public class UserRelationRest extends BaseRest {
     }
 
     @PostMapping("/add")
-    public Result add(@RequestBody UserRelationForm userRelationForm){
+    public Result add(@RequestBody UserRelationForm userRelationForm) {
 
         return userRelationService.addFriend(userRelationForm);
     }
 
+    @GetMapping("/query")
+    public Result query(UserRelationForm userRelationForm) {
+        UserRelation userRelation = userRelationService.findRelation(userRelationForm);
+
+        if (userRelation ==
+                null) {
+            return new Result<>(200,"不是好友关系");
+        }
+        if (userRelation.getStatus().equals(ApplyStatus.ACCEPT)) {
+            return new Result<>(201,"已经是好友关系！");
+        } else {
+            if (userRelation.getOpenId().equals(userRelationForm.getOpenId())) {
+                return new Result<>(202,"已发送好友申请给好友！");
+            } else {
+                return new Result<>(203,"申请列表中有该好友！");
+            }
+        }
+    }
 }
