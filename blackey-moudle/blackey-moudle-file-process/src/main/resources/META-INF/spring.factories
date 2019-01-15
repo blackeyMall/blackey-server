@@ -1,2 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.blackey.file.FileUploadServiceImpl
+com.blackey.file.FileUploadServiceImpl,\
+com.blackey.file.UrlPrefixConstants

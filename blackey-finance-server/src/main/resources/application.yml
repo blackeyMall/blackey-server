@@ -99,3 +99,8 @@ wx:
 blackey:
   swagger2:
     basePackage: com.blackey.finance.rest
+  file:
+    upload:
+      serverName: artisan
+      remoteAddress: /opt/
+      serverDomain: http://localhost/

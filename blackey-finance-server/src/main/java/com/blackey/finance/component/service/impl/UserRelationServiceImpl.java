@@ -115,4 +115,9 @@ public class UserRelationServiceImpl extends BaseServiceImpl<UserRelationMapper,
 
         return userRelationMapper.findRelation(form);
     }
+
+    @Override
+    public void fakeDelete(UserRelationForm userRelationForm) {
+        userRelationMapper.fakeDelete(userRelationForm);
+    }
 }

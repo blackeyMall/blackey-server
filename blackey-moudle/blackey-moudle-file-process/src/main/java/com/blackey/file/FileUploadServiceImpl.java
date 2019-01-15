@@ -1,6 +1,7 @@
 package com.blackey.file;
 
 
+import com.blackey.common.exception.BusinessException;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
@@ -14,6 +15,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.SecureRandom;
+import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
@@ -22,12 +24,6 @@ public class FileUploadServiceImpl implements FileUploadService {
 
 
     private final static Logger logger = LoggerFactory.getLogger(FileUploadServiceImpl.class);
-
-    @Value("${file.upload.path:/opt}")
-    private String fileStorePath;
-
-    @Value("${http.domain:localhost}")
-    private String domain;
 
     @Resource
     private UrlPrefixConstants constants;
@@ -38,11 +34,15 @@ public class FileUploadServiceImpl implements FileUploadService {
         String originalFilename = file.getOriginalFilename();
         String fileSuffix = originalFilename.substring(originalFilename.lastIndexOf("."), originalFilename.length());
 
+        if (!checkFileName(fileSuffix)){
+            throw new BusinessException("文件名错误");
+        }
+
         String fileName = generalFileName(constants.getServerName()) +
                 fileSuffix;
         logger.info("上传文件请求发送，文件名: [{}]", fileName);
         try {
-            uploadFile(file.getBytes(), constants.getRemoteAddress(), fileName);
+            uploadFile(file.getBytes(), constants.getRemoteAddress() + constants.getServerName() + "/", fileName);
         } catch (IOException e) {
             logger.error("图片文件流读取失败");
         }
@@ -109,6 +109,17 @@ public class FileUploadServiceImpl implements FileUploadService {
         return tag +
                 String.valueOf(slat) +
                 String.valueOf(timestamp);
+    }
+
+
+    /**
+     * 检查文件后缀名是否正确
+     * @param fileSuffix
+     * @throws Exception
+     */
+    public boolean checkFileName(String fileSuffix){
+        List<String> checkList = Arrays.asList(".jpg",".png",".jpeg",".ppt",".doc",".xls",".pdf",".xlsx");
+        return checkList.contains(fileSuffix);
     }
 
 
