@@ -63,6 +63,6 @@ public class EmailSenderRest extends BaseRest{
     @RequestMapping("/callback")
     public void callback(ProjectInfoForm form) throws IOException {
         userInfoService.updateUserByOpenid(form.getOpenId());
-        response.sendRedirect("/index.html");
+        response.sendRedirect("/u.html");
     }
 }

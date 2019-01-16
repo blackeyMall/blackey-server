@@ -57,5 +57,11 @@ public interface UserRelationService extends BaseService<UserRelation> {
      */
     UserRelation findRelation(UserRelationForm form);
 
+    /**
+     * 删除好友
+     * @param userRelationForm
+     * @return
+     */
+    void fakeDelete(UserRelationForm userRelationForm);
 }
 

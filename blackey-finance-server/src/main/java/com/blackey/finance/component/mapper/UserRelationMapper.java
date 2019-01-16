@@ -91,4 +91,22 @@ public interface UserRelationMapper extends BaseDAO<UserRelation> {
             "\t)" +
             "and u.is_deleted = 0")
     UserRelation findRelation(@Param("form") UserRelationForm form);
+
+
+    @Update("UPDATE \n" +
+            "\tt_user_relation t \n" +
+            "\tSET t.is_deleted = 1\n" +
+            "\t\n" +
+            "WHERE\n" +
+            "(\n" +
+            "\t\tt.friend_id = #{form.openId} \n" +
+            "\t\tAND t.open_id = #{form.friendId} \n" +
+            "\t) \n" +
+            "\tOR (\n" +
+            "\t\tt.friend_id = #{form.friendId} \n" +
+            "\tAND t.open_id = #{form.openId} \n" +
+            "\t)\n" +
+            "\tAND \n" +
+            "\tt.is_deleted = 0 ")
+    void fakeDelete(@Param("form") UserRelationForm form);
 }

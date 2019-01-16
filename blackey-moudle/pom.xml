@@ -14,13 +14,5 @@
     <modules>
         <module>blackey-moudle-file-process</module>
     </modules>
-    <dependencies>
-        <dependency>
-            <groupId>com.blackey</groupId>
-            <artifactId>blackey-moudle-file-process</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-        </dependency>
-    </dependencies>
-
 
 </project>

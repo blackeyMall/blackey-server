@@ -1,6 +1,7 @@
 package com.blackey.file;
 
 
+import com.blackey.common.exception.BusinessException;
 import com.blackey.common.rest.BaseRest;
 import com.blackey.common.result.Result;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +15,7 @@ import java.util.List;
 
 
 @Slf4j
-public class FileUploadRest extends BaseRest {
+public class IFileUploadRest extends BaseRest {
 
 
     @Resource
@@ -23,24 +24,22 @@ public class FileUploadRest extends BaseRest {
 
     @PostMapping("/upload")
     public Result upload(@RequestParam("file") MultipartFile file){
-
         if (file.isEmpty()){
             logger.error("没有可用的文件");
             return success();
         }
 
-
         try {
             String fileName = fileUploadService.uploadFile(file);
             return success(fileName);
-        } catch (Exception e)
+        } catch (BusinessException e)
         {
             return failure();
         }
     }
 
     @PostMapping("/multi/upload")
-    public Result uploadMultiFiles(@RequestParam("file") List<MultipartFile> files){
+    public Result uploadMultiFiles(@RequestParam("files") List<MultipartFile> files){
 
         if (files.size() < 1){
             logger.error("没有可用的文件");

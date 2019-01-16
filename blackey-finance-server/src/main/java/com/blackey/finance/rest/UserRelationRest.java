@@ -103,7 +103,7 @@ public class UserRelationRest extends BaseRest {
     }
 
     /**
-     * 申请列表
+     * 好友列表
      */
     @PostMapping("/list/openid")
     public Result listByOpenId(@RequestBody UserRelationForm form) {
@@ -112,6 +112,11 @@ public class UserRelationRest extends BaseRest {
         return success(userRelationService.queryPageByOpenId(form, new Page(form.getCurrent(), form.getSize())));
     }
 
+    /**
+     * 申请列表
+     * @param form
+     * @return
+     */
     @PostMapping("/list/apply/openid")
     public Result listByOpenid(@RequestBody UserRelationForm form) {
 
@@ -144,6 +149,12 @@ public class UserRelationRest extends BaseRest {
     public Result add(@RequestBody UserRelationForm userRelationForm) {
 
         return userRelationService.addFriend(userRelationForm);
+    }
+
+    @PostMapping("/delete")
+    public Result delete(@RequestBody UserRelationForm userRelationForm) {
+        userRelationService.fakeDelete(userRelationForm);
+        return success();
     }
 
     @GetMapping("/query")
