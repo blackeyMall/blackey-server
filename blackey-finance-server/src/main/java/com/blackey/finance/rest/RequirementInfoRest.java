@@ -92,8 +92,8 @@ public class RequirementInfoRest extends BaseRest {
     /**
      * 查看详情信息
      */
-    @GetMapping("/info/{id}")
-    public Result info(@PathVariable("id") String id){
+    @GetMapping("/info")
+    public Result info(@RequestParam("id") String id){
 
         RequirementInfoBo requirementInfoBo = requirementInfoService.queryDetailById(id);
 
