@@ -1,6 +1,7 @@
 package com.blackey.finance.component.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.common.exception.BusinessException;
 import com.blackey.common.result.ResultCodeEnum;
@@ -18,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
@@ -163,7 +165,7 @@ public class RequirementInfoServiceImpl extends BaseServiceImpl<RequirementInfoM
      * @param form
      */
     @Override
-    public void createRequirement(RequirementInfoForm form) {
+    public String createRequirement(RequirementInfoForm form) {
         RequirementInfo requirementInfo = new RequirementInfo();
         //Form --> domain
         BeanUtils.copyProperties(form,requirementInfo);
@@ -186,6 +188,35 @@ public class RequirementInfoServiceImpl extends BaseServiceImpl<RequirementInfoM
         auditDetail.setObjectType(ObjectTypeEnum.REQUIRE);
         auditDetail.setAuditStatus(AuditStatusEnum.SUCCESS);
         auditDetailService.save(auditDetail);
+        return requirementInfo.getId();
+    }
+
+    /**
+     * 编辑需求
+     *
+     * @param form
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public String editRequirement(RequirementInfoForm form) {
+        RequirementInfo requirementInfo = new RequirementInfo();
+        //Form --> domain
+        BeanUtils.copyProperties(form,requirementInfo);
+        baseMapper.updateById(requirementInfo);
+        //删除图片
+        imageInfoService.remove(new UpdateWrapper<ImageInfo>().eq("object_id",form.getId()));
+        //保存需求图片
+        if(form.getImages() != null && form.getImages().length > 0){
+            for(String imageUrl : form.getImages()){
+                ImageInfo imageInfo = new ImageInfo();
+                imageInfo.setObjectId(requirementInfo.getId());
+                imageInfo.setImageUrl(imageUrl);
+                imageInfo.setImageType(ObjectTypeEnum.REQUIRE.getValue());
+                imageInfoService.save(imageInfo);
+            }
+
+        }
+        return requirementInfo.getId();
     }
 
     /**

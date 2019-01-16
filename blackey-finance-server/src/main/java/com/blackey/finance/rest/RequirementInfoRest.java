@@ -6,6 +6,7 @@ import com.blackey.finance.component.service.UserRequireFollowService;
 import com.blackey.finance.dto.bo.RequirementInfoBo;
 import com.blackey.finance.global.constants.AuditStatusEnum;
 import com.blackey.finance.global.constants.TableCodeEnum;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -100,14 +101,18 @@ public class RequirementInfoRest extends BaseRest {
     }
 
     /**
-     * 保存--创建需求信息
+     * 保存/编辑--创建需求信息
      */
     @PostMapping("/save")
     public Result save(@RequestBody RequirementInfoForm requirementInfoForm){
 
-        requirementInfoService.createRequirement(requirementInfoForm);
-
-        return success();
+        String requireId;
+        if(StringUtils.isNotBlank(requirementInfoForm.getId())){
+            requireId = requirementInfoService.editRequirement(requirementInfoForm);
+        }else {
+            requireId = requirementInfoService.createRequirement(requirementInfoForm);
+        }
+        return success(requireId);
     }
 
     /**

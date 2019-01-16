@@ -56,6 +56,13 @@ public interface ProjectInfoService extends BaseService<ProjectInfo> {
     String createProject(ProjectInfoForm projectInfoForm);
 
     /**
+     * 创建项目
+     * @param projectInfoForm
+     */
+    String editProject(ProjectInfoForm projectInfoForm);
+
+
+    /**
      * 更新bp附近信息
      * @param form
      */

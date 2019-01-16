@@ -1,6 +1,7 @@
 package com.blackey.finance.component.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.common.exception.BusinessException;
 import com.blackey.common.result.ResultCodeEnum;
@@ -168,6 +169,33 @@ public class ProjectInfoServiceImpl extends BaseServiceImpl<ProjectInfoMapper, P
         auditDetail.setAuditStatus(AuditStatusEnum.SUCCESS);
         auditDetailService.save(auditDetail);
 
+        return projectInfo.getId();
+    }
+
+    /**
+     * 编辑项目
+     *
+     * @param projectInfoForm
+     */
+    @Override
+    public String editProject(ProjectInfoForm projectInfoForm) {
+        ProjectInfo projectInfo = new ProjectInfo();
+        //Form --> domain
+        BeanUtils.copyProperties(projectInfoForm,projectInfo);
+        this.updateById(projectInfo);
+
+        //删除原来图片，保存需求图片,
+        imageInfoService.remove(new UpdateWrapper<ImageInfo>().eq("object_id",projectInfoForm.getId()));
+        if(projectInfoForm.getImages() != null && projectInfoForm.getImages().length > 0){
+            for(String imageUrl : projectInfoForm.getImages()){
+                ImageInfo imageInfo = new ImageInfo();
+                imageInfo.setObjectId(projectInfo.getId());
+                imageInfo.setImageUrl(imageUrl);
+                imageInfo.setImageType(ObjectTypeEnum.REQUIRE.getValue());
+                imageInfoService.save(imageInfo);
+            }
+
+        }
         return projectInfo.getId();
     }
 

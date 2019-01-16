@@ -9,6 +9,7 @@ import com.blackey.finance.component.service.UserProjectFollowService;
 import com.blackey.finance.dto.bo.ProjectInfoBo;
 import com.blackey.finance.dto.form.ProjectBpForm;
 import com.blackey.finance.dto.form.ProjectInfoForm;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -106,12 +107,17 @@ public class ProjectInfoRest extends BaseRest {
     }
 
     /**
-     * 保存--项目创建
+     * 保存/编辑--项目创建
      */
     @PostMapping("/save")
     public Result save(@RequestBody ProjectInfoForm projectInfoForm){
 
-        String projectId = projectInfoService.createProject(projectInfoForm);
+        String projectId ;
+        if(StringUtils.isNotBlank(projectInfoForm.getId())){
+            projectId = projectInfoService.editProject(projectInfoForm);
+        }else {
+            projectId = projectInfoService.createProject(projectInfoForm);
+        }
 
         return success(projectId);
     }
