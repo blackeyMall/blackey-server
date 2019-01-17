@@ -227,6 +227,16 @@ public class RequirementInfoServiceImpl extends BaseServiceImpl<RequirementInfoM
      */
     @Override
     public RequirementInfoBo queryDetailById(String id) {
-        return baseMapper.queryDetailById(id);
+
+        RequirementInfoBo requirementInfoBo = baseMapper.queryDetailById(id);
+
+        /**
+         * 关联图片
+         */
+        List<String> imagesUrls = imageInfoService.queryImagesUrl(requirementInfoBo.getId(), ObjectTypeEnum.REQUIRE.getValue());
+        String[] strings = new String[imagesUrls.size()];
+        requirementInfoBo.setImages(imagesUrls.toArray(strings));
+
+        return requirementInfoBo;
     }
 }

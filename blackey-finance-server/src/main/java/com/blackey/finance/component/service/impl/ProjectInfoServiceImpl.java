@@ -224,6 +224,13 @@ public class ProjectInfoServiceImpl extends BaseServiceImpl<ProjectInfoMapper, P
     public ProjectInfoBo queryProjectDetail(String id,String openId) {
 
         ProjectInfoBo projectInfoBo = baseMapper.queryProjectDetail(id);
+
+        /**
+         * 关联图片
+         */
+        List<String> imagesUrls = imageInfoService.queryImagesUrl(projectInfoBo.getId(), ObjectTypeEnum.PROJECT.getValue());
+        String[] strings = new String[imagesUrls.size()];
+        projectInfoBo.setImages(imagesUrls.toArray(strings));
         /**
          * 判断是否关注
          */

@@ -131,5 +131,12 @@ public class ProjectInfoBo implements Serializable {
 	 */
 	private String industry;
 
+	/**
+	 * 图片链接
+	 */
+	private String[] images;
+
+
+
 
 }
