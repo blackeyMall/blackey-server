@@ -29,5 +29,11 @@ public interface UserRequireLikeService extends BaseService<UserRequireLike> {
      * @return
      */
     AddCancelEnum likeRequire(AddOrCancelFollowForm addOrCancelFollowForm);
+
+    /**
+     * 删除需求的关注信息
+     * @param requireId
+     */
+    void deleteLikeByRequireId(String requireId);
 }
 

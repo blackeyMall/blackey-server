@@ -29,5 +29,11 @@ public interface UserProjectLikeService extends BaseService<UserProjectLike> {
      * @return
      */
     AddCancelEnum likeProject(AddOrCancelFollowForm addOrCancelFollowForm);
+
+    /**
+     * 根据项目id 删除点赞信息
+     * @param projectId
+     */
+    void deleteLikeByProjectId(String projectId);
 }
 

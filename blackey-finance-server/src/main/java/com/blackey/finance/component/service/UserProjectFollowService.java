@@ -32,5 +32,11 @@ public interface UserProjectFollowService extends BaseService<UserProjectFollow>
      * @return
      */
     AddCancelEnum followProject(AddOrCancelFollowForm addOrCancelFollowForm);
+
+    /**
+     * 根据项目ID 删除关注信息
+     * @param projectId
+     */
+    void deleteFollowByProjectId(String projectId);
 }
 

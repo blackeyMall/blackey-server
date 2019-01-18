@@ -82,5 +82,11 @@ public interface ProjectInfoService extends BaseService<ProjectInfo> {
      * @return
      */
     ProjectInfoBo projectDetailById(String id);
+
+    /**
+     * 删除项目信息
+     * @param id
+     */
+    void deleteProjectById(String id);
 }
 

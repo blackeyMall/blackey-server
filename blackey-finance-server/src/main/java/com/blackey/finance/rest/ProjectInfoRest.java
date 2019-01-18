@@ -141,10 +141,10 @@ public class ProjectInfoRest extends BaseRest {
     /**
      * 根据主键id删除
      */
-    @GetMapping("/delete/{id}")
-    public Result delete(@PathVariable("id") String id){
+    @GetMapping("/delete")
+    public Result delete(@RequestParam("id") String id){
 
-        projectInfoService.removeById(id);
+        projectInfoService.deleteProjectById(id);
 
         return success();
     }

@@ -29,5 +29,12 @@ public interface ImageInfoService extends BaseService<ImageInfo> {
      * @return
      */
     List<String> queryImagesUrl(String objectId,String imageType);
+
+    /**
+     * 删除图片信息
+     * @param objectId
+     * @param imageType
+     */
+    void deleteImagesByObjectId(String objectId,String imageType);
 }
 

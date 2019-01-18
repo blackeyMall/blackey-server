@@ -1,6 +1,7 @@
 package com.blackey.finance.component.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.blackey.finance.component.domain.UserProjectLike;
 import com.blackey.finance.component.domain.UserRequireFollow;
 import com.blackey.finance.component.service.RequirementInfoService;
@@ -76,6 +77,17 @@ public class UserRequireLikeServiceImpl extends BaseServiceImpl<UserRequireLikeM
         requirementInfoService.addLikeNum(form.getObjectId(),addCancelEnum);
 
         return addCancelEnum;
+    }
+
+    /**
+     * 删除需求的关注信息
+     *
+     * @param requireId
+     */
+    @Override
+    public void deleteLikeByRequireId(String requireId) {
+
+        baseMapper.delete(new UpdateWrapper<UserRequireLike>().eq("require_id",requireId));
     }
 
 }

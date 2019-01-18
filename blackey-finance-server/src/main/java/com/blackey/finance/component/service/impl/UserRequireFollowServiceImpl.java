@@ -1,6 +1,7 @@
 package com.blackey.finance.component.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.finance.component.domain.UserRequireFollow;
 import com.blackey.finance.component.domain.UserRequireLike;
@@ -119,5 +120,16 @@ public class UserRequireFollowServiceImpl extends BaseServiceImpl<UserRequireFol
         requirementInfoService.addFollowNum(form.getObjectId(),addCancelEnum);
 
         return addCancelEnum;
+    }
+
+    /**
+     * 通过requireId 删除对应关注信息
+     *
+     * @param requireId
+     */
+    @Override
+    public void deleteFollowByRequireId(String requireId) {
+
+        baseMapper.delete(new UpdateWrapper<UserRequireFollow>().eq("require_id",requireId));
     }
 }

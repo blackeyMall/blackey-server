@@ -69,5 +69,11 @@ public interface RequirementInfoService extends BaseService<RequirementInfo> {
      * @return
      */
     RequirementInfoBo queryDetailById(String id);
+
+    /**
+     * 删除需求信息
+     * @param id
+     */
+    void delRequireById(String id);
 }
 

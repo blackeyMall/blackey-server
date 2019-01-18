@@ -34,5 +34,11 @@ public interface UserRequireFollowService extends BaseService<UserRequireFollow>
      * @return
      */
     AddCancelEnum addFollowNum(AddOrCancelFollowForm form);
+
+    /**
+     * 通过requireId 删除对应关注信息
+     * @param requireId
+     */
+    void deleteFollowByRequireId(String requireId);
 }
 

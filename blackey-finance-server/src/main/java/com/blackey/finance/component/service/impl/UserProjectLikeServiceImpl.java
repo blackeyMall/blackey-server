@@ -2,6 +2,7 @@ package com.blackey.finance.component.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.finance.component.domain.UserProjectLike;
 import com.blackey.finance.component.mapper.UserProjectLikeMapper;
@@ -76,6 +77,17 @@ public class UserProjectLikeServiceImpl extends BaseServiceImpl<UserProjectLikeM
 
         return addCancelEnum;
 
+    }
+
+    /**
+     * 根据项目id 删除点赞信息
+     *
+     * @param projectId
+     */
+    @Override
+    public void deleteLikeByProjectId(String projectId) {
+        baseMapper.delete(new UpdateWrapper<UserProjectLike>()
+                .eq("project_id",projectId));
     }
 
 }

@@ -1,5 +1,7 @@
 package com.blackey.finance.component.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -45,6 +47,19 @@ public class ImageInfoServiceImpl extends BaseServiceImpl<ImageInfoMapper, Image
     @Override
     public List<String> queryImagesUrl(String objectId, String imageType) {
         return baseMapper.queryImagesUrl(objectId,imageType);
+    }
+
+    /**
+     * 删除图片信息
+     *
+     * @param objectId
+     * @param imageType
+     */
+    @Override
+    public void deleteImagesByObjectId(String objectId, String imageType) {
+        UpdateWrapper<ImageInfo> deleteWrapper = new UpdateWrapper<>();
+        deleteWrapper.eq("object_id", objectId).eq("image_type",imageType);
+        baseMapper.delete(deleteWrapper);
     }
 
 }

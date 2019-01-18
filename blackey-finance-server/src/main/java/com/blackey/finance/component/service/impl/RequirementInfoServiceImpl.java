@@ -239,4 +239,21 @@ public class RequirementInfoServiceImpl extends BaseServiceImpl<RequirementInfoM
 
         return requirementInfoBo;
     }
+
+    /**
+     * 删除需求信息
+     *
+     * @param id
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void delRequireById(String id) {
+        baseMapper.deleteById(id);
+        //删除关注和点赞
+        userRequireFollowService.deleteFollowByRequireId(id);
+        userRequireLikeService.deleteLikeByRequireId(id);
+        //删除需求的图片
+        imageInfoService.deleteImagesByObjectId(id,ObjectTypeEnum.REQUIRE.getValue());
+
+    }
 }
