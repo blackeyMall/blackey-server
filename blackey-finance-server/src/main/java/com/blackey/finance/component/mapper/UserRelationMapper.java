@@ -73,7 +73,7 @@ public interface UserRelationMapper extends BaseDAO<UserRelation> {
             "AND ur.`status` = #{form.status.value}\n" +
             "</if>" +
             "\t\tAND ur.is_deleted = 0\n" +
-            "\t)</script>")
+            "ORDER BY t.duties desc,t.company_brief desc,t.company desc \t)</script>")
     List<UserRelationBo> findUserApplyRelationByOpenId(@Param("form") UserRelationForm form, Page page);
 
     @Select("SELECT\n" +
