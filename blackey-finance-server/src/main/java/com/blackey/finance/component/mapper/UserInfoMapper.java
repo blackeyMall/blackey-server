@@ -59,7 +59,8 @@ public interface UserInfoMapper extends BaseDAO<UserInfo> {
             "                AND ur.`status` != 'REFUSE' \n" +
             "                AND ur.is_deleted = 0 )\n" +
             "\tAND t.open_id != #{openId}" +
-            "\tand t.is_deleted = 0")
+            "\tand t.is_deleted = 0" +
+            "\tORDER BY t.duties desc,t.company_brief desc,t.company desc")
     List<UserInfoBo> queryAllUserWithoutRelation(@Param("openId") String openId, Page page);
 
 }
