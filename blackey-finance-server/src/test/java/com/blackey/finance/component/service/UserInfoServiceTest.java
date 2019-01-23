@@ -28,5 +28,6 @@ public class UserInfoServiceTest {
     public void testEmail(){
 
         emailService.sendSimpleEmail("516372235@qq.com","主题www","内容wwww");
+        System.out.println("-----");
     }
 }
