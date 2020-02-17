@@ -12,7 +12,7 @@ import ${package}.${moduleName}.component.domain.${className};
 import ${package}.${moduleName}.dto.form.${className}Form;
 import ${package}.${moduleName}.component.service.${className}Service;
 import com.blackey.common.result.Result;
-import com.blackey.mybatis.utils.PageUtils;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 
 import java.util.Map;
 
@@ -38,7 +38,7 @@ public class ${className}Rest extends BaseRest {
     @PostMapping("/list/page")
     @RequiresPermissions("${moduleName}:${pathName}:list")
     public Result list(@RequestParam Map<String, Object> params){
-        PageUtils page = ${classname}Service.queryPage(params);
+        IPage page = ${classname}Service.queryPage(params);
 
         return success(page);
     }

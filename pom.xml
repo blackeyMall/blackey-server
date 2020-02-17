@@ -33,6 +33,7 @@
         <module>blackey-flowers-server</module>
         <module>blackey-tenant-server</module>
         <module>blackey-moudle</module>
+        <module>blackey-bbs-server</module>
     </modules>
 
     <dependencyManagement>

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackey.mybatis.service.impl.BaseServiceImpl;
-import com.blackey.mybatis.utils.PageUtils;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.blackey.mybatis.utils.Query;
 
 import ${package}.${moduleName}.component.mapper.${className}Mapper;
@@ -27,13 +27,13 @@ public class ${className}ServiceImpl extends BaseServiceImpl<${className}Mapper,
     private static final Logger LOGGER = LoggerFactory.getLogger(${className}ServiceImpl.class);
 
     @Override
-    public PageUtils queryPage(Map<String, Object> params) {
-        Page<${className}> page = (Page<${className}>) this.page(
+    public IPage queryPage(Map<String, Object> params) {
+        IPage<${className}> page = this.page(
                 new Query<${className}>(params).getPage(),
                 new QueryWrapper<${className}>()
         );
 
-        return new PageUtils(page);
+        return page;
     }
 
 }
