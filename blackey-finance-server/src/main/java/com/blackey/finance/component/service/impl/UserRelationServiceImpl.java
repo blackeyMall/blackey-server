@@ -86,10 +86,10 @@ public class UserRelationServiceImpl extends BaseServiceImpl<UserRelationMapper,
             userRelation.setFriendId(userRelationForm.getFriendId());
             userRelation.setStatus(ApplyStatus.APPLY);
             userRelationMapper.insert(userRelation);
-            return new Result(200,"添加好友成功");
+            return new Result(200,"好友申请已发送！");
         }
 ;
-        return new Result(200,"不可重复添加");
+        return new Result(200,"不可重复发送好友申请！");
     }
 
 
