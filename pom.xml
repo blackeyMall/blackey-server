@@ -15,7 +15,7 @@
         <java.version>1.8</java.version>
         <spring-boot.version>2.1.0.RELEASE</spring-boot.version>
 
-        <shiro.version>1.4.0</shiro.version>
+        <shiro.version>1.6.0</shiro.version>
         <java-jwt.version>3.3.0</java-jwt.version>
         <jjwt.version>0.9.0</jjwt.version>
         <mysql.version>5.1.38</mysql.version>
